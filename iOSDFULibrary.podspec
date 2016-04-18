@@ -34,7 +34,7 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
   #    'iOSDFULibrary' => ['iOSDFULibrary/Assets/*.png']
   #}
 
-  s.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '${PODS_ROOT}/../../iOSDFULibrary/Classes/Utilities/HexToBinConverter'}
+  s.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '${PODS_ROOT}/HexToBinConverter/**'}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
