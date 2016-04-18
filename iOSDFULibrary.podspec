@@ -30,12 +30,8 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'iOSDFULibrary/Classes/**/*'
-  #s.resource_bundles = {
-  #    'iOSDFULibrary' => ['iOSDFULibrary/Assets/*.png']
-  #}
 
   s.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '${PODS_ROOT}/iOSDFULibrary/**'}
-  s.pod_target_xcconfig = {'EMBEDDED_CONTENT_CONTAINS_SWIFT' => '$(inherited)'}
 
   s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
