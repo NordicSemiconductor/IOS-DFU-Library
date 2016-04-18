@@ -84,8 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-iOSDFULibrary_Tests/EVReflection.framework"
+  install_framework "Pods-iOSDFULibrary_Tests/Zip.framework"
   install_framework "Pods-iOSDFULibrary_Tests/iOSDFULibrary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-iOSDFULibrary_Tests/EVReflection.framework"
+  install_framework "Pods-iOSDFULibrary_Tests/Zip.framework"
   install_framework "Pods-iOSDFULibrary_Tests/iOSDFULibrary.framework"
 fi

@@ -25,17 +25,19 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
   s.license          = 'MIT'
   s.author           = { "Mostafa Berg" => "mostafa.berg@nordicsemi.no" }
   s.source           = { :git => "https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/nordictweets'
+  s.social_media_url = 'https://twitter.com/nordictweets'
 
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'iOSDFULibrary/Classes/**/*'
-  s.resource_bundles = {
-    'iOSDFULibrary' => ['iOSDFULibrary/Assets/*.png']
-  }
+  #s.resource_bundles = {
+  #    'iOSDFULibrary' => ['iOSDFULibrary/Assets/*.png']
+  #}
+
+  s.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '${PODS_ROOT}/../../iOSDFULibrary/Classes/Utilities/HexToBinConverter'}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'EVReflection', '~> 2.6'
-  s.dependency 'ZipArchive', '~> 1.2'
+  s.dependency 'Zip', '~> 0.3'
 end

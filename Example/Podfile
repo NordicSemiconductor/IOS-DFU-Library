@@ -7,5 +7,4 @@ end
 target 'iOSDFULibrary_Tests', :exclusive => true do
   pod 'iOSDFULibrary', :path => '../'
 
-  
 end

@@ -21,6 +21,7 @@
 */
 
 // import EVReflection
+import EVReflection
 
 // Errors
 internal enum DFUStreamZipError : ErrorType {
