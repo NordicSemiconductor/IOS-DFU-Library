@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "iOSDFULibrary"
   s.version          = "0.1.0"
-  s.summary          = "A short description of iOSDFULibrary."
+  s.summary          = "This repository contains a tested library for iOS 8+ devices to perform Device Firmware Update on the nRF5x devices"
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,14 +18,14 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
+The nRF5x Series chips are flash-based SoCs, and as such they represent the most flexible solution available. A key feature of the nRF5x Series and their associated software architecture and S-Series SoftDevices is the possibility for Over-The-Air Device Firmware Upgrade (OTA-DFU). See Figure 1. OTA-DFU allows firmware upgrades to be issued and downloaded to products in the field via the cloud and so enables OEMs to fix bugs and introduce new features to products that are already out on the market. This brings added security and flexibility to product development when using the nRF5x Series SoCs.
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/iOSDFULibrary"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library"
   s.license          = 'MIT'
   s.author           = { "Mostafa Berg" => "mostafa.berg@nordicsemi.no" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/iOSDFULibrary.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library.git", :tag => s.version.to_s }
+  # s.social_media_url = 'https://twitter.com/nordictweets'
 
   s.ios.deployment_target = '8.0'
 
@@ -36,5 +36,6 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'EVReflection', '~> 2.6'
+  s.dependency 'ZipArchive', '~> 1.2'
 end
