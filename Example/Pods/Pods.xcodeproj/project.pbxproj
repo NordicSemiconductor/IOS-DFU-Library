@@ -1030,6 +1030,7 @@
 				PRODUCT_NAME = iOSDFULibrary;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${PODS_ROOT}/../../iOSDFULibrary/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1212,6 +1213,7 @@
 				PRODUCT_NAME = iOSDFULibrary;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${PODS_ROOT}/iOSDFULibrary/**";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
