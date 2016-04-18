@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'iOSDFULibrary_Example', :exclusive => true do
+  pod 'iOSDFULibrary', :path => '../'
+end
+
+target 'iOSDFULibrary_Tests', :exclusive => true do
+  pod 'iOSDFULibrary', :path => '../'
+
+  
+end
