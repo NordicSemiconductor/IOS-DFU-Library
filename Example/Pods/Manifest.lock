@@ -1,0 +1,14 @@
+PODS:
+  - iOSDFULibrary (0.1.0)
+
+DEPENDENCIES:
+  - iOSDFULibrary (from `../`)
+
+EXTERNAL SOURCES:
+  iOSDFULibrary:
+    :path: ../
+
+SPEC CHECKSUMS:
+  iOSDFULibrary: b6eef037a4015b41b21b8d00ab22eb47adb82a0a
+
+COCOAPODS: 0.39.0

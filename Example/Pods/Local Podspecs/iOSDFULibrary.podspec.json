@@ -1,0 +1,24 @@
+{
+  "name": "iOSDFULibrary",
+  "version": "0.1.0",
+  "summary": "A short description of iOSDFULibrary.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/iOSDFULibrary",
+  "license": "MIT",
+  "authors": {
+    "Mostafa Berg": "mostafa.berg@nordicsemi.no"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/iOSDFULibrary.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "iOSDFULibrary/Classes/**/*",
+  "resource_bundles": {
+    "iOSDFULibrary": [
+      "iOSDFULibrary/Assets/*.png"
+    ]
+  }
+}
