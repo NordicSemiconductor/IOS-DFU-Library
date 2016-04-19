@@ -1,4 +1,45 @@
-# DFU Library
+# iOS DFU Library
+
+## Changelog
+
+  - **0.1.4**: Removed unnecessary public headears from PodSpec
+  - **0.1.3**: Removed extraneous IntelHextBin module as it's no longer necessary
+  - **0.1.2**: Added Pod name that caused a missing reference issue and other minor bugfixes
+  - **0.1.1**: Bugfix: Release/Debug configurations had a missing reference
+  - **0.1.0**: Initial Pod implementation
+
+## Usage
+
+---
+
+#### Method 1: Via Cocoapods (Recommended method)
+
+  - Open up a terminal window and **cd** to your project's root directory
+  - Create a **Podfile** with the following content
+
+        use_frameworks!
+            pod 'iOSDFULibrary'
+        end
+
+  - Install dependencies
+
+        pod install
+
+  - Open the newly created `.xcworkspace` and begin working on your project.
+
+---
+
+#### Method 2: Building from source
+ - Create a new blank XCode workspace `/path/to/workspace` and open it
+ - In Finder, drag your main project's `xcodeproject` file from `/path/to/myProject` into the new workspace
+ - Clone the repository our other repository into `/path/to/dfuLibrary`
+
+        cd /path/to/dfuLibrary && git clone git@github.com:NordicSemiconductor/IOS-DFU-Library.git
+
+ - In Finder, Drag the librarie's `xcodeproject` file into your workspace
+ - Begin working on your project from within the workspace.
+
+---
 
 ### Device Firmware Update (DFU)
 
@@ -6,8 +47,6 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
 and S-Series SoftDevices is the possibility for Over-The-Air Device Firmware Upgrade (OTA-DFU). See Figure 1. OTA-DFU allows firmware upgrades to be issued and downloaded to products 
 in the field via the cloud and so enables OEMs to fix bugs and introduce new features to products that are already out on the market. 
 This brings added security and flexibility to product development when using the nRF5x Series SoCs.
-
-![Device Firmware Update](resources/dfu.png)
 
 This repository contains a tested library for iOS 8+ platform which may be used to perform Device Firmware Update on the nRF5x device using an iPhone or an iPad.
 
