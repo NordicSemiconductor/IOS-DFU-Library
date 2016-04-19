@@ -1,10 +1,12 @@
 # iOS DFU Library
 ## Changelog
 
+  - **0.1.4**: Removed unnecessary public headears from PodSpec
   - **0.1.3**: Removed extraneous IntelHextBin module as it's no longer necessary
   - **0.1.2**: Added Pod name that caused a missing reference issue and other minor bugfixes
   - **0.1.1**: Bugfix: Release/Debug configurations had a missing reference
   - **0.1.0**: Initial Pod implementation
+
 ## Usage
 ---
 #### Method 1: Via Cocoapods (Recommended method)
