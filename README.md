@@ -2,6 +2,7 @@
 
 ## Changelog
 
+  - **0.1.5**: Improved readme
   - **0.1.4**: Removed unnecessary public headears from PodSpec
   - **0.1.3**: Removed extraneous IntelHextBin module as it's no longer necessary
   - **0.1.2**: Added Pod name that caused a missing reference issue and other minor bugfixes
