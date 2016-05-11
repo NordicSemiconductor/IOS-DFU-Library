@@ -1,6 +1,6 @@
 # iOS DFU Library
 
-## Usage
+## Installation
 
 #### Method 1: Via Cocoapods (Recommended method)
 
