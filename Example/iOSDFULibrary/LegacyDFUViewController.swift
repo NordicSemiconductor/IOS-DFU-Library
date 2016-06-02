@@ -9,7 +9,7 @@
 import UIKit
 import CoreBluetooth
 import iOSDFULibrary
-class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate {
+class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
 
 
     //MARK: - Class Properties
@@ -20,12 +20,22 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     private var selectedFileURL  : NSURL?
 
     //MARK: - View Outlets
-    
     @IBOutlet weak var dfuActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var dfuStatusLabel: UILabel!
     @IBOutlet weak var peripheralNameLabel: UILabel!
     @IBOutlet weak var dfuUploadProgressView: UIProgressView!
     @IBOutlet weak var dfuUploadStatus: UILabel!
+    @IBOutlet weak var stopProcessButton: UIButton!
+    
+    //MARK: - View Actions
+    @IBAction func stopProcessButtonTapped(sender: AnyObject) {
+        if dfuController != nil {
+            dfuController?.pause()
+            UIAlertView(title: "Warning", message: "Are you sure you want to stop the process?", delegate: self, cancelButtonTitle: "No", otherButtonTitles: "Yes").show()
+        }else{
+        }
+    }
+    
     //MARK: - Class Implementation
     func getBundledFirmwareURLHelper() -> NSURL {
         return NSBundle.mainBundle().URLForResource("hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a", withExtension: "zip")!
@@ -65,11 +75,19 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
         self.dfuUploadProgressView.progress = 0.0
         self.dfuUploadStatus.text = ""
         self.dfuStatusLabel.text  = ""
+        self.stopProcessButton.enabled = false
 
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.startDFUProcess()
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if dfuController != nil {
+            dfuController?.abort()
+        }
     }
 
     //MARK: - CBCentralManagerDelegate
@@ -95,31 +113,39 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
             stateString = "Aborted"
             self.dfuActivityIndicator.stopAnimating()
             self.dfuUploadProgressView.setProgress(0, animated: true)
+            self.stopProcessButton.enabled = false
             break
         case .Completed:
             stateString = "Completed"
             self.dfuActivityIndicator.stopAnimating()
             self.dfuUploadProgressView.setProgress(0, animated: true)
+            self.stopProcessButton.enabled = false
             break
         case .Connecting:
             stateString = "Connecting"
+            self.stopProcessButton.enabled = true
             break
         case .Disconnecting:
             stateString = "Disconnecting"
             self.dfuUploadProgressView.setProgress(0, animated: true)
             self.dfuActivityIndicator.stopAnimating()
+            self.stopProcessButton.enabled = false
             break
         case .EnablingDfuMode:
             stateString = "Enabling DFU"
+            self.stopProcessButton.enabled = true
             break
         case .Starting:
             stateString = "Starting"
+            self.stopProcessButton.enabled = true
             break
         case .Uploading:
             stateString = "Uploading"
+            self.stopProcessButton.enabled = true
             break
         case .Validating:
             stateString = "Validating"
+            self.stopProcessButton.enabled = true
             break
         }
         self.dfuStatusLabel.text = stateString
@@ -143,6 +169,36 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     //MARK: - LoggerDelegate
     func logWith(level:LogLevel, message:String){
         print("\(level.rawValue) : \(message)")
+    }
+    
+    //MARK: - UIAlertViewDelegate
+    func alertViewCancel(alertView: UIAlertView) {
+        logWith(LogLevel.Verbose, message: "Abort cancelled")
+        if (dfuController?.paused)! == true {
+            dfuController?.resume()
+        }
+    }
+    
+    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+        guard dfuController != nil else {
+            logWith(LogLevel.Error, message: "DFUController not set, cannot abort")
+            return
+        }
+
+        switch buttonIndex {
+        case 0:
+            logWith(LogLevel.Verbose, message: "Abort cancelled")
+            if (dfuController?.paused)! == true {
+                dfuController?.resume()
+            }
+            break
+        case 1:
+            logWith(LogLevel.Verbose, message: "Abort Confirmed")
+            dfuController?.abort()
+            break
+        default:
+            break
+        }
     }
 
 }
