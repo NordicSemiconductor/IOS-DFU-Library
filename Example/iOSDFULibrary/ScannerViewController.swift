@@ -22,8 +22,15 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     @IBOutlet weak var connectionButton: UIButton!
     @IBOutlet weak var discoveredPeripheralsTableView: UITableView!
     @IBOutlet weak var peripheralNameLabel: UILabel!
+    @IBAction func connectionButtonTapped(sender: AnyObject) {
+        handleConnectionButtonTappedEvent()
+    }
 
     //MARK: - Class implementation
+    func handleConnectionButtonTappedEvent() {
+        self.performSegueWithIdentifier("showSecureDFUView", sender: self)
+    }
+    
     func startDiscovery() {
         centralManager.scanForPeripheralsWithServices([dfuServiceUUID], options: nil)
     }
@@ -87,15 +94,21 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     
     //MARK: - Navigation
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        return identifier == "showDFUView"
+        return identifier == "showLegacyDFUView" || identifier == "showSecureDFUView"
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //Sent the peripheral in the dfu view
-        let dfuViewController = segue.destinationViewController as! LegacyDFUViewController
-        dfuViewController.setTargetPeripheral(aPeripheral: self.selectedPeripheral!)
-        dfuViewController.setCentralManager(centralManager: centralManager)
         centralManager.stopScan()
+        if segue.identifier == "showLegacyDFUView" {
+            //Sent the peripheral in the dfu view
+            let dfuViewController = segue.destinationViewController as! LegacyDFUViewController
+            dfuViewController.setTargetPeripheral(aPeripheral: self.selectedPeripheral!)
+            dfuViewController.setCentralManager(centralManager: centralManager)
+        } else {
+            let dfuViewController = segue.destinationViewController as! SecureDFUViewController
+            dfuViewController.setTargetPeripheral(aPeripheral: self.selectedPeripheral!)
+            dfuViewController.setCentralManager(centralManager: centralManager)
+        }
     }
 }
 

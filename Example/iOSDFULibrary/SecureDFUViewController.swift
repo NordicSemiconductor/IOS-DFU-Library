@@ -9,7 +9,7 @@
 import UIKit
 import CoreBluetooth
 import iOSDFULibrary
-class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
+class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
 
 
     //MARK: - Class Properties
