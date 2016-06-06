@@ -9,23 +9,23 @@
 import UIKit
 import CoreBluetooth
 import iOSDFULibrary
-class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
+class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecureDFUServiceDelegate, SecureDFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
 
 
     //MARK: - Class Properties
-    private var dfuPeripheral  : CBPeripheral?
-    private var dfuController  : DFUServiceController?
-    private var centralManager : CBCentralManager?
+    private var dfuPeripheral    : CBPeripheral?
+    private var dfuController    : SecureDFUServiceController?
+    private var centralManager   : CBCentralManager?
     private var selectedFirmware : DFUFirmware?
     private var selectedFileURL  : NSURL?
 
     //MARK: - View Outlets
-    @IBOutlet weak var dfuActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var dfuStatusLabel: UILabel!
-    @IBOutlet weak var peripheralNameLabel: UILabel!
-    @IBOutlet weak var dfuUploadProgressView: UIProgressView!
-    @IBOutlet weak var dfuUploadStatus: UILabel!
-    @IBOutlet weak var stopProcessButton: UIButton!
+    @IBOutlet weak var dfuActivityIndicator     : UIActivityIndicatorView!
+    @IBOutlet weak var dfuStatusLabel           : UILabel!
+    @IBOutlet weak var peripheralNameLabel      : UILabel!
+    @IBOutlet weak var dfuUploadProgressView    : UIProgressView!
+    @IBOutlet weak var dfuUploadStatus          : UILabel!
+    @IBOutlet weak var stopProcessButton        : UIButton!
     
     //MARK: - View Actions
     @IBAction func stopProcessButtonTapped(sender: AnyObject) {
@@ -38,7 +38,7 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     //MARK: - Class Implementation
     func getBundledFirmwareURLHelper() -> NSURL {
-        return NSBundle.mainBundle().URLForResource("hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a", withExtension: "zip")!
+        return NSBundle.mainBundle().URLForResource("signed_s132_2.0.0", withExtension: "zip")!
     }
     
     func setCentralManager(centralManager aCentralManager : CBCentralManager){
@@ -57,14 +57,13 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
         }
 
         selectedFileURL     = self.getBundledFirmwareURLHelper()
-        selectedFirmware    = DFUFirmware(urlToZipFile: selectedFileURL!, type: DFUFirmwareType.Application)
-        let dfuInitiator    = DFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
+        selectedFirmware    = DFUFirmware(urlToZipFile: selectedFileURL!, type: DFUFirmwareType.Softdevice)
+        let dfuInitiator    = SecureDFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
         dfuInitiator.withFirmwareFile(selectedFirmware!)
         dfuInitiator.delegate           = self
         dfuInitiator.progressDelegate   = self
-        dfuInitiator.forceDfu           = false
         dfuInitiator.logger             = self
-        dfuController = dfuInitiator.start()
+        dfuController                   = dfuInitiator.start()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -104,7 +103,7 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     }
     
     //MARK: - DFUServiceDelegate
-    func didStateChangedTo(state:State) {
+    func didStateChangedTo(state:SecureDFUState) {
 
         var stateString : String
 
@@ -149,14 +148,14 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
             break
         }
         self.dfuStatusLabel.text = stateString
-        logWith(LogLevel.Info, message: "Chaged state to: \(stateString)")
+        logWith(LogLevel.Info, message: "Changed state to: \(stateString)")
     }
     
-    func didErrorOccur(error:DFUError, withMessage message:String) {
-        self.dfuStatusLabel.text = "Error: \(message)"
+    func OnErrorOccured(withError anError: SecureDFUError, andMessage aMessage: String) {
+        self.dfuStatusLabel.text = "Error: \(aMessage)"
         self.dfuActivityIndicator.stopAnimating()
         self.dfuUploadProgressView.setProgress(0, animated: true)
-        logWith(LogLevel.Error, message: message)
+        logWith(LogLevel.Error, message: aMessage)
     }
     
     //MARK: - DFUProgressDelegate

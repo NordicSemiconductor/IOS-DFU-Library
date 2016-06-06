@@ -53,7 +53,7 @@ import CoreBluetooth
     init(_ initiator:DFUServiceInitiator) {
         self.centralManager = initiator.centralManager
         self.peripheral = initiator.target
-        self.logger = LoggerHelper(initiator)
+        self.logger = LoggerHelper(initiator.logger!)
         super.init()
         
         // self.peripheral.delegate = self // this is set when device got connected

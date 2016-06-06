@@ -20,42 +20,35 @@
 * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-class LoggerHelper {
-    private var logger:LoggerDelegate
+import CoreBluetooth
+
+internal class SecureDFUPacket {
+    static private let UUID = CBUUID(string: "00001532-1212-EFDE-1523-785FEABCD123")
     
-    init(_ logger:LoggerDelegate) {
+    static func matches(characteristic:CBCharacteristic) -> Bool {
+        return characteristic.UUID.isEqual(UUID)
+    }
+    
+    private let PacketSize = 20
+    
+    private var characteristic:CBCharacteristic
+    private var logger:LoggerHelper
+    
+    /// Number of bytes of firmware already sent.
+    private(set) var bytesSent = 0
+    /// Current progress in percents (0-99).
+    private var progress = 0
+    private var startTime:CFAbsoluteTime?
+    private var lastTime:CFAbsoluteTime?
+    
+    var valid:Bool {
+        return characteristic.properties.contains(CBCharacteristicProperties.WriteWithoutResponse)
+    }
+    
+    init(_ characteristic:CBCharacteristic, _ logger:LoggerHelper) {
+        self.characteristic = characteristic
         self.logger = logger
     }
     
-    func d(message:String) {
-        logger.logWith(.Debug, message: message)
-    }
-    
-    func v(message:String) {
-        logger.logWith(.Verbose, message: message)
-    }
-    
-    func i(message:String) {
-        logger.logWith(.Info, message: message)
-    }
-    
-    func a(message:String) {
-        logger.logWith(.Application, message: message)
-    }
-    
-    func w(message:String) {
-        logger.logWith(.Warning, message: message)
-    }
-    
-    func w(error:NSError) {
-        logger.logWith(.Warning, message: "Error \(error.code): \(error.localizedDescription)");
-    }
-    
-    func e(message:String) {
-        logger.logWith(.Error, message: message)
-    }
-    
-    func e(error:NSError) {
-        logger.logWith(.Error, message: "Error \(error.code): \(error.localizedDescription)");
-    }
+    // MARK: - Characteristic API methods
 }
