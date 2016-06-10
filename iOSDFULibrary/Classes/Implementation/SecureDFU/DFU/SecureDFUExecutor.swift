@@ -110,7 +110,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             self.delegate?.didStateChangedTo(SecureDFUState.Uploading)
         })
 
-        peripheral.sendFirmware(withFirmwareObject: self.firmware, andPacketReceiptCount: 2, andProgressDelegate: self.progressDelegate)
+        peripheral.sendFirmware(withFirmwareObject: self.firmware, andPacketReceiptCount: 12, andProgressDelegate: self.progressDelegate)
     }
 
     func firmwareSendComplete() {
@@ -167,7 +167,8 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
 
     func executeCommandCompleted() {
         if initPacketSent == true && firmwareSent == false {
-            peripheral.setPRNValue(2) //Enable PRN at 2 packets
+            print("Setting PRN to 12")
+            peripheral.setPRNValue(12) //Enable PRN at 12 packets
         }else{
             delegate?.didStateChangedTo(SecureDFUState.Completed)
             peripheral.disconnect()
