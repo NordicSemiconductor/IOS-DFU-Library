@@ -33,7 +33,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     /// The peripheral delegate.
     internal var delegate:SecureDFUPeripheralDelegate?
     /// Selector used to find the advertising peripheral in DFU Bootloader mode.
-    private var peripheralSelector:DFUPeripheralSelector?
+    private var peripheralSelector:SecureDFUPeripheralSelector?
     
     // MARK: - DFU properties
     
@@ -125,8 +125,134 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
      Enables notifications on DFU Control Point characteristic.
      */
     func enableControlPoint() {
+        dfuService?.enableControlPoint(onSuccess: {_ in 
+            self.delegate?.onControlPointEnabled()
+            }, onError: { (error, message) in
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
+
+    /**
+     Reads object info command to get max write size
+    */
+    func ReadObjectInfoCommand() {
+        dfuService?.readObjectInfoCommand(onSuccess: { (responseData) in
+            //Parse resonpes data
+            let count = (responseData?.length)! / sizeof(UInt32)
+            var array = [UInt32](count: count, repeatedValue:0)
+            var range = count * sizeof(UInt32)
+            responseData?.getBytes(&array, length: range)
+            self.logger.i("Read Object Info Command : received data : MaxLen:\(array[0]), Offset:\(array[1]), CRC: \(array[2]))")
+            self.delegate?.objectInfoReadCommandCompleted(array[0], offset: array[1], crc: array[2])
+            }, onError: { (error, message) in
+                self.logger.e("Error occured: \(error), \(message)")
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
+
+    /**
+     Reads object info data to get max write size
+     */
+    func ReadObjectInfoData() {
+        dfuService?.readObjectInfoData(onSuccess: { (responseData) in
+            //Parse resonpes data
+            let count = (responseData?.length)! / sizeof(UInt32)
+            var array = [UInt32](count: count, repeatedValue:0)
+            var range = count * sizeof(UInt32)
+            responseData?.getBytes(&array, length: range)
+            self.logger.i("Read Object Info Data : received data : MaxLen:\(array[0]), Offset:\(array[1]), CRC: \(array[2]))")
+            self.delegate?.objectInfoReadDataCompleted(array[0], offset: array[1], crc: array[2])
+            }, onError: { (error, message) in
+                self.logger.e("Error occured: \(error), \(message)")
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
     }
     
+    /**
+    Sending the Firmware
+    */
+    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andPacketReceiptCount aCount : UInt16, andProgressDelegate aProgressDelegate:SecureDFUProgressDelegate?) {
+
+        // Now the service is ready to send the firmware
+        self.dfuService?.sendFirmware(withFirmwareObject: aFirmwareObject, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate!, andCompletionHandler: { (responseData) in
+                self.delegate?.firmwareSendComplete()
+            }, andErrorHandler: { (error, message) in
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
+
+    /**
+    Creates object data
+    */
+    func createObjectData(withLength length: UInt32) {
+        dfuService?.createObjectData(withLength: length, onSuccess: { (responseData) in
+            self.delegate?.objectCreateCommandCompleted(responseData)
+            }, onError: { (error, message) in
+                self.logger.e("Error occured: \(error), \(message)")
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
+
+    /**
+    Creates an object command
+    */
+    func createObjectCommand(length: UInt32) {
+        dfuService?.createObjectCommand(withLength: length, onSuccess: { (responseData) in
+            self.delegate?.objectCreateCommandCompleted(responseData)
+            }, onError: { (error, message) in
+                self.logger.e("Error occured: \(error), \(message)")
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
+    /**
+     Set PRN Value
+    */
+    func setPRNValue(aValue : UInt16 = 0) {
+        dfuService?.setPacketReceiptNotificationValue(aValue, onSuccess: { (responseData) in
+            self.delegate?.setPRNValueCompleted()
+            }, onError: { (error, message) in
+                self.logger.e("Error occured: \(error), \(message)")
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
+    
+    /**
+     Send Init packet
+    */
+    func sendInitpacket(packetData : NSData){
+        dfuService?.sendInitPacket(withdata: packetData)
+        self.delegate?.initPacketSendCompleted()
+    }
+    
+    /**
+     Send calculate Checksum comand
+    */
+    func sendCalculateChecksumCommand() {
+        dfuService?.calculateChecksumCommand(onSuccess: { (responseData) in
+            //Parse resonpse data
+            let count = (responseData?.length)! / sizeof(UInt32)
+            var array = [UInt32](count: count, repeatedValue:0)
+            var range = count * sizeof(UInt32)
+            responseData?.getBytes(&array, length: range)
+            self.delegate?.calculateChecksumCompleted(array[0], CRC: array[1])
+            }, onError: { (error, message) in
+                self.logger.e("Error occured: \(error), \(message)")
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
+    
+    /**
+     Send execute command
+    */
+    func sendExecuteCommand() {
+        dfuService?.executeCommand(onSuccess: { (responseData) in
+                print("execute completed")
+                self.delegate?.executeCommandCompleted()
+            }, onError: { (error, message) in
+                self.logger.e("Error occured: \(error), \(message)")
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+    }
     /**
      Calculates whether the target device is in application mode and must be switched to the DFU mode.
      
@@ -214,7 +340,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
                     // DFU Service has been found. Discover characteristics...
                     dfuService = SecureDFUService(service, logger)
                     dfuService!.discoverCharacteristics(
-                        onSuccess: { () -> () in self.delegate?.onDeviceReady() },
+                        onSuccess: { (data) -> () in self.delegate?.onDeviceReady() },
                         onError: { (error, message) -> () in self.delegate?.onErrorOccured(withError: error, andMessage: message) }
                     )
                 }

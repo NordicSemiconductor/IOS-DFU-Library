@@ -40,7 +40,7 @@ internal class SecureDFUPacket {
     private var progress = 0
     private var startTime:CFAbsoluteTime?
     private var lastTime:CFAbsoluteTime?
-    
+
     var valid:Bool {
         return characteristic.properties.contains(CBCharacteristicProperties.WriteWithoutResponse)
     }
@@ -51,4 +51,94 @@ internal class SecureDFUPacket {
     }
     
     // MARK: - Characteristic API methods
+    func sendInitPacket(initPacketData : NSData){
+        // Get the peripheral object
+        let peripheral = characteristic.service.peripheral
+        
+        // Data may be sent in up-to-20-bytes packets
+        var offset = 0
+        var bytesToSend = initPacketData.length
+        
+        repeat {
+            print("Offset:\(offset), to go:\(bytesToSend)")
+            let packetLength = min(bytesToSend, PacketSize)
+            let packet = initPacketData.subdataWithRange(NSRange(location: offset, length: packetLength))
+            
+            logger.v("Writing to characteristic \(SecureDFUPacket.UUID.UUIDString)...")
+            logger.d("peripheral.writeValue(0x\(packet.hexString), forCharacteristic: \(SecureDFUPacket.UUID.UUIDString), type: WithoutResponse)")
+            peripheral.writeValue(packet, forCharacteristic: characteristic, type: CBCharacteristicWriteType.WithoutResponse)
+            
+            offset += packetLength
+            bytesToSend -= packetLength
+        } while bytesToSend > 0
+    }
+    
+    /**
+     Sends next number of packets from given firmware data and reports a progress.
+     This method does not notify progress delegate twice about the same percentage.
+     
+     - parameter number:           number of packets to be sent before a Packet Receipt Notification is expected.
+     Set to 0 to disable Packet Receipt Notification procedure (not recommended)
+     - parameter firmware:         the firmware to be sent
+     - parameter progressDelegate: an optional progress delegate
+     */
+    func sendNext(number:UInt16, packetsOf firmware:DFUFirmware, andReportProgressTo progressDelegate:SecureDFUProgressDelegate?, andCompletion completion: SDFUCallback) {
+        // Get the peripheral object
+        let peripheral = characteristic.service.peripheral
+        
+        // Some super complicated computations...
+        let bytesTotal   = firmware.data.length
+        let totalPackets = (bytesTotal + PacketSize - 1) / PacketSize
+        let packetsSent  = (bytesSent + PacketSize - 1) / PacketSize
+        let packetsLeft  = totalPackets - packetsSent
+        
+        // Calculate how many packets should be sent before EOF or next receipt notification
+        var packetsToSendNow = min(Int(number), packetsLeft)
+        if number == 0 {
+            // When Packet Receipt Notification procedure is disabled, the service will send all data here
+            packetsToSendNow = totalPackets
+        }
+        
+        // Initialize timers
+        if bytesSent == 0 {
+            startTime = CFAbsoluteTimeGetCurrent()
+            lastTime = startTime
+        }
+        
+        while packetsToSendNow > 0 {
+            let bytesLeft = bytesTotal - bytesSent
+            let packetLength = min(bytesLeft, PacketSize)
+            let packet = firmware.data.subdataWithRange(NSRange(location: bytesSent, length: packetLength))
+            peripheral.writeValue(packet, forCharacteristic: characteristic, type: CBCharacteristicWriteType.WithoutResponse)
+
+            bytesSent += packetLength
+            packetsToSendNow -= 1
+            
+            // Calculate current transfer speed in bytes per second
+            let now = CFAbsoluteTimeGetCurrent()
+            let currentSpeed = Double(packetLength) / (now - lastTime!)
+            lastTime = now
+            
+            // Calculate progress
+            let currentProgress = (bytesSent * 100 / bytesTotal) // in percantage (0-100)
+            
+            // Notify progress listener
+            if currentProgress > progress {
+                let avgSpeed = Double(bytesSent) / (now - startTime!)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    progressDelegate?.onUploadProgress(
+                        firmware.currentPart,
+                        totalParts: firmware.parts,
+                        progress: currentProgress,
+                        currentSpeedBytesPerSecond: currentSpeed,
+                        avgSpeedBytesPerSecond: avgSpeed)
+                    if currentProgress == 100 {
+                        completion(responseData: nil)
+                    }
+                })
+                progress = currentProgress
+            }
+        }
+    }
 }

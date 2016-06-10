@@ -38,21 +38,27 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     
     /// The DFU Target peripheral. The peripheral keeps the cyclic reference to the DFUExecutor preventing both from being disposed before DFU ends.
     private var peripheral:SecureDFUPeripheral
+
     /// The firmware to be sent over-the-air
     private var firmware:DFUFirmware
-    
+
     private var error:(error:SecureDFUError, message:String)?
-    
+
+    private var maxLen               : UInt32?
+    private var offset               : UInt32?
+    private var crc                  : UInt32?
+
+    private var initPacketSent       : Bool = false
+    private var firmwareSent         : Bool = false
+
     // MARK: - Initialization
-    
     init(_ initiator:SecureDFUServiceInitiator) {
         self.initiator = initiator
         self.firmware = initiator.file!
         self.peripheral = SecureDFUPeripheral(initiator)
     }
-    
+
     // MARK: - DFU Controller methods
-    
     func start() {
         self.error = nil
         dispatch_async(dispatch_get_main_queue(), {
@@ -61,45 +67,127 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         peripheral.delegate = self
         peripheral.connect()
     }
-    
+
     func pause() -> Bool {
         return peripheral.pause()
     }
-    
+
     func resume() -> Bool {
         return peripheral.resume()
     }
-    
+
     func abort() {
         peripheral.abort()
     }
-    
+
     // MARK: - Secure DFU Peripheral Delegate methods
     func onDeviceReady() {
-
+        //All services/characteristics have been discovered, Start by reading object info
+        //to get the maximum write size.
+        dispatch_async(dispatch_get_main_queue(), {
+            self.delegate?.didStateChangedTo(SecureDFUState.Starting)
+        })
+        peripheral.enableControlPoint()
     }
 
     func onControlPointEnabled() {
-        
-    }
-
-    func onObjectReadCompleted(var maxLen : UInt32, offset : UInt32, crc :UInt32 ) {
-        
+        peripheral.ReadObjectInfoCommand()
     }
     
+    func objectInfoReadCommandCompleted(var maxLen : UInt32, offset : UInt32, crc :UInt32 ) {
+        self.maxLen = maxLen
+        self.offset = offset
+        self.crc = crc
+        peripheral.createObjectCommand(UInt32((self.firmware.initPacket?.length)!))
+    }
+    
+    func objectInfoReadDataCompleted(maxLen : UInt32, offset : UInt32, crc :UInt32 ) {
+        self.maxLen = maxLen
+        self.offset = offset
+        self.crc    = crc
+
+        dispatch_async(dispatch_get_main_queue(), {
+            self.delegate?.didStateChangedTo(SecureDFUState.Uploading)
+        })
+
+        peripheral.sendFirmware(withFirmwareObject: self.firmware, andPacketReceiptCount: 2, andProgressDelegate: self.progressDelegate)
+    }
+
+    func firmwareSendComplete() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.delegate?.didStateChangedTo(SecureDFUState.Validating)
+        })
+        self.firmwareSent = true
+        peripheral.sendCalculateChecksumCommand()
+    }
+
+    func objectCreateDataCompleted(data: NSData?) {
+        //start firmware flashing procedure
+    }
+
+    func objectCreateCommandCompleted(data: NSData?) {
+        peripheral.setPRNValue(0) //disable for first time while we write Init file
+    }
+    
+    func setPRNValueCompleted() {
+        if initPacketSent == false {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.delegate?.didStateChangedTo(SecureDFUState.EnablingDfuMode)
+            })
+            peripheral.sendInitpacket(self.firmware.initPacket!)
+        }else if firmwareSent == false{
+            peripheral.ReadObjectInfoData()
+        }
+    }
+    
+    func initPacketSendCompleted() {
+        self.initPacketSent = true
+        peripheral.sendCalculateChecksumCommand()
+    }
+
+    func calculateChecksumCompleted(offset: UInt32, CRC: UInt32) {
+        self.crc = CRC
+        self.offset = offset
+        if initPacketSent == true && firmwareSent == false {
+            if offset == UInt32((firmware.initPacket?.length)!) {
+                print("calc checksum completed!, sending exec")
+                peripheral.sendExecuteCommand()
+            } else {
+                print("Offset doesn't match packet size")
+            }
+        } else  if firmwareSent == true {
+            if offset == UInt32(firmware.data.length) {
+                print("Validated firmware, executing")
+                peripheral.sendExecuteCommand()
+            }else{
+                print("Firmware size mismatch.")
+            }
+        }
+    }
+
+    func executeCommandCompleted() {
+        if initPacketSent == true && firmwareSent == false {
+            peripheral.setPRNValue(2) //Enable PRN at 2 packets
+        }else{
+            delegate?.didStateChangedTo(SecureDFUState.Completed)
+            peripheral.disconnect()
+            print("Nothing to do")
+        }
+    }
+
     func didDeviceFailToConnect() {
-        
+        print("Failed to connect")
     }
     
     func peripheralDisconnected() {
-        
+        print("Disconnected!")
     }
     
     func peripheralDisconnected(withError anError : NSError) {
-        
+        print("Disconnected with error!")
     }
     
     func onErrorOccured(withError anError:SecureDFUError, andMessage aMessage:String) {
-        
+        print("Error occured: \(anError), \(aMessage)")
     }
 }

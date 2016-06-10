@@ -38,7 +38,7 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     //MARK: - Class Implementation
     func getBundledFirmwareURLHelper() -> NSURL {
-        return NSBundle.mainBundle().URLForResource("signed_s132_2.0.0", withExtension: "zip")!
+        return NSBundle.mainBundle().URLForResource("blinky_s132", withExtension: "zip")!
     }
     
     func setCentralManager(centralManager aCentralManager : CBCentralManager){
@@ -57,7 +57,7 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
         }
 
         selectedFileURL     = self.getBundledFirmwareURLHelper()
-        selectedFirmware    = DFUFirmware(urlToZipFile: selectedFileURL!, type: DFUFirmwareType.Softdevice)
+        selectedFirmware    = DFUFirmware(urlToZipFile: selectedFileURL!, type: DFUFirmwareType.Application)
         let dfuInitiator    = SecureDFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
         dfuInitiator.withFirmwareFile(selectedFirmware!)
         dfuInitiator.delegate           = self

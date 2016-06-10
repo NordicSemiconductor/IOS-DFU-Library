@@ -22,7 +22,7 @@
 
 import CoreBluetooth
 
-internal typealias SDFUCallback = Void -> Void
+internal typealias SDFUCallback = (responseData : NSData?) -> Void
 internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String) -> Void
 
 @objc internal class SecureDFUService : NSObject, CBPeripheralDelegate {
@@ -123,6 +123,116 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
         }
     }
     
+    /**
+     Reads object info command
+     */
+    func readObjectInfoCommand(onSuccess successCallback: SDFUCallback, onError reportCallback:SDFUErrorCallback) {
+        dfuControlPointCharacteristic?.send(SecureDFURequest.ReadObjectInfoCommand(), onSuccess: successCallback, onError: reportCallback)
+    }
+    
+    /**
+     Reads object info Data
+     */
+    func readObjectInfoData(onSuccess successCallback: SDFUCallback, onError reportCallback:SDFUErrorCallback) {
+        dfuControlPointCharacteristic?.send(SecureDFURequest.ReadObjectInfoData(), onSuccess: successCallback, onError: reportCallback)
+    }
+
+    /**
+     Create object data
+     */
+    func createObjectData(withLength aLength : UInt32, onSuccess successCallback : SDFUCallback, onError reportCallback:SDFUErrorCallback) {
+        dfuControlPointCharacteristic?.send(SecureDFURequest.CreateCommand(size: aLength), onSuccess: successCallback, onError:reportCallback)
+    }
+    
+    /**
+     Create object command
+     */
+    func createObjectCommand(withLength aLength : UInt32, onSuccess successCallback : SDFUCallback, onError reportCallback:SDFUErrorCallback) {
+        dfuControlPointCharacteristic?.send(SecureDFURequest.CreateCommand(size: aLength), onSuccess: successCallback, onError:reportCallback)
+    }
+    
+    /**
+     Calculate checksum
+    */
+    func calculateChecksumCommand(onSuccess successCallback : SDFUCallback, onError reportCallback: SDFUErrorCallback) {
+        dfuControlPointCharacteristic?.send(SecureDFURequest.CalculateChecksumCommand(), onSuccess: successCallback, onError: reportCallback)
+    }
+    
+    /**
+     Send execute command
+    */
+    func executeCommand(onSuccess successCallback : SDFUCallback, onError reportCallback: SDFUErrorCallback) {
+        dfuControlPointCharacteristic?.send(SecureDFURequest.ExecuteCommand(), onSuccess: successCallback, onError: reportCallback)
+    }
+    //MARK: - Packet commands
+    /**
+     Send init packet
+    */
+    func sendInitPacket(withdata packetData : NSData){
+        dfuPacketCharacteristic?.sendInitPacket(packetData)
+    }
+
+    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andPacketReceiptCount aCount :UInt16, andProgressDelegate aProgressDelegate : SecureDFUProgressDelegate, andCompletionHandler aCompletionHandler : SDFUCallback, andErrorHandler anErrorHandler : SDFUErrorCallback){
+
+        self.firmware = aFirmwareObject
+        self.packetReceiptNotificationNumber = aCount
+        self.progressDelegate = aProgressDelegate
+        self.report = anErrorHandler
+        
+        var successHandler : SDFUCallback = { (responseData) in
+//            self.firmware = nil
+//            self.packetReceiptNotificationNumber = nil
+//            self.progressDelegate = nil
+//            self.report = nil
+            self.dfuControlPointCharacteristic?.removeProceedFix()
+            aCompletionHandler(responseData: nil)
+        }
+
+        let currentSize = min(UInt32((self.firmware?.data.length)!), UInt32(4096))
+        self.dfuControlPointCharacteristic!.send(SecureDFURequest.CreateData(size: currentSize), onSuccess: { (responseData) in
+                //Start sending bytes
+                self.dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: successHandler
+                    , onPacketReceiptNofitication: { (bytesReceived) in
+                        if !self.paused && !self.aborted {
+                            let bytesSent = self.dfuPacketCharacteristic!.bytesSent
+                            if bytesSent == bytesReceived {self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
+                            } else {
+                                // Target device deported invalid number of bytes received
+                                anErrorHandler(error:SecureDFUError.BytesLost, withMessage: "\(bytesSent) bytes were sent while \(bytesReceived) bytes were reported as received")
+                            }
+                        } else if self.aborted {
+                            // Upload has been aborted. Reset the target device. It will disconnect automatically
+                            print("Reset not implemented")
+                            //self.sendReset(onError: report)
+                        }
+                    }, onError: { (error, message) in
+                        //Upload failed
+                        self.firmware = nil
+                        self.packetReceiptNotificationNumber = nil
+                        self.progressDelegate = nil
+                        self.report = nil
+                        anErrorHandler(error: error, withMessage: message)
+                })
+
+            // ...and start sending firmware
+            if !self.paused && !self.aborted {
+                self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: aCompletionHandler)
+            } else if self.aborted == true {
+                // Upload has been aborted. Reset the target device. It will disconnect automatically
+                print("Reset not implemented")
+                //self.sendReset(onError: report)
+            }
+            }, onError: anErrorHandler)
+    }
+
+    /**
+     Set PRN
+    */
+    func setPacketReceiptNotificationValue(aValue : UInt16 = 0, onSuccess successCallback : SDFUCallback, onError reportCallback:SDFUErrorCallback) {
+        self.packetReceiptNotificationNumber = aValue
+        dfuControlPointCharacteristic?.send(SecureDFURequest.SetPacketReceiptNotification(value: self.packetReceiptNotificationNumber!), onSuccess: successCallback, onError: reportCallback)
+    }
+    
     func pause() {
         if !aborted {
             paused = true
@@ -130,27 +240,16 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
     }
     
     func resume() {
-//        if !aborted && paused && firmware != nil {
-//            paused = false
-//            // onSuccess and onError callbacks are still kept by dfuControlPointCharacteristic
-//            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber!, packetsOf: firmware!, andReportProgressTo: progressDelegate)
-//        }
-//        paused = false
+        //paused = false
     }
     
     func abort() {
-//        aborted = true
-//        // When upload has been started and paused, we have to send the Reset command here as the device will 
-//        // not get a Packet Receipt Notification. If it hasn't been paused, the Reset command will be sent after receiving it, on line 270.
-//        if paused && firmware != nil {
-//            // Upload has been aborted. Reset the target device. It will disconnect automatically
-//            sendReset(onError: report!)
-//        }
-//        paused = false
+        //aborted = true
+        //paused = false
     }
     
     // MARK: - Peripheral Delegate callbacks
-    
+
     func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
         // Create local references to callback to release the global ones
         let _success = self.success
@@ -167,9 +266,9 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
             
             // Find DFU characteristics
             for characteristic in service.characteristics! {
-                if (DFUPacket.matches(characteristic)) {
+                if (SecureDFUPacket.matches(characteristic)) {
                     dfuPacketCharacteristic = SecureDFUPacket(characteristic, logger)
-                } else if (DFUControlPoint.matches(characteristic)) {
+                } else if (SecureDFUControlPoint.matches(characteristic)) {
                     dfuControlPointCharacteristic = SecureDFUControlPoint(characteristic, logger)
                 }
             }
@@ -190,7 +289,7 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
             
             // Note: DFU Packet characteristic is not required in the App mode.
             //       The mbed implementation of DFU Service doesn't have such.
-            _success?()
+            _success?(responseData: nil)
         }
     }
 }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0EC3985A1CFEFDD900496006 /* LegacyDFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC398591CFEFDD900496006 /* LegacyDFUViewController.swift */; };
 		0EC3985F1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip in Resources */ = {isa = PBXBuildFile; fileRef = 0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */; };
-		305742181D05ACAF0050D765 /* signed_s132_2.0.0.zip in Resources */ = {isa = PBXBuildFile; fileRef = 305742171D05ACAF0050D765 /* signed_s132_2.0.0.zip */; };
+		30B24E0C1D0829A300569113 /* blinky_s132.zip in Resources */ = {isa = PBXBuildFile; fileRef = 30B24E0B1D0829A300569113 /* blinky_s132.zip */; };
 		30B4C8901D00590D00C1C3FF /* SecureDFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4C88F1D00590D00C1C3FF /* SecureDFUViewController.swift */; };
 		47BB46278FACC65A12C2F6D8 /* Pods_iOSDFULibrary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716A8CBE638EA28D9E0A8836 /* Pods_iOSDFULibrary_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -35,7 +35,7 @@
 		0EC398591CFEFDD900496006 /* LegacyDFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDFUViewController.swift; sourceTree = "<group>"; };
 		0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip; sourceTree = "<group>"; };
 		253475831CD3B6CD97F7DFB9 /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		305742171D05ACAF0050D765 /* signed_s132_2.0.0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = signed_s132_2.0.0.zip; sourceTree = "<group>"; };
+		30B24E0B1D0829A300569113 /* blinky_s132.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = blinky_s132.zip; sourceTree = "<group>"; };
 		30B4C88F1D00590D00C1C3FF /* SecureDFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUViewController.swift; sourceTree = "<group>"; };
 		3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iOSDFULibrary.podspec; path = ../iOSDFULibrary.podspec; sourceTree = "<group>"; };
 		3D0CB27D92FDC7A734D97789 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +80,7 @@
 		0EC3985D1CFF057400496006 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				305742171D05ACAF0050D765 /* signed_s132_2.0.0.zip */,
+				30B24E0B1D0829A300569113 /* blinky_s132.zip */,
 				0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */,
 			);
 			path = Resources;
@@ -267,8 +267,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				305742181D05ACAF0050D765 /* signed_s132_2.0.0.zip in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				30B24E0C1D0829A300569113 /* blinky_s132.zip in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 				0EC3985F1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip in Resources */,

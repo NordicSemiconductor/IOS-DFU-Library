@@ -34,10 +34,50 @@ internal protocol SecureDFUPeripheralDelegate {
     func onControlPointEnabled()
     
     /**
-     Callback when DFU Object info read is completed
+     Callback when Object info command read is completed
      */
-    func onObjectReadCompleted(var maxLen : UInt32, offset : UInt32, crc :UInt32 )
+    func objectInfoReadCommandCompleted(maxLen : UInt32, offset : UInt32, crc :UInt32 )
 
+    /**
+     Callback when Object info data read is completed
+     */
+    func objectInfoReadDataCompleted(maxLen : UInt32, offset : UInt32, crc :UInt32 )
+
+    /**
+     Callback when Object Command is created
+     */
+    func objectCreateCommandCompleted(data : NSData?)
+
+    /**
+     Callback when Object Data is created
+     */
+    func objectCreateDataCompleted(data : NSData?)
+    
+    /**
+     Callback when PRN is set
+     */
+    func setPRNValueCompleted()
+
+    /**
+     Callback when init packet is sent
+     */
+    func initPacketSendCompleted()
+    
+    /**
+     Callback when Checksum command is completed
+    */
+    func calculateChecksumCompleted(offset: UInt32, CRC: UInt32)
+
+    /**
+     Callback when Execute last object command completes
+     */
+    func executeCommandCompleted()
+
+    /**
+     Callback when firmware is successfully sent
+     */
+    func firmwareSendComplete()
+    
     /**
      Method called when the iDevice failed to connect to the given peripheral.
      The DFU operation will be aborter as nothing can be done.
