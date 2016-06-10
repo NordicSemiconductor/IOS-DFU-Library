@@ -180,11 +180,7 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
         self.report = anErrorHandler
         
         var successHandler : SDFUCallback = { (responseData) in
-//            self.firmware = nil
-//            self.packetReceiptNotificationNumber = nil
-//            self.progressDelegate = nil
-//            self.report = nil
-            self.dfuControlPointCharacteristic?.removeProceedFix()
+            self.dfuControlPointCharacteristic?.uploadFinished()
             aCompletionHandler(responseData: nil)
         }
 

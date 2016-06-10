@@ -252,7 +252,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         return characteristic.value
     }
 
-    public func removeProceedFix() {
+    public func uploadFinished() {
         self.proceed = nil
     }
 
