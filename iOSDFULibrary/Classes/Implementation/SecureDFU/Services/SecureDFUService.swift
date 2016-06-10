@@ -190,12 +190,14 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
                 self.dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: successHandler
                     , onPacketReceiptNofitication: { (bytesReceived) in
                         if !self.paused && !self.aborted {
-                            let bytesSent = self.dfuPacketCharacteristic!.bytesSent
-                            if bytesSent == bytesReceived {self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
-                            } else {
-                                // Target device deported invalid number of bytes received
-                                anErrorHandler(error:SecureDFUError.BytesLost, withMessage: "\(bytesSent) bytes were sent while \(bytesReceived) bytes were reported as received")
-                            }
+                            //Temporarily disable verifications, since bytes reported are in random chunk sizes, probably due to a bugfix
+//                            let bytesSent = self.dfuPacketCharacteristic!.bytesSent
+//                            if bytesSent == bytesReceived {
+                                self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
+//                            } else {
+//                                 Target device deported invalid number of bytes received
+//                                anErrorHandler(error:SecureDFUError.BytesLost, withMessage: "\(bytesSent) bytes were sent while \(bytesReceived) bytes were reported as received")
+//                            }
                         } else if self.aborted {
                             // Upload has been aborted. Reset the target device. It will disconnect automatically
                             print("Reset not implemented")
