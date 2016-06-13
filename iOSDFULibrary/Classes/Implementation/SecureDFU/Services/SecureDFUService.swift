@@ -172,32 +172,55 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
         dfuPacketCharacteristic?.sendInitPacket(packetData)
     }
 
-    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andPacketReceiptCount aCount :UInt16, andProgressDelegate aProgressDelegate : SecureDFUProgressDelegate, andCompletionHandler aCompletionHandler : SDFUCallback, andErrorHandler anErrorHandler : SDFUErrorCallback){
+    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andOffset anOffset : UInt32, andPacketReceiptCount aCount :UInt16, andProgressDelegate aProgressDelegate : SecureDFUProgressDelegate, andCompletionHandler aCompletionHandler : SDFUCallback, andErrorHandler anErrorHandler : SDFUErrorCallback){
 
         self.firmware = aFirmwareObject
         self.packetReceiptNotificationNumber = aCount
         self.progressDelegate = aProgressDelegate
         self.report = anErrorHandler
-        
+
         var successHandler : SDFUCallback = { (responseData) in
             self.dfuControlPointCharacteristic?.uploadFinished()
             aCompletionHandler(responseData: nil)
         }
 
-        let currentSize = min(UInt32((self.firmware?.data.length)!), UInt32(4096))
-        self.dfuControlPointCharacteristic!.send(SecureDFURequest.CreateData(size: currentSize), onSuccess: { (responseData) in
+        if anOffset > 0 {
+            self.dfuPacketCharacteristic?.resumeFromOffset(anOffset)
+            //Start sending bytes
+            self.dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: successHandler
+                , onPacketReceiptNofitication: { (bytesReceived) in
+                    if !self.paused && !self.aborted {
+                        self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
+                    } else if self.aborted {
+                        // Upload has been aborted. Reset the target device. It will disconnect automatically
+                        print("Reset not implemented")
+                        //self.sendReset(onError: report)
+                    }
+                }, onError: { (error, message) in
+                    //Upload failed
+                    self.firmware = nil
+                    self.packetReceiptNotificationNumber = nil
+                    self.progressDelegate = nil
+                    self.report = nil
+                    anErrorHandler(error: error, withMessage: message)
+            })
+            
+            // ...and start sending firmware
+            if !self.paused && !self.aborted {
+                self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: aCompletionHandler)
+            } else if self.aborted == true {
+                // Upload has been aborted. Reset the target device. It will disconnect automatically
+                print("Reset not implemented")
+                //self.sendReset(onError: report)
+            }
+        }else{
+            let currentSize = min(UInt32((self.firmware?.data.length)!), UInt32(4096))
+            self.dfuControlPointCharacteristic!.send(SecureDFURequest.CreateData(size: currentSize), onSuccess: { (responseData) in
                 //Start sending bytes
                 self.dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: successHandler
                     , onPacketReceiptNofitication: { (bytesReceived) in
                         if !self.paused && !self.aborted {
-                            //Temporarily disable verifications, since bytes reported are in random chunk sizes, probably due to a bugfix
-//                            let bytesSent = self.dfuPacketCharacteristic!.bytesSent
-//                            if bytesSent == bytesReceived {
-                                self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
-//                            } else {
-//                                 Target device deported invalid number of bytes received
-//                                anErrorHandler(error:SecureDFUError.BytesLost, withMessage: "\(bytesSent) bytes were sent while \(bytesReceived) bytes were reported as received")
-//                            }
+                            self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
                         } else if self.aborted {
                             // Upload has been aborted. Reset the target device. It will disconnect automatically
                             print("Reset not implemented")
@@ -211,16 +234,17 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
                         self.report = nil
                         anErrorHandler(error: error, withMessage: message)
                 })
-
-            // ...and start sending firmware
-            if !self.paused && !self.aborted {
-                self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: aCompletionHandler)
-            } else if self.aborted == true {
-                // Upload has been aborted. Reset the target device. It will disconnect automatically
-                print("Reset not implemented")
-                //self.sendReset(onError: report)
-            }
-            }, onError: anErrorHandler)
+                
+                // ...and start sending firmware
+                if !self.paused && !self.aborted {
+                    self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: aCompletionHandler)
+                } else if self.aborted == true {
+                    // Upload has been aborted. Reset the target device. It will disconnect automatically
+                    print("Reset not implemented")
+                    //self.sendReset(onError: report)
+                }
+                }, onError: anErrorHandler)
+        }
     }
 
     /**

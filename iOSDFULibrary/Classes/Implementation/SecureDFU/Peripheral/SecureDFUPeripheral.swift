@@ -171,10 +171,10 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     /**
     Sending the Firmware
     */
-    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andPacketReceiptCount aCount : UInt16, andProgressDelegate aProgressDelegate:SecureDFUProgressDelegate?) {
+    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andOffset anOffset : UInt32, andPacketReceiptCount aCount : UInt16, andProgressDelegate aProgressDelegate:SecureDFUProgressDelegate?) {
 
         // Now the service is ready to send the firmware
-        self.dfuService?.sendFirmware(withFirmwareObject: aFirmwareObject, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate!, andCompletionHandler: { (responseData) in
+        self.dfuService?.sendFirmware(withFirmwareObject: aFirmwareObject, andOffset: anOffset, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate!, andCompletionHandler: { (responseData) in
                 self.delegate?.firmwareSendComplete()
             }, andErrorHandler: { (error, message) in
                 self.delegate?.onErrorOccured(withError: error, andMessage: message)

@@ -36,6 +36,7 @@ internal class SecureDFUPacket {
     
     /// Number of bytes of firmware already sent.
     private(set) var bytesSent = 0
+    
     /// Current progress in percents (0-99).
     private var progress = 0
     private var startTime:CFAbsoluteTime?
@@ -73,6 +74,13 @@ internal class SecureDFUPacket {
         } while bytesToSend > 0
     }
     
+    func resumeFromOffset(anOffset : UInt32) {
+        self.bytesSent = Int(anOffset)
+        print("Last offset = \(self.bytesSent)")
+        startTime = CFAbsoluteTimeGetCurrent()
+        lastTime = startTime
+    }
+
     /**
      Sends next number of packets from given firmware data and reports a progress.
      This method does not notify progress delegate twice about the same percentage.
@@ -83,6 +91,7 @@ internal class SecureDFUPacket {
      - parameter progressDelegate: an optional progress delegate
      */
     func sendNext(number:UInt16, packetsOf firmware:DFUFirmware, andReportProgressTo progressDelegate:SecureDFUProgressDelegate?, andCompletion completion: SDFUCallback) {
+
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
         
@@ -91,7 +100,7 @@ internal class SecureDFUPacket {
         let totalPackets = (bytesTotal + PacketSize - 1) / PacketSize
         let packetsSent  = (bytesSent + PacketSize - 1) / PacketSize
         let packetsLeft  = totalPackets - packetsSent
-        
+
         // Calculate how many packets should be sent before EOF or next receipt notification
         var packetsToSendNow = min(Int(number), packetsLeft)
         if number == 0 {
@@ -106,14 +115,19 @@ internal class SecureDFUPacket {
         }
         
         while packetsToSendNow > 0 {
+
             let bytesLeft = bytesTotal - bytesSent
             let packetLength = min(bytesLeft, PacketSize)
             let packet = firmware.data.subdataWithRange(NSRange(location: bytesSent, length: packetLength))
             peripheral.writeValue(packet, forCharacteristic: characteristic, type: CBCharacteristicWriteType.WithoutResponse)
 
+
+            print("\(totalPackets): \(packetsSent) + \(packetsLeft) = \(packetsSent + packetsLeft)")
+            print("\(bytesTotal): \(self.bytesSent) + \(bytesLeft) = \(self.bytesSent + bytesLeft)")
+
             bytesSent += packetLength
             packetsToSendNow -= 1
-            
+
             // Calculate current transfer speed in bytes per second
             let now = CFAbsoluteTimeGetCurrent()
             let currentSpeed = Double(packetLength) / (now - lastTime!)
@@ -121,7 +135,7 @@ internal class SecureDFUPacket {
             
             // Calculate progress
             let currentProgress = (bytesSent * 100 / bytesTotal) // in percantage (0-100)
-            
+
             // Notify progress listener
             if currentProgress > progress {
                 let avgSpeed = Double(bytesSent) / (now - startTime!)

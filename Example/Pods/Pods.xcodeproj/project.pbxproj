@@ -28,6 +28,7 @@
 		3057421F1D05B08E0050D765 /* SecureDFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3057421D1D05B08E0050D765 /* SecureDFUControlPoint.swift */; };
 		305742201D05B08E0050D765 /* SecureDFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3057421E1D05B08E0050D765 /* SecureDFUPacket.swift */; };
 		308055CCCBE7C255A3A0ADB767AF5B5C /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 6BB34BDF154BA5EAB5A90DF29447ED7E /* unzip.c */; };
+		30B24E0E1D0ADF0E00569113 /* crc32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B24E0D1D0ADF0E00569113 /* crc32.swift */; };
 		316421ED851E40C3CA0877FF8A65A158 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = A2580415ED7BE1C18D25465C149E5A68 /* hmac.c */; };
 		320F25E4842CCEE88F1481DDCC6F7C1D /* Zip-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 24D1FB6479CE18285F8000AB1681C58B /* Zip-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3E11543256D00F349CAE4B8C5A7A09C6 /* DFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8B938ECCC63FB364A0333BCE7AB7E8 /* DFUService.swift */; };
@@ -178,6 +179,7 @@
 		3057421A1D05B0390050D765 /* SecureDFUService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUService.swift; sourceTree = "<group>"; };
 		3057421D1D05B08E0050D765 /* SecureDFUControlPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUControlPoint.swift; sourceTree = "<group>"; };
 		3057421E1D05B08E0050D765 /* SecureDFUPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUPacket.swift; sourceTree = "<group>"; };
+		30B24E0D1D0ADF0E00569113 /* crc32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = crc32.swift; sourceTree = "<group>"; };
 		33945E684B27F1BC88D896352FD43EC9 /* crypt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = Zip/minizip/crypt.h; sourceTree = "<group>"; };
 		347874F43783DF92D75FC1354AA78DEA /* Pods-iOSDFULibrary_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Example-dummy.m"; sourceTree = "<group>"; };
 		34F127029E6B28472878ACA060A7EAF3 /* DFUFirmware.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUFirmware.swift; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 				C2D20985AA57A9F5B1607DF1BE57D0E2 /* Double.swift */,
 				0B0846A2B091A255BD2AD7EE7027852C /* NSData.swift */,
 				E06C35D08CE46B2A58EFF6974194929E /* ZipArchive.swift */,
+				30B24E0D1D0ADF0E00569113 /* crc32.swift */,
 				7BE4A7297DA2F0B9E2EF5487C77437E4 /* HexToBinConverter */,
 				D84ABAE76FE69A7A68E2189A50EC3036 /* Logging */,
 			);
@@ -927,6 +930,7 @@
 				4F28263C45E901FD1090134EBE4E1A90 /* DFUControlPoint.swift in Sources */,
 				3057421B1D05B0390050D765 /* SecureDFUService.swift in Sources */,
 				293A74273327CB49F7632E43082B206D /* DFUExecutor.swift in Sources */,
+				30B24E0E1D0ADF0E00569113 /* crc32.swift in Sources */,
 				1D6CD76D17BE1102F7482EF0E07FC719 /* DFUFirmware.swift in Sources */,
 				B05D9EB473F1C06ACE486C37735584C1 /* DFUPacket.swift in Sources */,
 				3057421F1D05B08E0050D765 /* SecureDFUControlPoint.swift in Sources */,
