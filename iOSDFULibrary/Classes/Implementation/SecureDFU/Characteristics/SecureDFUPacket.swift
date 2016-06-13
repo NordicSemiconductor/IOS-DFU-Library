@@ -61,7 +61,7 @@ internal class SecureDFUPacket {
         var bytesToSend = initPacketData.length
         
         repeat {
-            print("Offset:\(offset), to go:\(bytesToSend)")
+
             let packetLength = min(bytesToSend, PacketSize)
             let packet = initPacketData.subdataWithRange(NSRange(location: offset, length: packetLength))
             
@@ -76,7 +76,6 @@ internal class SecureDFUPacket {
     
     func resumeFromOffset(anOffset : UInt32) {
         self.bytesSent = Int(anOffset)
-        print("Last offset = \(self.bytesSent)")
         startTime = CFAbsoluteTimeGetCurrent()
         lastTime = startTime
     }
@@ -120,10 +119,6 @@ internal class SecureDFUPacket {
             let packetLength = min(bytesLeft, PacketSize)
             let packet = firmware.data.subdataWithRange(NSRange(location: bytesSent, length: packetLength))
             peripheral.writeValue(packet, forCharacteristic: characteristic, type: CBCharacteristicWriteType.WithoutResponse)
-
-
-            print("\(totalPackets): \(packetsSent) + \(packetsLeft) = \(packetsSent + packetsLeft)")
-            print("\(bytesTotal): \(self.bytesSent) + \(bytesLeft) = \(self.bytesSent + bytesLeft)")
 
             bytesSent += packetLength
             packetsToSendNow -= 1
