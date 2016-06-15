@@ -139,8 +139,8 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         let initPacketLength = UInt32((self.firmware.initPacket?.length)!)
         
         //Log how much of the packet has been already sent
-        let sentPercentage = Int(anOffset / initPacketLength * 100)
-        print(String(format:"%.0f%% of init packet sent, resuming!", sentPercentage))
+        let sentPercentage = Int(Double(anOffset) / Double(initPacketLength) * 100.0)
+        print(String(format:"%d%% of init packet sent, resuming!", sentPercentage))
         
         //get remaining data to send
         let data = self.firmware.initPacket?.subdataWithRange(NSRange(location: Int(anOffset), length: Int(initPacketLength - anOffset)))
@@ -153,12 +153,12 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         self.maxLen = maxLen
         self.offset = offset
         self.crc = crc
+
         if self.offset > 0 && self.crc > 0 {
             isResuming = true
             var match = self.verifyDataCRC(fordata: self.firmware.initPacket!, andPacketOffset: offset, andperipheralCRC: crc)
             if match == true {
                 //Resume Init
-                print("Init packet CRC matches")
                 if self.offset < UInt32((self.firmware.initPacket?.length)!) {
                     print("Init packet was incomplete, resuming..")
                     self.resumeSendInitpacket(atOffset: offset)
@@ -197,7 +197,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             if match == true {
                 var completedPercent = Int(Double(self.offset!) / Double(self.firmware.data.length) * 100)
                 print(String(format:"Data object info CRC matches, resuming from %d%%..",completedPercent))
-                peripheral.setPRNValue(2)
+                peripheral.setPRNValue(12)
             } else {
                 print("Data object does not match\nStart from scratch?")
             }
@@ -237,15 +237,22 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         sendCurrentChunk()
     }
 
-    func sendCurrentChunk(){
-        var chunkData = self.firmware.data.subdataWithRange(firmwareRanges![currentRangeIdx!])
-        peripheral.sendFirmwareChunk(self.firmware, andChunkRange: firmwareRanges![currentRangeIdx!], andPacketCount: 2, andProgressDelegate: self.progressDelegate!)
+    func sendCurrentChunk(var resumeOffset : UInt32 = 0){
+        var aRange = firmwareRanges![currentRangeIdx!]
+        if self.isResuming && resumeOffset > 0 {
+            print(aRange)
+            //This is a resuming chunk, recalculate location and size
+            var newLength = aRange.location + aRange.length - Int(self.offset!)
+            aRange.location = Int(resumeOffset)
+            aRange.length   = newLength
+        }
+        peripheral.sendFirmwareChunk(self.firmware, andChunkRange: aRange, andPacketCount: 12, andProgressDelegate: self.progressDelegate!)
     }
 
     func objectCreateCommandCompleted(data: NSData?) {
         peripheral.setPRNValue(0) //disable for first time while we write Init file
     }
-    
+
     func setPRNValueCompleted() {
         if initPacketSent == false {
             dispatch_async(dispatch_get_main_queue(), {
@@ -256,7 +263,17 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             if isResuming == false {
                 peripheral.ReadObjectInfoData()
             } else {
-                //TODO: resume code here
+                //Resume data from a given chunk offset
+                self.currentRangeIdx = 0
+                for var chunkRange in self.firmwareRanges! {
+                    if NSLocationInRange(Int(self.offset!), chunkRange) {
+                        break
+                    }
+                    self.currentRangeIdx!++
+                }
+                //Now we can resume from the current given offset
+                self.sendingFirmware = true
+                self.sendCurrentChunk(self.offset!)
             }
         }
     }
@@ -329,7 +346,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         
         if initPacketSent == true && firmwareSent == false {
             print("Setting PRN to 12")
-            peripheral.setPRNValue(2) //Enable PRN at 12 packets
+            peripheral.setPRNValue(12) //Enable PRN at 12 packets
         } else {
             self.firmwareSent    = false
             self.sendingFirmware = false
