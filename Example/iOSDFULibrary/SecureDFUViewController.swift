@@ -38,7 +38,7 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     //MARK: - Class Implementation
     func getBundledFirmwareURLHelper() -> NSURL {
-        return NSBundle.mainBundle().URLForResource("blinky_s132", withExtension: "zip")!
+        return NSBundle.mainBundle().URLForResource("originsd_bl2_gls_132", withExtension: "zip")!
     }
     
     func setCentralManager(centralManager aCentralManager : CBCentralManager){
@@ -57,7 +57,7 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
         }
 
         selectedFileURL     = self.getBundledFirmwareURLHelper()
-        selectedFirmware    = DFUFirmware(urlToZipFile: selectedFileURL!, type: DFUFirmwareType.Application)
+        selectedFirmware    = DFUFirmware(urlToZipFile: selectedFileURL!)
         let dfuInitiator    = SecureDFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
         dfuInitiator.withFirmwareFile(selectedFirmware!)
         dfuInitiator.delegate           = self
@@ -160,7 +160,6 @@ class SecureDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     //MARK: - DFUProgressDelegate
     func onUploadProgress(part: Int, totalParts: Int, progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
-//        print("Porgess: \(progress)% (\(part)/\(totalParts))")
         self.dfuUploadProgressView.setProgress(Float(progress)/100.0, animated: true)
         self.dfuUploadStatus.text = "Speed : \(String(format:"%.1f", avgSpeedBytesPerSecond/1024)) Kbps, pt. \(part)/\(totalParts)"
     }

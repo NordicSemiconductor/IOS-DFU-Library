@@ -167,6 +167,19 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
                 self.delegate?.onErrorOccured(withError: error, andMessage: message)
         })
     }
+
+    /**
+     Send firmware data
+    */
+    func sendFirmwareChunk(firmware: DFUFirmware, andChunkRange aRange : NSRange, andPacketCount aCount : UInt16, andProgressDelegate aProgressDelegate : SecureDFUProgressDelegate) {
+
+        self.dfuService?.sendFirmwareChunk(aRange, inFirmware: firmware, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate, andCompletionHandler: { (responseData) in
+            self.delegate?.firmwareChunkSendcomplete()
+            }, andErrorHandler: { (error, message) in
+                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+        })
+
+    }
     
     /**
     Sending the Firmware
@@ -174,11 +187,11 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andOffset anOffset : UInt32, andPacketReceiptCount aCount : UInt16, andProgressDelegate aProgressDelegate:SecureDFUProgressDelegate?) {
 
         // Now the service is ready to send the firmware
-        self.dfuService?.sendFirmware(withFirmwareObject: aFirmwareObject, andOffset: anOffset, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate!, andCompletionHandler: { (responseData) in
-                self.delegate?.firmwareSendComplete()
-            }, andErrorHandler: { (error, message) in
-                self.delegate?.onErrorOccured(withError: error, andMessage: message)
-        })
+//        self.dfuService?.sendFirmware(withFirmwareObject: aFirmwareObject, andOffset: anOffset, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate!, andCompletionHandler: { (responseData) in
+//                self.delegate?.firmwareSendComplete()
+//            }, andErrorHandler: { (error, message) in
+//                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+//        })
     }
 
     /**
@@ -186,7 +199,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     */
     func createObjectData(withLength length: UInt32) {
         dfuService?.createObjectData(withLength: length, onSuccess: { (responseData) in
-            self.delegate?.objectCreateCommandCompleted(responseData)
+            self.delegate?.objectCreateDataCompleted(responseData)
             }, onError: { (error, message) in
                 self.logger.e("Error occured: \(error), \(message)")
                 self.delegate?.onErrorOccured(withError: error, andMessage: message)
@@ -271,6 +284,24 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
         return applicationMode
     }
     
+    /**
+     Scans for a next device to connect to. When device is found and selected, it connects to it.
+     
+     After updating the Softdevice the device may start advertising with an address incremented by 1.
+     A BLE scan needs to be done to find this new peripheral (it's the same device, but as it
+     advertises with a new address, from iOS point of view it completly different device).
+     
+     - parameter selector: a selector used to select a device in DFU Bootloader mode
+     */
+    func switchToNewPeripheralAndConnect(selector:SecureDFUPeripheralSelector) {
+        // Release the previous peripheral
+        self.peripheral!.delegate = nil
+        self.peripheral = nil
+        self.peripheralSelector = selector
+        logger.v("Scanning for the DFU Bootloader...")
+        centralManager.scanForPeripheralsWithServices(selector.filterBy(), options: nil)
+    }
+
    /**
      This method breaks the cyclic reference and both DFUExecutor and DFUPeripheral may be released.
      */
@@ -319,6 +350,26 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     }
     
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+        if let peripheralSelector = peripheralSelector {
+            // Is this a device we are looking for?
+            if peripheralSelector.select(peripheral, advertisementData: advertisementData, RSSI: RSSI) {
+                // Hurray!
+                centralManager.stopScan()
+                
+                if let name = peripheral.name {
+                    logger.i("DFU Bootloader found with name \(name)")
+                } else {
+                    logger.i("DFU Bootloader found")
+                }
+                self.peripheral = peripheral
+                self.peripheralSelector = nil
+                connect()
+            }
+        } else {
+            // Don't use central manager while DFU is in progress!
+            print("DFU in progress, don't use this CentralManager instance!")
+            centralManager.stopScan()
+        }
     }
     
     // MARK: - Peripheral Delegate methods

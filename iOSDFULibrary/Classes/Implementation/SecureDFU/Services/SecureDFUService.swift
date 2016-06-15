@@ -43,11 +43,13 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
     private var aborted = false
     
     /// A temporary callback used to report end of an operation.
-    private var success:SDFUCallback?
+    private var success          : SDFUCallback?
+    
     /// A temporary callback used to report an operation error.
-    private var report:SDFUErrorCallback?
+    private var report           : SDFUErrorCallback?
+    
     /// A temporaty callback used to report progress status.
-    private var progressDelegate:SecureDFUProgressDelegate?
+    private var progressDelegate : SecureDFUProgressDelegate?
     
     // -- Properties stored when upload started in order to resume it --
     private var firmware:DFUFirmware?
@@ -55,7 +57,6 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
     // -- End --
     
     // MARK: - Initialization
-    
     init(_ service:CBService, _ logger:LoggerHelper) {
         self.service = service
         self.logger = logger
@@ -141,7 +142,7 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
      Create object data
      */
     func createObjectData(withLength aLength : UInt32, onSuccess successCallback : SDFUCallback, onError reportCallback:SDFUErrorCallback) {
-        dfuControlPointCharacteristic?.send(SecureDFURequest.CreateCommand(size: aLength), onSuccess: successCallback, onError:reportCallback)
+        dfuControlPointCharacteristic?.send(SecureDFURequest.CreateData(size: aLength), onSuccess: successCallback, onError:reportCallback)
     }
     
     /**
@@ -172,79 +173,19 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
         dfuPacketCharacteristic?.sendInitPacket(packetData)
     }
 
-    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andOffset anOffset : UInt32, andPacketReceiptCount aCount :UInt16, andProgressDelegate aProgressDelegate : SecureDFUProgressDelegate, andCompletionHandler aCompletionHandler : SDFUCallback, andErrorHandler anErrorHandler : SDFUErrorCallback){
-
-        self.firmware = aFirmwareObject
-        self.packetReceiptNotificationNumber = aCount
-        self.progressDelegate = aProgressDelegate
-        self.report = anErrorHandler
-
+    func sendFirmwareChunk(chunkRange : NSRange, inFirmware aFirmware : DFUFirmware, andPacketReceiptCount aCount : UInt16, andProgressDelegate progressDelegate : SecureDFUProgressDelegate, andCompletionHandler completionHandler : SDFUCallback, andErrorHandler errorHandler : SDFUErrorCallback) {
+    
         var successHandler : SDFUCallback = { (responseData) in
             self.dfuControlPointCharacteristic?.uploadFinished()
-            aCompletionHandler(responseData: nil)
+            completionHandler(responseData: nil)
         }
 
-        if anOffset > 0 {
-            self.dfuPacketCharacteristic?.resumeFromOffset(anOffset)
-            //Start sending bytes
-            self.dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: successHandler
-                , onPacketReceiptNofitication: { (bytesReceived) in
-                    if !self.paused && !self.aborted {
-                        self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
-                    } else if self.aborted {
-                        // Upload has been aborted. Reset the target device. It will disconnect automatically
-                        print("Reset not implemented")
-                        //self.sendReset(onError: report)
-                    }
-                }, onError: { (error, message) in
-                    //Upload failed
-                    self.firmware = nil
-                    self.packetReceiptNotificationNumber = nil
-                    self.progressDelegate = nil
-                    self.report = nil
-                    anErrorHandler(error: error, withMessage: message)
-            })
-            
-            // ...and start sending firmware
-            if !self.paused && !self.aborted {
-                self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: aCompletionHandler)
-            } else if self.aborted == true {
-                // Upload has been aborted. Reset the target device. It will disconnect automatically
-                print("Reset not implemented")
-                //self.sendReset(onError: report)
+        self.dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: successHandler, onPacketReceiptNofitication: { (bytesReceived) in
+                self.dfuPacketCharacteristic?.sendData(withPRN: aCount, andRange: chunkRange, inFirmware: aFirmware, andProgressHandler: progressDelegate, andCompletion: successHandler)
             }
-        }else{
-            let currentSize = min(UInt32((self.firmware?.data.length)!), UInt32(4096))
-            self.dfuControlPointCharacteristic!.send(SecureDFURequest.CreateData(size: currentSize), onSuccess: { (responseData) in
-                //Start sending bytes
-                self.dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: successHandler
-                    , onPacketReceiptNofitication: { (bytesReceived) in
-                        if !self.paused && !self.aborted {
-                            self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: successHandler)
-                        } else if self.aborted {
-                            // Upload has been aborted. Reset the target device. It will disconnect automatically
-                            print("Reset not implemented")
-                            //self.sendReset(onError: report)
-                        }
-                    }, onError: { (error, message) in
-                        //Upload failed
-                        self.firmware = nil
-                        self.packetReceiptNotificationNumber = nil
-                        self.progressDelegate = nil
-                        self.report = nil
-                        anErrorHandler(error: error, withMessage: message)
-                })
-                
-                // ...and start sending firmware
-                if !self.paused && !self.aborted {
-                    self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber!, packetsOf: self.firmware!, andReportProgressTo: aProgressDelegate, andCompletion: aCompletionHandler)
-                } else if self.aborted == true {
-                    // Upload has been aborted. Reset the target device. It will disconnect automatically
-                    print("Reset not implemented")
-                    //self.sendReset(onError: report)
-                }
-                }, onError: anErrorHandler)
-        }
+            , onError: errorHandler)
+
+        self.dfuPacketCharacteristic?.sendData(withPRN: aCount, andRange: chunkRange, inFirmware: aFirmware, andProgressHandler: progressDelegate, andCompletion: successHandler)
     }
 
     /**

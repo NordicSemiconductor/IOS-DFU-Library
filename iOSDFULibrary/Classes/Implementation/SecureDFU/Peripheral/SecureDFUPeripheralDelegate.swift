@@ -77,6 +77,11 @@ internal protocol SecureDFUPeripheralDelegate {
      Callback when firmware is successfully sent
      */
     func firmwareSendComplete()
+
+    /**
+     Callback when firmware chunk is successfully sent
+     */
+    func firmwareChunkSendcomplete()
     
     /**
      Method called when the iDevice failed to connect to the given peripheral.

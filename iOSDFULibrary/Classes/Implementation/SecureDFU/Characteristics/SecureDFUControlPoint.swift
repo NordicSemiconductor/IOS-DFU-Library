@@ -232,11 +232,11 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     private var characteristic:CBCharacteristic
     private var logger:LoggerHelper
     
-    private var success:SDFUCallback?
-    private var proceed:SecureDFUProgressCallback?
-    private var report :SDFUErrorCallback?
-    private var request:SecureDFURequest?
-    private var uploadStartTime:CFAbsoluteTime?
+    private var success         : SDFUCallback?
+    private var proceed         : SecureDFUProgressCallback?
+    private var report          : SDFUErrorCallback?
+    private var request         : SecureDFURequest?
+    private var uploadStartTime : CFAbsoluteTime?
 
     var valid:Bool {
         return characteristic.properties.isSupersetOf([CBCharacteristicProperties.Write, CBCharacteristicProperties.Notify])
@@ -253,7 +253,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     }
 
     public func uploadFinished() {
-        self.proceed = nil
+        self.proceed         = nil
     }
 
     // MARK: - Characteristic API methods
@@ -327,11 +327,11 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
 
     func waitUntilUploadComplete(onSuccess success:SDFUCallback?, onPacketReceiptNofitication proceed:SecureDFUProgressCallback?, onError report:SDFUErrorCallback?) {
         // Save callbacks. The proceed callback will be called periodically whenever a packet receipt notification is received. It resumes uploading.
-        self.success = success
-        self.proceed = proceed
-        self.report = report
+        self.success         = success
+        self.proceed         = proceed
+        self.report          = report
         self.uploadStartTime = CFAbsoluteTimeGetCurrent()
-        
+
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
         
