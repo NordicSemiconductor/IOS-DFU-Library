@@ -268,7 +268,7 @@
                             <constraint firstItem="msg-0j-Gd0" firstAttribute="leading" secondItem="ND7-bN-SO2" secondAttribute="leadingMargin" id="xtG-t0-Am8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Legacy DFU" id="YwE-LT-QZi">
+                    <navigationItem key="navigationItem" title="Secure DFU" id="YwE-LT-QZi">
                         <barButtonItem key="backBarButtonItem" title="Back" id="7kT-Mp-afp"/>
                     </navigationItem>
                     <connections>
