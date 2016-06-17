@@ -208,7 +208,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             if match == true {
                 var completedPercent = Int(Double(self.offset!) / Double(self.firmware.data.length) * 100)
                 print(String(format:"Data object info CRC matches, resuming from %d%%..",completedPercent))
-                peripheral.setPRNValue(2)
+                peripheral.setPRNValue(12)
             } else {
                 print("Data object does not match\nStart from scratch?")
             }
@@ -258,7 +258,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             aRange.location = Int(resumeOffset)
             aRange.length   = newLength
         }
-        peripheral.sendFirmwareChunk(self.firmware, andChunkRange: aRange, andPacketCount: 2, andProgressDelegate: self.progressDelegate!)
+        peripheral.sendFirmwareChunk(self.firmware, andChunkRange: aRange, andPacketCount: 12, andProgressDelegate: self.progressDelegate!)
     }
 
     func objectCreateCommandCompleted(data: NSData?) {
@@ -349,7 +349,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         
         if initPacketSent == true && firmwareSent == false {
             print("Setting PRN to 12")
-            peripheral.setPRNValue(2) //Enable PRN at 12 packets
+            peripheral.setPRNValue(12) //Enable PRN at 12 packets
         } else {
             self.firmwareSent    = false
             self.sendingFirmware = false
