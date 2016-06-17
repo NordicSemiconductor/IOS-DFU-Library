@@ -22,7 +22,7 @@
 
 import CoreBluetooth
 
-@objc internal class DFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
+@objc internal class LegacyDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
     /// Bluetooth Central Manager used to scan for the peripheral.
     private let centralManager:CBCentralManager
     /// The DFU Target peripheral.
@@ -38,7 +38,7 @@ import CoreBluetooth
     // MARK: - DFU properties
     
     /// The DFU Service instance. Not nil when found on the peripheral.
-    private var dfuService:DFUService?
+    private var dfuService:LegacyDFUService?
     /// A flag set when a command to jump to DFU Bootloader has been sent.
     private var jumpingToBootloader = false
     /// A flag set when a command to activate the new firmware and reset the device has been sent.
@@ -50,12 +50,12 @@ import CoreBluetooth
     
     // MARK: - Initialization
     
-    init(_ initiator:DFUServiceInitiator) {
+    init(_ initiator:LegacyDFUServiceInitiator) {
         self.centralManager = initiator.centralManager
         self.peripheral = initiator.target
         self.logger = LoggerHelper(initiator.logger!)
         super.init()
-        
+
         // self.peripheral.delegate = self // this is set when device got connected
         self.centralManager.delegate = self
     }
@@ -415,11 +415,11 @@ import CoreBluetooth
             // Find the DFU Service
             let services = peripheral.services!
             for service in services {
-                if DFUService.matches(service) {
+                if LegacyDFUService.matches(service) {
                     logger.v("DFU Service found")
                     
                     // DFU Service has been found. Discover characteristics...
-                    dfuService = DFUService(service, logger)
+                    dfuService = LegacyDFUService(service, logger)
                     dfuService!.discoverCharacteristics(
                         onSuccess: { () -> () in self.delegate?.onDeviceReady() },
                         onError: { (error, message) -> () in self.delegate?.didErrorOccur(error, withMessage: message) }

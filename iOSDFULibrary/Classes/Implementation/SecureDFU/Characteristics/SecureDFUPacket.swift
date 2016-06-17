@@ -23,7 +23,7 @@
 import CoreBluetooth
 
 internal class SecureDFUPacket {
-    static private let UUID = CBUUID(string: "00001532-1212-EFDE-1523-785FEABCD123")
+    static private let UUID = CBUUID(string: "8EC90002-F315-4F60-9FB8-838830DAEA50")
     
     static func matches(characteristic:CBCharacteristic) -> Bool {
         return characteristic.UUID.isEqual(UUID)
@@ -84,7 +84,7 @@ internal class SecureDFUPacket {
      Sends data over packet characteristic
     */
     
-    func sendData(withPRN aPRNVaule:UInt16, andRange aRange: NSRange, inFirmware aFirmware : DFUFirmware, andProgressHandler aProgressHandler : SecureDFUProgressDelegate?, andCompletion aCompletion: SDFUCallback) {
+    func sendData(withPRN aPRNVaule:UInt16, andRange aRange: NSRange, inFirmware aFirmware : DFUFirmware, andProgressHandler aProgressHandler : DFUProgressDelegate?, andCompletion aCompletion: SDFUCallback) {
         let peripheral   = characteristic.service.peripheral
         var aData        = aFirmware.data.subdataWithRange(aRange)
         let bytesTotal   = aData.length

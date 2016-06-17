@@ -25,7 +25,7 @@ import CoreBluetooth
 internal typealias Callback = Void -> Void
 internal typealias ErrorCallback = (error:DFUError, withMessage:String) -> Void
 
-@objc internal class DFUService : NSObject, CBPeripheralDelegate {
+@objc internal class LegacyDFUService : NSObject, CBPeripheralDelegate {
     static internal let UUID = CBUUID.init(string: "00001530-1212-EFDE-1523-785FEABCD123")
     
     static func matches(service:CBService) -> Bool {

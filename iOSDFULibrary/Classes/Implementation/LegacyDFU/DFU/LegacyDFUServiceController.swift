@@ -24,13 +24,13 @@
 A controller object used to pause, resume or abort the DFU operation. Check methods documentation
 for more information.
 */
-@objc public class DFUServiceController : NSObject {
-    private let executor:DFUExecutor
+@objc public class LegacyDFUServiceController : NSObject {
+    private let executor:LegacyDFUExecutor
     
     private var servicePaused = false
     private var serviceAborted = false
     
-    internal init(_ executor:DFUExecutor) {
+    internal init(_ executor:LegacyDFUExecutor) {
         self.executor = executor
     }
     

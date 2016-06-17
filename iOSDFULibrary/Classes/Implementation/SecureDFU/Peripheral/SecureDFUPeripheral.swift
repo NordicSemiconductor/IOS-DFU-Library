@@ -171,7 +171,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     /**
      Send firmware data
     */
-    func sendFirmwareChunk(firmware: DFUFirmware, andChunkRange aRange : NSRange, andPacketCount aCount : UInt16, andProgressDelegate aProgressDelegate : SecureDFUProgressDelegate) {
+    func sendFirmwareChunk(firmware: DFUFirmware, andChunkRange aRange : NSRange, andPacketCount aCount : UInt16, andProgressDelegate aProgressDelegate : DFUProgressDelegate) {
 
         self.dfuService?.sendFirmwareChunk(aRange, inFirmware: firmware, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate, andCompletionHandler: { (responseData) in
             self.delegate?.firmwareChunkSendcomplete()
@@ -179,19 +179,6 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
                 self.delegate?.onErrorOccured(withError: error, andMessage: message)
         })
 
-    }
-    
-    /**
-    Sending the Firmware
-    */
-    func sendFirmware(withFirmwareObject aFirmwareObject : DFUFirmware, andOffset anOffset : UInt32, andPacketReceiptCount aCount : UInt16, andProgressDelegate aProgressDelegate:SecureDFUProgressDelegate?) {
-
-        // Now the service is ready to send the firmware
-//        self.dfuService?.sendFirmware(withFirmwareObject: aFirmwareObject, andOffset: anOffset, andPacketReceiptCount: aCount, andProgressDelegate: aProgressDelegate!, andCompletionHandler: { (responseData) in
-//                self.delegate?.firmwareSendComplete()
-//            }, andErrorHandler: { (error, message) in
-//                self.delegate?.onErrorOccured(withError: error, andMessage: message)
-//        })
     }
 
     /**
@@ -398,9 +385,9 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
             }
             
             if dfuService == nil {
-                logger.e("DFU Service not found")
+                logger.e("Secure DFU Service not found")
                 // The device does not support DFU, nor buttonless jump
-                delegate?.onErrorOccured(withError:SecureDFUError.DeviceNotSupported, andMessage: "DFU Service not found")
+                delegate?.onErrorOccured(withError:SecureDFUError.DeviceNotSupported, andMessage: "Secure DFU Service not found")
             }
         }
     }

@@ -398,7 +398,7 @@ internal struct PacketReceiptNotification {
             // This characteristic is never read, the error may only pop up when notification is received
             logger.e("Receiving notification failed")
             logger.e(error!)
-            report?(error:DFUError.ReceivingNotificatinoFailed, withMessage:"Receiving notification failed")
+            report?(error:DFUError.ReceivingNotificationFailed, withMessage:"Receiving notification failed")
         } else {
             // During the upload we may get either a Packet Receipt Notification, or a Response with status code
             if proceed != nil {

@@ -23,63 +23,11 @@
 import CoreBluetooth
 
 /**
- The DFU Target matcher is used when both the Softdevice (or Softdevice and Bootloader) and Application
- are going to be updated. 
- 
- This library supports sending both BIN files from a ZIP Distribution Packet automatically.
- However, when sending the Softdevice update, the DFU Bootloader removes the current application in order to
- make space for the new Softdevice firmware. When the new Softdevice is flashed the bootloader restarts the device
- and, as there is no application anymore, starts advertising in DFU Bootloader mode.
- 
- Since SDK 8.0.0, to solve caching problem on a host, the bootloader starts to advertise with an address incremented by 1.
- The DFU Library has to scan for a peripheral with this new address. However, as iOS does not expose the device
- address in the public CoreBluetooth API, address matching, used on Android, can not be used.
- Instead, this matcher is used. The DFU Service will start scanning for peripherals with a UUID filter, where
- the list of required UUID is returned by the `filterBy()` method. If your device in the Bootloader mode
- does not advertise with any service UUIDs, or this is not enough, you may select a target device
- by their advertising packet or RSSI.
- */
-@objc public protocol DFUPeripheralSelector {
-    /**
-     Returns whether the given peripheral is a device in DFU Bootloader mode.
-     
-     - parameter peripheral:      the peripheral to be checked
-     - parameter advertisingData: scanned advertising data
-     - parameter RSSI:            received signal strength indication in dBm
-     
-     - returns: true (YES) if given peripheral is what service is looking for
-     */
-    func select(peripheral:CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) -> Bool
-    
-    /**
-     Returns an optional list of services that the scanner will use to filter advertising packets
-     when scanning for a device in DFU Bootloader mode. To find out what UUID you should return,
-     switch your device to DFU Bootloader mode (with a button!) and check the advertisment packet.
-     The result of this method will be applied to 
-     `centralManager.scanForPeripheralsWithServices([CBUUID]?, options: [String : AnyObject]?)`
-     
-     - returns: an optional list of services or nil
-     */
-    func filterBy() -> [CBUUID]?
-}
-
-/// The default selector. Returns the first device with DFU Service UUID in the advrtising packet.
-@objc internal class DefaultDFUPeripheralSelector : NSObject, DFUPeripheralSelector {
-    func select(peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) -> Bool {
-        return true
-    }
-    
-    func filterBy() -> [CBUUID]? {
-        return [DFUService.UUID]
-    }
-}
-
-/**
  The DFUServiceInitiator object should be used to send a firmware update to a remote BLE target compatible
  with the Nordic Semiconductor's DFU (Device Firmware Update).
  A `delegate` and `logger` may be specified to be informed about the status.
  */
-@objc public class DFUServiceInitiator : NSObject {
+@objc public class LegacyDFUServiceInitiator : NSObject {
     internal let centralManager:CBCentralManager
     internal let target:CBPeripheral
     internal var file:DFUFirmware?
@@ -187,7 +135,7 @@ import CoreBluetooth
         // Just to be sure that manager is not scanning
         self.centralManager.stopScan()
         self.target = target
-        self.peripheralSelector = DefaultDFUPeripheralSelector()
+        self.peripheralSelector = LegacyDFUPeripheralSelector()
     }
     
     /**
@@ -198,7 +146,7 @@ import CoreBluetooth
      
      - returns: the initiator instance to allow chain use
      */
-    public func withFirmwareFile(file:DFUFirmware) -> DFUServiceInitiator {
+    public func withFirmwareFile(file:DFUFirmware) -> LegacyDFUServiceInitiator {
         self.file = file
         return self
     }
@@ -216,15 +164,15 @@ import CoreBluetooth
      
      - returns: n object that can be used to controll the DFU operation.
      */
-    public func start() -> DFUServiceController? {
+    public func start() -> LegacyDFUServiceController? {
         // The firmware file must be specified before calling `start()`
         if file == nil {
             delegate?.didErrorOccur(DFUError.FileNotSpecified, withMessage: "Firmware not specified")
             return nil
         }
-        
-        let executor = DFUExecutor(self)
-        let controller = DFUServiceController(executor)
+
+        let executor = LegacyDFUExecutor(self)
+        let controller = LegacyDFUServiceController(executor)
         executor.start()
         return controller
     }

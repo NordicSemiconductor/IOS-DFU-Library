@@ -26,7 +26,7 @@ internal typealias SDFUCallback = (responseData : NSData?) -> Void
 internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String) -> Void
 
 @objc internal class SecureDFUService : NSObject, CBPeripheralDelegate {
-    static internal let UUID = CBUUID.init(string: "00001530-1212-EFDE-1523-785FEABCD123")
+    static internal let UUID = CBUUID.init(string: "FE59")
     
     static func matches(service:CBService) -> Bool {
         return service.UUID.isEqual(UUID)
@@ -49,7 +49,7 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
     private var report           : SDFUErrorCallback?
     
     /// A temporaty callback used to report progress status.
-    private var progressDelegate : SecureDFUProgressDelegate?
+    private var progressDelegate : DFUProgressDelegate?
     
     // -- Properties stored when upload started in order to resume it --
     private var firmware:DFUFirmware?
@@ -173,7 +173,7 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
         dfuPacketCharacteristic?.sendInitPacket(packetData)
     }
 
-    func sendFirmwareChunk(chunkRange : NSRange, inFirmware aFirmware : DFUFirmware, andPacketReceiptCount aCount : UInt16, andProgressDelegate progressDelegate : SecureDFUProgressDelegate, andCompletionHandler completionHandler : SDFUCallback, andErrorHandler errorHandler : SDFUErrorCallback) {
+    func sendFirmwareChunk(chunkRange : NSRange, inFirmware aFirmware : DFUFirmware, andPacketReceiptCount aCount : UInt16, andProgressDelegate progressDelegate : DFUProgressDelegate, andCompletionHandler completionHandler : SDFUCallback, andErrorHandler errorHandler : SDFUErrorCallback) {
     
         var successHandler : SDFUCallback = { (responseData) in
             self.dfuControlPointCharacteristic?.uploadFinished()

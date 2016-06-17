@@ -9,23 +9,25 @@
 import UIKit
 import CoreBluetooth
 import iOSDFULibrary
-class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
+
+class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
 
 
     //MARK: - Class Properties
-    private var dfuPeripheral  : CBPeripheral?
-    private var dfuController  : DFUServiceController?
-    private var centralManager : CBCentralManager?
+    private var dfuPeripheral    : CBPeripheral?
+    private var dfuController    : SecureDFUServiceController?
+    private var centralManager   : CBCentralManager?
     private var selectedFirmware : DFUFirmware?
     private var selectedFileURL  : NSURL?
+    private var dfuInitiator     : SecureDFUServiceInitiator?
 
     //MARK: - View Outlets
-    @IBOutlet weak var dfuActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var dfuStatusLabel: UILabel!
-    @IBOutlet weak var peripheralNameLabel: UILabel!
-    @IBOutlet weak var dfuUploadProgressView: UIProgressView!
-    @IBOutlet weak var dfuUploadStatus: UILabel!
-    @IBOutlet weak var stopProcessButton: UIButton!
+    @IBOutlet weak var dfuActivityIndicator     : UIActivityIndicatorView!
+    @IBOutlet weak var dfuStatusLabel           : UILabel!
+    @IBOutlet weak var peripheralNameLabel      : UILabel!
+    @IBOutlet weak var dfuUploadProgressView    : UIProgressView!
+    @IBOutlet weak var dfuUploadStatus          : UILabel!
+    @IBOutlet weak var stopProcessButton        : UIButton!
     
     //MARK: - View Actions
     @IBAction func stopProcessButtonTapped(sender: AnyObject) {
@@ -38,7 +40,7 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     //MARK: - Class Implementation
     func getBundledFirmwareURLHelper() -> NSURL {
-        return NSBundle.mainBundle().URLForResource("hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a", withExtension: "zip")!
+        return NSBundle.mainBundle().URLForResource("originsd_bl2_gls_132", withExtension: "zip")!
     }
     
     func setCentralManager(centralManager aCentralManager : CBCentralManager){
@@ -56,15 +58,14 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
             return
         }
 
-        selectedFileURL     = self.getBundledFirmwareURLHelper()
-        selectedFirmware    = DFUFirmware(urlToZipFile: selectedFileURL!, type: DFUFirmwareType.Application)
-        let dfuInitiator    = DFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
-        dfuInitiator.withFirmwareFile(selectedFirmware!)
-        dfuInitiator.delegate           = self
-        dfuInitiator.progressDelegate   = self
-        dfuInitiator.forceDfu           = false
-        dfuInitiator.logger             = self
-        dfuController = dfuInitiator.start()
+        selectedFileURL  = self.getBundledFirmwareURLHelper()
+        selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
+        dfuInitiator     = SecureDFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
+        dfuInitiator!.withFirmwareFile(selectedFirmware!)
+        dfuInitiator!.delegate           = self
+        dfuInitiator!.progressDelegate   = self
+        dfuInitiator!.logger             = self
+        dfuController                   = dfuInitiator!.start()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -78,6 +79,7 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
         self.stopProcessButton.enabled = false
 
     }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.startDFUProcess()
@@ -102,9 +104,9 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         print("Disconnected from peripheral: \(peripheral.name)")
     }
-    
+
     //MARK: - DFUServiceDelegate
-    func didStateChangedTo(state:State) {
+    func didStateChangedTo(state:DFUState) {
 
         var stateString : String
 
@@ -149,19 +151,19 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
             break
         }
         self.dfuStatusLabel.text = stateString
-        logWith(LogLevel.Info, message: "Chaged state to: \(stateString)")
+        logWith(LogLevel.Info, message: "Changed state to: \(stateString)")
     }
     
-    func didErrorOccur(error:DFUError, withMessage message:String) {
+    func didErrorOccur(error: DFUError, withMessage message: String) {
         self.dfuStatusLabel.text = "Error: \(message)"
         self.dfuActivityIndicator.stopAnimating()
         self.dfuUploadProgressView.setProgress(0, animated: true)
         logWith(LogLevel.Error, message: message)
     }
+
     
     //MARK: - DFUProgressDelegate
     func onUploadProgress(part: Int, totalParts: Int, progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
-        print("Porgess: \(progress)% (\(part)/\(totalParts))")
         self.dfuUploadProgressView.setProgress(Float(progress)/100.0, animated: true)
         self.dfuUploadStatus.text = "Speed : \(String(format:"%.1f", avgSpeedBytesPerSecond/1024)) Kbps, pt. \(part)/\(totalParts)"
     }
