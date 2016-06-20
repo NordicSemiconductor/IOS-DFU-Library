@@ -33,7 +33,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     /// The peripheral delegate.
     internal var delegate:SecureDFUPeripheralDelegate?
     /// Selector used to find the advertising peripheral in DFU Bootloader mode.
-    private var peripheralSelector:SecureDFUPeripheralSelector?
+    private var peripheralSelector:DFUPeripheralSelector?
     
     // MARK: - DFU properties
     
@@ -280,7 +280,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
      
      - parameter selector: a selector used to select a device in DFU Bootloader mode
      */
-    func switchToNewPeripheralAndConnect(selector:SecureDFUPeripheralSelector) {
+    func switchToNewPeripheralAndConnect(selector:DFUPeripheralSelector) {
         // Release the previous peripheral
         self.peripheral!.delegate = nil
         self.peripheral = nil

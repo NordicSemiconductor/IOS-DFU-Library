@@ -1,36 +1,19 @@
-/*
-* Copyright (c) 2016, Nordic Semiconductor
-* All rights reserved.
-*
-* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the
-* documentation and/or other materials provided with the distribution.
-*
-* 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this
-* software without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-* HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-* ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
-* USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+//
+//  DFUServiceInitiator.swift
+//  Pods
+//
+//  Created by Mostafa Berg on 17/06/16.
+//
+//
 
 import CoreBluetooth
 
-/**
- The DFUServiceInitiator object should be used to send a firmware update to a remote BLE target compatible
- with the Nordic Semiconductor's DFU (Device Firmware Update).
- A `delegate` and `logger` may be specified to be informed about the status.
- */
-@objc public class LegacyDFUServiceInitiator : NSObject {
-    internal let centralManager:CBCentralManager
-    internal let target:CBPeripheral
-    internal var file:DFUFirmware?
+
+public class DFUServiceInitiator : NSObject {
+    
+    internal let centralManager : CBCentralManager
+    internal let target         : CBPeripheral
+    internal var file           : DFUFirmware?
     
     /**
      The service delegate is an object that will be notified about state changes of the DFU Service.
@@ -58,7 +41,6 @@ import CoreBluetooth
      Ignore this property if not updating Softdevice and Application from one ZIP file.
      */
     public var peripheralSelector:DFUPeripheralSelector
-    
     /**
      The number of packets of firmware data to be received by the DFU target before sending
      a new Packet Receipt Notification (control point notification with Op Code = 7).
@@ -73,7 +55,7 @@ import CoreBluetooth
      mode in case there is no DFU Version characteristic. Use it if the DFU operation can be handled by your
      device running in the application mode. If the DFU Version characteristic exists, the
      information whether to begin DFU operation, or jump to bootloader, is taken from the
-     characteristic's value. The value returned equal to 0x0100 (read as: minor=1, major=0, or version 0.1) 
+     characteristic's value. The value returned equal to 0x0100 (read as: minor=1, major=0, or version 0.1)
      means that the device is in the application mode and buttonless jump to DFU Bootloader is supported.
      
      Currently, the following values of the DFU Version characteristic are supported:
@@ -130,12 +112,19 @@ import CoreBluetooth
      - seeAlso: peripheralSelector property - a selector used when scanning for a device in DFU Bootloader mode
      in case you want to update a Softdevice and Application from a single ZIP Distribution Packet.
      */
+    init(withCentralManager aCentralManager : CBCentralManager, andTarget aTarget : CBPeripheral) {
+        centralManager     = aCentralManager
+        target             = aTarget
+        peripheralSelector = DFUPeripheralSelector(secureDFU: false)
+        super.init()
+    }
+    
     public init(centralManager:CBCentralManager, target:CBPeripheral) {
         self.centralManager = centralManager
         // Just to be sure that manager is not scanning
         self.centralManager.stopScan()
         self.target = target
-        self.peripheralSelector = DFUPeripheralSelector(secureDFU: false)
+        self.peripheralSelector = DFUPeripheralSelector(secureDFU: true)
     }
     
     /**
@@ -146,7 +135,7 @@ import CoreBluetooth
      
      - returns: the initiator instance to allow chain use
      */
-    public func withFirmwareFile(file:DFUFirmware) -> LegacyDFUServiceInitiator {
+    public func withFirmwareFile(file:DFUFirmware) -> DFUServiceInitiator {
         self.file = file
         return self
     }
@@ -156,7 +145,7 @@ import CoreBluetooth
      When started, the service will automatically connect to the target, switch to DFU Bootloader mode
      (if necessary), and send all the content of the specified firmware file in one or two connections.
      Two connections will be used if a ZIP file contains a Soft Device and/or Bootloader and an Application.
-     First the Soft Device and/or Bootloader will be transferred, then the service will disconnect, reconnect to 
+     First the Soft Device and/or Bootloader will be transferred, then the service will disconnect, reconnect to
      the (new) Bootloader again and send the Application (unless the target supports receiving all files in a single
      connection).
      
@@ -164,16 +153,17 @@ import CoreBluetooth
      
      - returns: n object that can be used to controll the DFU operation.
      */
-    public func start() -> LegacyDFUServiceController? {
+    public func start() -> DFUServiceController? {
         // The firmware file must be specified before calling `start()`
-        if file == nil {
-            delegate?.didErrorOccur(DFUError.FileNotSpecified, withMessage: "Firmware not specified")
+        if file == nil{
+            delegate?.didErrorOccur(DFUError.FileNotSpecified, withMessage: "Firmare not specified")
             return nil
         }
-
-        let executor = LegacyDFUExecutor(self)
-        let controller = LegacyDFUServiceController(executor)
+        
+        let executor = DFUExecutor(self)
+        let controller = DFUServiceController(executor)
         executor.start()
         return controller
     }
+
 }

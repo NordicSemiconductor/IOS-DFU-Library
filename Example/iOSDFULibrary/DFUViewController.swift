@@ -19,7 +19,6 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     private var centralManager   : CBCentralManager?
     private var selectedFirmware : DFUFirmware?
     private var selectedFileURL  : NSURL?
-    private var dfuInitiator     : SecureDFUServiceInitiator?
 
     //MARK: - View Outlets
     @IBOutlet weak var dfuActivityIndicator     : UIActivityIndicatorView!
@@ -60,12 +59,20 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
 
         selectedFileURL  = self.getBundledFirmwareURLHelper()
         selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
-        dfuInitiator     = SecureDFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
-        dfuInitiator!.withFirmwareFile(selectedFirmware!)
-        dfuInitiator!.delegate           = self
-        dfuInitiator!.progressDelegate   = self
-        dfuInitiator!.logger             = self
-        dfuController                   = dfuInitiator!.start()
+        
+//        let dfuInitiator = DFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
+//        dfuInitiator.withFirmwareFile(selectedFirmware!)
+//        dfuInitiator.delegate = self
+//        dfuInitiator.progressDelegate = self
+//        dfuInitiator.logger = self
+//        dfuController = dfuInitiator.start()
+        
+        let dfuInitiator = SecureDFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
+        dfuInitiator.withFirmwareFile(selectedFirmware!)
+        dfuInitiator.delegate = self
+        dfuInitiator.progressDelegate = self
+        dfuInitiator.logger = self
+        dfuController = dfuInitiator.start()
     }
 
     override func viewWillAppear(animated: Bool) {

@@ -41,7 +41,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
 
     /// The firmware to be sent over-the-air
     private var firmware        : DFUFirmware
-    private var firmwareRanges   : [NSRange]?
+    private var firmwareRanges  : [NSRange]?
     private var currentRangeIdx : Int?
     private var error           : (error:DFUError, message:String)?
 
