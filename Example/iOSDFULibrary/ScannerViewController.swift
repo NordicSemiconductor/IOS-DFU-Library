@@ -12,12 +12,13 @@ import CoreBluetooth
 class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - Class properties
-    var centralManager          : CBCentralManager
-    var legacyDfuServiceUUID    : CBUUID
-    var secureDfuServiceUUID    : CBUUID
-    var selectedPeripheral      : CBPeripheral?
-    var discoveredPeripherals   : [CBPeripheral]?
-    var securePeripheralMarkers : [Bool]?
+    var centralManager              : CBCentralManager
+    var legacyDfuServiceUUID        : CBUUID
+    var secureDfuServiceUUID        : CBUUID
+    var selectedPeripheral          : CBPeripheral?
+    var selectedPeripheralIsSecure  : Bool?
+    var discoveredPeripherals       : [CBPeripheral]?
+    var securePeripheralMarkers     : [Bool]?
 
     //MARK: - View Outlets
     @IBOutlet weak var connectionButton: UIButton!
@@ -110,6 +111,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.selectedPeripheral = discoveredPeripherals![indexPath.row]
+        self.selectedPeripheralIsSecure = securePeripheralMarkers![indexPath.row]
 
         self.connectionButton.enabled = true
         self.peripheralNameLabel.text = self.selectedPeripheral?.name
@@ -125,6 +127,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         if segue.identifier == "showDFUView" {
             //Sent the peripheral in the dfu view
             let dfuViewController = segue.destinationViewController as! DFUViewController
+            dfuViewController.secureDFUMode(self.selectedPeripheralIsSecure!)
             dfuViewController.setTargetPeripheral(aPeripheral: self.selectedPeripheral!)
             dfuViewController.setCentralManager(centralManager: centralManager)
         }

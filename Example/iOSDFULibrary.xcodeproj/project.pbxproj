@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0EC3985F1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip in Resources */ = {isa = PBXBuildFile; fileRef = 0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */; };
+		3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */; };
 		30B24E0C1D0829A300569113 /* blinky_s132.zip in Resources */ = {isa = PBXBuildFile; fileRef = 30B24E0B1D0829A300569113 /* blinky_s132.zip */; };
 		30B4C8901D00590D00C1C3FF /* DFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */; };
 		30F197BE1D103AC7005B2098 /* originsd_bl2_gls_132.zip in Resources */ = {isa = PBXBuildFile; fileRef = 30F197BD1D103AC7005B2098 /* originsd_bl2_gls_132.zip */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip; sourceTree = "<group>"; };
 		253475831CD3B6CD97F7DFB9 /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = hrm_legacy_dfu_with_sd_s132_2_0_0.zip; sourceTree = "<group>"; };
 		30B24E0B1D0829A300569113 /* blinky_s132.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = blinky_s132.zip; sourceTree = "<group>"; };
 		30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
 		30F197BD1D103AC7005B2098 /* originsd_bl2_gls_132.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = originsd_bl2_gls_132.zip; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		0EC3985D1CFF057400496006 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */,
 				30F197BD1D103AC7005B2098 /* originsd_bl2_gls_132.zip */,
 				30B24E0B1D0829A300569113 /* blinky_s132.zip */,
 				0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */,
@@ -267,6 +270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				30B24E0C1D0829A300569113 /* blinky_s132.zip in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,

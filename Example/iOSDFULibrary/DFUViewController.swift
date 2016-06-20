@@ -15,11 +15,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
 
     //MARK: - Class Properties
     private var dfuPeripheral    : CBPeripheral?
-    private var dfuController    : SecureDFUServiceController?
+    private var dfuController    : DFUServiceController?
     private var centralManager   : CBCentralManager?
     private var selectedFirmware : DFUFirmware?
     private var selectedFileURL  : NSURL?
-
+    private var secureDFU        : Bool?
     //MARK: - View Outlets
     @IBOutlet weak var dfuActivityIndicator     : UIActivityIndicatorView!
     @IBOutlet weak var dfuStatusLabel           : UILabel!
@@ -38,8 +38,16 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     }
     
     //MARK: - Class Implementation
+    func secureDFUMode(secureDFU : Bool) {
+        self.secureDFU = secureDFU
+    }
+    
     func getBundledFirmwareURLHelper() -> NSURL {
-        return NSBundle.mainBundle().URLForResource("originsd_bl2_gls_132", withExtension: "zip")!
+        if self.secureDFU! {
+            return NSBundle.mainBundle().URLForResource("blinky_s132", withExtension: "zip")!
+        }else{
+            return NSBundle.mainBundle().URLForResource("hrm_legacy_dfu_with_sd_s132_2_0_0", withExtension: "zip")!
+        }
     }
     
     func setCentralManager(centralManager aCentralManager : CBCentralManager){
@@ -59,15 +67,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
 
         selectedFileURL  = self.getBundledFirmwareURLHelper()
         selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
-        
-//        let dfuInitiator = DFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
-//        dfuInitiator.withFirmwareFile(selectedFirmware!)
-//        dfuInitiator.delegate = self
-//        dfuInitiator.progressDelegate = self
-//        dfuInitiator.logger = self
-//        dfuController = dfuInitiator.start()
-        
-        let dfuInitiator = SecureDFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
+
+        let dfuInitiator = DFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
         dfuInitiator.withFirmwareFile(selectedFirmware!)
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self

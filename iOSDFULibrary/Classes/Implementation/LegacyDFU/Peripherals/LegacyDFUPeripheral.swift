@@ -284,6 +284,7 @@ import CoreBluetooth
         
         self.peripheralSelector = selector
         logger.v("Scanning for the DFU Bootloader...")
+        centralManager.delegate = self
         centralManager.scanForPeripheralsWithServices(selector.filterBy(), options: nil)
     }
     

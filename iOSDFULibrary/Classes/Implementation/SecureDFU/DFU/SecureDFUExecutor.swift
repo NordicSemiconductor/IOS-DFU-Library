@@ -121,7 +121,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             ranges.append(chunkRange!)
             partIdx++
         }
-        
+
         return ranges
     }
 

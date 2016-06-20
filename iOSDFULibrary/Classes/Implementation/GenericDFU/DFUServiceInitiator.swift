@@ -40,7 +40,8 @@ public class DFUServiceInitiator : NSObject {
      
      Ignore this property if not updating Softdevice and Application from one ZIP file.
      */
-    public var peripheralSelector:DFUPeripheralSelector
+    public var peripheralSelector:DFUPeripheralSelector?
+
     /**
      The number of packets of firmware data to be received by the DFU target before sending
      a new Packet Receipt Notification (control point notification with Op Code = 7).
@@ -112,19 +113,19 @@ public class DFUServiceInitiator : NSObject {
      - seeAlso: peripheralSelector property - a selector used when scanning for a device in DFU Bootloader mode
      in case you want to update a Softdevice and Application from a single ZIP Distribution Packet.
      */
-    init(withCentralManager aCentralManager : CBCentralManager, andTarget aTarget : CBPeripheral) {
-        centralManager     = aCentralManager
-        target             = aTarget
-        peripheralSelector = DFUPeripheralSelector(secureDFU: false)
-        super.init()
-    }
+//    init(withCentralManager aCentralManager : CBCentralManager, andTarget aTarget : CBPeripheral) {
+//        centralManager     = aCentralManager
+//        target             = aTarget
+//        peripheralSelector = DFUPeripheralSelector(secureDFU: false)
+//        super.init()
+//    }
     
     public init(centralManager:CBCentralManager, target:CBPeripheral) {
         self.centralManager = centralManager
         // Just to be sure that manager is not scanning
         self.centralManager.stopScan()
         self.target = target
-        self.peripheralSelector = DFUPeripheralSelector(secureDFU: true)
+        super.init()
     }
     
     /**
@@ -155,15 +156,20 @@ public class DFUServiceInitiator : NSObject {
      */
     public func start() -> DFUServiceController? {
         // The firmware file must be specified before calling `start()`
-        if file == nil{
+        if file == nil {
             delegate?.didErrorOccur(DFUError.FileNotSpecified, withMessage: "Firmare not specified")
             return nil
         }
-        
+
         let executor = DFUExecutor(self)
         let controller = DFUServiceController(executor)
         executor.start()
+        
         return controller
+    }
+    
+    public func onPeripheralDFUDiscovery(isSecureDFU : Bool) {
+        self.peripheralSelector = DFUPeripheralSelector(secureDFU: isSecureDFU)    
     }
 
 }

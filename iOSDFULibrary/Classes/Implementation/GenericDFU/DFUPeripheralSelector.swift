@@ -24,9 +24,9 @@ public class DFUPeripheralSelector : NSObject, DFUPeripheralSelectorDelegate {
     
     public func filterBy() -> [CBUUID]? {
         if self.isSecureDFU {
-            return [LegacyDFUService.UUID]
-        } else {
             return [SecureDFUService.UUID]
+        } else {
+            return [LegacyDFUService.UUID]
         }
     }
 }

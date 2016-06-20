@@ -9,7 +9,7 @@
 import CoreBluetooth
 
 public class DFUServiceController : NSObject {
-    
+
     private let executor:DFUExecutor
     
     private var servicePaused = false
@@ -78,5 +78,4 @@ public class DFUServiceController : NSObject {
     public var aborted:Bool {
         return serviceAborted
     }
-    
 }
