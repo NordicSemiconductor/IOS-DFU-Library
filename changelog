@@ -1,5 +1,6 @@
 ### Changelog
 
+ - **0.1.9**: Initial working version of Secure DFU, minor bugs might be still present
  - **0.1.8**: Removed unnecessary requirement to include a .dat file while uploading a hex, which caused some issues
  - **0.1.7**: Fixed all missing links
  - **0.1.6**: Fixed broken link in documentation  
