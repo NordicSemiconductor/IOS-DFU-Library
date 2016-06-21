@@ -9,7 +9,7 @@
         <!--Scanner-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ScannerViewController" customModule="iOSDFULibrary_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ScannerViewController" customModule="DFU_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -127,7 +127,7 @@
         <!--DFU View-->
         <scene sceneID="hdJ-vx-zk3">
             <objects>
-                <viewController title="DFU View" id="lLM-cg-IuR" customClass="DFUViewController" customModule="iOSDFULibrary_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="DFU View" id="lLM-cg-IuR" customClass="DFUViewController" customModule="DFU_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KwI-5J-EPO"/>
                         <viewControllerLayoutGuide type="bottom" id="uNE-6F-G45"/>
