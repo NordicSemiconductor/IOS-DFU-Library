@@ -33,7 +33,6 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         if dfuController != nil {
             dfuController?.pause()
             UIAlertView(title: "Warning", message: "Are you sure you want to stop the process?", delegate: self, cancelButtonTitle: "No", otherButtonTitles: "Yes").show()
-        }else{
         }
     }
     
