@@ -144,4 +144,5 @@
      - parameter message: error description
      */
     func didErrorOccur(error:DFUError, withMessage message:String)
+
 }

@@ -49,7 +49,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     private var aborted = false
     /// Maxmimum length reported by peripheral
     private var maxWtireLength : UInt32 = 0
-    
+
     // MARK: - Initialization
     
     init(_ initiator:SecureDFUServiceInitiator) {
@@ -169,6 +169,24 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     }
 
     /**
+     Reads Extended error
+    */
+    func readError() {
+        self.dfuService?.readError(onSuccess: { (responseData) in
+                print(responseData)
+            }, onError: { (error, message) in
+                print("Error while reading error: \(message)")
+        })
+    }
+    
+    /**
+     ExtendedError completion
+    */
+    func readErrorCompleted(message : String) {
+        print("TBD: Implement")
+    }
+
+    /**
      Send firmware data
     */
     func sendFirmwareChunk(firmware: DFUFirmware, andChunkRange aRange : NSRange, andPacketCount aCount : UInt16, andProgressDelegate aProgressDelegate : DFUProgressDelegate) {
@@ -246,11 +264,15 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     */
     func sendExecuteCommand() {
         dfuService?.executeCommand(onSuccess: { (responseData) in
-                print("execute completed")
                 self.delegate?.executeCommandCompleted()
             }, onError: { (error, message) in
-                self.logger.e("Error occured: \(error), \(message)")
-                self.delegate?.onErrorOccured(withError: error, andMessage: message)
+                if error == SecureDFUError.ExtendedError {
+                    self.logger.e("Extended error occured")
+                    self.readError()
+                }else{
+                    self.logger.e("Error occured: \(error), \(message)")
+                    self.delegate?.onErrorOccured(withError: error, andMessage: message)
+                }
         })
     }
     /**

@@ -43,7 +43,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     
     func getBundledFirmwareURLHelper() -> NSURL {
         if self.secureDFU! {
-            return NSBundle.mainBundle().URLForResource("sdfu_debug_bl_v2_s132", withExtension: "zip")!
+            return NSBundle.mainBundle().URLForResource("app_new", withExtension: "zip")!
         }else{
             return NSBundle.mainBundle().URLForResource("hrm_legacy_dfu_with_sd_s132_2_0_0", withExtension: "zip")!
         }
@@ -160,7 +160,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         self.dfuStatusLabel.text = stateString
         logWith(LogLevel.Info, message: "Changed state to: \(stateString)")
     }
-    
+
     func didErrorOccur(error: DFUError, withMessage message: String) {
         self.dfuStatusLabel.text = "Error: \(message)"
         self.dfuActivityIndicator.stopAnimating()

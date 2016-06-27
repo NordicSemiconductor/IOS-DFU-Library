@@ -139,6 +139,16 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
     }
 
     /**
+     Reads extended error
+     */
+    func readError(onSuccess successCallback : SDFUCallback, onError reportCallback : SDFUErrorCallback) {
+        dfuControlPointCharacteristic?.send(SecureDFURequest.ReadError(), onSuccess: { (responseData) in
+                successCallback(responseData: responseData)
+            }, onError: { (anError, aMessage) in
+                reportCallback(error: anError, withMessage: aMessage)
+        })
+    }
+    /**
      Create object data
      */
     func createObjectData(withLength aLength : UInt32, onSuccess successCallback : SDFUCallback, onError reportCallback:SDFUErrorCallback) {

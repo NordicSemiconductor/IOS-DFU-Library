@@ -10,6 +10,7 @@
 		3016F3B91D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3016F3B81D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip */; };
 		3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */; };
 		30B4C8901D00590D00C1C3FF /* DFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */; };
+		30D0F25C1D2140CA0084056C /* app_new.zip in Resources */ = {isa = PBXBuildFile; fileRef = 30D0F25B1D2140CA0084056C /* app_new.zip */; };
 		47BB46278FACC65A12C2F6D8 /* Pods_iOSDFULibrary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716A8CBE638EA28D9E0A8836 /* Pods_iOSDFULibrary_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ScannerViewController.swift */; };
@@ -35,6 +36,7 @@
 		3016F3B81D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = sdfu_debug_bl_v2_s132.zip; sourceTree = "<group>"; };
 		3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = hrm_legacy_dfu_with_sd_s132_2_0_0.zip; sourceTree = "<group>"; };
 		30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
+		30D0F25B1D2140CA0084056C /* app_new.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = app_new.zip; sourceTree = "<group>"; };
 		3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iOSDFULibrary.podspec; path = ../iOSDFULibrary.podspec; sourceTree = "<group>"; };
 		3D0CB27D92FDC7A734D97789 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD6C71870F01CBE222B5F31 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		0EC3985D1CFF057400496006 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				30D0F25B1D2140CA0084056C /* app_new.zip */,
 				3016F3B81D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip */,
 				3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */,
 			);
@@ -266,6 +269,7 @@
 			files = (
 				3016F3B91D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip in Resources */,
 				3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */,
+				30D0F25C1D2140CA0084056C /* app_new.zip in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
@@ -460,7 +464,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -498,7 +502,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
