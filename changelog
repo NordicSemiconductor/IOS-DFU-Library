@@ -1,5 +1,6 @@
 ### Changelog
 
+ - **0.1.13**: BugFix: @objc attributes where missing from LogLevel Enum and LoggerDelegate protocol, making thenm unavailable to Obj-C code
  - **0.1.12**: BugFix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior
  - **0.1.11**: BugFix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition
  - **0.1.10**: Added Signature mismatch handling and better logging 
