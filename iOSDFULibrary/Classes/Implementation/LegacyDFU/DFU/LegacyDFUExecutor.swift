@@ -21,6 +21,10 @@
 */
 
 internal class LegacyDFUExecutor : DFUPeripheralDelegate {
+    
+    /// Retry counter for peripheral invalid state issue
+    private var invalidStateRetryCount = 3
+
     /// The DFU Service Initiator instance that was used to start the service.
     private let initiator:LegacyDFUServiceInitiator
     
@@ -113,6 +117,15 @@ internal class LegacyDFUExecutor : DFUPeripheralDelegate {
         }
     }
     
+    func onDeviceReportedInvalidState() {
+        if invalidStateRetryCount > 0 {
+            self.initiator.logger?.logWith(.Warning, message: "Last upload interrupted. Restarting device, attempts left : \(invalidStateRetryCount)")
+            invalidStateRetryCount -= 1
+            self.peripheral.connect()
+        }else{
+            self.didErrorOccur(.RemoteInvalidState, withMessage: "Peripheral is in an invalid state, please try to reset and start over again.")
+        }
+    }
     func onStartDfuSent() {
         // Check if the init packet is present for this part
         if let initPacket = firmware.initPacket {

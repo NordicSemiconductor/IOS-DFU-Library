@@ -120,7 +120,7 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
             dfuControlPointCharacteristic?.enableNotifications(onSuccess: success, onError: report)
         } else {
             //TODO: Not implemented
-//            sendReset(onError: report)
+//            self.sendReset(onError: report)
         }
     }
     
