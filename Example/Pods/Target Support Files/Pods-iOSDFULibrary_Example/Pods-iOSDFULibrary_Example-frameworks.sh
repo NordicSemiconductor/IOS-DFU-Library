@@ -84,12 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Zip/Zip.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/iOSDFULibrary/iOSDFULibrary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-iOS8.0/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Zip-iOS8.0/Zip.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/iOSDFULibrary-iOS8.0/iOSDFULibrary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/EVReflection/EVReflection.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Zip/Zip.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/iOSDFULibrary/iOSDFULibrary.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/EVReflection-iOS8.0/EVReflection.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Zip-iOS8.0/Zip.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/iOSDFULibrary-iOS8.0/iOSDFULibrary.framework"
 fi
