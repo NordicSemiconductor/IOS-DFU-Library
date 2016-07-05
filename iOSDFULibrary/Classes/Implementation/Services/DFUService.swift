@@ -32,7 +32,7 @@ internal typealias ErrorCallback = (error:DFUError, withMessage:String) -> Void
         return service.UUID.isEqual(UUID)
     }
     /// The target DFU Peripheral
-    public var targetPeripheral : DFUPeripheral?
+    var targetPeripheral : DFUPeripheral?
 
     /// The logger helper.
     private var logger:LoggerHelper
