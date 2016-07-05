@@ -64,7 +64,7 @@ internal class DFUStreamHex : DFUStream {
         return binaries
     }
     
-    var initPacket:NSData? {
+    var currentInitPacket:NSData? {
         return initPacketBinaries
     }
     

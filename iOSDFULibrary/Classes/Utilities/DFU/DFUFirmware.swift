@@ -169,8 +169,8 @@ The type of the BIN or HEX file.
         return stream!.data
     }
     
-    internal var initPacket:NSData? {
-        return stream!.initPacket
+    internal var currentInitPacket:NSData? {
+        return stream!.currentInitPacket
     }
     
     internal func hasNextPart() -> Bool {

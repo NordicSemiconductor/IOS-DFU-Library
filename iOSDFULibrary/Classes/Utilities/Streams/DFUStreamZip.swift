@@ -104,7 +104,7 @@ internal class DFUStreamZip : DFUStream {
     private var appInitPacket:NSData?
     
     private var currentBinaries:NSData?
-    private var currentInitPacket:NSData?
+    private var localCurrentInitPacket:NSData?
     
     private var softdeviceSize:UInt32 = 0
     private var bootloaderSize:UInt32 = 0
@@ -247,10 +247,10 @@ internal class DFUStreamZip : DFUStream {
                 }
                 else if systemBinaries != nil {
                     currentBinaries = systemBinaries
-                    currentInitPacket = systemInitPacket
+                    localCurrentInitPacket = systemInitPacket
                 } else {
                     currentBinaries = appBinaries
-                    currentInitPacket = appInitPacket
+                    localCurrentInitPacket = appInitPacket
                 }
                 
                 // If the ZIP file contains an app and a softdevice or bootloader,
@@ -310,8 +310,8 @@ internal class DFUStreamZip : DFUStream {
         return currentBinaries!
     }
     
-    var initPacket:NSData? {
-        return currentInitPacket
+    var currentInitPacket:NSData? {
+        return localCurrentInitPacket
     }
     
     func hasNextPart() -> Bool {
@@ -323,7 +323,7 @@ internal class DFUStreamZip : DFUStream {
             currentPart = 2
             currentPartType = FIRMWARE_TYPE_APPLICATION
             currentBinaries = appBinaries
-            currentInitPacket = appInitPacket
+            localCurrentInitPacket = appInitPacket
         }
     }
 }
