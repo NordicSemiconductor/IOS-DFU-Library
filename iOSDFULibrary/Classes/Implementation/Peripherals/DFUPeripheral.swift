@@ -47,7 +47,9 @@ import CoreBluetooth
     private var paused = false
     /// A flag set when upload has been aborted.
     private var aborted = false
-    
+    /// A flag set when device is resetting
+    private var resetting = false
+
     // MARK: - Initialization
     
     init(_ initiator:DFUServiceInitiator) {
@@ -257,6 +259,13 @@ import CoreBluetooth
     }
     
     /**
+     Sends a reset peripheral state
+     */
+    func resetInvalidState() {
+        resetting = true
+    }
+    
+    /**
      Sends the Activate and Reset command to the DFU Control Point characteristic.
      */
     func activateAndReset() {
@@ -333,13 +342,17 @@ import CoreBluetooth
     
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         // When device got disconnected due to a buttonless jump or a firmware activation, it is handled differently
-        if jumpingToBootloader || activating || aborted {
+        if jumpingToBootloader || activating || aborted || resetting {
             // This time we expect an error with code = 7: "The specified device has disconnected from us." (graceful disconnect)
             // or code = 6: "The connection has timed out unexpectedly." (in case it disconnected before sending the ACK).
             if error != nil {
                 logger.d("[Callback] Central Manager did disconnect peripheral")
                 if error!.code == 7 || error!.code == 6 {
                     logger.i("Disconnected by the remote device")
+                    if resetting {
+                        //We need to reconnect
+                        self.delegate?.onDeviceReportedInvalidState()
+                    }
                 } else {
                     // This should never happen...
                     logger.e(error!)
@@ -420,6 +433,7 @@ import CoreBluetooth
                     
                     // DFU Service has been found. Discover characteristics...
                     dfuService = DFUService(service, logger)
+                    dfuService?.targetPeripheral = self
                     dfuService!.discoverCharacteristics(
                         onSuccess: { () -> () in self.delegate?.onDeviceReady() },
                         onError: { (error, message) -> () in self.delegate?.didErrorOccur(error, withMessage: message) }

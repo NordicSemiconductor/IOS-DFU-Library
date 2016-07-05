@@ -24,6 +24,8 @@ internal class DFUExecutor : DFUPeripheralDelegate {
     /// The DFU Service Initiator instance that was used to start the service.
     private let initiator:DFUServiceInitiator
     
+    /// Retry counter for peripheral invalid state issue
+    private var invalidStateRetryCount = 3
     /// The service delegate will be informed about status changes and errors.
     private var delegate:DFUServiceDelegate? {
         // The delegate may change during DFU operation (setting a new one in the initiator). Let's allways use the current one.
@@ -110,6 +112,15 @@ internal class DFUExecutor : DFUPeripheralDelegate {
         } else {
             // Operation can not be continued
             didErrorOccur(DFUError.RemoteNotSupported, withMessage: "Updating Softdevice or Bootloader is not supported")
+        }
+    }
+    func onDeviceReportedInvalidState() {
+        if invalidStateRetryCount > 0 {
+            self.initiator.logger?.logWith(.Warning, message: "Last upload interrupted. Restarting device, attempts left : \(invalidStateRetryCount)")
+                invalidStateRetryCount -= 1
+                self.peripheral.connect()
+        }else{
+            self.didErrorOccur(.RemoteInvalidState, withMessage: "Peripheral is in an invalid state, please try to reset and start over again.")
         }
     }
     
