@@ -2,7 +2,7 @@
 - **0.1.9**:
     - Feature: Added a reset feature to allow flashing after an interruption due to connection issues or user aborting the process, this used to throw an invalid state error, handler will now retry 3 times before failing.
     - Feature: Added a fully working example app for users why `pod try` the library, this will attempt to flash the bundled firmware file `hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip`
-    - Feature : iOS Target lowered to 8.0
+    - Feature : iOS Target lowered to 8.0, Added OSX 10.10 Target
 - **0.1.8**:
     - Removed unnecessary requirement to include a .dat file while uploading a hex, which caused some issues
 - **0.1.7**:
