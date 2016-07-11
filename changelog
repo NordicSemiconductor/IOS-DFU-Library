@@ -1,5 +1,6 @@
 ### Changelog
 
+ - **0.1.15**: Added more verbose logging for debug purposes
  - **0.1.14**: Feature: On DFU interruption, the next attempt always showed an peripheral in invalid state error, this is now bypassed by sending a reset command and reconnecting automaticaly, the handler will attempt to do that 3 times before throwing the appropriate error
  - **0.1.13**: BugFix: @objc attributes where missing from LogLevel Enum and LoggerDelegate protocol, making thenm unavailable to Obj-C code
  - **0.1.12**: BugFix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior
