@@ -70,6 +70,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         })
         peripheral.delegate = self
         peripheral.connect()
+        self.initiator.logger?.logWith(.Verbose, message: "Connecting to Secure DFU peripheral \(peripheral)")
     }
 
     func pause() -> Bool {
