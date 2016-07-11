@@ -322,7 +322,7 @@ import CoreBluetooth
         // Discover all device services. In case there is no DFU Version characteristic the service
         // will determine whether to jump to the DFU Bootloader mode, or not, based on number of services.
         logger.v("Discovering services...")
-        logger.d("periphera.discoverServices(nil)")
+        logger.d("peripheral.discoverServices(nil)")
         peripheral.delegate = self
         peripheral.discoverServices(nil)
     }
