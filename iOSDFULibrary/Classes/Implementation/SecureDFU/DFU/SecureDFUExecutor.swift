@@ -373,21 +373,33 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     }
 
     func didDeviceFailToConnect() {
-        self.delegate?.didStateChangedTo(.Aborted)
         self.initiator.logger?.logWith(.Error, message: "Failed to connect")
+        self.delegate?.didErrorOccur(.FailedToConnect, withMessage: "Failed to connect")
+        self.delegate?.didStateChangedTo(.Aborted)
     }
     
     func peripheralDisconnected() {
         self.initiator.logger?.logWith(.Application, message: "Disconnected")
+        self.delegate?.didErrorOccur(.DeviceDisconnected, withMessage: "Failed to connect")
+        self.delegate?.didStateChangedTo(.Aborted)
     }
     
     func peripheralDisconnected(withError anError : NSError) {
         self.initiator.logger?.logWith(.Error, message: anError.description)
+        self.delegate?.didErrorOccur(.DeviceDisconnected, withMessage: anError.description)
         self.delegate?.didStateChangedTo(.Aborted)
     }
     
     func onErrorOccured(withError anError:SecureDFUError, andMessage aMessage:String) {
         self.initiator.logger?.logWith(.Error, message: aMessage)
-        self.delegate?.didStateChangedTo(.Aborted)
+        self.delegate?.didErrorOccur(.DeviceDisconnected, withMessage: aMessage)
+
+        //Temp fix for sig mismatch
+        //TODO: This is a quick solution until we have a unified (S)DFUError enum
+        if anError == .SignatureMismatch {
+            self.delegate?.didStateChangedTo(.SignatureMismatch)
+        }else{
+            self.delegate?.didStateChangedTo(.Aborted)
+        }
     }
 }

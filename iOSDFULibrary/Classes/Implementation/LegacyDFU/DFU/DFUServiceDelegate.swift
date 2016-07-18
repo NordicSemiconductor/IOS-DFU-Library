@@ -76,6 +76,7 @@
     case Disconnecting
     case Completed
     case Aborted
+    case SignatureMismatch
 }
 
 //This will take over as soon as all developers have migrated from State to DFUState
@@ -89,6 +90,7 @@
     case Disconnecting
     case Completed
     case Aborted
+    case SignatureMismatch
 }
 
 /**

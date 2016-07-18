@@ -43,7 +43,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     
     func getBundledFirmwareURLHelper() -> NSURL {
         if self.secureDFU! {
-            return NSBundle.mainBundle().URLForResource("app_new", withExtension: "zip")!
+            return NSBundle.mainBundle().URLForResource("sdfu_debug_bl_v2_s132", withExtension: "zip")!
         }else{
             return NSBundle.mainBundle().URLForResource("hrm_legacy_dfu_with_sd_s132_2_0_0", withExtension: "zip")!
         }
@@ -124,6 +124,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
             self.dfuUploadProgressView.setProgress(0, animated: true)
             self.stopProcessButton.enabled = false
             break
+        case .SignatureMismatch:
+            stateString = "Signature Mismatch"
+            self.dfuActivityIndicator.stopAnimating()
+            self.dfuUploadProgressView.setProgress(0, animated: true)
+            self.stopProcessButton.enabled = false
         case .Completed:
             stateString = "Completed"
             self.dfuActivityIndicator.stopAnimating()
@@ -157,6 +162,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
             self.stopProcessButton.enabled = true
             break
         }
+
         self.dfuStatusLabel.text = stateString
         logWith(LogLevel.Info, message: "Changed state to: \(stateString)")
     }
