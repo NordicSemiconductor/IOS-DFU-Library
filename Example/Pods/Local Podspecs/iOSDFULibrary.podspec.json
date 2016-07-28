@@ -19,9 +19,6 @@
   },
   "source_files": "iOSDFULibrary/Classes/**/*",
   "dependencies": {
-    "EVReflection": [
-      "~> 2.6"
-    ],
     "Zip": [
       "~> 0.3"
     ]
