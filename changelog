@@ -1,4 +1,7 @@
 ### Changelog
+
+- **0.1.10**:
+    - Bugfix: iOS10 bug that caused dfu process not to start
 - **0.1.9**:
     - Feature: Added a reset feature to allow flashing after an interruption due to connection issues or user aborting the process, this used to throw an invalid state error, handler will now retry 3 times before failing.
     - Feature: Added a fully working example app for users why `pod try` the library, this will attempt to flash the bundled firmware file `hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip`
