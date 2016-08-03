@@ -49,7 +49,7 @@ class Manifest: NSObject {
                 self.bootloader = ManifestFirmwareInfo(withDictionary: dictionary!)
             }
 
-        } catch let error as NSError {
+        } catch {
             print("an error occured while parsing manifest.json \(error)")
         }
         
