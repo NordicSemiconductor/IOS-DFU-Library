@@ -50,7 +50,7 @@ class Manifest: NSObject {
             }
 
         } catch let error as NSError {
-            print("An error occured while parsing manifest.json")
+            print("an error occured while parsing manifest.json \(error)")
         }
         
     }
