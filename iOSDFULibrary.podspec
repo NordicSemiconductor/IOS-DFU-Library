@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "iOSDFULibrary"
-  s.version          = "0.1.10"
+  s.version          = "0.1.11"
   s.summary          = "This repository contains a tested library for iOS 8+ devices to perform Device Firmware Update on the nRF5x devices"
 
 # This description is used to generate tags and improve search results.
@@ -32,6 +32,5 @@ s.source           = { :git => "https://github.com/NordicSemiconductor/IOS-Pods-
 
   s.source_files = 'iOSDFULibrary/Classes/**/*'
 
-  s.dependency 'EVReflection', '~> 2.6'
   s.dependency 'Zip', '~> 0.3'
 end

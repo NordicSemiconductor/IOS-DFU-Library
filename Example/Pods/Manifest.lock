@@ -1,7 +1,5 @@
 PODS:
-  - EVReflection (2.33.4)
-  - iOSDFULibrary (0.1.10):
-    - EVReflection (~> 2.6)
+  - iOSDFULibrary (0.1.11):
     - Zip (~> 0.3)
   - Zip (0.4.1)
 
@@ -13,8 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  EVReflection: 6c4ce2afd4bf9682604f585b6dcd23dc71974952
-  iOSDFULibrary: 7ebb7ef7988b3b7c34485a4ce9aa2b1446313654
+  iOSDFULibrary: ad725f33ee0b171ff575c7d4cb96ee53c00824fc
   Zip: 5bbe261a6c2c41b7b4e8e55c4a0a03be68ab4c4c
 
 PODFILE CHECKSUM: d78a4ac578995b0fd1d76ddbea499e57e513baca
