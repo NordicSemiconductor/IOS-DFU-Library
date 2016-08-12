@@ -54,7 +54,7 @@ internal protocol DFUStream {
     /// The firmware data to be sent to the DFU target.
     var data:NSData { get }
     /// The whole init packet matching the current part. Data may be longer than 20 bytes.
-    var initPacket:NSData? { get }
+    var currentInitPacket:NSData? { get }
     
     /**
      Returns true if there is another part to be send.
