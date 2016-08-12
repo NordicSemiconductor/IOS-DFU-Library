@@ -1,5 +1,8 @@
 ### Changelog
 
+- **1.0.8**:
+    - iOSDFULib is now up to date with the standalone library stability wise, this means it's now been bumped up to version 1.0.8
+
 - **0.1.11**:
     - Feature: Removed one of the dependencies (EVReflection) in an appempt to make the library self contained
 
