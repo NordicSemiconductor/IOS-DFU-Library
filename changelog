@@ -1,5 +1,6 @@
 ### Changelog
 
+ - **0.1.18**: Feature: Implemented new response code `operation_not_permitted`
  - **0.1.17**: Bugfix: iOS10 bug fix that caused the dfu process not to initialize
  - **0.1.16**: Bugfix: Added earlier Secure DFU Signature mismatch handling without Extended error feature for backwards compatibility
  - **0.1.15**: Added more verbose logging for debug purposes

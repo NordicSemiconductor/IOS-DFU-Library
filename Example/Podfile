@@ -6,5 +6,4 @@ end
 
 target 'iOSDFULibrary_Tests' do
   pod 'iOSDFULibrary', :path => '../'
-
 end
