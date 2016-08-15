@@ -77,6 +77,7 @@
     case Completed
     case Aborted
     case SignatureMismatch
+    case OperationNotPermitted
 }
 
 //This will take over as soon as all developers have migrated from State to DFUState
@@ -91,6 +92,7 @@
     case Completed
     case Aborted
     case SignatureMismatch
+    case OperationNotPermitted
 }
 
 /**

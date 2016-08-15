@@ -161,6 +161,10 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
             stateString = "Validating"
             self.stopProcessButton.enabled = true
             break
+        case .OperationNotPermitted:
+            stateString = "Operation not permited"
+            self.stopProcessButton.enabled = true
+            break
         }
 
         self.dfuStatusLabel.text = stateString

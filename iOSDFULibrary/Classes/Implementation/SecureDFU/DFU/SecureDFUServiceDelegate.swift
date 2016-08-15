@@ -29,6 +29,7 @@ public enum SecureDFUError : Int {
     case InvalidObject              = 5
     case SignatureMismatch          = 6
     case UnsupportedType            = 7
+    case OperationNotpermitted      = 8
     case OperationFailed            = 10
     case ExtendedError              = 11
     

@@ -129,6 +129,7 @@ internal enum SecureDFUResultCode : UInt8 {
     case InvalidObjcet         = 0x05
     case SignatureMismatch     = 0x06
     case UnsupportedType       = 0x07
+    case OperationNotpermitted = 0x08
     case OperationFailed       = 0x0A
     case ExtendedError         = 0x0B
     
@@ -141,6 +142,7 @@ internal enum SecureDFUResultCode : UInt8 {
             case .InsufficientResources: return "Insufficient resources"
             case .InvalidObjcet:         return "Invalid object"
             case .SignatureMismatch:     return "Signature mismatch"
+            case .OperationNotpermitted: return "Operation not permitted"
             case .UnsupportedType:       return "Unsupported type"
             case .OperationFailed:       return "Operation failed"
             case .ExtendedError:         return "Extended error"
