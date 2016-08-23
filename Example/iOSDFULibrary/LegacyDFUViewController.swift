@@ -161,7 +161,7 @@ class LegacyDFUViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     //MARK: - DFUProgressDelegate
     func onUploadProgress(part: Int, totalParts: Int, progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
-        print("Porgess: \(progress)% (\(part)/\(totalParts))")
+        print("Progess: \(progress)% (\(part)/\(totalParts))")
         self.dfuUploadProgressView.setProgress(Float(progress)/100.0, animated: true)
         self.dfuUploadStatus.text = "Speed : \(String(format:"%.1f", avgSpeedBytesPerSecond/1024)) Kbps, pt. \(part)/\(totalParts)"
     }
