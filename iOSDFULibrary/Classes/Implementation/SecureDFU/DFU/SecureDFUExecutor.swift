@@ -373,9 +373,13 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
                 self.sendingFirmware = false
                 self.firmwareSent    = false
                 self.isResuming      = false
+                //setting the resetting state flag so we don't assume this is an error
+                peripheral.isResetting = true
                 peripheral.disconnect()
                 peripheral.switchToNewPeripheralAndConnect(initiator.peripheralSelector)
             } else {
+                //This is not a reset disconnection
+                peripheral.isResetting = false
                 delegate?.didStateChangedTo(.Completed)
                 peripheral.disconnect()
             }
