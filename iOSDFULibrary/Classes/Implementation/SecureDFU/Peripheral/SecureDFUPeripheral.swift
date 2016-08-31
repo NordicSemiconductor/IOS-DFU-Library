@@ -366,8 +366,8 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
             return
         }
         if aborted == true {
-            // The device has reseted. Notify user
             delegate?.onAborted()
+            aborted = false
             return
         }
         if error != nil {
