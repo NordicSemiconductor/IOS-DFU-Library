@@ -104,6 +104,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
             aborted = true
             paused = false
             dfuService!.abort()
+            disconnect()
         }
     }
     
