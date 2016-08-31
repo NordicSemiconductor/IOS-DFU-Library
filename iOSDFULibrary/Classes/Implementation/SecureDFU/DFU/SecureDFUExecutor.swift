@@ -86,6 +86,14 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     }
 
     // MARK: - Secure DFU Peripheral Delegate methods
+    func onAborted() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.delegate?.didStateChangedTo(DFUState.Aborted)
+        })
+        // Release the cyclic reference
+        peripheral.destroy()
+    }
+
     func onDeviceReady() {
         //All services/characteristics have been discovered, Start by reading object info
         //to get the maximum write size.
@@ -399,6 +407,11 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             self.delegate?.didStateChangedTo(.Starting)
         }else if self.firmwareSent {
             self.initiator.logger?.logWith(.Application, message: "Operation completed, peripheral has been disconnected")
+            self.delegate?.didStateChangedTo(.Completed)
+
+        }else{
+            self.initiator.logger?.logWith(.Application, message: "Operation Aborted by user, peripheral has been disconnected")
+            self.delegate?.didStateChangedTo(.Aborted)
         }
     }
     
