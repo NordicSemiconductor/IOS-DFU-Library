@@ -400,7 +400,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     
     func peripheralDisconnected(withError anError : NSError) {
         self.initiator.logger?.logWith(.Error, message: anError.description)
-        self.delegate?.didErrorOccur(.DeviceDisconnected, withMessage: anError.description)
+        self.delegate?.didErrorOccur(.DeviceDisconnected, withMessage: anError.localizedDescription)
         self.delegate?.didStateChangedTo(.Aborted)
     }
     
@@ -415,5 +415,6 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         }else{
             self.delegate?.didStateChangedTo(.Aborted)
         }
+        peripheral.disconnect()
     }
 }
