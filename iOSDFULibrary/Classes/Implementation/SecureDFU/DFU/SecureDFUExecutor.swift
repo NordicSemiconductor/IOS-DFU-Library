@@ -205,11 +205,21 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
 
         if isResuming == true {
             let match = self.verifyDataCRC(fordata: self.firmware.data, andPacketOffset: self.offset!, andperipheralCRC: self.crc!)
-            
+
             if match == true {
-                var completedPercent = Int(Double(self.offset!) / Double(self.firmware.data.length) * 100)
-                self.initiator.logger?.logWith(.Info, message: String(format:"Data object info CRC matches, resuming from %d%%..",completedPercent))
-                peripheral.setPRNValue(12)
+                var completion = Int(Double(self.offset!) / Double(self.firmware.data.length) * 100)
+                if Double(self.offset!) == Double(self.firmware.data.length) {
+                    sendingFirmware = false
+                    firmwareSent    = true
+                    self.initiator.logger?.logWith(.Info, message: "Data object fully sent, but not executed yet.")
+                    self.peripheral.sendExecuteCommand()
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.delegate?.didStateChangedTo(DFUState.Uploading)
+                    })
+                    self.initiator.logger?.logWith(.Info, message: String(format:"Data object info CRC matches, resuming from %d%%..",completion))
+                    peripheral.setPRNValue(12)
+                }
             } else {
                 self.initiator.logger?.logWith(.Error, message: "Data object does not match")
             }

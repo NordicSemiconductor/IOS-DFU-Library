@@ -142,9 +142,12 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
      Reads extended error
      */
     func readError(onSuccess successCallback : SDFUCallback, onError reportCallback : SDFUErrorCallback) {
+        self.logger.a("Sending read execute error command")
         dfuControlPointCharacteristic?.send(SecureDFURequest.ReadError(), onSuccess: { (responseData) in
+                self.logger.a("Received Extended error data: \(responseData!)")
                 successCallback(responseData: responseData)
             }, onError: { (anError, aMessage) in
+                self.logger.a("Failed to read Extended with error: \(anError), and message: \(aMessage)")
                 reportCallback(error: anError, withMessage: aMessage)
         })
     }

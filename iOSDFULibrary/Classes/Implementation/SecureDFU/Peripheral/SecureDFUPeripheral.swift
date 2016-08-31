@@ -171,19 +171,19 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     /**
      Reads Extended error
     */
-    func readError() {
+    func readExtendedError() {
         self.dfuService?.readError(onSuccess: { (responseData) in
-                print(responseData)
+            self.logger.e("Read extended error data: \(responseData!)")
             }, onError: { (error, message) in
-                print("Error while reading error: \(message)")
+                self.logger.e("Failed to read extended error: \(message)")
         })
     }
     
     /**
      ExtendedError completion
     */
-    func readErrorCompleted(message : String) {
-        print("TBD: Implement")
+    func readExtendedErrorCompleted(message : String) {
+        //TODO: implement
     }
 
     /**
@@ -267,8 +267,8 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
                 self.delegate?.executeCommandCompleted()
             }, onError: { (error, message) in
                 if error == SecureDFUError.ExtendedError {
-                    self.logger.e("Extended error occured")
-                    self.readError()
+                    self.logger.e("Extended error occured, attempting to read.")
+                    self.readExtendedError()
                 }else{
                     self.logger.e("Error occured: \(error), \(message)")
                     self.delegate?.onErrorOccured(withError: error, andMessage: message)
