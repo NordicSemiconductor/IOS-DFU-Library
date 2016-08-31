@@ -380,6 +380,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
             } else {
                 //This is not a reset disconnection
                 peripheral.isResetting = false
+                self.firmwareSent       = true
                 delegate?.didStateChangedTo(.Completed)
                 peripheral.disconnect()
             }
@@ -393,9 +394,12 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     }
     
     func peripheralDisconnected() {
-        self.initiator.logger?.logWith(.Application, message: "Disconnected")
-        self.delegate?.didErrorOccur(.DeviceDisconnected, withMessage: "Failed to connect")
-        self.delegate?.didStateChangedTo(.Aborted)
+        if peripheral.isResetting {
+            self.initiator.logger?.logWith(.Application, message: "Peripheral is now resetting, operation will resume after restart...")
+            self.delegate?.didStateChangedTo(.Starting)
+        }else if self.firmwareSent {
+            self.initiator.logger?.logWith(.Application, message: "Operation completed, peripheral has been disconnected")
+        }
     }
     
     func peripheralDisconnected(withError anError : NSError) {
