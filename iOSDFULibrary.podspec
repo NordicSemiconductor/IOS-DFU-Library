@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "iOSDFULibrary"
-  s.version          = "1.0.10b"
+  s.version          = "1.0.11b"
   s.summary          = "This repository contains a tested library for iOS 8+ devices to perform Device Firmware Update on the nRF5x devices"
 
 # This description is used to generate tags and improve search results.
