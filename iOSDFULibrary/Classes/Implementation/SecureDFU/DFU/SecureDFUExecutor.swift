@@ -390,7 +390,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     func didDeviceFailToConnect() {
         self.initiator.logger?.logWith(.Error, message: "Failed to connect")
         self.delegate?.didErrorOccur(.FailedToConnect, withMessage: "Failed to connect")
-        self.delegate?.didStateChangedTo(.Aborted)
+        self.delegate?.didStateChangedTo(.Failed)
     }
     
     func peripheralDisconnected() {
@@ -405,7 +405,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     func peripheralDisconnected(withError anError : NSError) {
         self.initiator.logger?.logWith(.Error, message: anError.description)
         self.delegate?.didErrorOccur(.DeviceDisconnected, withMessage: anError.localizedDescription)
-        self.delegate?.didStateChangedTo(.Aborted)
+        self.delegate?.didStateChangedTo(.Failed)
     }
     
     func onErrorOccured(withError anError:SecureDFUError, andMessage aMessage:String) {
@@ -417,7 +417,7 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
         if anError == .SignatureMismatch {
             self.delegate?.didStateChangedTo(.SignatureMismatch)
         }else{
-            self.delegate?.didStateChangedTo(.Aborted)
+            self.delegate?.didStateChangedTo(.Failed)
         }
         peripheral.disconnect()
     }
