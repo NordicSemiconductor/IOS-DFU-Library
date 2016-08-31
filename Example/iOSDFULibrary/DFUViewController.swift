@@ -114,61 +114,51 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
 
     //MARK: - DFUServiceDelegate
     func didStateChangedTo(state:DFUState) {
-
-        var stateString : String
-
         switch state {
-        case .Aborted:
-            stateString = "Aborted"
-            self.dfuActivityIndicator.stopAnimating()
-            self.dfuUploadProgressView.setProgress(0, animated: true)
-            self.stopProcessButton.enabled = false
-            break
-        case .SignatureMismatch:
-            stateString = "Signature Mismatch"
-            self.dfuActivityIndicator.stopAnimating()
-            self.dfuUploadProgressView.setProgress(0, animated: true)
-            self.stopProcessButton.enabled = false
-        case .Completed:
-            stateString = "Completed"
-            self.dfuActivityIndicator.stopAnimating()
-            self.dfuUploadProgressView.setProgress(0, animated: true)
-            self.stopProcessButton.enabled = false
-            break
-        case .Connecting:
-            stateString = "Connecting"
-            self.stopProcessButton.enabled = true
-            break
-        case .Disconnecting:
-            stateString = "Disconnecting"
-            self.dfuUploadProgressView.setProgress(0, animated: true)
-            self.dfuActivityIndicator.stopAnimating()
-            self.stopProcessButton.enabled = false
-            break
-        case .EnablingDfuMode:
-            stateString = "Enabling DFU"
-            self.stopProcessButton.enabled = true
-            break
-        case .Starting:
-            stateString = "Starting"
-            self.stopProcessButton.enabled = true
-            break
-        case .Uploading:
-            stateString = "Uploading"
-            self.stopProcessButton.enabled = true
-            break
-        case .Validating:
-            stateString = "Validating"
-            self.stopProcessButton.enabled = true
-            break
-        case .OperationNotPermitted:
-            stateString = "Operation not permited"
-            self.stopProcessButton.enabled = true
-            break
+            case .Aborted:
+                self.dfuActivityIndicator.stopAnimating()
+                self.dfuUploadProgressView.setProgress(0, animated: true)
+                self.stopProcessButton.enabled = false
+                break
+            case .SignatureMismatch:
+                self.dfuActivityIndicator.stopAnimating()
+                self.dfuUploadProgressView.setProgress(0, animated: true)
+                self.stopProcessButton.enabled = false
+            case .Completed:
+                self.dfuActivityIndicator.stopAnimating()
+                self.dfuUploadProgressView.setProgress(0, animated: true)
+                self.stopProcessButton.enabled = false
+                break
+            case .Connecting:
+                self.stopProcessButton.enabled = true
+                break
+            case .Disconnecting:
+                self.dfuUploadProgressView.setProgress(0, animated: true)
+                self.dfuActivityIndicator.stopAnimating()
+                self.stopProcessButton.enabled = false
+                break
+            case .EnablingDfuMode:
+                self.stopProcessButton.enabled = true
+                break
+            case .Starting:
+                self.stopProcessButton.enabled = true
+                break
+            case .Uploading:
+                self.stopProcessButton.enabled = true
+                break
+            case .Validating:
+                self.stopProcessButton.enabled = true
+                break
+            case .OperationNotPermitted:
+                self.stopProcessButton.enabled = true
+                break
+            case .Failed:
+                self.stopProcessButton.enabled = true
+                break
         }
 
-        self.dfuStatusLabel.text = stateString
-        logWith(LogLevel.Info, message: "Changed state to: \(stateString)")
+        self.dfuStatusLabel.text = state.description()
+        logWith(LogLevel.Info, message: "Changed state to: \(state.description())")
     }
 
     func didErrorOccur(error: DFUError, withMessage message: String) {
