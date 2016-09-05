@@ -47,7 +47,6 @@
 		6FA59A1C7BF8DF5C0648F052FF75F433 /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4F6F6A9A70D140DF77FA5FCDFC6922 /* pwd2key.c */; };
 		7115A82CED7E384A3639ED167540E3FF /* LegacyDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F5977D18282E2FFF5C21BF86D47D3A /* LegacyDFUServiceInitiator.swift */; };
 		734E70453DB94ABB94AA2C221D7551B7 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = B898E396583ABD266CC8556900428570 /* ioapi.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		7380D04228FE4CCE711F9EBE6BD075A3 /* LegacyDFUPeripheralDelegate.swift.orig in Sources */ = {isa = PBXBuildFile; fileRef = F9EDE8F25C482BEF03FFE61C39912873 /* LegacyDFUPeripheralDelegate.swift.orig */; };
 		77DDCE3E0168FE341FDB3DAD6376FE61 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7989622B9C8A721238C23797AF8EAA /* LoggerHelper.swift */; };
 		786E0D7C32D1CF3CD37214FDC6C2E73E /* entropy.c in Sources */ = {isa = PBXBuildFile; fileRef = EB0CC0D82F271599C9E46C2F2289826F /* entropy.c */; };
 		78D1B0385A035CEDC41916E583DB9D18 /* brg_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BFEFBB151F66C1045A53550258596E0 /* brg_types.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -57,7 +56,6 @@
 		8BA07AA49DE0DDFFA724D941C1458DA4 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 1CF776C9C69522BBCE782FAFB0AC59C3 /* ioapi.c */; };
 		934018BB94E049D5242E06C1E96AFE86 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DCEB96A80854DC6EE441F3A9FEB91D3 /* crypt.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		942F47C25B45AC629CB550B505F74E9E /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C24EF513FC91B1BDEED6A11D9134CA /* SecureDFUServiceInitiator.swift */; };
-		965B0B7059210B20BEE6B38D24EBE5EA /* LegacyDFUPeripheral.swift.orig in Sources */ = {isa = PBXBuildFile; fileRef = A40E03F59139F5E7764861E2AE1958A5 /* LegacyDFUPeripheral.swift.orig */; };
 		96B2DAFC54D284145F85E7448A64CBAB /* aesopt.h in Headers */ = {isa = PBXBuildFile; fileRef = C8EBDEAF3C64B9C58DDA743B5C49AFCB /* aesopt.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		96E3DDB9510AF936B873B5BEEA06DF98 /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = B6226FF40FAA662C7AEEDFDA94EA0F82 /* aestab.c */; };
 		99A7C4D1A15E47B56E83DFAC403C7387 /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907D6B238D6013F3DD046D05D4CBACC3 /* LegacyDFUPeripheralDelegate.swift */; };
@@ -202,7 +200,6 @@
 		9D666E41322A17BAF77117F2AF45B84D /* Zip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Zip.swift; path = Zip/Zip.swift; sourceTree = "<group>"; };
 		9D8E8BAD92E3202BFCB2884754BF9857 /* Pods-iOSDFULibrary_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Tests-dummy.m"; sourceTree = "<group>"; };
 		9FFD0D377A6D4A2897768D245F7D416A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A40E03F59139F5E7764861E2AE1958A5 /* LegacyDFUPeripheral.swift.orig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LegacyDFUPeripheral.swift.orig; sourceTree = "<group>"; };
 		AD1CEB047036026F26D897304281BB41 /* DFUServiceDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceDelegate.swift; sourceTree = "<group>"; };
 		AD7989622B9C8A721238C23797AF8EAA /* LoggerHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
 		B1EF62D7309D42A873E75AF78EB94C04 /* Double.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -243,7 +240,6 @@
 		F5C407D06E79E1EF42E0A435303EA0FB /* crc32.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = crc32.swift; sourceTree = "<group>"; };
 		F8BAC5267A20C0AE6A18079735F57218 /* hmac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hmac.h; path = Zip/minizip/aes/hmac.h; sourceTree = "<group>"; };
 		F8D1D142647C169F4A63646F36C906D9 /* LoggerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
-		F9EDE8F25C482BEF03FFE61C39912873 /* LegacyDFUPeripheralDelegate.swift.orig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LegacyDFUPeripheralDelegate.swift.orig; sourceTree = "<group>"; };
 		FC061128824ADE74DA5D9D7F69F09583 /* SoftdeviceBootloaderInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoftdeviceBootloaderInfo.swift; sourceTree = "<group>"; };
 		FC67452CE7294A47B8E1BB0A2DE916A8 /* IntelHex2BinConverter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IntelHex2BinConverter.m; sourceTree = "<group>"; };
 		FD1BED69CEB6C1D85C4E9C2A85E6B3D7 /* DFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceInitiator.swift; sourceTree = "<group>"; };
@@ -450,9 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				542181D4A0BFE249CBB053EF78AA8DD0 /* LegacyDFUPeripheral.swift */,
-				A40E03F59139F5E7764861E2AE1958A5 /* LegacyDFUPeripheral.swift.orig */,
 				907D6B238D6013F3DD046D05D4CBACC3 /* LegacyDFUPeripheralDelegate.swift */,
-				F9EDE8F25C482BEF03FFE61C39912873 /* LegacyDFUPeripheralDelegate.swift.orig */,
 			);
 			path = Peripherals;
 			sourceTree = "<group>";
@@ -897,9 +891,7 @@
 				1CE7F2ADB2161B6D4E78B69BDAA930E5 /* iOSDFULibrary-dummy.m in Sources */,
 				3ADAC55CAD4C200EF1A3869887B4B8EF /* LegacyDFUExecutor.swift in Sources */,
 				68C422B3F4DBDF9D9137803385F7F522 /* LegacyDFUPeripheral.swift in Sources */,
-				965B0B7059210B20BEE6B38D24EBE5EA /* LegacyDFUPeripheral.swift.orig in Sources */,
 				99A7C4D1A15E47B56E83DFAC403C7387 /* LegacyDFUPeripheralDelegate.swift in Sources */,
-				7380D04228FE4CCE711F9EBE6BD075A3 /* LegacyDFUPeripheralDelegate.swift.orig in Sources */,
 				584F11554433CB9F5EF2B24FF4A06DEE /* LegacyDFUService.swift in Sources */,
 				9B3B9F4AD7FFD7AFC155F84C26066BE0 /* LegacyDFUServiceController.swift in Sources */,
 				7115A82CED7E384A3639ED167540E3FF /* LegacyDFUServiceInitiator.swift in Sources */,
