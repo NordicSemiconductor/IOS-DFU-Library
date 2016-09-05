@@ -46,7 +46,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     /// Maxmimum length reported by peripheral
     private var maxWtireLength : UInt32 = 0
     /// Resetting flag, when the peripheral disconnects to reconncet
-    public var isResetting = false
+    internal var isResetting = false
     
     // MARK: - Initialization
     

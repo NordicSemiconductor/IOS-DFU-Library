@@ -113,7 +113,6 @@ internal class SecureDFUExecutor : SecureDFUPeripheralDelegate {
     }
 
     func calculateFirmwareRanges() -> [NSRange]{
-        var chunkCount = ceil(Double(self.firmware.data.length) / Double(self.maxLen!))
         var totalLength = self.firmware.data.length
         let currentMaxLen = Int(maxLen!)
         var ranges = [NSRange]()
