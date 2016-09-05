@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EC3985A1CFEFDD900496006 /* LegacyDFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC398591CFEFDD900496006 /* LegacyDFUViewController.swift */; };
-		0EC3985F1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip in Resources */ = {isa = PBXBuildFile; fileRef = 0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */; };
+		3016F3B91D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3016F3B81D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip */; };
+		3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */; };
+		30B4C8901D00590D00C1C3FF /* DFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */; };
 		47BB46278FACC65A12C2F6D8 /* Pods_iOSDFULibrary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716A8CBE638EA28D9E0A8836 /* Pods_iOSDFULibrary_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ScannerViewController.swift */; };
@@ -30,13 +31,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0EC398591CFEFDD900496006 /* LegacyDFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDFUViewController.swift; sourceTree = "<group>"; };
-		0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip; sourceTree = "<group>"; };
 		253475831CD3B6CD97F7DFB9 /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		3016F3B81D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = sdfu_debug_bl_v2_s132.zip; sourceTree = "<group>"; };
+		3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = hrm_legacy_dfu_with_sd_s132_2_0_0.zip; sourceTree = "<group>"; };
+		30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
 		3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iOSDFULibrary.podspec; path = ../iOSDFULibrary.podspec; sourceTree = "<group>"; };
 		3D0CB27D92FDC7A734D97789 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD6C71870F01CBE222B5F31 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		607FACD01AFB9204008FA782 /* iOSDFULibrary_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDFULibrary_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACD01AFB9204008FA782 /* DFU Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DFU Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +78,8 @@
 		0EC3985D1CFF057400496006 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0EC3985E1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip */,
+				3016F3B81D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip */,
+				3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -96,7 +99,7 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* iOSDFULibrary_Example.app */,
+				607FACD01AFB9204008FA782 /* DFU Example.app */,
 				607FACE51AFB9204008FA782 /* iOSDFULibrary_Tests.xctest */,
 			);
 			name = Products;
@@ -105,13 +108,13 @@
 		607FACD21AFB9204008FA782 /* Example for iOSDFULibrary */ = {
 			isa = PBXGroup;
 			children = (
-				0EC3985D1CFF057400496006 /* Resources */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */,
 				607FACD71AFB9204008FA782 /* ScannerViewController.swift */,
-				0EC398591CFEFDD900496006 /* LegacyDFUViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				0EC3985D1CFF057400496006 /* Resources */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for iOSDFULibrary";
@@ -193,7 +196,7 @@
 			);
 			name = iOSDFULibrary_Example;
 			productName = iOSDFULibrary;
-			productReference = 607FACD01AFB9204008FA782 /* iOSDFULibrary_Example.app */;
+			productReference = 607FACD01AFB9204008FA782 /* DFU Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 		607FACE41AFB9204008FA782 /* iOSDFULibrary_Tests */ = {
@@ -261,10 +264,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3016F3B91D19677700D30A30 /* sdfu_debug_bl_v2_s132.zip in Resources */,
+				3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-				0EC3985F1CFF057400496006 /* hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ScannerViewController.swift in Sources */,
-				0EC3985A1CFEFDD900496006 /* LegacyDFUViewController.swift in Sources */,
+				30B4C8901D00590D00C1C3FF /* DFUViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,7 +460,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -494,7 +498,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -513,8 +517,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "DFU Example";
 				SWIFT_INCLUDE_PATHS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -530,8 +535,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "DFU Example";
 				SWIFT_INCLUDE_PATHS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
