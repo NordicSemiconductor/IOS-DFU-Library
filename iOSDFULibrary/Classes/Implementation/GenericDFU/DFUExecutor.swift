@@ -101,7 +101,7 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             self.delegate?.didStateChangedTo(DFUState.Connecting)
         })
         
-        var centralManager = self.initiator.centralManager
+        let centralManager = self.initiator.centralManager
         centralManager.delegate = self
         centralManager.connectPeripheral(peripheral, options: nil)
     }

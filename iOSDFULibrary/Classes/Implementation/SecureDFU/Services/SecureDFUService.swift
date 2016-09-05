@@ -197,7 +197,7 @@ internal typealias SDFUErrorCallback = (error:SecureDFUError, withMessage:String
         self.chunkRange                         = chunkRange
         self.progressDelegate                   = progressDelegate
 
-        var successHandler : SDFUCallback = { (responseData) in
+        let successHandler : SDFUCallback = { (responseData) in
             self.dfuControlPointCharacteristic?.uploadFinished()
             completionHandler(responseData: nil)
         }
