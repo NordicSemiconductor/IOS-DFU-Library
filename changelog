@@ -1,6 +1,6 @@
 ### Changelog
 
-- **1.0.11b**:
+- **1.0.11**:
     - Feature: Added ability to pause and resume DFU uploads
     - Feature: Added new status enum `Failed` to report general connection failures
     - Bugfix: Fixed issue with connection interruption not being handled properly

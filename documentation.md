@@ -38,6 +38,7 @@ To include the library in your project do one of those options:
 
    ```
    use_frameworks!
+   target 'YourAppTargetName' do
        pod 'iOSDFULibrary'
    end
    ```
