@@ -24,17 +24,17 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     @IBOutlet weak var connectionButton: UIButton!
     @IBOutlet weak var discoveredPeripheralsTableView: UITableView!
     @IBOutlet weak var peripheralNameLabel: UILabel!
-    @IBAction func connectionButtonTapped(sender: AnyObject) {
+    @IBAction func connectionButtonTapped(_ sender: AnyObject) {
         handleConnectionButtonTappedEvent()
     }
 
     //MARK: - Class implementation
     func handleConnectionButtonTappedEvent() {
-        self.performSegueWithIdentifier("showDFUView", sender: self)
+        self.performSegue(withIdentifier: "showDFUView", sender: self)
     }
     
     func startDiscovery() {
-        centralManager.scanForPeripheralsWithServices([legacyDfuServiceUUID, secureDfuServiceUUID], options: nil)
+        centralManager.scanForPeripherals(withServices: [legacyDfuServiceUUID, secureDfuServiceUUID], options: nil)
     }
 
     //MARK: - UIViewController implementation
@@ -49,26 +49,26 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         securePeripheralMarkers = [Bool]()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.connectionButton.enabled = false
+        self.connectionButton.isEnabled = false
         self.peripheralNameLabel.text = "No peripheral selected"
     }
     
     //MARK: - CBCentralManagerDelegate
-    func centralManagerDidUpdateState(central: CBCentralManager) {
-        if central.state == CBCentralManagerState.PoweredOn {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if central.state == .poweredOn {
             print("CentralManager is now powered on\nStart discovery")
             self.startDiscovery()
         }
     }
     
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
             if advertisementData[CBAdvertisementDataServiceUUIDsKey] != nil {
                 //Secure DFU UUID
-                let secureUUIDString = CBUUID(string: "FE59").UUIDString
-                let advertisedUUIDstring = (advertisementData[CBAdvertisementDataServiceUUIDsKey]!).firstObject as! CBUUID
-                if advertisedUUIDstring.UUIDString  == secureUUIDString {
+                let secureUUIDString = CBUUID(string: "FE59").uuidString
+                let advertisedUUIDstring = ((advertisementData[CBAdvertisementDataServiceUUIDsKey]!) as AnyObject).firstObject as! CBUUID
+                if advertisedUUIDstring.uuidString  == secureUUIDString {
                     print("Found Secure Peripheral: \(peripheral.name!)")
                     if self.discoveredPeripherals?.contains(peripheral) == false {
                         self.discoveredPeripherals?.append(peripheral)
@@ -87,19 +87,19 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     }
     
     //MARK: - UITableViewDataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (discoveredPeripherals?.count)!
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let aCell = tableView.dequeueReusableCellWithIdentifier("peripheralCell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let aCell = tableView.dequeueReusableCell(withIdentifier: "peripheralCell", for: indexPath)
         
-        aCell.textLabel?.text = discoveredPeripherals![indexPath.row].name
-        if securePeripheralMarkers![indexPath.row] == true {
+        aCell.textLabel?.text = discoveredPeripherals![(indexPath as NSIndexPath).row].name
+        if securePeripheralMarkers![(indexPath as NSIndexPath).row] == true {
             aCell.detailTextLabel?.text = "Secure DFU"
         }else{
             aCell.detailTextLabel?.text = "Legacy DFU"
@@ -108,25 +108,25 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     }
     
     //MARK: - UITableViewDelegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        self.selectedPeripheral = discoveredPeripherals![indexPath.row]
-        self.selectedPeripheralIsSecure = securePeripheralMarkers![indexPath.row]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.selectedPeripheral = discoveredPeripherals![(indexPath as NSIndexPath).row]
+        self.selectedPeripheralIsSecure = securePeripheralMarkers![(indexPath as NSIndexPath).row]
 
-        self.connectionButton.enabled = true
+        self.connectionButton.isEnabled = true
         self.peripheralNameLabel.text = self.selectedPeripheral?.name
     }
     
     //MARK: - Navigation
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         return identifier == "showDFUView"
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         centralManager.stopScan()
         if segue.identifier == "showDFUView" {
             //Sent the peripheral in the dfu view
-            let dfuViewController = segue.destinationViewController as! DFUViewController
+            let dfuViewController = segue.destination as! DFUViewController
             dfuViewController.secureDFUMode(self.selectedPeripheralIsSecure!)
             dfuViewController.setTargetPeripheral(aPeripheral: self.selectedPeripheral!)
             dfuViewController.setCentralManager(centralManager: centralManager)

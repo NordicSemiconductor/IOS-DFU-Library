@@ -31,12 +31,35 @@ Log level. Logger application may filter log entries based on their level. Level
 - Error -       Highest priority messages with errors.
 */
 @objc public enum LogLevel : Int {
-    case Debug       = 0
-    case Verbose     = 1
-    case Info        = 5
-    case Application = 10
-    case Warning     = 15
-    case Error       = 20
+    case debug       = 0
+    case verbose     = 1
+    case info        = 5
+    case application = 10
+    case warning     = 15
+    case error       = 20
+    
+    public func name() -> String {
+        switch (self) {
+        case .debug:
+            return "D"
+            break
+        case .verbose:
+            return "V"
+            break
+        case .info:
+            return "I"
+            break
+        case .application:
+            return "A"
+            break
+        case .warning:
+            return "W"
+            break
+        case .error:
+            return "E"
+            break
+        }
+    }
 }
 
 /**
@@ -51,5 +74,5 @@ Log level. Logger application may filter log entries based on their level. Level
      - parameter level:   the log level
      - parameter message: the message
      */
-    func logWith(level:LogLevel, message:String)
+    func logWith(_ level:LogLevel, message:String)
 }

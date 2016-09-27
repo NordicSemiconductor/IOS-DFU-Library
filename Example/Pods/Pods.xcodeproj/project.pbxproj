@@ -64,7 +64,7 @@
 		DD52B5E10CA3EF45531FB3A297C32C18 /* LegacyDFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A12B138D47575610C2C4B12C309DD8 /* LegacyDFUServiceController.swift */; };
 		DDF798CF29A879B8689E81A84581486C /* Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866788D5990831802B0F1CF51E7A19A6 /* Zip.swift */; };
 		E2B9E4A4B31D3C3843DE2C27317F3237 /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE9663376CCE19E90CF0C6D7DA80D20 /* DFUPeripheralSelectorDelegate.swift */; };
-		E3430237CC40D9B6246385FE6D0AAC9D /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5379ED1C3D00711F9D167164FA94B709 /* NSData.swift */; };
+		E3430237CC40D9B6246385FE6D0AAC9D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5379ED1C3D00711F9D167164FA94B709 /* Data.swift */; };
 		E8D3AE7E21415F174C5E69C4EAFAB098 /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4308CCF54E9EBC48A8345A3E13DBF5D /* DFUPeripheralSelector.swift */; };
 		EF0A5F08429FB9CE8025DC7087F0E04E /* Zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C4DCE7733E86D72CA982CE32766D28C /* Zip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F059BCBC20F3F92E8BF65F25AC8E9C3B /* SecureDFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553A185F49D6224D6E26672243CD55BA /* SecureDFUServiceDelegate.swift */; };
@@ -138,7 +138,7 @@
 		4532BF668667CED78AB4CA1710944391 /* Pods-iOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
 		4A817AA9605D54E4FF3C70C8302671C5 /* DFUVersion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUVersion.swift; sourceTree = "<group>"; };
 		4B1A4401277B67DDC032B837E31526B5 /* DFUFirmware.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUFirmware.swift; sourceTree = "<group>"; };
-		5379ED1C3D00711F9D167164FA94B709 /* NSData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSData.swift; sourceTree = "<group>"; };
+		5379ED1C3D00711F9D167164FA94B709 /* Data.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		553A185F49D6224D6E26672243CD55BA /* SecureDFUServiceDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUServiceDelegate.swift; sourceTree = "<group>"; };
 		5C16E359B9B6B0ECC5D58CEFC0884495 /* Manifest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
 		5C4DCE7733E86D72CA982CE32766D28C /* Zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Zip.h; path = Zip/Zip.h; sourceTree = "<group>"; };
@@ -398,7 +398,7 @@
 			children = (
 				F5C407D06E79E1EF42E0A435303EA0FB /* crc32.swift */,
 				B1EF62D7309D42A873E75AF78EB94C04 /* Double.swift */,
-				5379ED1C3D00711F9D167164FA94B709 /* NSData.swift */,
+				5379ED1C3D00711F9D167164FA94B709 /* Data.swift */,
 				DCF8FFCA6D3F6D22F244BFEC299A4594 /* ZipArchive.swift */,
 				73400C9A24ADDF474A5801E8C2C464CB /* DFUPackage */,
 				A8A54D30E50333525865B32709FC3722 /* HexToBinConverter */,
@@ -731,6 +731,20 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					11EBBD687BB2AFEFAC987B01F8C11270 = {
+						LastSwiftMigration = 0800;
+					};
+					9216149B0B1DFFB31CB48C8BB78D5C3C = {
+						LastSwiftMigration = 0800;
+					};
+					C542BF250E4E5A9285896C6FF59F84E6 = {
+						LastSwiftMigration = 0800;
+					};
+					FBB5D72D415739E290789148089E37C9 = {
+						LastSwiftMigration = 0800;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -785,7 +799,7 @@
 				64E1ACA7B71450849BC40544B54F3509 /* LoggerHelper.swift in Sources */,
 				C2751F740C9E96DEC699A38FD494BC6F /* Manifest.swift in Sources */,
 				54A94F5FCBFD7C3E7937A6E791A2D337 /* ManifestFirmwareInfo.swift in Sources */,
-				E3430237CC40D9B6246385FE6D0AAC9D /* NSData.swift in Sources */,
+				E3430237CC40D9B6246385FE6D0AAC9D /* Data.swift in Sources */,
 				0C45D7798E0B3011B959ADB8BE2F6A2B /* SecureDFUControlPoint.swift in Sources */,
 				B3071989A2B1305E9642C722E4EBA571 /* SecureDFUExecutor.swift in Sources */,
 				4DCCE42B3D38DB3ABF90AB7FEF9288F4 /* SecureDFUPacket.swift in Sources */,
@@ -937,6 +951,7 @@
 				PRODUCT_NAME = Pods_iOSDFULibrary_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -967,6 +982,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1001,6 +1017,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1030,6 +1047,7 @@
 				PRODUCT_NAME = Zip;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1103,6 +1121,7 @@
 				PRODUCT_NAME = Pods_iOSDFULibrary_Tests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1133,6 +1152,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1167,6 +1187,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1196,6 +1217,7 @@
 				PRODUCT_NAME = iOSDFULibrary;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
