@@ -72,12 +72,14 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         dfuInitiator.delegate = initiator.delegate
         dfuInitiator.progressDelegate = initiator.progressDelegate
         dfuInitiator.logger = initiator.logger
+        dfuInitiator.packetReceiptNotificationParameter = self.initiator.packetReceiptNotificationParameter
         dfuInitiator.peripheralSelector = DFUPeripheralSelector(secureDFU: true)
         initiator.logger?.logWith(.verbose, message: "Instantiated Secure DFU peripheral selector")
         self.secureDFUController = dfuInitiator.start()
     }
     
     func startLegacyDFU() {
+        
         initiator.logger?.logWith(.verbose, message: "Starting legacy DFU Service initiator")
         self.initiator.onPeripheralDFUDiscovery(true)
         let dfuInitiator = LegacyDFUServiceInitiator(centralManager: self.centralManager, target: self.peripheral)
@@ -86,6 +88,7 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         dfuInitiator.progressDelegate = initiator.progressDelegate
         dfuInitiator.logger = initiator.logger
         dfuInitiator.peripheralSelector = DFUPeripheralSelector(secureDFU: false)
+        dfuInitiator.packetReceiptNotificationParameter = self.initiator.packetReceiptNotificationParameter
         initiator.logger?.logWith(.verbose, message: "Instantiated Legacy DFU peripheral selector")
         self.legacyDFUController = dfuInitiator.start()
     }

@@ -68,7 +68,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
 
         let dfuInitiator = DFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
-        dfuInitiator.withFirmwareFile(selectedFirmware!)
+        _ = dfuInitiator.withFirmwareFile(selectedFirmware!)
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self

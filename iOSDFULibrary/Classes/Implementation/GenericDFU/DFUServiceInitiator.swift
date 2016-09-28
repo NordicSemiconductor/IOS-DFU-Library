@@ -152,7 +152,7 @@ open class DFUServiceInitiator : NSObject {
      
      The current version of the DFU Bootloader, due to memory limitations, may receive together only a Softdevice and Bootloader.
      
-     - returns: n object that can be used to controll the DFU operation.
+     - returns: A DFUServiceController object that can be used to control the DFU operation.
      */
     open func start() -> DFUServiceController? {
         // The firmware file must be specified before calling `start()`
