@@ -1,4 +1,7 @@
 ### Changelog
+- **2.0**:
+    - Feature: Migrated to Swift 3.0 Xcode 8
+    - Bugfix: Issue where PRN `Packet Receipt Notification` values being overriden were ignored is now resolved
 
 - **1.0.11**:
     - Feature: Added ability to pause and resume DFU uploads
