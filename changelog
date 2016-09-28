@@ -1,4 +1,8 @@
 ### Changelog
+
+- **2.0.1**:
+    - Bugfix: Fixed accidentally removed files in v2.0
+
 - **2.0**:
     - Feature: Migrated to Swift 3.0 Xcode 8
     - Bugfix: Issue where PRN `Packet Receipt Notification` values being overriden were ignored is now resolved
