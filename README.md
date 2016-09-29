@@ -1,8 +1,9 @@
 # iOS DFU Library
 
-## Installation
+[![Version](http://img.shields.io/cocoapods/v/iOSDFULibrary.svg)](http://cocoapods.org/?q=Zip)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-#### Method 1: Via Cocoapods (Recommended method)
+## Installation
 
   - Open up a terminal window and **cd** to your project's root directory
   - Create a **Podfile** with the following content. Replace "YourAppTargetName" with the name of the main target in your app.
@@ -17,17 +18,6 @@
         pod install
 
   - Open the newly created `.xcworkspace` and begin working on your project.
-
-
-#### Method 2: Building from source
- - Create a new blank XCode workspace `/path/to/workspace` and open it
- - In Finder, drag your main project's `xcodeproject` file from `/path/to/myProject` into the new workspace
- - Clone the repository our other repository into `/path/to/dfuLibrary`
-
-        cd /path/to/dfuLibrary && git clone git@github.com:NordicSemiconductor/IOS-DFU-Library.git
-
- - In Finder, Drag the librarie's `xcodeproject` file into your workspace
- - Begin working on your project from within the workspace.
 
 ---
 
