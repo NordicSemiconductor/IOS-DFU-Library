@@ -1,5 +1,10 @@
 ### Changelog
 
+- **2.1**:
+    - Obsolete: Deprecated enums are now obsolete: `State` is now `DFUState`, `StatusCode` is now `DFUResultCode`, `OpCode` is now `DFUOPCode`
+    - Bugfix: Fixed issue in test target having a missing framework path
+    - Bugfix: Fixed return values of Pause, Resume and Abort DFU methods that were returning wrong values
+
 - **2.0.1**:
     - Bugfix: Fixed accidentally removed files in v2.0
 
