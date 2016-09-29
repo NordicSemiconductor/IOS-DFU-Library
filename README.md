@@ -5,8 +5,8 @@
 
 ## Installation
 
-  - Open up a terminal window and **cd** to your project's root directory
-  - Create a **Podfile** with the following content. Replace "YourAppTargetName" with the name of the main target in your app.
+**For Cocoapods:**
+  - Create/Update your **Podfile** with the following contents
 
         target 'YourAppTargetName' do
             use_frameworks!
@@ -18,6 +18,18 @@
         pod install
 
   - Open the newly created `.xcworkspace` and begin working on your project.
+
+**For Carthage:**
+
+   - Create a new **Cartfile** in your project's root with the following contents
+
+         github "NordicSemiconductor/IOS-Pods-DFU-Library" ~> x.y //Replace x.y with your required version
+
+   - Build with carthage
+
+         carthage update --platform iOS //also OSX platform is available for macOS builds
+
+   - Carthage will build the **iOSDFULibrary.framework** and **iOSDFULibrary.dSYM** files in **Carthag/Build/** , you may now copy those files to your project and use the library
 
 ---
 

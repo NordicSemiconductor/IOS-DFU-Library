@@ -1,5 +1,8 @@
 ### Changelog
 
+- **2.1.1**:
+    - Feature: Carthage is now fully supported
+
 - **2.1**:
     - Obsolete: Deprecated enums are now obsolete: `State` is now `DFUState`, `StatusCode` is now `DFUResultCode`, `OpCode` is now `DFUOPCode`
     - Bugfix: Fixed issue in test target having a missing framework path
