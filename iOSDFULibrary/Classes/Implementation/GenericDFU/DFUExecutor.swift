@@ -68,7 +68,7 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         initiator.logger?.logWith(.verbose, message: "Starting Secure DFU Service initiator")
         self.initiator.onPeripheralDFUDiscovery(true)
         let dfuInitiator = SecureDFUServiceInitiator(centralManager: self.centralManager, target: self.peripheral)
-        dfuInitiator.withFirmwareFile(firmware)
+        _ = dfuInitiator.withFirmwareFile(firmware)
         dfuInitiator.delegate = initiator.delegate
         dfuInitiator.progressDelegate = initiator.progressDelegate
         dfuInitiator.logger = initiator.logger
@@ -83,7 +83,7 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         initiator.logger?.logWith(.verbose, message: "Starting legacy DFU Service initiator")
         self.initiator.onPeripheralDFUDiscovery(true)
         let dfuInitiator = LegacyDFUServiceInitiator(centralManager: self.centralManager, target: self.peripheral)
-        dfuInitiator.withFirmwareFile(firmware)
+        _ = dfuInitiator.withFirmwareFile(firmware)
         dfuInitiator.delegate = initiator.delegate
         dfuInitiator.progressDelegate = initiator.progressDelegate
         dfuInitiator.logger = initiator.logger
@@ -125,11 +125,11 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    func abort() {
+    func abort() -> Bool {
         if self.isSecureDFU! {
-            self.secureDFUController?.abort()
+            return (self.secureDFUController?.abort())!
         }else{
-            self.legacyDFUController?.abort()
+            return (self.legacyDFUController?.abort())!
         }
     }
 

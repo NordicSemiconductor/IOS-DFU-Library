@@ -74,8 +74,8 @@ internal class LegacyDFUExecutor : DFUPeripheralDelegate {
         return peripheral.resume()
     }
     
-    func abort() {
-        peripheral.abort()
+    func abort() -> Bool {
+        return peripheral.abort()
     }
     
     // MARK: - DFU Peripheral Delegate methods
@@ -212,7 +212,7 @@ internal class LegacyDFUExecutor : DFUPeripheralDelegate {
     
     func didDeviceDisconnectWithError(_ error: Error) {
         DispatchQueue.main.async(execute: {
-            self.delegate?.didErrorOccur(DFUError.deviceDisconnected, withMessage: "\(error.localizedDescription) (code: \((error as? NSError)?.code))")
+            self.delegate?.didErrorOccur(DFUError.deviceDisconnected, withMessage: "\(error.localizedDescription) (code: \((error as NSError).code))")
         })
         // Release the cyclic reference
         peripheral.destroy()

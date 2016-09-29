@@ -24,25 +24,6 @@ import CoreBluetooth
 
 internal typealias ProgressCallback = (_ bytesReceived:Int) -> Void
 
-@available(iOS, deprecated: 0.1.9, message: "OpCode has been deprecated, use DFUOpCode instead", renamed: "DFUOpCode")
-internal enum OpCode : UInt8 {
-    case startDfu                           = 1
-    case initDfuParameters                  = 2
-    case receiveFirmwareImage               = 3
-    case validateFirmware                   = 4
-    case activateAndReset                   = 5
-    case reset                              = 6
-    case reportReceivedImageSize            = 7 // unused in this library
-    case packetReceiptNotificationRequest   = 8
-    case responseCode                       = 16
-    case packetReceiptNotification          = 17
-    
-    var code:UInt8 {
-        return rawValue
-    }
-}
-
-@available(iOS, introduced: 0.1.9)
 internal enum DFUOpCode : UInt8 {
     case startDfu                           = 1
     case initDfuParameters                  = 2
@@ -84,35 +65,35 @@ internal enum Request {
     var data : Data {
         switch self {
         case .jumpToBootloader:
-            let bytes:[UInt8] = [OpCode.startDfu.code, FIRMWARE_TYPE_APPLICATION]
+            let bytes:[UInt8] = [DFUOpCode.startDfu.code, FIRMWARE_TYPE_APPLICATION]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 2)
         case .startDfu(let type):
-            let bytes:[UInt8] = [OpCode.startDfu.code, type]
+            let bytes:[UInt8] = [DFUOpCode.startDfu.code, type]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 2)
         case .startDfu_v1:
-            let bytes:[UInt8] = [OpCode.startDfu.code]
+            let bytes:[UInt8] = [DFUOpCode.startDfu.code]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
         case .initDfuParameters(let req):
-            let bytes:[UInt8] = [OpCode.initDfuParameters.code, req.code]
+            let bytes:[UInt8] = [DFUOpCode.initDfuParameters.code, req.code]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 2)
         case .initDfuParameters_v1:
-            let bytes:[UInt8] = [OpCode.initDfuParameters.code]
+            let bytes:[UInt8] = [DFUOpCode.initDfuParameters.code]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
         case .receiveFirmwareImage:
-            let bytes:[UInt8] = [OpCode.receiveFirmwareImage.code]
+            let bytes:[UInt8] = [DFUOpCode.receiveFirmwareImage.code]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
         case .validateFirmware:
-            let bytes:[UInt8] = [OpCode.validateFirmware.code]
+            let bytes:[UInt8] = [DFUOpCode.validateFirmware.code]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
         case .activateAndReset:
-            let bytes:[UInt8] = [OpCode.activateAndReset.code]
+            let bytes:[UInt8] = [DFUOpCode.activateAndReset.code]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
         case .reset:
-            let bytes:[UInt8] = [OpCode.reset.code]
+            let bytes:[UInt8] = [DFUOpCode.reset.code]
             return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
         case .packetReceiptNotificationRequest(let number):
             let data = NSMutableData(capacity: 5)!
-            let bytes:[UInt8] = [OpCode.packetReceiptNotificationRequest.code]
+            let bytes:[UInt8] = [DFUOpCode.packetReceiptNotificationRequest.code]
             data.append(bytes, length: 1)
             var n = number.littleEndian
             withUnsafePointer(to: &n) {
@@ -148,31 +129,6 @@ internal enum Request {
     }
 }
 
-@available(iOS, deprecated: 0.1.9, message: "StatusCode has been deprecated, use DFUSResultCode instead", renamed: "DFUResultCode")
-internal enum StatusCode : UInt8 {
-    case success              = 1
-    case invalidState         = 2
-    case notSupported         = 3
-    case dataSizeExceedsLimit = 4
-    case crcError             = 5
-    case operationFailed      = 6
-    
-    var description:String {
-        switch self {
-        case .success: return "Success"
-        case .invalidState: return "Device is in invalid state"
-        case .notSupported: return "Operation not supported"
-        case .dataSizeExceedsLimit:  return "Data size exceeds limit"
-        case .crcError: return "CRC Error"
-        case .operationFailed: return "Operation failed"
-        }
-    }
-    
-    var code:UInt8 {
-        return rawValue
-    }
-}
-
 internal enum DFUResultCode : UInt8 {
     case success              = 1
     case invalidState         = 2
@@ -198,9 +154,9 @@ internal enum DFUResultCode : UInt8 {
 }
 
 internal struct Response {
-    let opCode:OpCode?
-    let requestOpCode:OpCode?
-    let status:StatusCode?
+    let opCode:DFUOpCode?
+    let requestOpCode:DFUOpCode?
+    let status:DFUResultCode?
     
     init?(_ data:Data) {
         var opCode:UInt8 = 0
@@ -209,11 +165,11 @@ internal struct Response {
         (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
         (data as NSData).getBytes(&requestOpCode, range: NSRange(location: 1, length: 1))
         (data as NSData).getBytes(&status, range: NSRange(location: 2, length: 1))
-        self.opCode = OpCode(rawValue: opCode)
-        self.requestOpCode = OpCode(rawValue: requestOpCode)
-        self.status = StatusCode(rawValue: status)
+        self.opCode = DFUOpCode(rawValue: opCode)
+        self.requestOpCode = DFUOpCode(rawValue: requestOpCode)
+        self.status = DFUResultCode(rawValue: status)
         
-        if self.opCode != OpCode.responseCode || self.requestOpCode == nil || self.status == nil {
+        if self.opCode != DFUOpCode.responseCode || self.requestOpCode == nil || self.status == nil {
             return nil
         }
     }
@@ -224,15 +180,15 @@ internal struct Response {
 }
 
 internal struct PacketReceiptNotification {
-    let opCode:OpCode?
+    let opCode:DFUOpCode?
     let bytesReceived:Int
     
     init?(_ data:Data) {
         var opCode:UInt8 = 0
         (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
-        self.opCode = OpCode(rawValue: opCode)
+        self.opCode = DFUOpCode(rawValue: opCode)
         
-        if self.opCode != OpCode.packetReceiptNotification {
+        if self.opCode != DFUOpCode.packetReceiptNotification {
             return nil
         }
         
@@ -422,7 +378,7 @@ internal struct PacketReceiptNotification {
             if let response = response {
                 logger.a("\(response.description) received")
                 
-                if response.status == StatusCode.success {
+                if response.status == DFUResultCode.success {
                     switch response.requestOpCode! {
                     case .initDfuParameters:
                         logger.a("Initialize DFU Parameters completed")

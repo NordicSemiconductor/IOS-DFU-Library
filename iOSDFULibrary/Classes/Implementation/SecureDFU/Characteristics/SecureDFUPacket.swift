@@ -108,7 +108,7 @@ internal class SecureDFUPacket {
         while packetsToSendNow > 0 {
             let bytesLeft = bytesTotal - bytesSent
             let packetLength = min(bytesLeft, PacketSize)
-            var range:Range<Int> = bytesSent..<(packetLength+bytesSent)
+            let range:Range<Int> = bytesSent..<(packetLength+bytesSent)
             let packet = aData.subdata(in: range)
             print("### total:\(bytesSent)")
             print("### Nxt packet size:\(packetLength)")

@@ -103,7 +103,7 @@ internal class DFUPacket {
         let peripheral = characteristic.service.peripheral
         
         var data = Data(capacity: 4)
-        var appSize = size.application.littleEndian
+        let appSize = size.application.littleEndian
         let appArray = self.convertLittleEndianToByteArray(littleEndian: appSize)
         data.append(appArray, count:4)
         logger.v("Writing image size (\(size.application)b) to characteristic \(DFUPacket.UUID.uuidString)...")

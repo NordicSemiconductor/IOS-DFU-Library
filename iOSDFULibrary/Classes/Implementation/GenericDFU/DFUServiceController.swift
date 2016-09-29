@@ -49,9 +49,9 @@ open class DFUServiceController : NSObject {
      Packet Receipt Notification. It PRM procedure is disabled it will continue until the whole
      firmware is sent and then Reset will be sent instead of Verify Firmware op code.
      */
-    open func abort() {
+    open func abort() -> Bool {
         serviceAborted = true
-        executor.abort()
+        return executor.abort()
     }
     
     /**
