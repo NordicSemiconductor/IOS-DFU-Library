@@ -66,39 +66,7 @@
  - Completed:       THe DFU operation is completed and successful
  - Aborted:         DFU Operation was aborted
  */
-@available (iOS, deprecated: 0.2.0, renamed: "DFUState", message: "Please use `DFUState` instead")
-@objc public enum State : Int {
-    case connecting
-    case starting
-    case enablingDfuMode
-    case uploading
-    case validating
-    case disconnecting
-    case completed
-    case aborted
-    case signatureMismatch
-    case operationNotPermitted
-    case failed
-    
-    public func description() -> String {
-        switch self {
-        case .connecting: return "Connecting"
-        case .starting: return "Starting"
-        case .enablingDfuMode: return "Enabling DFU Mode"
-        case .uploading: return "Uploading"
-        case .validating: return "Validating"
-        case .disconnecting: return "Disconnecting"
-        case .completed: return "Completed"
-        case .aborted: return "Aborted"
-        case .signatureMismatch: return "Signature mismatch"
-        case .operationNotPermitted: return "Operation not permitted"
-        case .failed: return "Failed"
-        }
-    }
-}
 
-//This will take over as soon as all developers have migrated from State to DFUState
-@available(iOS, introduced: 0.2.0)
 @objc public enum DFUState : Int {
     case connecting
     case starting

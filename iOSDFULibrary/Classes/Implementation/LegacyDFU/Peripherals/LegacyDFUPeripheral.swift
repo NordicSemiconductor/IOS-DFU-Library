@@ -86,29 +86,26 @@ import CoreBluetooth
     
     func pause() -> Bool {
         if !paused && dfuService != nil {
-            paused = true
-            dfuService!.pause()
-            return true
+            return dfuService!.pause()
         }
         return false
     }
     
     func resume() -> Bool {
         if paused && dfuService != nil {
-            paused = false
-            dfuService!.resume()
-            return true
+            return dfuService!.resume()
         }
         return false
     }
     
-    func abort() {
+    func abort() -> Bool {
         if dfuService != nil {
             logger.w("Upload aborted")
             aborted = true
             paused = false
-            dfuService!.abort()
+            return dfuService!.abort()
         }
+        return false
     }
     
     /**

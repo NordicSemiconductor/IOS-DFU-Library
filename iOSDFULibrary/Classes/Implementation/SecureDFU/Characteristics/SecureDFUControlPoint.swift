@@ -24,7 +24,6 @@ import CoreBluetooth
 
 internal typealias SecureDFUProgressCallback = (_ bytesReceived:Int) -> Void
 
-@available(iOS, introduced: 0.1.9)
 internal enum SecureDFUOpCode : UInt8 {
     case createObject               = 0x01
     case setPRNValue                = 0x02
@@ -51,7 +50,6 @@ internal enum SecureDFUOpCode : UInt8 {
     }
 }
 
-@available(iOS, introduced: 0.1.9)
 internal enum SecureDFUProcedureType : UInt8 {
     case command = 0x01
     case data    = 0x02
@@ -64,7 +62,6 @@ internal enum SecureDFUProcedureType : UInt8 {
     }
 }
 
-@available(iOS, introduced: 0.1.9)
 internal enum SecureDFURequest {
     case createData(size : UInt32)
     case createCommand(size : UInt32)

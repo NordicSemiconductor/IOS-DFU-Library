@@ -67,9 +67,7 @@ for more information.
      firmware is sent and then Reset will be sent instead of Verify Firmware op code.
      */
     open func abort() -> Bool {
-        serviceAborted = true
-        executor.abort()
-        return serviceAborted
+        return executor.abort()
     }
     
     /**
