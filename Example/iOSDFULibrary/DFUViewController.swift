@@ -95,7 +95,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if dfuController != nil {
-            dfuController?.abort()
+            _ = dfuController?.abort()
         }
     }
 
