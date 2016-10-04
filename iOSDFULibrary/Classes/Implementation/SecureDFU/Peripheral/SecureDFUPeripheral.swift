@@ -53,7 +53,7 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     init(_ initiator:SecureDFUServiceInitiator) {
         self.centralManager = initiator.centralManager
         self.peripheral = initiator.target
-        self.logger = LoggerHelper(initiator.logger!)
+        self.logger = LoggerHelper(initiator.logger)
         super.init()
         
         // self.peripheral.delegate = self // this is set when device got connected
