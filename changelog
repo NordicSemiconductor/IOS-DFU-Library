@@ -1,5 +1,10 @@
 ### Changelog
 
+- **2.1.2**:
+    - Bugfix: Fixed issue causing the DFU process to constantly fail after peripheral is reset during the process
+    - Feature: Added a failsafe solution for cases of an irrecoverable resume in the DFU process that simply starts the process from scratch ignoring it's state.
+    - Bugfix: Fixed issue #14 that caused a crash when the logger delegate wasn't being set.
+
 - **2.1.1**:
     - Feature: Carthage is now fully supported
 
