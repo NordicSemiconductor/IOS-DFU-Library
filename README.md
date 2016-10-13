@@ -30,6 +30,7 @@
          carthage update --platform iOS //also OSX platform is available for macOS builds
 
    - Carthage will build the **iOSDFULibrary.framework** and **iOSDFULibrary.dSYM** files in **Carthag/Build/** , you may now copy those files to your project and use the library
+
    - Carthage will also build the **Zip.framework** and **Zip.dSYM** files here, which are a dependency for the DFU Library
 ---
 
