@@ -31,6 +31,3 @@ Carthage
 # `pod install` in .travis.yml
 #
 # Pods/
-
-# Zip dependency
-Pods/Zip/
