@@ -43,7 +43,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     
     func getBundledFirmwareURLHelper() -> URL {
         if self.secureDFU! {
-            return Bundle.main.url(forResource: "sdfu_test_app_hrm_s132", withExtension: "zip")!
+            return Bundle.main.url(forResource: "dfu_test_app_hrm_s132", withExtension: "zip")!
         }else{
             return Bundle.main.url(forResource: "hrm_legacy_dfu_with_sd_s132_2_0_0", withExtension: "zip")!
         }
