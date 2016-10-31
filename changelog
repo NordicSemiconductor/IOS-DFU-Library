@@ -1,5 +1,6 @@
 ### Changelog
-
+- **2.1.6**:
+    - BugFix: Peripherals that are already connected now will start the DFU Process right away instead of halting"
 - **2.1.5**:
     - Enhancement: Added @ObjC to `DFUPeripheralSelectorDelegate` to help with Obj-C Based project integration
     - Enhancement: Minor typo fix in peripheral State.
