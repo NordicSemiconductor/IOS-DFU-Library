@@ -29,7 +29,7 @@
 
          carthage update --platform iOS //also OSX platform is available for macOS builds
 
-   - Carthage will build the **iOSDFULibrary.framework** and **iOSDFULibrary.dSYM** files in **Carthag/Build/** , you may now copy those files to your project and use the library
+   - Carthage will build the **iOSDFULibrary.framework** and **Zip.framework** files in **Carthag/Build/**, you may now copy all those files to your project and use the library, additionally, carthade also builds **\*.dsym** files if you need to resymbolicate crash logs. you may want to keep those files bundled with your builds for future use.
 
 ---
 

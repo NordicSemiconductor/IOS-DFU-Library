@@ -1,4 +1,7 @@
 ### Changelog
+
+- **2.1.4**:
+    - Enhancement: Added Cartfile for denpendency libraries.
 - **2.1.3**:
     - Bugfix: Fixed an issue with PRN value not being fully used throughout the DFU process and at some points reverted to the default value
     - Bugfix: Fixed issue with specific packet sizes that caused the last packet not to be executed due to PRN being received earlier than expected.
