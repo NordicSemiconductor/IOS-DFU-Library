@@ -1,5 +1,9 @@
 ### Changelog
 
+- **2.1.5**:
+    - Enhancement: Added @ObjC to `DFUPeripheralSelectorDelegate` to help with Obj-C Based project integration
+    - Enhancement: Minor typo fix in peripheral State.
+    - Enhancement: Minor enhancement to the LoggerHelper Class
 - **2.1.4**:
     - Enhancement: Added Cartfile for denpendency libraries.
 - **2.1.3**:
