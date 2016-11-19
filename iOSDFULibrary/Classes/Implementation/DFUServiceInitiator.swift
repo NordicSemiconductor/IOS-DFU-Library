@@ -65,7 +65,7 @@ import CoreBluetooth
      
      Ignore this property if not updating Softdevice and Application from one ZIP file.
      */
-    public var peripheralSelector:DFUPeripheralSelector
+    public var peripheralSelector:DFUPeripheralSelectorDelegate
 
     /**
      The number of packets of firmware data to be received by the DFU target before sending
