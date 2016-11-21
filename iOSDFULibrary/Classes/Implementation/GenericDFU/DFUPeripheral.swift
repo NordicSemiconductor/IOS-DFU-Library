@@ -362,7 +362,7 @@ internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
      
      - parameter selector: a selector used to select a device in DFU Bootloader mode
      */
-    func switchToNewPeripheralAndConnect(_ selector: DFUPeripheralSelector)
+    func switchToNewPeripheralAndConnect(_ selector: DFUPeripheralSelectorDelegate)
     
     /**
      Returns whether the Init Packet is required by the target DFU device.
@@ -384,14 +384,14 @@ internal protocol DFUPeripheral : DFUPeripheralAPI {
     associatedtype DFUServiceType : DFUService
     
     /// Selector used to find the advertising peripheral in DFU Bootloader mode.
-    var peripheralSelector:DFUPeripheralSelector? { get }
+    var peripheralSelector:DFUPeripheralSelectorDelegate? { get }
     
     /// The DFU Service instance. Not nil when found on the peripheral.
     var dfuService:DFUServiceType? { get set }
 }
 
 internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUService> : BaseDFUPeripheral<TD>, DFUPeripheral {
-    var peripheralSelector:DFUPeripheralSelector?
+    var peripheralSelector:DFUPeripheralSelectorDelegate?
     
     typealias DFUServiceType = TS
     var dfuService:DFUServiceType?
@@ -451,7 +451,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         return false
     }
     
-    func switchToNewPeripheralAndConnect(_ selector: DFUPeripheralSelector) {
+    func switchToNewPeripheralAndConnect(_ selector: DFUPeripheralSelectorDelegate) {
         // Release the previous peripheral
         peripheral!.delegate = nil
         peripheral = nil
