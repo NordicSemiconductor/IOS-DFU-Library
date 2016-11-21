@@ -125,6 +125,8 @@ extension BaseDFUExecutor {
     }
 }
 
+// MARK: -
+
 internal protocol DFUExecutorAPI : BaseExecutorAPI {
     /// Required constructor
     init(_ initiator:DFUServiceInitiator)

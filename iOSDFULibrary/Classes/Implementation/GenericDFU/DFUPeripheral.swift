@@ -391,14 +391,20 @@ internal protocol DFUPeripheral : DFUPeripheralAPI {
 }
 
 internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUService> : BaseDFUPeripheral<TD>, DFUPeripheral {
-    var peripheralSelector:DFUPeripheralSelectorDelegate?
+    internal var peripheralSelector:DFUPeripheralSelectorDelegate?
     
     typealias DFUServiceType = TS
     var dfuService:DFUServiceType?
     
-    var jumpingToBootloader : Bool = false
-    var activating          : Bool = false
-    var shouldReconnect     : Bool = false
+    /// This flag must be set to true if switching to bootloader mode is expected after executing the next operation.
+    /// Service will try to connect back to the device after it gets disconnected.
+    internal var jumpingToBootloader : Bool = false
+    /// This flag must be set to true when the firmware upload is complete and device will restart and run the new fw
+    /// after executing the next operation.
+    internal var activating          : Bool = false
+    /// This flag has the same meaning as `jumpingToBootloader`, but it's used when Invalid state error was received and
+    /// a reset command will be executed. The service will reconnect to the same device.
+    internal var shouldReconnect     : Bool = false
     
     // MARK: - Base DFU Peripheral API
     
