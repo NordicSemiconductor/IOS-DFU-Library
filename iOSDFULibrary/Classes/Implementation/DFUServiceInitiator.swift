@@ -154,8 +154,8 @@ import CoreBluetooth
      
      Enter Bootloader Op Code: 0x01
      
-     Correct return value: 0x02-01-01 , where:
-       0x02 - Response Op Code
+     Correct return value: 0x20-01-01 , where:
+       0x20 - Response Op Code
        0x01 - Request Code
        0x01 - Success
      The device should disconnect and restart in DFU mode after sending the notification.
