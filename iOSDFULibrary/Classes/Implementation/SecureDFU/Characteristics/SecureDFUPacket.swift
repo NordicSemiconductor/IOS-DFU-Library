@@ -68,8 +68,8 @@ internal class SecureDFUPacket {
             let packetLength = min(bytesToSend, PacketSize)
             let packet = initPacketData.subdata(in: Int(offset) ..< Int(offset + packetLength))
             
-            logger.v("Writing to characteristic \(SecureDFUPacket.UUID.uuidString)...")
-            logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(SecureDFUPacket.UUID.uuidString), type: .withoutResponse)")
+            logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
+            logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(characteristic.uuid.uuidString), type: .withoutResponse)")
             peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             offset += packetLength

@@ -41,31 +41,34 @@ import CoreBluetooth
      The service delegate is an object that will be notified about state changes of the DFU Service.
      Setting it is optional but recommended.
      */
-    public weak var delegate:DFUServiceDelegate?
+    public weak var delegate: DFUServiceDelegate?
     
     /**
      An optional progress delegate will be called only during upload. It notifies about current upload
      percentage and speed.
      */
-    public weak var progressDelegate:DFUProgressDelegate?
+    public weak var progressDelegate: DFUProgressDelegate?
     
     /**
      The logger is an object that should print given messages to the user. It is optional.
      */
-    public weak var logger:LoggerDelegate?
+    public weak var logger: LoggerDelegate?
     
     /**
-     The selector object is used during sending a firmware containing a Softdevice (or Softdevice and Bootloader)
-     and the Application. After flashing the first part (containing the Softdevice), the device restarts in the
+     The selector object is used when the device needs to disconnect and start advertising with a different address
+     to avodi caching problems, for example after switching to the Bootloader mode, or during sending a firmware
+     containing a Softdevice (or Softdevice and Bootloader) and the Application. 
+     After flashing the first part (containing the Softdevice), the device restarts in the
      DFU Bootloader mode and may (since SDK 8.0.0) start advertising with an address incremented by 1.
      The peripheral specified in the `init` may no longer be used as there is no device advertising with its address.
      The DFU Service will scan for a new device and connect to the first device returned by the selector.
      
-     The default selecter returns the first device with the DFU Service UUID in the advertising packet.
+     The default selecter returns the first device with the required DFU Service UUID in the advertising packet
+     (Secure or Legacy DFU Service UUID).
      
-     Ignore this property if not updating Softdevice and Application from one ZIP file.
+     Ignore this property if not updating Softdevice and Application from one ZIP file or your 
      */
-    public var peripheralSelector:DFUPeripheralSelectorDelegate
+    public var peripheralSelector: DFUPeripheralSelectorDelegate
 
     /**
      The number of packets of firmware data to be received by the DFU target before sending
@@ -75,7 +78,7 @@ import CoreBluetooth
      but also cause a buffer overflow and hang the Bluetooth adapter.
      Maximum verified values were 29 for iPhone 6 Plus or 22 for iPhone 7, both iOS 10.1.
      */
-    public var packetReceiptNotificationParameter:UInt16 = 12
+    public var packetReceiptNotificationParameter: UInt16 = 12
     
     /**
      **Legacy DFU only.**
@@ -126,7 +129,44 @@ import CoreBluetooth
      */
     public var forceDfu = false
     
-    //MARK: - Pubilc API
+    /**
+     Set this flag to true to enable experimental buttonless feature in Secure DFU. When the 
+     experimental Buttonless DFU Service is found on a device, the service will use it to
+     switch the device to the bootloader mode, connect to it in that mode and proceed with DFU.
+     
+     **Please, read the information below before setting it to true.**
+     
+     In the SDK 12.x the Buttonless DFU feature for Secure DFU was experimental.
+     It is NOT recommended to use it: it was not properly tested, had implementation bugs 
+     (e.g. https://devzone.nordicsemi.com/question/100609/sdk-12-bootloader-erased-after-programming/) and
+     does not required encryption and therefore may lead to DOS attack (anyone can use it to switch the device
+     to bootloader mode). However, as there is no other way to trigger bootloader mode on devices
+     without a button, this DFU Library supports this service, but the feature must be explicitly enabled here.
+     Be aware, that setting this flag to false will no protect your devices from this kind of attacks, as
+     an attacker may use another app for that purpose. To be sure your device is secure remove this
+     experimental service from your device.
+     
+     Spec:
+     
+     Buttonless DFU Service UUID: 8E400001-F315-4F60-9FB8-838830DAEA50
+     
+     Buttonless DFU characteristic UUID: 8E400001-F315-4F60-9FB8-838830DAEA50 (the same)
+     
+     Enter Bootloader Op Code: 0x01
+     
+     Correct return value: 0x02-01-01 , where:
+       0x02 - Response Op Code
+       0x01 - Request Code
+       0x01 - Success
+     The device should disconnect and restart in DFU mode after sending the notification.
+     
+     In SDK 13 this issue will be fixed by a proper implementation (bonding required,
+     passing bond information to the bootloader, encryption, well tested). It is recommended to use this 
+     new service when SDK 13 (or later) is out. TODO: fix the docs when SDK 13 is out.
+     */
+    public var enableUnsafeExperimentalButtonlessServiceInSecureDfu = false
+    
+    //MARK: - Public API
     
     /**
      Creates the DFUServiceInitializer that will allow to send an update to the given peripheral.

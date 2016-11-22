@@ -25,6 +25,9 @@ import CoreBluetooth
 import iOSDFULibrary
 
 class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
+    /// The UUID of the experimental Buttonless DFU Service from SDK 12.
+    /// This service is not advertised so the app needs to connect to check if it's on the device's attribute list.
+    static let ExperimentalButtonlessDfuUUID = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
 
     //MARK: - Class Properties
     fileprivate var dfuPeripheral    : CBPeripheral?
@@ -55,24 +58,29 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     }
     
     //MARK: - Class Implementation
-    func secureDFUMode(_ secureDFU : Bool) {
+    func secureDFUMode(_ secureDFU: Bool?) {
         self.secureDFU = secureDFU
     }
     
-    func getBundledFirmwareURLHelper() -> URL {
-        if self.secureDFU! {
-            return Bundle.main.url(forResource: "secure_dfu_test_app_hrm_s132", withExtension: "zip")!
-        } else {
-            return Bundle.main.url(forResource: "hrm_legacy_dfu_with_sd_s132_2_0_0", withExtension: "zip")!
-        }
+    func setCentralManager(_ centralManager: CBCentralManager) {
+        self.centralManager = centralManager
     }
     
-    func setCentralManager(centralManager aCentralManager : CBCentralManager){
-        self.centralManager = aCentralManager
-    }
-
-    func setTargetPeripheral(aPeripheral targetPeripheral : CBPeripheral) {
+    func setTargetPeripheral(_ targetPeripheral: CBPeripheral) {
         self.dfuPeripheral = targetPeripheral
+    }
+    
+    func getBundledFirmwareURLHelper() -> URL? {
+        if let secureDFU = secureDFU {
+            if secureDFU {
+                return Bundle.main.url(forResource: "secure_dfu_test_app_hrm_s132", withExtension: "zip")!
+            } else {
+                return Bundle.main.url(forResource: "hrm_legacy_dfu_with_sd_s132_2_0_0", withExtension: "zip")!
+            }
+        } else {
+            // We need to connect and discover services. The device does not have to advertise with the service UUID.
+            return nil
+        }
     }
     
     func startDFUProcess() {
@@ -81,29 +89,39 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
             return
         }
 
-        selectedFileURL  = self.getBundledFirmwareURLHelper()
-        selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
-
         let dfuInitiator = DFUServiceInitiator(centralManager: centralManager!, target: dfuPeripheral!)
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
+        
+        // This enables the experimental Buttonless DFU feature from SDK 12.
+        // Please, read the field documentation before use.
+        dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = true
+        
         dfuController = dfuInitiator.with(firmware: selectedFirmware!).start()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.peripheralNameLabel.text = "Flashing \((dfuPeripheral?.name)!)..."
-        self.dfuActivityIndicator.startAnimating()
-        self.dfuUploadProgressView.progress = 0.0
-        self.dfuUploadStatus.text = ""
-        self.dfuStatusLabel.text  = ""
-        self.stopProcessButton.isEnabled = false
+        peripheralNameLabel.text = "Flashing \((dfuPeripheral?.name)!)..."
+        dfuActivityIndicator.startAnimating()
+        dfuUploadProgressView.progress = 0.0
+        dfuUploadStatus.text = ""
+        dfuStatusLabel.text  = ""
+        stopProcessButton.isEnabled = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.startDFUProcess()
+        
+        selectedFileURL  = getBundledFirmwareURLHelper()
+        if selectedFileURL != nil {
+            selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
+            startDFUProcess()
+        } else {
+            centralManager!.delegate = self
+            centralManager!.connect(dfuPeripheral!)
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -111,22 +129,56 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         if dfuController != nil {
             _ = dfuController?.abort()
         }
+        if dfuPeripheral!.state != .disconnected {
+            print("Disconnecting...")
+            centralManager!.cancelPeripheralConnection(dfuPeripheral!)
+        }
     }
 
     //MARK: - CBCentralManagerDelegate
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print("CM did update state: \(central.state.rawValue)")
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected to peripheral: \(peripheral.name)")
+        peripheral.delegate = self
+        peripheral.discoverServices(nil)
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected from peripheral: \(peripheral.name)")
     }
+    
+    //MARK: - CBPeripheralDelegate
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        // Find DFU Service
+        let services = peripheral.services!
+        for service in services {
+            if service.uuid.isEqual(ScannerViewController.legacyDfuServiceUUID) {
+                secureDFU = false
+                break
+            } else if service.uuid.isEqual(ScannerViewController.secureDfuServiceUUID) {
+                secureDFU = true
+                break
+            } else if service.uuid.isEqual(DFUViewController.ExperimentalButtonlessDfuUUID) {
+                secureDFU = true
+                break
+            }
+        }
+        if secureDFU != nil {
+            selectedFileURL  = getBundledFirmwareURLHelper()
+            selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
+            startDFUProcess()
+        } else {
+            dfuError(DFUError.deviceNotSupported, didOccurWithMessage: "Device not supported")
+        }
+    }
 
     //MARK: - DFUServiceDelegate
+    
     func dfuStateDidChange(to state:DFUState) {
         switch state {
             case .completed, .disconnecting, .aborted:
@@ -157,6 +209,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     }
     
     //MARK: - DFUProgressDelegate
+    
     func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
         self.dfuUploadProgressView.setProgress(Float(progress)/100.0, animated: true)
         self.dfuUploadStatus.text = String(format: "Part: %d/%d\nSpeed: %.1f KB/s\nAverage Speed: %.1f KB/s",
@@ -164,11 +217,13 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     }
 
     //MARK: - LoggerDelegate
+    
     func logWith(_ level:LogLevel, message:String) {
         print("\(level.name()): \(message)")
     }
     
     //MARK: - UIAlertViewDelegate
+    
     func alertViewCancel(_ alertView: UIAlertView) {
         print("Action cancel: DFU resumed")
         if dfuController!.paused {

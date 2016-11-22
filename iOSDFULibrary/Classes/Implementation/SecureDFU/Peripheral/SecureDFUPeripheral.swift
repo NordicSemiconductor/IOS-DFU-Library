@@ -46,6 +46,30 @@ internal class SecureDFUPeripheral: BaseCommonDFUPeripheral<SecureDFUExecutor, S
         )
     }
     
+    override func isInApplicationMode(_ forceDfu:Bool) -> Bool {
+        let applicationMode = dfuService!.isInApplicationMode() ?? !forceDfu
+        
+        if applicationMode {
+            logger.w("Application with buttonless update found")
+        }
+        
+        return applicationMode
+    }
+    
+    /**
+     Switches target device to the DFU Bootloader mode using either the 
+     experimental or final Buttonless DFU feature. The experimental buttonless DFU from SDK 12 must be
+     enabled explicitly in DFUServiceInitiator.
+     */
+    func jumpToBootloader() {
+        jumpingToBootloader = true
+        newAddressExpected = dfuService!.newAddressExpected
+        dfuService!.jumpToBootloaderMode(
+            // onSuccess the device gets disconnected and centralManager(_:didDisconnectPeripheral:error) will be called
+            onError: defaultErrorCallback
+        )
+    }
+    
     /**
      Reads Data Object Info in order to obtain current status and the maximum object size.
      */
@@ -140,7 +164,7 @@ internal class SecureDFUPeripheral: BaseCommonDFUPeripheral<SecureDFUExecutor, S
      and the device will disconnect on its own on Execute command. Delegate's onTransferComplete event will be called when
      the disconnect event is receviced.
      */
-    func sendExecuteCommand(andResetIf activating:Bool = false) {
+    func sendExecuteCommand(andActivateIf activating:Bool = false) {
         self.activating = activating
         dfuService!.executeCommand(
             onSuccess: { self.delegate?.peripheralDidExecuteObject() },

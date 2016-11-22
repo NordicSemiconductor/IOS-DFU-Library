@@ -23,7 +23,7 @@
 import CoreBluetooth
 
 @objc internal class SecureDFUService : NSObject, CBPeripheralDelegate, DFUService {
-    static internal let UUID = CBUUID.init(string: "FE59")
+    static internal let UUID = CBUUID(string: "FE59")
     
     static func matches(_ service: CBService) -> Bool {
         return service.uuid.isEqual(UUID)
@@ -137,6 +137,12 @@ import CoreBluetooth
      */
     func enableControlPoint(onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         if !aborted {
+            // Support for experimental Buttonless DFU Service from SDK 12.x
+            if experimentalButtonlessDfuCharacteristic != nil {
+                experimentalButtonlessDfuCharacteristic!.enableNotifications(onSuccess: success, onError: report)
+                return
+            }
+            // End
             dfuControlPointCharacteristic!.enableNotifications(onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
@@ -148,7 +154,7 @@ import CoreBluetooth
      */
     func readCommandObjectInfo(onReponse response: @escaping SecureDFUResponseCallback, onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic!.send(SecureDFURequest.readCommandObjectInfo(), onResponse: response, onError: report)
+            dfuControlPointCharacteristic!.send(SecureDFURequest.readCommandObjectInfo, onResponse: response, onError: report)
         } else {
             sendReset(onError: report)
         }
@@ -159,7 +165,7 @@ import CoreBluetooth
      */
     func readDataObjectInfo(onReponse response: @escaping SecureDFUResponseCallback, onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic!.send(SecureDFURequest.readDataObjectInfo(), onResponse: response, onError: report)
+            dfuControlPointCharacteristic!.send(SecureDFURequest.readDataObjectInfo, onResponse: response, onError: report)
         } else {
             sendReset(onError: report)
         }
@@ -210,7 +216,7 @@ import CoreBluetooth
      */
     func calculateChecksumCommand(onSuccess success: @escaping SecureDFUResponseCallback, onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic!.send(SecureDFURequest.calculateChecksumCommand(), onResponse: success, onError: report)
+            dfuControlPointCharacteristic!.send(SecureDFURequest.calculateChecksumCommand, onResponse: success, onError: report)
         } else {
             sendReset(onError: report)
         }
@@ -221,7 +227,7 @@ import CoreBluetooth
      */
     func executeCommand(onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic?.send(SecureDFURequest.executeCommand(), onSuccess: success, onError: report)
+            dfuControlPointCharacteristic?.send(SecureDFURequest.executeCommand, onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
         }
@@ -335,11 +341,18 @@ import CoreBluetooth
             
             // Find DFU characteristics
             for characteristic in service.characteristics! {
-                if (SecureDFUPacket.matches(characteristic)) {
+                if SecureDFUPacket.matches(characteristic) {
                     dfuPacketCharacteristic = SecureDFUPacket(characteristic, logger)
-                } else if (SecureDFUControlPoint.matches(characteristic)) {
+                } else if SecureDFUControlPoint.matches(characteristic) {
                     dfuControlPointCharacteristic = SecureDFUControlPoint(characteristic, logger)
                 }
+                // Support for experimental Buttonless DFU Service from SDK 12.x
+                else if ExperimentalButtonlessDFU.matches(characteristic) {
+                    experimentalButtonlessDfuCharacteristic = ExperimentalButtonlessDFU(characteristic, logger)
+                    _success?()
+                    return
+                }
+                // End
             }
             
             // Some validation
@@ -365,4 +378,47 @@ import CoreBluetooth
             _success?()
         }
     }
+    
+    // MARK: - Support for experimental Buttonless DFU Service from SDK 12.x
+    
+    /// The buttonless jump feature was experimental in SDK 12. It did not support passing bond information to the DFU bootloader,
+    /// was not safe (possible DOS attack) and had bugs. This is the service UUID used by this service.
+    static internal let ExperimentalButtonlessDfuUUID = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
+    
+    static func matches(experimental service: CBService) -> Bool {
+        return service.uuid.isEqual(ExperimentalButtonlessDfuUUID)
+    }
+    
+    private var experimentalButtonlessDfuCharacteristic:ExperimentalButtonlessDFU?
+    
+    /**
+     This method tries to estimate whether the DFU target device is in Application mode which supports
+     the buttonless jump to the DFU Bootloader.
+     
+     - returns: true, if it is for sure in the Application more, false, if definitely is not, nil if uknown
+     */
+    func isInApplicationMode() -> Bool? {
+        // If the experimental buttonless DFU characteristic is not nil it means that the device is in app mode
+        return experimentalButtonlessDfuCharacteristic != nil
+    }
+    
+    var newAddressExpected: Bool {
+        // The experimental Buttonless DFU will cause the device to advertise with address +1
+        return experimentalButtonlessDfuCharacteristic != nil
+    }
+    
+    /**
+     Triggers a switch to DFU Bootloader mode on the remote target by sending DFU Start command.
+     
+     - parameter report:  method called when an error occurred
+     */
+    func jumpToBootloaderMode(onError report:@escaping ErrorCallback) {
+        if !aborted {
+            experimentalButtonlessDfuCharacteristic!.send(ExperimentalButtonlessDFURequest.enterBootloader, onSuccess: nil, onError: report)
+        } else {
+            sendReset(onError: report)
+        }
+    }
+    
+    // End
 }

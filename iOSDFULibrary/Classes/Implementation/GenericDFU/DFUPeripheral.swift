@@ -53,28 +53,36 @@ internal protocol BaseDFUPeripheralAPI: class, DFUController {
 
 internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDFUPeripheralAPI, CBPeripheralDelegate, CBCentralManagerDelegate {
     /// Bluetooth Central Manager used to scan for the peripheral.
-    internal let centralManager:CBCentralManager
+    internal let centralManager: CBCentralManager
     /// The DFU Target peripheral.
-    internal var peripheral:CBPeripheral?
+    internal var peripheral: CBPeripheral?
     /// The peripheral delegate.
-    internal var delegate:TD?
+    internal var delegate: TD?
     /// The optional logger delegate.
-    internal let logger:LoggerHelper
-    /// A list of services required to be found on the peripheral. May be nil - then all services will be discovered.
+    internal let logger: LoggerHelper
+    /// A list of services required to be found on the peripheral. May return nil - then all services will be discovered.
     internal var requiredServices: [CBUUID]? {
+        // If the experimental feature was enabled
+        if experimentalButtonlessServiceInSecureDfuEnabled {
+            return [LegacyDFUService.UUID, SecureDFUService.UUID, SecureDFUService.ExperimentalButtonlessDfuUUID]
+        }
+        // By default only standard Secure and Legacy DFU services will be discovered
         return [LegacyDFUService.UUID, SecureDFUService.UUID]
     }
+    /// A flag indicating whether the eperimental Buttonless DFU Service in Secure DFU is supported
+    internal let experimentalButtonlessServiceInSecureDfuEnabled: Bool
     /// Default error callback
     internal var defaultErrorCallback: ErrorCallback {
         return { (error, message) in self.delegate?.error(error, didOccurWithMessage: message) }
     }
     
     /// A flag set when upload has been aborted.
-    fileprivate var aborted:Bool = false
+    fileprivate var aborted: Bool = false
     
     init(_ initiator: DFUServiceInitiator) {
         self.centralManager = initiator.centralManager
         self.logger = LoggerHelper(initiator.logger)
+        self.experimentalButtonlessServiceInSecureDfuEnabled = initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu
         super.init()
         // Set the initial peripheral. It may be changed later (flashing App fw after first flashing SD/BL)
         self.peripheral = initiator.target
@@ -308,6 +316,11 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     private func findDfuService(in services:[CBService]?) -> CBService? {
         if let services = services {
             for service in services {
+                // Skip the experimental Buttonless DFU Service if this feature wasn't enabled
+                if experimentalButtonlessServiceInSecureDfuEnabled && SecureDFUService.matches(experimental: service) {
+                    // The experimental Buttonless DFU Service for Secure DFU has been found
+                    return service
+                }
                 if SecureDFUService.matches(service) {
                     // Secure DFU Service has been found
                     return service
@@ -359,10 +372,8 @@ internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
      After updating the Softdevice the device may start advertising with an address incremented by 1.
      A BLE scan needs to be done to find this new peripheral (it's the same device, but as it
      advertises with a new address, from iOS point of view it completly different device).
-     
-     - parameter selector: a selector used to select a device in DFU Bootloader mode
      */
-    func switchToNewPeripheralAndConnect(_ selector: DFUPeripheralSelectorDelegate)
+    func switchToNewPeripheralAndConnect()
     
     /**
      Returns whether the Init Packet is required by the target DFU device.
@@ -373,38 +384,49 @@ internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
     func isInitPacketRequired() -> Bool
     
     /// A flag set when a command to jump to DFU Bootloader has been sent.
-    var jumpingToBootloader:Bool { get set }
+    var jumpingToBootloader: Bool { get set }
     /// A flag set when a command to activate the new firmware and reset the device has been sent.
-    var activating:Bool { get set }
+    var activating: Bool { get set }
     /// A flag set when the library should try again connecting to the device (it may be then in a correct state).
-    var shouldReconnect:Bool { get set }
+    var shouldReconnect: Bool { get set }
 }
 
 internal protocol DFUPeripheral : DFUPeripheralAPI {
     associatedtype DFUServiceType : DFUService
     
     /// Selector used to find the advertising peripheral in DFU Bootloader mode.
-    var peripheralSelector:DFUPeripheralSelectorDelegate? { get }
+    var peripheralSelector: DFUPeripheralSelectorDelegate { get }
     
     /// The DFU Service instance. Not nil when found on the peripheral.
-    var dfuService:DFUServiceType? { get set }
+    var dfuService: DFUServiceType? { get set }
 }
 
 internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUService> : BaseDFUPeripheral<TD>, DFUPeripheral {
-    internal var peripheralSelector:DFUPeripheralSelectorDelegate?
+    /// The peripheral selector instance specified in the initiator
+    internal let peripheralSelector: DFUPeripheralSelectorDelegate
     
-    typealias DFUServiceType = TS
-    var dfuService:DFUServiceType?
+    internal typealias DFUServiceType = TS
+    internal var dfuService: DFUServiceType?
     
     /// This flag must be set to true if switching to bootloader mode is expected after executing the next operation.
-    /// Service will try to connect back to the device after it gets disconnected.
+    /// The operation is expecter to reset the device. After the disconnect event is received the service will 
+    /// try to connect back to the device, or scan for a new device matching specified selector, depending on
+    /// `newAddressExpected` flag value.
     internal var jumpingToBootloader : Bool = false
     /// This flag must be set to true when the firmware upload is complete and device will restart and run the new fw
     /// after executing the next operation.
     internal var activating          : Bool = false
-    /// This flag has the same meaning as `jumpingToBootloader`, but it's used when Invalid state error was received and
+    /// This flag has the same behavior as `jumpingToBootloader`, but it's used when Invalid state error was received and
     /// a reset command will be executed. The service will reconnect to the same device.
     internal var shouldReconnect     : Bool = false
+    /// This flag must be set to true if the device will advertise with a new device address after it resets.
+    /// The service will scan and use specified peripheral selector in order to connect to the new peripheral.
+    internal var newAddressExpected  : Bool = false
+    
+    override init(_ initiator: DFUServiceInitiator) {
+        self.peripheralSelector = initiator.peripheralSelector
+        super.init(initiator)
+    }
     
     // MARK: - Base DFU Peripheral API
     
@@ -412,8 +434,8 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         dfuService = DFUServiceType(service, logger)
         dfuService!.targetPeripheral = self
         dfuService!.discoverCharacteristics(
-            onSuccess: { () -> () in self.delegate?.peripheralDidBecomeReady() },
-            onError: { (error, message) -> () in self.delegate?.error(error, didOccurWithMessage: message) }
+            onSuccess: { self.delegate?.peripheralDidBecomeReady() },
+            onError: defaultErrorCallback
         )
     }
     
@@ -429,8 +451,14 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             connect()
         } else if jumpingToBootloader {
             jumpingToBootloader = false
-            // Connect again, hoping for DFU mode this time
-            connect()
+            if newAddressExpected {
+                newAddressExpected = false
+                // Scan for a new device and connect to it
+                switchToNewPeripheralAndConnect()
+            } else {
+                // Connect again, hoping for DFU mode this time
+                connect()
+            }
         } else if activating {
             activating = false
             // This part of firmware has been successfully
@@ -457,7 +485,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         return false
     }
     
-    func switchToNewPeripheralAndConnect(_ selector: DFUPeripheralSelectorDelegate) {
+    func switchToNewPeripheralAndConnect() {
         // Release the previous peripheral
         peripheral!.delegate = nil
         peripheral = nil
@@ -468,31 +496,26 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             return
         }
         
-        peripheralSelector = selector
         logger.v("Scanning for the DFU Bootloader...")
-        centralManager.scanForPeripherals(withServices: selector.filterBy(hint: DFUServiceType.UUID))
+        centralManager.scanForPeripherals(withServices: peripheralSelector.filterBy(hint: DFUServiceType.UUID))
     }
     
     // MARK: - Peripheral Delegate methods
     
     override func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        if let peripheralSelector = peripheralSelector {
-            // Is this a device we are looking for?
-            if peripheralSelector.select(peripheral, advertisementData: advertisementData as [String : AnyObject], RSSI: RSSI) {
-                // Hurray!
-                central.stopScan()
-                
-                if let name = peripheral.name {
-                    logger.i("DFU Bootloader found with name \(name)")
-                } else {
-                    logger.i("DFU Bootloader found")
-                }
-                
-                self.peripheral = peripheral
-                connect()
+        // Is this a device we are looking for?
+        if peripheralSelector.select(peripheral, advertisementData: advertisementData as [String : AnyObject], RSSI: RSSI) {
+            // Hurray!
+            central.stopScan()
+            
+            if let name = peripheral.name {
+                logger.i("DFU Bootloader found with name \(name)")
+            } else {
+                logger.i("DFU Bootloader found")
             }
-        } else {
-            super.centralManager(central, didDiscover: peripheral, advertisementData: advertisementData, rssi: RSSI)
+            
+            self.peripheral = peripheral
+            connect()
         }
     }
     

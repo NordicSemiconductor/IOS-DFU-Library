@@ -41,6 +41,11 @@
     case remoteSecureDFUOperationFailed       = 20 // 10 + 10
     case remoteSecureDFUExtendedError         = 21 // 10 + 11
     
+    // Experimental DFU errors (received value + 9000 as they overlap legacy errors)
+    case remoteExperimentalBootlonlessDFUSuccess               = 9001 // 9000 + 1
+    case remoteExperimentalBootlonlessDFUOpCodeNotSupported    = 9002 // 9000 + 2
+    case remoteExperimentalBootlonlessDFUOperationFailed       = 9004 // 9000 + 4
+    
     /// Providing the DFUFirmware is required.
     case fileNotSpecified                     = 101
     /// Given firmware file is not supported.
@@ -99,7 +104,7 @@
         case .starting:        return "Starting"
         case .enablingDfuMode: return "Enabling DFU Mode"
         case .uploading:       return "Uploading"
-        case .validating:      return "Validating"
+        case .validating:      return "Validating"  // this state occurs only in Legacy DFU
         case .disconnecting:   return "Disconnecting"
         case .completed:       return "Completed"
         case .aborted:         return "Aborted"

@@ -23,21 +23,22 @@
 import CoreBluetooth
 
 /**
- The DFU Target matcher is used when both the Softdevice (or Softdevice and Bootloader) and Application
- are going to be updated.
+ The DFUPeripheralSelectorDelegate is used when both the Softdevice (or Softdevice and Bootloader) and Application
+ are going to be updated, or when a peripheral is to be switched to the bootloader mode that will change its address.
  
  This library supports sending both BIN files from a ZIP Distribution Packet automatically.
  However, when sending the Softdevice update, the DFU Bootloader removes the current application in order to
  make space for the new Softdevice firmware. When the new Softdevice is flashed the bootloader restarts the device
  and, as there is no application anymore, starts advertising in DFU Bootloader mode.
  
- Since SDK 8.0.0, to solve caching problem on a host, the bootloader starts to advertise with an address incremented by 1.
+ Since SDK 8.0.0, to solve caching problem on a host (in case there was no Service Changed characteristic), 
+ the bootloader starts to advertise with an address incremented by 1.
  The DFU Library has to scan for a peripheral with this new address. However, as iOS does not expose the device
  address in the public CoreBluetooth API, address matching, used on Android, can not be used.
- Instead, this matcher is used. The DFU Service will start scanning for peripherals with a UUID filter, where
- the list of required UUID is returned by the `filterBy()` method. If your device in the Bootloader mode
+ Instead, this selector is used. The DFU Service will start scanning for peripherals with a UUID filter, where
+ the list of required UUID is returned by the `filterBy(hint:)` method. If your device in the Bootloader mode
  does not advertise with any service UUIDs, or this is not enough, you may select a target device
- by their advertising packet or RSSI.
+ by their advertising packet or RSSI using this delegate.
  */
 @objc public protocol DFUPeripheralSelectorDelegate : class {
     /**

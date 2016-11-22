@@ -149,7 +149,7 @@ extension DFUExecutor {
             DispatchQueue.main.async(execute: {
                 self.delegate?.dfuStateDidChange(to: .connecting)
             })
-            peripheral.switchToNewPeripheralAndConnect(initiator.peripheralSelector)
+            peripheral.switchToNewPeripheralAndConnect()
             return
         }
         // If not, we are done here. Congratulations!

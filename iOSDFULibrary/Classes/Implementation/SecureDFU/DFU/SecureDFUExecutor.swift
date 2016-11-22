@@ -69,12 +69,10 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     func peripheralDidEnableControlPoint() {
         // Check whether the target is in application or bootloader mode
         if peripheral.isInApplicationMode(initiator.forceDfu) {
-            // Jumping to Bootloader is not supported in Secure DFU right now so this will never be called
-            
-            // DispatchQueue.main.async(execute: {
-            //     self.delegate?.dfuStateDidChange(to: .enablingDfuMode)
-            // })
-            // peripheral.jumpToBootloader()
+            DispatchQueue.main.async(execute: {
+                self.delegate?.dfuStateDidChange(to: .enablingDfuMode)
+            })
+            peripheral.jumpToBootloader()
         } else {
             // The device is ready to proceed with DFU
             
@@ -149,7 +147,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             // Verify CRC
             if verifyCRC(for: firmware.data, andPacketOffset: offset, matches: crc) {
                 crcOk()
-                peripheral.sendExecuteCommand(andResetIf: offset == UInt32(firmware.data.count))
+                firmwareSent = offset == UInt32(firmware.data.count)
+                peripheral.sendExecuteCommand(andActivateIf: firmwareSent)
             } else {
                 retryOrReportCrcError({
                     createDataObject(currentRangeIdx)
@@ -166,7 +165,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         } else {
             logWith(.application, message: "Data object executed")
             
-            if (currentRangeIdx < firmwareRanges!.count - 1) {
+            if firmwareSent == false {
                 currentRangeIdx += 1
                 createDataObject(currentRangeIdx)
             } else {
@@ -174,6 +173,10 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 // Now the device will reset itself and onTransferCompleted() method will ba called (from the extension)
                 let interval = CFAbsoluteTimeGetCurrent() - uploadStartTime! as CFTimeInterval
                 logWith(.application, message: "Upload completed in \(interval.format(".2")) seconds")
+                
+                DispatchQueue.main.async(execute: {
+                    self.delegate?.dfuStateDidChange(to: .disconnecting)
+                })
             }
         }
     }
@@ -196,7 +199,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         })
         
         if offset > 0 {
-            // Find the current range
+            // Find the current range index
             currentRangeIdx = 0
             for range in firmwareRanges! {
                 if range.contains(Int(offset)) {
@@ -211,7 +214,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 // Did we sent the whole firmware?
                 if offset == UInt32(firmware.data.count) {
                     firmwareSent = true
-                    peripheral.sendExecuteCommand()
+                    peripheral.sendExecuteCommand(andActivateIf: firmwareSent)
                 } else {
                     logWith(.info, message: "Resuming uploading firmware...")
                     // If the PRNs are enabled the value must be sent to the target

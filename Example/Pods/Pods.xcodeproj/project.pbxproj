@@ -25,6 +25,7 @@
 		49167FDF81579DE4984214096F1AEB99 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 37CD6B80AADF9ABC306CAFB85D289321 /* unzip.c */; };
 		4BFF52BC06A3069BB175EAE837982D1B /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = F15BFF4B090084A4BA6C9F76CCA81DBD /* unzip.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4D1B859C1B3EA3BBBD0BA1012BD4EE4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADD59C8B63533C0E7C598461E3E8174 /* Foundation.framework */; };
+		522035481DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522035471DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift */; };
 		5227C6AD1DD23E13009F021A /* DFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C6AC1DD23E13009F021A /* DFUPeripheral.swift */; };
 		5227C6AF1DD32EC6009F021A /* DFUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C6AE1DD32EC6009F021A /* DFUController.swift */; };
 		5227C6B11DD330C3009F021A /* DFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C6B01DD330C3009F021A /* DFUPeripheralDelegate.swift */; };
@@ -144,6 +145,7 @@
 		4532BF668667CED78AB4CA1710944391 /* Pods-iOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
 		482448948F4CD3DE95E91B752F64F5CF /* DFUStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStream.swift; sourceTree = "<group>"; };
 		4A817AA9605D54E4FF3C70C8302671C5 /* DFUVersion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUVersion.swift; sourceTree = "<group>"; };
+		522035471DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentalButtonlessDFU.swift; sourceTree = "<group>"; };
 		5227C6AC1DD23E13009F021A /* DFUPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheral.swift; sourceTree = "<group>"; };
 		5227C6AE1DD32EC6009F021A /* DFUController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUController.swift; sourceTree = "<group>"; };
 		5227C6B01DD330C3009F021A /* DFUPeripheralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheralDelegate.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 			children = (
 				F5222F37E90ADA2C9DC1C49E8310DC8E /* SecureDFUControlPoint.swift */,
 				132E073971EB3E0B53806156332A3656 /* SecureDFUPacket.swift */,
+				522035471DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift */,
 			);
 			path = Characteristics;
 			sourceTree = "<group>";
@@ -788,6 +791,7 @@
 				73FFBBB2334B0E9F7455D2C95C7DEEBE /* DFUStreamBin.swift in Sources */,
 				1289B37797BEA12525DC05E857E42B65 /* DFUStreamHex.swift in Sources */,
 				194CE24690A9D3F9DAFE98E7B69D045D /* DFUStreamZip.swift in Sources */,
+				522035481DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift in Sources */,
 				644E3017B7409F226371A3A2161A7FA6 /* DFUVersion.swift in Sources */,
 				175CBD604EFEEFC826277654C039452D /* Double.swift in Sources */,
 				B4A9EEE462BC17CFEB979023F7B07B3B /* IntelHex2BinConverter.m in Sources */,

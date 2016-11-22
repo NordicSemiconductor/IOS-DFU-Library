@@ -32,6 +32,11 @@ internal class DFUStarterPeripheral : BaseDFUPeripheral<DFUServiceSelector> {
             delegate?.peripheralDidSelectedExecutor(SecureDFUExecutor.self)
         } else if LegacyDFUService.matches(service) {
             delegate?.peripheralDidSelectedExecutor(LegacyDFUExecutor.self)
+        } else if SecureDFUService.matches(experimental: service) {
+            delegate?.peripheralDidSelectedExecutor(SecureDFUExecutor.self)
+        } else {
+            // This will never go in here
+            delegate?.error(.deviceNotSupported, didOccurWithMessage: "Device not supported")
         }
     }    
 }

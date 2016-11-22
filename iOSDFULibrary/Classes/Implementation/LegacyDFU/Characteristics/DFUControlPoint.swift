@@ -143,9 +143,9 @@ internal enum DFUResultCode : UInt8 {
 }
 
 internal struct Response {
-    let opCode:DFUOpCode?
-    let requestOpCode:DFUOpCode?
-    let status:DFUResultCode?
+    let opCode        : DFUOpCode?
+    let requestOpCode : DFUOpCode?
+    let status        : DFUResultCode?
     
     init?(_ data:Data) {
         var opCode        : UInt8 = 0
@@ -156,11 +156,11 @@ internal struct Response {
         (data as NSData).getBytes(&requestOpCode, range: NSRange(location: 1, length: 1))
         (data as NSData).getBytes(&status, range: NSRange(location: 2, length: 1))
         
-        self.opCode = DFUOpCode(rawValue: opCode)
+        self.opCode        = DFUOpCode(rawValue: opCode)
         self.requestOpCode = DFUOpCode(rawValue: requestOpCode)
-        self.status = DFUResultCode(rawValue: status)
+        self.status        = DFUResultCode(rawValue: status)
         
-        if self.opCode != DFUOpCode.responseCode || self.requestOpCode == nil || self.status == nil {
+        if self.opCode != .responseCode || self.requestOpCode == nil || self.status == nil {
             return nil
         }
     }
@@ -175,15 +175,15 @@ internal struct PacketReceiptNotification {
     let bytesReceived : UInt32
     
     init?(_ data:Data) {
-        var opCode:UInt8 = 0
+        var opCode: UInt8 = 0
         (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
         self.opCode = DFUOpCode(rawValue: opCode)
         
-        if self.opCode != DFUOpCode.packetReceiptNotification {
+        if self.opCode != .packetReceiptNotification {
             return nil
         }
         
-        var bytesReceived:UInt32 = 0
+        var bytesReceived: UInt32 = 0
         (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 4))
         self.bytesReceived = bytesReceived
     }
@@ -237,8 +237,8 @@ internal struct PacketReceiptNotification {
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Enabling notifications for \(DFUControlPoint.UUID.uuidString)...")
-        logger.d("peripheral.setNotifyValue(true, for: \(DFUControlPoint.UUID.uuidString))")
+        logger.v("Enabling notifications for \(characteristic.uuid.uuidString)...")
+        logger.d("peripheral.setNotifyValue(true, for: \(characteristic.uuid.uuidString))")
         peripheral.setNotifyValue(true, for: characteristic)
     }
     
@@ -277,8 +277,8 @@ internal struct PacketReceiptNotification {
         default:
             break
         }
-        logger.v("Writing to characteristic \(DFUControlPoint.UUID.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(DFUControlPoint.UUID.uuidString), type: .withResponse)")
+        logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
+        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(characteristic.uuid.uuidString), type: .withResponse)")
         peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     
@@ -315,7 +315,7 @@ internal struct PacketReceiptNotification {
             logger.e(error!)
             report?(.enablingControlPointFailed, "Enabling notifications failed")
         } else {
-            logger.v("Notifications enabled for \(DFUControlPoint.UUID.uuidString)")
+            logger.v("Notifications enabled for \(characteristic.uuid.uuidString)")
             logger.a("DFU Control Point notifications enabled")
             success?()
         }
@@ -382,14 +382,14 @@ internal struct PacketReceiptNotification {
                 }
             }
             // Otherwise...
-            logger.i("Notification received from \(DFUVersion.UUID.uuidString), value (0x):\(characteristic.value!.hexString)")
+            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x):\(characteristic.value!.hexString)")
             
             // Parse response received
             let response = Response(characteristic.value!)
             if let response = response {
                 logger.a("\(response.description) received")
                 
-                if response.status == DFUResultCode.success {
+                if response.status == .success {
                     switch response.requestOpCode! {
                     case .initDfuParameters:
                         logger.a("Initialize DFU Parameters completed")
