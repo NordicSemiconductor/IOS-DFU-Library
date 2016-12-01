@@ -69,7 +69,7 @@ internal typealias VersionCallback = (_ major:Int, _ minor:Int) -> Void
         peripheral.delegate = self
         
         logger.v("Reading DFU Version number...")
-        logger.d("peripheral.readValue(\(DFUVersion.UUID.uuidString))")
+        logger.d("peripheral.readValue(\(characteristic.uuid.uuidString))")
         peripheral.readValue(for: characteristic)
     }
     
@@ -82,12 +82,12 @@ internal typealias VersionCallback = (_ major:Int, _ minor:Int) -> Void
             report?(.readingVersionFailed, "Reading DFU Version characteristic failed")
         } else {
             let data = characteristic.value
-            logger.i("Read Response received from \(DFUVersion.UUID.uuidString), \("value (0x):" + (data?.hexString ?? "no value"))")
+            logger.i("Read Response received from \(characteristic.uuid.uuidString), value\(data != nil && data!.count > 0 ? " (0x): " + data!.hexString : ": 0 bytes")")
             
             // Validate data length
             if data == nil || data!.count != 2 {
                 logger.w("Invalid value: 2 bytes expected")
-                report?(.readingVersionFailed, "Unsupported DFU Version value: \(data != nil ? "0x" + data!.hexString : "nil"))")
+                report?(.readingVersionFailed, "Unsupported DFU Version: \(data != nil && data!.count > 0 ? "0x" + data!.hexString : "no value")")
                 return
             }
             
