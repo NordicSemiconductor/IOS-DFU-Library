@@ -508,7 +508,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
             }
         }
         //Otherwise...    
-        logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x):\(characteristic.value!.hexString)")
+        logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
 
         // Parse response received
         let dfuResponse = SecureDFUResponse(characteristic.value!)

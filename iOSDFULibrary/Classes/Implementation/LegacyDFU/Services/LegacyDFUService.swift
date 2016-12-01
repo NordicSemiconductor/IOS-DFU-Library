@@ -368,7 +368,8 @@ import CoreBluetooth
                         // Each time a PRN is received, send next bunch of packets
                         if !self.paused && !self.aborted {
                             let bytesSent = self.dfuPacketCharacteristic!.bytesSent
-                            if bytesSent == bytesReceived {
+                            // Due to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54 only 16 least significant bits are verified
+                            if (bytesSent & 0xFFFF) == bytesReceived {
                                 self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, packetsOf: aFirmware, andReportProgressTo: progressDelegate)
                             } else {
                                 // Target device deported invalid number of bytes received

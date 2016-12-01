@@ -183,9 +183,33 @@ internal struct PacketReceiptNotification {
             return nil
         }
         
-        var bytesReceived: UInt32 = 0
-        (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 4))
-        self.bytesReceived = bytesReceived
+        // The PRN usually is 5 bytes long:
+        //
+        // Byte    Size   Description     Value
+        // ---------------------------------------
+        // 0       1      Response code   0x11
+        // 1-4     4      Bytes received
+        if data.count == 5 {
+            var bytesReceived: UInt32 = 0
+            (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 4))
+            self.bytesReceived = bytesReceived
+        } else {
+            // According to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54 
+            // in SDK 5.2.0.39364 the response received was 16-bit long instead.
+            // This may cause the value to overflow when fw size is bigger than 0xFFFF bytes.
+            //
+            // Byte    Size   Description     Value
+            // ---------------------------------------
+            // 0       1      Response code   0x11
+            // 1-2     2      Bytes received
+            if data.count == 3 {
+                var bytesReceived: UInt16 = 0
+                (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 2))
+                self.bytesReceived = UInt32(bytesReceived)
+            } else {
+                return nil
+            }
+        }
     }
 }
 
@@ -382,7 +406,7 @@ internal struct PacketReceiptNotification {
                 }
             }
             // Otherwise...
-            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x):\(characteristic.value!.hexString)")
+            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
             
             // Parse response received
             let response = Response(characteristic.value!)
