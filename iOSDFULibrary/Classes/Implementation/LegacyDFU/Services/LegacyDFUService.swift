@@ -368,7 +368,9 @@ import CoreBluetooth
                         // Each time a PRN is received, send next bunch of packets
                         if !self.paused && !self.aborted {
                             let bytesSent = self.dfuPacketCharacteristic!.bytesSent
-                            if bytesSent == bytesReceived {
+                            // An older version on the legacy DFU had bytesRecieved defined as an
+                            // uint16_t, so firmware files larger than 65K will rollover the counter
+                            if bytesSent == bytesReceived || bytesSent == (bytesReceived + 0x10000) {
                                 self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, packetsOf: aFirmware, andReportProgressTo: progressDelegate)
                             } else {
                                 // Target device deported invalid number of bytes received
