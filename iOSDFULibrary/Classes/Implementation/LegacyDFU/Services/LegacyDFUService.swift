@@ -369,7 +369,7 @@ import CoreBluetooth
                         if !self.paused && !self.aborted {
                             let bytesSent = self.dfuPacketCharacteristic!.bytesSent
                             // Due to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54 only 16 least significant bits are verified
-                            if (bytesSent & 0xFFFF) == bytesReceived {
+                            if (bytesSent & 0xFFFF) == (bytesReceived & 0xFFFF) {
                                 self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, packetsOf: aFirmware, andReportProgressTo: progressDelegate)
                             } else {
                                 // Target device deported invalid number of bytes received
