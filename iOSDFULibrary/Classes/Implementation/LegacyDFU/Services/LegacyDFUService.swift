@@ -370,7 +370,7 @@ import CoreBluetooth
                             let bytesSent = self.dfuPacketCharacteristic!.bytesSent
                             // An older version on the legacy DFU had bytesRecieved defined as an
                             // uint16_t, so firmware files larger than 65K will rollover the counter
-                            if bytesSent == bytesReceived || bytesSent == (bytesReceived + 0x10000) {
+                            if bytesSent == bytesReceived || (bytesSent & 0xFFFF) == bytesReceived {
                                 self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, packetsOf: aFirmware, andReportProgressTo: progressDelegate)
                             } else {
                                 // Target device deported invalid number of bytes received
