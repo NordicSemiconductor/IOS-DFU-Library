@@ -183,33 +183,14 @@ internal struct PacketReceiptNotification {
             return nil
         }
         
-        // The PRN usually is 5 bytes long:
-        //
-        // Byte    Size   Description     Value
-        // ---------------------------------------
-        // 0       1      Response code   0x11
-        // 1-4     4      Bytes received
-        if data.count == 5 {
-            var bytesReceived: UInt32 = 0
-            (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 4))
-            self.bytesReceived = bytesReceived
-        } else {
-            // According to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54 
-            // in SDK 5.2.0.39364 the response received was 16-bit long instead.
-            // This may cause the value to overflow when fw size is bigger than 0xFFFF bytes.
-            //
-            // Byte    Size   Description     Value
-            // ---------------------------------------
-            // 0       1      Response code   0x11
-            // 1-2     2      Bytes received
-            if data.count == 3 {
-                var bytesReceived: UInt16 = 0
-                (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 2))
-                self.bytesReceived = UInt32(bytesReceived)
-            } else {
-                return nil
-            }
-        }
+        // According to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54
+        // in SDK 5.2.0.39364 the bytesReveived value in a PRN packet is 16-bit long, instad of 32-bit.
+        // However, the packet is still 5 bytes long and the two last bytes are 0x00-00.
+        // This has to be taken under consideration when comparing number of bytes sent and received as
+        // the latter counter may rewind if fw size is > 0xFFFF bytes (LegacyDFUService:L372).
+        var bytesReceived: UInt32 = 0
+        (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 4))
+        self.bytesReceived = bytesReceived
     }
 }
 
