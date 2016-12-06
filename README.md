@@ -50,6 +50,10 @@ DFU library has been designed to make it very easy to include these devices into
 
 In order the DFU to work with iOS, the target device MUST have the **Service Changed** characteristic with Indicate property in the **Generic Attribute** service. Without this characteristic iOS will assume that services of this device will never change and will not invalidate them after switching to DFU bootloader mode.
 
+To enable Service Changed characteristic for nRF5 application make sure this flag is set in your *main.c* file:
+
+```#define IS_SRVC_CHANGED_CHARACT_PRESENT 1```
+
 ##### Service Changed characteristic behaviour:
 
 - On paired devices a change of the attribute table must be indicated using an indication to the Service Changed characteristic. iOS automatically enables the CCC and handles this indication and performs a service discovery. This indication is handled correctly in Legacy DFU since SDK 8.0.
