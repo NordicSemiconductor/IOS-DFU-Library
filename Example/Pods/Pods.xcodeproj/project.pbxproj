@@ -19,23 +19,33 @@
 		1E90BB53486D6715EE669D25F91141CA /* iOSDFULibrary-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 67D65E5ACFACE52CC2819695F8318D31 /* iOSDFULibrary-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2365F20B107C71C71F44BBCEC1832FA9 /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AA23BF7F774629B25DA69786B32C64 /* SecureDFUPeripheralDelegate.swift */; };
 		2B40B16D7B3249B45910F43835ED5CD1 /* LegacyDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C73497A7FAF4DF8E942A8F53F7EB169 /* LegacyDFUPeripheral.swift */; };
-		2D132F42B5E00818B674E3C0D54ED3D8 /* DFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1BED69CEB6C1D85C4E9C2A85E6B3D7 /* DFUServiceInitiator.swift */; };
 		2FDC7E6FE0BE81E22F21980803444634 /* Pods-iOSDFULibrary_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 80AB05A341B71E7785F934DDC8DD7C06 /* Pods-iOSDFULibrary_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		38FD13D12FF5B0125F0CAA3C0402C22D /* Pods-iOSDFULibrary_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E8BAD92E3202BFCB2884754BF9857 /* Pods-iOSDFULibrary_Tests-dummy.m */; };
 		3C646334D33C2D883CDC129F336B7DAE /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2546413575E4DA8727762B78C5076A0E /* Manifest.swift */; };
 		49167FDF81579DE4984214096F1AEB99 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 37CD6B80AADF9ABC306CAFB85D289321 /* unzip.c */; };
 		4BFF52BC06A3069BB175EAE837982D1B /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = F15BFF4B090084A4BA6C9F76CCA81DBD /* unzip.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4D1B859C1B3EA3BBBD0BA1012BD4EE4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADD59C8B63533C0E7C598461E3E8174 /* Foundation.framework */; };
+		522035481DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522035471DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift */; };
+		5227C6AD1DD23E13009F021A /* DFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C6AC1DD23E13009F021A /* DFUPeripheral.swift */; };
+		5227C6AF1DD32EC6009F021A /* DFUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C6AE1DD32EC6009F021A /* DFUController.swift */; };
+		5227C6B11DD330C3009F021A /* DFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C6B01DD330C3009F021A /* DFUPeripheralDelegate.swift */; };
+		5227C6B31DD364B2009F021A /* DFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C6B21DD364B2009F021A /* DFUService.swift */; };
+		52FA1E8E1DDF36C1009151B6 /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E891DDF36C1009151B6 /* DFUPeripheralSelector.swift */; };
+		52FA1E8F1DDF36C1009151B6 /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E8A1DDF36C1009151B6 /* DFUPeripheralSelectorDelegate.swift */; };
+		52FA1E901DDF36C1009151B6 /* DFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E8B1DDF36C1009151B6 /* DFUServiceController.swift */; };
+		52FA1E911DDF36C1009151B6 /* DFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E8C1DDF36C1009151B6 /* DFUServiceDelegate.swift */; };
+		52FA1E921DDF36C1009151B6 /* DFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E8D1DDF36C1009151B6 /* DFUServiceInitiator.swift */; };
+		52FA1E941DDF36D5009151B6 /* DFUFirmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E931DDF36D5009151B6 /* DFUFirmware.swift */; };
+		52FA1E971DDF36ED009151B6 /* DFUServiceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E951DDF36ED009151B6 /* DFUServiceSelector.swift */; };
+		52FA1E981DDF36ED009151B6 /* DFUStarterPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA1E961DDF36ED009151B6 /* DFUStarterPeripheral.swift */; };
 		5B6D42A9338765EFEB76F032C5C6C3C9 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711FE5C07CD198A2E6595F42413CC04D /* Data.swift */; };
 		5FC0244271299DD10B33D3CDB790C4C6 /* LegacyDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632DB4FFF49E01F61D3ADBFBA5D1E6A4 /* LegacyDFUService.swift */; };
-		6184C0D35D9C612C99BE3090C3C88D0E /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE9663376CCE19E90CF0C6D7DA80D20 /* DFUPeripheralSelectorDelegate.swift */; };
 		61D587F75DF6D619E7DF87D917244CAB /* ZipUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D067AA903429AC78FB32F42E132B139 /* ZipUtilities.swift */; };
 		644E3017B7409F226371A3A2161A7FA6 /* DFUVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A817AA9605D54E4FF3C70C8302671C5 /* DFUVersion.swift */; };
 		682081D691592E72E252E31F240B0212 /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BED07768EB668C05A500BB19F85C48 /* ManifestFirmwareInfo.swift */; };
 		6ADC9D00F86EA1CFD9F8702BE24CB2F8 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5FDED2A68D750AA8442E2512E97229B1 /* zip.c */; };
 		73FFBBB2334B0E9F7455D2C95C7DEEBE /* DFUStreamBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24B1EC100BE20E07FA5B59238383B81 /* DFUStreamBin.swift */; };
 		78B60C0B57853E87AC63A8AD547BB987 /* LegacyDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3DE423F69343F4A464CA331D0F410A /* LegacyDFUExecutor.swift */; };
-		7CF6C0D6C99B3720EED4E4701D6FC2CF /* SecureDFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553A185F49D6224D6E26672243CD55BA /* SecureDFUServiceDelegate.swift */; };
 		7D01377858455EAD01C2C3E2738655EE /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C24EF513FC91B1BDEED6A11D9134CA /* SecureDFUServiceInitiator.swift */; };
 		7D668AA27DF1A0AC26B3C5BEF1AFD432 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = EDA72513C72116C0B7C0BA2716E2980C /* crypt.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7E7ECDAC49DEDEF27A8E8BC30838148A /* IntelHex2BinConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E369E69082E844329244F7F484AF166 /* IntelHex2BinConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,29 +53,23 @@
 		89185446B65D1787993D09FF1797317A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADD59C8B63533C0E7C598461E3E8174 /* Foundation.framework */; };
 		8EA61C41B734A564902C99C7099F9295 /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7256A58259D2FCD46DEDC36CC25711 /* LegacyDFUPeripheralDelegate.swift */; };
 		8F5C0E09732C43BB0BBC83B2089CCFC3 /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E0A96DD2F477AABC7560CF77A998C0 /* ZipArchive.swift */; };
-		9361DBFB892209A92E9FEF655E3E02F7 /* DFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C10E673ABBFBC50C01C9BBCC309695B /* DFUServiceController.swift */; };
 		993F62474A31EDBAE72824907BF200ED /* QuickZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBB79AEFFAEB389970C34FABCBE632C /* QuickZip.swift */; };
 		9B0BA8BC39D3E40E024DCB9790AD2960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADD59C8B63533C0E7C598461E3E8174 /* Foundation.framework */; };
 		9EBF2E363A0B978BDE233DA6F49B44E1 /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85257A21578FD025FFD8FFB28668F5 /* LoggerDelegate.swift */; };
 		A71984A49B70A127914976AEA553C3C7 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AD842337E38D31CA5C66EB19ADCAC /* LoggerHelper.swift */; };
-		AEC9B8E7C197680926944845EF11A031 /* SecureDFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D09A8680D08ABF5C518AC150CB0F779 /* SecureDFUServiceController.swift */; };
 		AF73B421518B6BC65EABD88712D8ABBB /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = F3BF18D74EC5D8E66D1D64FCC3DDDBC5 /* zip.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AFD2AE250352013B77A994914E9E5ED2 /* SecureDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA8A67020A581349DF2020A01F8C5 /* SecureDFUService.swift */; };
 		B4A9EEE462BC17CFEB979023F7B07B3B /* IntelHex2BinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB3CE28BC91BFD9A481B54148494366 /* IntelHex2BinConverter.m */; };
 		B5583B31460E2F1965AAB30CC03CF6C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADD59C8B63533C0E7C598461E3E8174 /* Foundation.framework */; };
 		BBC6F8BB247520785BC305BFC8D3F0F5 /* DFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60E76C3B2D11BCB048355A5B27B8762 /* DFUPacket.swift */; };
 		C012854963E90C5ED326C04D6E26EE10 /* Zip-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7ACF8AFFDD8097FF4E3732598DF564 /* Zip-dummy.m */; };
-		C0724109FFCDD1BF65C6383064EAC7F1 /* DFUFirmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1A4401277B67DDC032B837E31526B5 /* DFUFirmware.swift */; };
 		C1D196C26DEE8F23E9A86FBE6DE67EC1 /* Pods-iOSDFULibrary_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 347874F43783DF92D75FC1354AA78DEA /* Pods-iOSDFULibrary_Example-dummy.m */; };
-		C373B1F2FF8625E66C7F08ECEB7BC786 /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4308CCF54E9EBC48A8345A3E13DBF5D /* DFUPeripheralSelector.swift */; };
 		CC6485E04D9E90D711B8B0BC5D35FD3B /* Pods-iOSDFULibrary_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4532BF668667CED78AB4CA1710944391 /* Pods-iOSDFULibrary_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CCC495F32DACF1CDC00F50F9D0A9A9D7 /* LegacyDFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A12B138D47575610C2C4B12C309DD8 /* LegacyDFUServiceController.swift */; };
 		CDCC158FF444744E99D66AC383337A35 /* DFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B89C9B44E4B995438A80E1B0A112A9 /* DFUExecutor.swift */; };
 		D0505AAC4CB054DA7D9EAD69A9377219 /* SecureDFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132E073971EB3E0B53806156332A3656 /* SecureDFUPacket.swift */; };
 		D08FDD80402078754D74226C1ABE93FA /* DFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F078CE597987506D533A32CD1858D161 /* DFUControlPoint.swift */; };
 		D36D5CA9636154C9DA145AC10B883EA0 /* SecureDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D819D84DDA6FAA3DCBB4820844A4C5 /* SecureDFUExecutor.swift */; };
 		D608C04F0126916A2B64DD2F96EB5153 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = B4694411DFB3D83252A87B5C66495CAA /* ioapi.c */; };
-		D72970432A2B4CD8C4BECFCC29476E34 /* DFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CEB047036026F26D897304281BB41 /* DFUServiceDelegate.swift */; };
 		DDF798CF29A879B8689E81A84581486C /* Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866788D5990831802B0F1CF51E7A19A6 /* Zip.swift */; };
 		DDF895131E8D684F38285930EA593B95 /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914339BF98F54172AE920521B5CB36A /* SoftdeviceBootloaderInfo.swift */; };
 		EC8D8ED70F18B396BC4EF388BE84EB35 /* LegacyDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E697B09CCC1B8855D5B6505D51F5C2E /* LegacyDFUServiceInitiator.swift */; };
@@ -135,15 +139,25 @@
 		3B7256A58259D2FCD46DEDC36CC25711 /* LegacyDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
 		3C73497A7FAF4DF8E942A8F53F7EB169 /* LegacyDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheral.swift; sourceTree = "<group>"; };
 		3D067AA903429AC78FB32F42E132B139 /* ZipUtilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZipUtilities.swift; path = Zip/ZipUtilities.swift; sourceTree = "<group>"; };
-		3D09A8680D08ABF5C518AC150CB0F779 /* SecureDFUServiceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUServiceController.swift; sourceTree = "<group>"; };
 		3DF3C88270B046A0E0FAEFC1D79778B5 /* iOSDFULibrary.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = iOSDFULibrary.xcconfig; sourceTree = "<group>"; };
 		3E7B4B1027AF6181D99BE9C75EBEE863 /* Pods-iOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
 		42BED07768EB668C05A500BB19F85C48 /* ManifestFirmwareInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ManifestFirmwareInfo.swift; sourceTree = "<group>"; };
 		4532BF668667CED78AB4CA1710944391 /* Pods-iOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
 		482448948F4CD3DE95E91B752F64F5CF /* DFUStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStream.swift; sourceTree = "<group>"; };
 		4A817AA9605D54E4FF3C70C8302671C5 /* DFUVersion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUVersion.swift; sourceTree = "<group>"; };
-		4B1A4401277B67DDC032B837E31526B5 /* DFUFirmware.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUFirmware.swift; sourceTree = "<group>"; };
-		553A185F49D6224D6E26672243CD55BA /* SecureDFUServiceDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUServiceDelegate.swift; sourceTree = "<group>"; };
+		522035471DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentalButtonlessDFU.swift; sourceTree = "<group>"; };
+		5227C6AC1DD23E13009F021A /* DFUPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheral.swift; sourceTree = "<group>"; };
+		5227C6AE1DD32EC6009F021A /* DFUController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUController.swift; sourceTree = "<group>"; };
+		5227C6B01DD330C3009F021A /* DFUPeripheralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheralDelegate.swift; sourceTree = "<group>"; };
+		5227C6B21DD364B2009F021A /* DFUService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUService.swift; sourceTree = "<group>"; };
+		52FA1E891DDF36C1009151B6 /* DFUPeripheralSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelector.swift; sourceTree = "<group>"; };
+		52FA1E8A1DDF36C1009151B6 /* DFUPeripheralSelectorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelectorDelegate.swift; sourceTree = "<group>"; };
+		52FA1E8B1DDF36C1009151B6 /* DFUServiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUServiceController.swift; sourceTree = "<group>"; };
+		52FA1E8C1DDF36C1009151B6 /* DFUServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUServiceDelegate.swift; sourceTree = "<group>"; };
+		52FA1E8D1DDF36C1009151B6 /* DFUServiceInitiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUServiceInitiator.swift; sourceTree = "<group>"; };
+		52FA1E931DDF36D5009151B6 /* DFUFirmware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DFUFirmware.swift; path = Firmware/DFUFirmware.swift; sourceTree = "<group>"; };
+		52FA1E951DDF36ED009151B6 /* DFUServiceSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DFUServiceSelector.swift; path = DFUSelector/DFUServiceSelector.swift; sourceTree = "<group>"; };
+		52FA1E961DDF36ED009151B6 /* DFUStarterPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DFUStarterPeripheral.swift; path = DFUSelector/DFUStarterPeripheral.swift; sourceTree = "<group>"; };
 		580BA86B4103B94860C842A9E5AEDC1C /* crc32.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = crc32.swift; sourceTree = "<group>"; };
 		5C4DCE7733E86D72CA982CE32766D28C /* Zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Zip.h; path = Zip/Zip.h; sourceTree = "<group>"; };
 		5FDED2A68D750AA8442E2512E97229B1 /* zip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = zip.c; path = Zip/minizip/zip.c; sourceTree = "<group>"; };
@@ -157,8 +171,6 @@
 		71E634D1385EAC915FFFF7BEBE764DA6 /* DFUStreamHex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamHex.swift; sourceTree = "<group>"; };
 		72E0A96DD2F477AABC7560CF77A998C0 /* ZipArchive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
 		7BACEABA183938C68D9D5C8655C9ECFF /* Pods-iOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
-		7C10E673ABBFBC50C01C9BBCC309695B /* DFUServiceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceController.swift; sourceTree = "<group>"; };
-		7DE9663376CCE19E90CF0C6D7DA80D20 /* DFUPeripheralSelectorDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelectorDelegate.swift; sourceTree = "<group>"; };
 		7E697B09CCC1B8855D5B6505D51F5C2E /* LegacyDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUServiceInitiator.swift; sourceTree = "<group>"; };
 		80AB05A341B71E7785F934DDC8DD7C06 /* Pods-iOSDFULibrary_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Tests-umbrella.h"; sourceTree = "<group>"; };
 		86312F8702A77E8ACD8BA8217770949F /* Pods-iOSDFULibrary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iOSDFULibrary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -171,15 +183,12 @@
 		9D8E8BAD92E3202BFCB2884754BF9857 /* Pods-iOSDFULibrary_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Tests-dummy.m"; sourceTree = "<group>"; };
 		9FFD0D377A6D4A2897768D245F7D416A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A60E76C3B2D11BCB048355A5B27B8762 /* DFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPacket.swift; sourceTree = "<group>"; };
-		AD1CEB047036026F26D897304281BB41 /* DFUServiceDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceDelegate.swift; sourceTree = "<group>"; };
 		ADB3CE28BC91BFD9A481B54148494366 /* IntelHex2BinConverter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IntelHex2BinConverter.m; sourceTree = "<group>"; };
-		B4308CCF54E9EBC48A8345A3E13DBF5D /* DFUPeripheralSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelector.swift; sourceTree = "<group>"; };
 		B4694411DFB3D83252A87B5C66495CAA /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = Zip/minizip/ioapi.c; sourceTree = "<group>"; };
 		B7F89F648CB168A50C2C38F203B0CA38 /* iOSDFULibrary-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iOSDFULibrary-dummy.m"; sourceTree = "<group>"; };
 		BA3DE423F69343F4A464CA331D0F410A /* LegacyDFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUExecutor.swift; sourceTree = "<group>"; };
 		BD1316FCF71774C00DE0311C6295D1CC /* Pods-iOSDFULibrary_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-iOSDFULibrary_Tests.modulemap"; sourceTree = "<group>"; };
 		BFC6036A427459A0C2A052EC9E327E51 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		C1A12B138D47575610C2C4B12C309DD8 /* LegacyDFUServiceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUServiceController.swift; sourceTree = "<group>"; };
 		CA38AF0656B9A5BDDDBCDA13C8E95AC3 /* Zip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA85257A21578FD025FFD8FFB28668F5 /* LoggerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
 		D914339BF98F54172AE920521B5CB36A /* SoftdeviceBootloaderInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoftdeviceBootloaderInfo.swift; sourceTree = "<group>"; };
@@ -201,7 +210,6 @@
 		F24B1EC100BE20E07FA5B59238383B81 /* DFUStreamBin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamBin.swift; sourceTree = "<group>"; };
 		F3BF18D74EC5D8E66D1D64FCC3DDDBC5 /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = zip.h; path = Zip/minizip/zip.h; sourceTree = "<group>"; };
 		F5222F37E90ADA2C9DC1C49E8310DC8E /* SecureDFUControlPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUControlPoint.swift; sourceTree = "<group>"; };
-		FD1BED69CEB6C1D85C4E9C2A85E6B3D7 /* DFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceInitiator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				BA3DE423F69343F4A464CA331D0F410A /* LegacyDFUExecutor.swift */,
-				C1A12B138D47575610C2C4B12C309DD8 /* LegacyDFUServiceController.swift */,
 				7E697B09CCC1B8855D5B6505D51F5C2E /* LegacyDFUServiceInitiator.swift */,
 			);
 			path = DFU;
@@ -298,6 +305,13 @@
 		2E8B6B876A6B86890F2F957FC98382DE /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				52FA1E8D1DDF36C1009151B6 /* DFUServiceInitiator.swift */,
+				52FA1E8B1DDF36C1009151B6 /* DFUServiceController.swift */,
+				52FA1E8C1DDF36C1009151B6 /* DFUServiceDelegate.swift */,
+				52FA1E891DDF36C1009151B6 /* DFUPeripheralSelector.swift */,
+				52FA1E8A1DDF36C1009151B6 /* DFUPeripheralSelectorDelegate.swift */,
+				529B0DAC1DD4846B0029B64B /* Firmware */,
+				524FE4521DDCB55000D91429 /* DFUSelector */,
 				F26585F8542B0A519A57E89CAA104CF2 /* GenericDFU */,
 				C0756105001DC2700E49981CDE68FDDE /* LegacyDFU */,
 				145A877D6C437AAAFD18D1D2BCE1BDA1 /* SecureDFU */,
@@ -379,6 +393,23 @@
 			path = Streams;
 			sourceTree = "<group>";
 		};
+		524FE4521DDCB55000D91429 /* DFUSelector */ = {
+			isa = PBXGroup;
+			children = (
+				52FA1E951DDF36ED009151B6 /* DFUServiceSelector.swift */,
+				52FA1E961DDF36ED009151B6 /* DFUStarterPeripheral.swift */,
+			);
+			name = DFUSelector;
+			sourceTree = "<group>";
+		};
+		529B0DAC1DD4846B0029B64B /* Firmware */ = {
+			isa = PBXGroup;
+			children = (
+				52FA1E931DDF36D5009151B6 /* DFUFirmware.swift */,
+			);
+			name = Firmware;
+			sourceTree = "<group>";
+		};
 		5D45FAA8C7E562999AEB8D5B03B46B25 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,17 +460,9 @@
 			children = (
 				F5222F37E90ADA2C9DC1C49E8310DC8E /* SecureDFUControlPoint.swift */,
 				132E073971EB3E0B53806156332A3656 /* SecureDFUPacket.swift */,
+				522035471DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift */,
 			);
 			path = Characteristics;
-			sourceTree = "<group>";
-		};
-		A6D6A42FB6996BD8C0EA662747528C13 /* DFU */ = {
-			isa = PBXGroup;
-			children = (
-				4B1A4401277B67DDC032B837E31526B5 /* DFUFirmware.swift */,
-				AD1CEB047036026F26D897304281BB41 /* DFUServiceDelegate.swift */,
-			);
-			path = DFU;
 			sourceTree = "<group>";
 		};
 		AD5B98C818389F2029A020A6BD1C550B /* Classes */ = {
@@ -509,8 +532,6 @@
 			isa = PBXGroup;
 			children = (
 				95D819D84DDA6FAA3DCBB4820844A4C5 /* SecureDFUExecutor.swift */,
-				3D09A8680D08ABF5C518AC150CB0F779 /* SecureDFUServiceController.swift */,
-				553A185F49D6224D6E26672243CD55BA /* SecureDFUServiceDelegate.swift */,
 				63C24EF513FC91B1BDEED6A11D9134CA /* SecureDFUServiceInitiator.swift */,
 			);
 			path = DFU;
@@ -597,11 +618,10 @@
 			isa = PBXGroup;
 			children = (
 				E4B89C9B44E4B995438A80E1B0A112A9 /* DFUExecutor.swift */,
-				B4308CCF54E9EBC48A8345A3E13DBF5D /* DFUPeripheralSelector.swift */,
-				7DE9663376CCE19E90CF0C6D7DA80D20 /* DFUPeripheralSelectorDelegate.swift */,
-				7C10E673ABBFBC50C01C9BBCC309695B /* DFUServiceController.swift */,
-				FD1BED69CEB6C1D85C4E9C2A85E6B3D7 /* DFUServiceInitiator.swift */,
-				A6D6A42FB6996BD8C0EA662747528C13 /* DFU */,
+				5227C6AC1DD23E13009F021A /* DFUPeripheral.swift */,
+				5227C6AE1DD32EC6009F021A /* DFUController.swift */,
+				5227C6B01DD330C3009F021A /* DFUPeripheralDelegate.swift */,
+				5227C6B21DD364B2009F021A /* DFUService.swift */,
 			);
 			path = GenericDFU;
 			sourceTree = "<group>";
@@ -757,43 +777,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52FA1E971DDF36ED009151B6 /* DFUServiceSelector.swift in Sources */,
 				86E082B2B2F7264FB9CC79ED4E721E9B /* crc32.swift in Sources */,
 				5B6D42A9338765EFEB76F032C5C6C3C9 /* Data.swift in Sources */,
 				D08FDD80402078754D74226C1ABE93FA /* DFUControlPoint.swift in Sources */,
 				CDCC158FF444744E99D66AC383337A35 /* DFUExecutor.swift in Sources */,
-				C0724109FFCDD1BF65C6383064EAC7F1 /* DFUFirmware.swift in Sources */,
 				BBC6F8BB247520785BC305BFC8D3F0F5 /* DFUPacket.swift in Sources */,
-				C373B1F2FF8625E66C7F08ECEB7BC786 /* DFUPeripheralSelector.swift in Sources */,
-				6184C0D35D9C612C99BE3090C3C88D0E /* DFUPeripheralSelectorDelegate.swift in Sources */,
-				9361DBFB892209A92E9FEF655E3E02F7 /* DFUServiceController.swift in Sources */,
-				D72970432A2B4CD8C4BECFCC29476E34 /* DFUServiceDelegate.swift in Sources */,
-				2D132F42B5E00818B674E3C0D54ED3D8 /* DFUServiceInitiator.swift in Sources */,
+				52FA1E8E1DDF36C1009151B6 /* DFUPeripheralSelector.swift in Sources */,
+				52FA1E901DDF36C1009151B6 /* DFUServiceController.swift in Sources */,
+				52FA1E921DDF36C1009151B6 /* DFUServiceInitiator.swift in Sources */,
+				5227C6B31DD364B2009F021A /* DFUService.swift in Sources */,
 				096EDD8E0166CDD16C52DBAEBB0F6CFC /* DFUStream.swift in Sources */,
 				73FFBBB2334B0E9F7455D2C95C7DEEBE /* DFUStreamBin.swift in Sources */,
 				1289B37797BEA12525DC05E857E42B65 /* DFUStreamHex.swift in Sources */,
 				194CE24690A9D3F9DAFE98E7B69D045D /* DFUStreamZip.swift in Sources */,
+				522035481DE3226B004A2CB3 /* ExperimentalButtonlessDFU.swift in Sources */,
 				644E3017B7409F226371A3A2161A7FA6 /* DFUVersion.swift in Sources */,
 				175CBD604EFEEFC826277654C039452D /* Double.swift in Sources */,
 				B4A9EEE462BC17CFEB979023F7B07B3B /* IntelHex2BinConverter.m in Sources */,
 				0DE32AC3061537B19072D8F5B78F17E7 /* iOSDFULibrary-dummy.m in Sources */,
+				52FA1E911DDF36C1009151B6 /* DFUServiceDelegate.swift in Sources */,
 				78B60C0B57853E87AC63A8AD547BB987 /* LegacyDFUExecutor.swift in Sources */,
+				52FA1E981DDF36ED009151B6 /* DFUStarterPeripheral.swift in Sources */,
 				2B40B16D7B3249B45910F43835ED5CD1 /* LegacyDFUPeripheral.swift in Sources */,
 				8EA61C41B734A564902C99C7099F9295 /* LegacyDFUPeripheralDelegate.swift in Sources */,
 				5FC0244271299DD10B33D3CDB790C4C6 /* LegacyDFUService.swift in Sources */,
-				CCC495F32DACF1CDC00F50F9D0A9A9D7 /* LegacyDFUServiceController.swift in Sources */,
+				52FA1E8F1DDF36C1009151B6 /* DFUPeripheralSelectorDelegate.swift in Sources */,
 				EC8D8ED70F18B396BC4EF388BE84EB35 /* LegacyDFUServiceInitiator.swift in Sources */,
 				9EBF2E363A0B978BDE233DA6F49B44E1 /* LoggerDelegate.swift in Sources */,
+				5227C6AD1DD23E13009F021A /* DFUPeripheral.swift in Sources */,
 				A71984A49B70A127914976AEA553C3C7 /* LoggerHelper.swift in Sources */,
 				3C646334D33C2D883CDC129F336B7DAE /* Manifest.swift in Sources */,
 				682081D691592E72E252E31F240B0212 /* ManifestFirmwareInfo.swift in Sources */,
+				5227C6B11DD330C3009F021A /* DFUPeripheralDelegate.swift in Sources */,
 				1DB33D7101654786C93285EF514162A9 /* SecureDFUControlPoint.swift in Sources */,
 				D36D5CA9636154C9DA145AC10B883EA0 /* SecureDFUExecutor.swift in Sources */,
 				D0505AAC4CB054DA7D9EAD69A9377219 /* SecureDFUPacket.swift in Sources */,
 				1AEF59390ACE9A8AAF155F9564B2931C /* SecureDFUPeripheral.swift in Sources */,
 				2365F20B107C71C71F44BBCEC1832FA9 /* SecureDFUPeripheralDelegate.swift in Sources */,
 				AFD2AE250352013B77A994914E9E5ED2 /* SecureDFUService.swift in Sources */,
-				AEC9B8E7C197680926944845EF11A031 /* SecureDFUServiceController.swift in Sources */,
-				7CF6C0D6C99B3720EED4E4701D6FC2CF /* SecureDFUServiceDelegate.swift in Sources */,
+				5227C6AF1DD32EC6009F021A /* DFUController.swift in Sources */,
+				52FA1E941DDF36D5009151B6 /* DFUFirmware.swift in Sources */,
 				7D01377858455EAD01C2C3E2738655EE /* SecureDFUServiceInitiator.swift in Sources */,
 				DDF895131E8D684F38285930EA593B95 /* SoftdeviceBootloaderInfo.swift in Sources */,
 				8F5C0E09732C43BB0BBC83B2089CCFC3 /* ZipArchive.swift in Sources */,

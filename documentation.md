@@ -1,6 +1,6 @@
 # DFU Library - iOS
 
-The DFU Library for iOS 8+ adds the DFU feature to the iOS project. It is written in Swift 2.1 but is compatible with Objective-C.
+The DFU Library for iOS 8+ adds the DFU feature to the iOS project. It is written in Swift 3.0.1 but is compatible with Objective-C.
 
 ### Features:
 
@@ -97,12 +97,13 @@ To start the DFU process you have to do 2 things:
     ```
 
 2. The DFUFirmware object allows you to get basic information about the firmware, like sizes of each component or number of parts. Number of parts is the number of connections required to send all content of the Distribution Packet. It is equal to 1 unless a ZIP file contain a Softdevice and/or Bootloader and an Application. The Softdevice and/or Bootloader will be sent as part one, then the DFU target device will disconnect, reset and DFU Service will connect again and send the Application as part 2.
+
 3. Use the DFUServiceInitializer to initialize the DFU process.
 
     Objective-C:
     ```objective-c
     DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] initWithCentralManager: centralManager target:selectedPeripheral];
-    [initiator withFirmwareFile:selectedFirmware];
+    [initiator withFirmware:selectedFirmware];
     // Optional:
     // initiator.forceDfu = YES/NO; // default NO
     // initiator.packetReceiptNotificationParameter = N; // default is 12
@@ -116,7 +117,7 @@ To start the DFU process you have to do 2 things:
     ```
     Swift:
     ```swift
-    let initiator = DFUServiceInitiator(centralManager: centralManager, target: peripheral).withFirmwareFile(selectedFirmware)
+    let initiator = DFUServiceInitiator(centralManager: centralManager, target: peripheral).with(firmware: selectedFirmware)
     // Optional:
     // initiator.forceDfu = true/false; // default false
     // initiator.packetReceiptNotificationParameter = N; // default is 12
@@ -129,6 +130,19 @@ To start the DFU process you have to do 2 things:
     ...
     ```
 4. Using the DFUServiceController you may pause, resume or abort the DFU operation.
+
+5. In version 3 the API has slightly changed to better match the Swift 3 naming guidlines: 
+
+- The initiator's delegate and progressDelegate methods got renamed
+- The **SecureDFUError**, **SecureDFUProgressDelegate** and **SecureDFUServiceDelegate** have been removed (it was not accesible). Callbacks for Secure DFU are now reported by **DFUProgressDelegate** and **DFUServiceDelegate**. **DFUError** contains all secure DFU errors.
+- ```withFirmwareFile(_)``` method in **DFUServiceInitiator** has been renamed to ```with(firmware:)```
+
+Other changes in version 3:
+
+- Complete refactoring of the code
+- Support for connected devices (even if DFU Service has not been discovered when DFU started)
+- DFU now works on iOS 8 (bug fixed)
+- Other bugs fixed
 
 ### Example
 
