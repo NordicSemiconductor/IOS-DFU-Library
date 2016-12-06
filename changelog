@@ -1,4 +1,8 @@
 ### Changelog
+- **3.0.0**:
+    - Improvement: A lot of code has been rewritten. API has slightly changed and now matches better Swift 3 requirements
+    - Feature: Better support for starting DFU on already connected devices
+
 - **2.1.6**:
     - BugFix: Peripherals that are already connected now will start the DFU Process right away instead of halting"
 - **2.1.5**:

@@ -287,7 +287,7 @@ internal struct SecureDFUResponse {
             if let error = error {
                 return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue), Extended Error \(error.rawValue) = \(error.description))"
             } else {
-               "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue), Unsupported Extended Error value)"
+                return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue), Unsupported Extended Error value)"
             }
         }
         return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue))"

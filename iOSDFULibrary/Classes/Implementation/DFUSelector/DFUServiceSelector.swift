@@ -61,7 +61,7 @@ internal class DFUServiceSelector : BaseDFUExecutor, DFUStarterPeripheralDelegat
         // Release the cyclic reference
         peripheral.destroy()
         
-        var executor = ExecutorType.init(initiator)
+        let executor = ExecutorType.init(initiator)
         controller.executor = executor
         executor.start()
     }
