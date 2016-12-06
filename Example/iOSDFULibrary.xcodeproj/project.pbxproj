@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30335BDA1DC36406009D50E4 /* sdfu_test_app_hrm_s132.zip in Resources */ = {isa = PBXBuildFile; fileRef = 30335BD91DC36406009D50E4 /* sdfu_test_app_hrm_s132.zip */; };
 		3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */; };
 		30B4C8901D00590D00C1C3FF /* DFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */; };
 		47BB46278FACC65A12C2F6D8 /* Pods_iOSDFULibrary_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716A8CBE638EA28D9E0A8836 /* Pods_iOSDFULibrary_Tests.framework */; };
+		529B0DAE1DD9D5AE0029B64B /* secure_dfu_test_app_hrm_s132.zip in Resources */ = {isa = PBXBuildFile; fileRef = 529B0DAD1DD9D5AE0029B64B /* secure_dfu_test_app_hrm_s132.zip */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ScannerViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -32,11 +32,11 @@
 
 /* Begin PBXFileReference section */
 		253475831CD3B6CD97F7DFB9 /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		30335BD91DC36406009D50E4 /* sdfu_test_app_hrm_s132.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = sdfu_test_app_hrm_s132.zip; sourceTree = "<group>"; };
 		3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = hrm_legacy_dfu_with_sd_s132_2_0_0.zip; sourceTree = "<group>"; };
 		30B4C88F1D00590D00C1C3FF /* DFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
 		3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iOSDFULibrary.podspec; path = ../iOSDFULibrary.podspec; sourceTree = "<group>"; };
 		3D0CB27D92FDC7A734D97789 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		529B0DAD1DD9D5AE0029B64B /* secure_dfu_test_app_hrm_s132.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = secure_dfu_test_app_hrm_s132.zip; sourceTree = "<group>"; };
 		5BD6C71870F01CBE222B5F31 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* DFU Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DFU Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		0EC3985D1CFF057400496006 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				30335BD91DC36406009D50E4 /* sdfu_test_app_hrm_s132.zip */,
+				529B0DAD1DD9D5AE0029B64B /* secure_dfu_test_app_hrm_s132.zip */,
 				3078CF691D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip */,
 			);
 			path = Resources;
@@ -266,10 +266,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				529B0DAE1DD9D5AE0029B64B /* secure_dfu_test_app_hrm_s132.zip in Resources */,
 				3078CF6A1D17E42D00E50A44 /* hrm_legacy_dfu_with_sd_s132_2_0_0.zip in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				30335BDA1DC36406009D50E4 /* sdfu_test_app_hrm_s132.zip in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
