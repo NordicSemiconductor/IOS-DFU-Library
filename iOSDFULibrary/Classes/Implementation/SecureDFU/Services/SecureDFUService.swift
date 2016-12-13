@@ -32,13 +32,13 @@ import CoreBluetooth
     /// The target DFU Peripheral
     internal var targetPeripheral: DFUPeripheralAPI?
     /// The logger helper.
-    private var logger:LoggerHelper
+    private var logger: LoggerHelper
     /// The service object from CoreBluetooth used to initialize the SecureDFUService instance.
-    private let service:CBService
-    private var dfuPacketCharacteristic:SecureDFUPacket?
-    private var dfuControlPointCharacteristic:SecureDFUControlPoint?
+    private let service                       : CBService
+    private var dfuPacketCharacteristic       : SecureDFUPacket?
+    private var dfuControlPointCharacteristic : SecureDFUControlPoint?
 
-    private var paused = false
+    private var paused  = false
     private var aborted = false
     
     /// A temporary callback used to report end of an operation.
@@ -49,9 +49,9 @@ import CoreBluetooth
     private var progressDelegate : DFUProgressDelegate?
     
     // -- Properties stored when upload started in order to resume it --
-    private var firmware:DFUFirmware?
-    private var packetReceiptNotificationNumber:UInt16 = 0
-    private var range:Range<Int>?
+    private var firmware: DFUFirmware?
+    private var packetReceiptNotificationNumber: UInt16 = 0
+    private var range: Range<Int>?
     // -- End --
     
     // MARK: - Initialization

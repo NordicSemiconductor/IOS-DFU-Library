@@ -31,11 +31,11 @@ internal typealias VersionCallback = (_ major:Int, _ minor:Int) -> Void
         return characteristic.uuid.isEqual(UUID)
     }
     
-    private var characteristic:CBCharacteristic
-    private var logger:LoggerHelper
+    private var characteristic: CBCharacteristic
+    private var logger: LoggerHelper
     
-    private var success:VersionCallback?
-    private var report:ErrorCallback?
+    private var success: VersionCallback?
+    private var report: ErrorCallback?
     
     internal var valid: Bool {
         return characteristic.properties.contains(CBCharacteristicProperties.read)

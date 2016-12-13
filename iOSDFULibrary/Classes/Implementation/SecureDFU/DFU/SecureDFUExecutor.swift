@@ -23,10 +23,10 @@
 internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     typealias DFUPeripheralType = SecureDFUPeripheral
     
-    internal let initiator:DFUServiceInitiator
-    internal let peripheral:SecureDFUPeripheral
-    internal var firmware:DFUFirmware
-    internal var error:(error:DFUError, message:String)?
+    internal let initiator  : DFUServiceInitiator
+    internal let peripheral : SecureDFUPeripheral
+    internal var firmware   : DFUFirmware
+    internal var error      : (error: DFUError, message: String)?
     
     private var firmwareRanges  : [Range<Int>]?
     private var currentRangeIdx : Int = 0
@@ -45,8 +45,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     // MARK: - Initialization
     required init(_ initiator:DFUServiceInitiator) {
-        self.initiator = initiator
-        self.firmware = initiator.file!
+        self.initiator  = initiator
+        self.firmware   = initiator.file!
         self.peripheral = SecureDFUPeripheral(initiator)
         
         self.retryCount = MaxRetryCount
