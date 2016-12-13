@@ -62,12 +62,20 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     internal let logger: LoggerHelper
     /// A list of services required to be found on the peripheral. May return nil - then all services will be discovered.
     internal var requiredServices: [CBUUID]? {
+        // We have to find all services, not only those releated to DFU. This is required in case the target device
+        // was created using SDK 6.0 or 6.1, where there was no DFU Version characteristic. In that case, this DFU library determines
+        // whether to jump to bootloader, or proceed with DFU based on number of services found. We have to find all of them.
+        // It is not necessary for newer firmwares (SDK 7+) or for Secure DFU where the code below could work.
+        return nil
+        
+        /*
         // If the experimental feature was enabled
         if experimentalButtonlessServiceInSecureDfuEnabled {
             return [LegacyDFUService.UUID, SecureDFUService.UUID, SecureDFUService.ExperimentalButtonlessDfuUUID]
         }
         // By default only standard Secure and Legacy DFU services will be discovered
         return [LegacyDFUService.UUID, SecureDFUService.UUID]
+        */
     }
     /// A flag indicating whether the eperimental Buttonless DFU Service in Secure DFU is supported
     internal let experimentalButtonlessServiceInSecureDfuEnabled: Bool
@@ -541,9 +549,10 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             logger.w("Aborting upload...")
             return dfuService!.abort()
         }
-        // peripheral is nil when the switchToNewPeripheralAndConnect(_ selector:DFUPeripheralSelector) method was called
-        // and the second peripheral has not been found yet
-        if peripheral == nil {
+        // Peripheral is nil when the switchToNewPeripheralAndConnect(_ selector:DFUPeripheralSelector) method was called
+        // and the second peripheral has not been found yet.
+        // Delegate is nil when peripheral was destroyed.
+        if delegate != nil && peripheral == nil {
             logger.w("Upload aborted. Part 1 flashed sucessfully")
             centralManager.stopScan()
             delegate?.peripheralDidDisconnectAfterAborting()
