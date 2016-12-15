@@ -142,13 +142,15 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Connected to peripheral: \(peripheral.name)")
+        let name = peripheral.name ?? "Unknown"
+        print("Connected to peripheral: \(name)")
         peripheral.delegate = self
         peripheral.discoverServices(nil)
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("Disconnected from peripheral: \(peripheral.name)")
+        let name = peripheral.name ?? "Unknown"
+        print("Disconnected from peripheral: \(name)")
     }
     
     //MARK: - CBPeripheralDelegate
