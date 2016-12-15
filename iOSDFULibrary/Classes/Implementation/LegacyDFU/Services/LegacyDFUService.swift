@@ -38,6 +38,11 @@ import CoreBluetooth
     private var dfuPacketCharacteristic       : DFUPacket?
     private var dfuControlPointCharacteristic : DFUControlPoint?
     private var dfuVersionCharacteristic      : DFUVersion?
+    /// This method returns true if DFU Control Point characteristc has been discovered.
+    /// A device without this characteristic is not supported and even can't be resetted by sending a Reset command.
+    internal func supportsReset() -> Bool {
+        return dfuControlPointCharacteristic != nil
+    }
     
     /// The version read from the DFU Version charactertistic. Nil, if such does not exist.
     private(set) var version: (major: Int, minor: Int)?
