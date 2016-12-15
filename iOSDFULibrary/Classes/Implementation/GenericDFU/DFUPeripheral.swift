@@ -114,6 +114,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
                 discoverServices()
             } else {
                 // A DFU service was found, congratulations!
+                logger.i("Services discovered")
                 peripheralDidDiscoverDfuService(dfuService!)
             }
         }
