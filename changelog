@@ -1,24 +1,33 @@
 ### Changelog
+- **3.0.2**:
+    - BugFix: Ignoring updates from non-DFU characteristics (#66)
+    - Enhancement: Log messages improved for connected devices
+
 - **3.0.1**:
-    - BugFix: Crash if DFU Characteristic isn't found #64
+    - BugFix: Crash if DFU Characteristic isn't found (#64)
     - BugFix: Discovering all services to determine mode for Legacy bootloaders without DFU Version char.
     - License changed to BSD 3-Clause
+
 - **3.0.0**:
     - Improvement: A lot of code has been rewritten. API has slightly changed and now matches better Swift 3 requirements
     - Feature: Better support for starting DFU on already connected devices
 
 - **2.1.6**:
     - BugFix: Peripherals that are already connected now will start the DFU Process right away instead of halting"
+
 - **2.1.5**:
     - Enhancement: Added @ObjC to `DFUPeripheralSelectorDelegate` to help with Obj-C Based project integration
     - Enhancement: Minor typo fix in peripheral State.
     - Enhancement: Minor enhancement to the LoggerHelper Class
+
 - **2.1.4**:
     - Enhancement: Added Cartfile for denpendency libraries.
+
 - **2.1.3**:
     - Bugfix: Fixed an issue with PRN value not being fully used throughout the DFU process and at some points reverted to the default value
     - Bugfix: Fixed issue with specific packet sizes that caused the last packet not to be executed due to PRN being received earlier than expected.
     - Enhancement: Updated Readme to show SDK12's support.
+
 - **2.1.2**:
     - Bugfix: Fixed issue causing the DFU process to constantly fail after peripheral is reset during the process
     - Feature: Added a failsafe solution for cases of an irrecoverable resume in the DFU process that simply starts the process from scratch ignoring it's state.
