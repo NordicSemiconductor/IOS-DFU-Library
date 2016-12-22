@@ -1,4 +1,8 @@
 ### Changelog
+- **3.0.3**:
+    - Documentation warning fixed (#68)
+    - License changed to BSD 3-Clause in Podspec
+
 - **3.0.2**:
     - BugFix: Ignoring updates from non-DFU characteristics (#66)
     - Enhancement: Log messages improved for connected devices
