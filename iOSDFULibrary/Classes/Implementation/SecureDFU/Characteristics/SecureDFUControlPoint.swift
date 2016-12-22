@@ -478,7 +478,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        if characteristic.uuid.isEqual(SecureDFUControlPoint.UUID) == false {
+        guard characteristic.uuid.isEqual(SecureDFUControlPoint.UUID) else {
             return
         }
         
@@ -492,52 +492,56 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard error == nil else {
+        // Ignore updates received for other characteristics
+        guard characteristic.uuid.isEqual(SecureDFUControlPoint.UUID) else {
+            return
+        }
+        
+        if error != nil {
             // This characteristic is never read, the error may only pop up when notification is received
             logger.e("Receiving notification failed")
             logger.e(error!)
             report?(.receivingNotificationFailed, "Receiving notification failed")
-            return
-        }
-        
-        // During the upload we may get either a Packet Receipt Notification, or a Response with status code
-        if proceed != nil {
-            if let prn = SecureDFUPacketReceiptNotification(characteristic.value!) {
-                proceed!(prn.offset) // The CRC is not verified after receiving a PRN, only the offset is
-                return
-            }
-        }
-        //Otherwise...    
-        logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
-
-        // Parse response received
-        let dfuResponse = SecureDFUResponse(characteristic.value!)
-        if let dfuResponse = dfuResponse {
-            if dfuResponse.status == .success {
-                switch dfuResponse.requestOpCode! {
-                case .readObjectInfo, .calculateChecksum:
-                    logger.a("\(dfuResponse.description) received")
-                    response?(dfuResponse)
-                case .createObject, .setPRNValue, .execute:
-                    // Don't log, executor or service will do it for us
-                    success?()
-                default:
-                    logger.a("\(dfuResponse.description) received")
-                    success?()
-                }
-            } else if dfuResponse.status == .extendedError {
-                // An extended error was received
-                logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
-                // The returned errod code is incremented by 10 to match Secure DFU remote codes
-                report?(DFUError(rawValue: Int(dfuResponse.status!.code) + 10)!, dfuResponse.error!.description)
-            } else {
-                logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
-                // The returned errod code is incremented by 10 to match Secure DFU remote codes
-                report?(DFUError(rawValue: Int(dfuResponse.status!.code) + 10)!, dfuResponse.status!.description)
-            }
         } else {
-            logger.e("Unknown response received: 0x\(characteristic.value!.hexString)")
-            report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristic.value!.hexString)")
+            // During the upload we may get either a Packet Receipt Notification, or a Response with status code
+            if proceed != nil {
+                if let prn = SecureDFUPacketReceiptNotification(characteristic.value!) {
+                    proceed!(prn.offset) // The CRC is not verified after receiving a PRN, only the offset is
+                    return
+                }
+            }
+            //Otherwise...    
+            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
+
+            // Parse response received
+            let dfuResponse = SecureDFUResponse(characteristic.value!)
+            if let dfuResponse = dfuResponse {
+                if dfuResponse.status == .success {
+                    switch dfuResponse.requestOpCode! {
+                    case .readObjectInfo, .calculateChecksum:
+                        logger.a("\(dfuResponse.description) received")
+                        response?(dfuResponse)
+                    case .createObject, .setPRNValue, .execute:
+                        // Don't log, executor or service will do it for us
+                        success?()
+                    default:
+                        logger.a("\(dfuResponse.description) received")
+                        success?()
+                    }
+                } else if dfuResponse.status == .extendedError {
+                    // An extended error was received
+                    logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
+                    // The returned errod code is incremented by 10 to match Secure DFU remote codes
+                    report?(DFUError(rawValue: Int(dfuResponse.status!.code) + 10)!, dfuResponse.error!.description)
+                } else {
+                    logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
+                    // The returned errod code is incremented by 10 to match Secure DFU remote codes
+                    report?(DFUError(rawValue: Int(dfuResponse.status!.code) + 10)!, dfuResponse.status!.description)
+                }
+            } else {
+                logger.e("Unknown response received: 0x\(characteristic.value!.hexString)")
+                report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristic.value!.hexString)")
+            }
         }
     }
 }

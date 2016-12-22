@@ -76,6 +76,11 @@ internal typealias VersionCallback = (_ major:Int, _ minor:Int) -> Void
     // MARK: - Peripheral Delegate callbacks
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        // Ignore updates received for other characteristics
+        guard characteristic.uuid.isEqual(DFUVersion.UUID) else {
+            return
+        }
+        
         if error != nil {
             logger.e("Reading DFU Version characteristic failed")
             logger.e(error!)

@@ -330,7 +330,7 @@ internal struct PacketReceiptNotification {
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        if characteristic.uuid.isEqual(DFUControlPoint.UUID) == false {
+        guard characteristic.uuid.isEqual(DFUControlPoint.UUID) else {
             return
         }
         
@@ -373,6 +373,11 @@ internal struct PacketReceiptNotification {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        // Ignore updates received for other characteristics
+        guard characteristic.uuid.isEqual(DFUControlPoint.UUID) else {
+            return
+        }
+        
         if error != nil {
             // This characteristic is never read, the error may only pop up when notification is received
             logger.e("Receiving notification failed")
