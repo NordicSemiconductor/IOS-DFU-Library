@@ -44,9 +44,9 @@ import CoreBluetooth
     /**
      Returns whether the given peripheral is a device in DFU Bootloader mode.
      
-     - parameter peripheral:      the peripheral to be checked
-     - parameter advertisingData: scanned advertising data
-     - parameter RSSI:            received signal strength indication in dBm
+     - parameter peripheral:        the peripheral to be checked
+     - parameter advertisementData: scanned advertising data
+     - parameter RSSI:              received signal strength indication in dBm
      
      - returns: true (YES) if given peripheral is what service is looking for
      */
