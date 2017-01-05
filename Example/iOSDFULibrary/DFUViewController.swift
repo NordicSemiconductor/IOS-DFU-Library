@@ -24,7 +24,7 @@ import UIKit
 import CoreBluetooth
 import iOSDFULibrary
 
-class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, UIAlertViewDelegate {
+class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate {
     /// The UUID of the experimental Buttonless DFU Service from SDK 12.
     /// This service is not advertised so the app needs to connect to check if it's on the device's attribute list.
     static let ExperimentalButtonlessDfuUUID = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
@@ -51,10 +51,25 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
             print("No DFU peripheral was set")
             return
         }
-        print("Action: DFU paused")
-        dfuController!.pause()
-        UIAlertView(title: "Warning", message: "Are you sure you want to stop the process?",
-                    delegate: self, cancelButtonTitle: "No", otherButtonTitles: "Yes").show()
+        if dfuController!.aborted {
+            stopProcessButton.setTitle("Stop process", for: .normal)
+            dfuController!.restart()
+        } else {
+            print("Action: DFU paused")
+            dfuController!.pause()
+            let alertView = UIAlertController(title: "Warning", message: "Are you sure you want to stop the process?", preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: "Abort", style: .destructive) {
+                (action) in
+                print("Action: DFU aborted")
+                _ = self.dfuController!.abort()
+            })
+            alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel) {
+                (action) in
+                print("Action: DFU resumed")
+                self.dfuController!.resume()
+            })
+            present(alertView, animated: true)
+        }
     }
     
     //MARK: - Class Implementation
@@ -126,13 +141,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if dfuController != nil {
-            _ = dfuController?.abort()
-        }
-        if dfuPeripheral!.state != .disconnected {
-            print("Disconnecting...")
-            centralManager!.cancelPeripheralConnection(dfuPeripheral!)
-        }
+        _ = dfuController?.abort()
+        dfuController = nil
     }
 
     //MARK: - CBCentralManagerDelegate
@@ -175,6 +185,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
             selectedFirmware = DFUFirmware(urlToZipFile: selectedFileURL!)
             startDFUProcess()
         } else {
+            print("Disconnecting...")
+            centralManager?.cancelPeripheralConnection(peripheral)
             dfuError(DFUError.deviceNotSupported, didOccurWithMessage: "Device not supported")
         }
     }
@@ -183,27 +195,32 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     
     func dfuStateDidChange(to state:DFUState) {
         switch state {
-            case .completed, .disconnecting, .aborted:
-                self.dfuActivityIndicator.stopAnimating()
-                self.dfuUploadProgressView.setProgress(0, animated: true)
-                self.stopProcessButton.isEnabled = false
-            default:
-                self.stopProcessButton.isEnabled = true
+        case .completed, .disconnecting:
+            self.dfuActivityIndicator.stopAnimating()
+            self.dfuUploadProgressView.setProgress(0, animated: true)
+            self.stopProcessButton.isEnabled = false
+        case .aborted:
+            self.dfuActivityIndicator.stopAnimating()
+            self.dfuUploadProgressView.setProgress(0, animated: true)
+            self.stopProcessButton.setTitle("Restart", for: .normal)
+            self.stopProcessButton.isEnabled = true
+        default:
+            self.stopProcessButton.isEnabled = true
         }
 
-        self.dfuStatusLabel.text = state.description()
+        dfuStatusLabel.text = state.description()
         print("Changed state to: \(state.description())")
         
         // Forget the controller when DFU is done
-        if state == .completed || state == .aborted {
+        if state == .completed {
             dfuController = nil
         }
     }
 
     func dfuError(_ error: DFUError, didOccurWithMessage message: String) {
-        self.dfuStatusLabel.text = "Error \(error.rawValue): \(message)"
-        self.dfuActivityIndicator.stopAnimating()
-        self.dfuUploadProgressView.setProgress(0, animated: true)
+        dfuStatusLabel.text = "Error \(error.rawValue): \(message)"
+        dfuActivityIndicator.stopAnimating()
+        dfuUploadProgressView.setProgress(0, animated: true)
         print("Error \(error.rawValue): \(message)")
         
         // Forget the controller when DFU finished with an error
@@ -213,9 +230,9 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     //MARK: - DFUProgressDelegate
     
     func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
-        self.dfuUploadProgressView.setProgress(Float(progress)/100.0, animated: true)
-        self.dfuUploadStatus.text = String(format: "Part: %d/%d\nSpeed: %.1f KB/s\nAverage Speed: %.1f KB/s",
-                                           part, totalParts, currentSpeedBytesPerSecond/1024, avgSpeedBytesPerSecond/1024)
+        dfuUploadProgressView.setProgress(Float(progress)/100.0, animated: true)
+        dfuUploadStatus.text = String(format: "Part: %d/%d\nSpeed: %.1f KB/s\nAverage Speed: %.1f KB/s",
+                                      part, totalParts, currentSpeedBytesPerSecond/1024, avgSpeedBytesPerSecond/1024)
     }
 
     //MARK: - LoggerDelegate
@@ -223,34 +240,4 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     func logWith(_ level:LogLevel, message:String) {
         print("\(level.name()): \(message)")
     }
-    
-    //MARK: - UIAlertViewDelegate
-    
-    func alertViewCancel(_ alertView: UIAlertView) {
-        print("Action cancel: DFU resumed")
-        if dfuController!.paused {
-            dfuController!.resume()
-        }
-    }
-    
-    func alertView(_ alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
-        guard dfuController != nil else {
-            print("DFUController not set, cannot abort")
-            return
-        }
-
-        switch buttonIndex {
-        case 0:
-            print("Action: DFU resumed")
-            if dfuController!.paused {
-                dfuController!.resume()
-            }
-        case 1:
-            print("Action: DFU aborted")
-            _ = dfuController!.abort()
-        default:
-            break
-        }
-    }
-
 }
