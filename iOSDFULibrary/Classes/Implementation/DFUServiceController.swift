@@ -89,14 +89,14 @@ import CoreBluetooth
     /**
      Returns true if DFU operation has been paused.
      */
-    public var paused:Bool {
+    public var paused: Bool {
         return servicePaused
     }
     
     /**
      Returns true if DFU operation has been aborted.
      */
-    public var aborted:Bool {
+    public var aborted: Bool {
         return serviceAborted
     }
 }

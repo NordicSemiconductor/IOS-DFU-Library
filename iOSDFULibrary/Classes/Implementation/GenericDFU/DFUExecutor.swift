@@ -41,13 +41,13 @@ internal protocol BaseDFUExecutor : BaseExecutorAPI, BasePeripheralDelegate {
 
 extension BaseDFUExecutor {
     /// The service delegate will be informed about status changes and errors.
-    internal var delegate:DFUServiceDelegate? {
+    internal var delegate: DFUServiceDelegate? {
         // The delegate may change during DFU operation (by setting a new one in the initiator). Let's always use the current one.
         return initiator.delegate
     }
     
     /// The progress delegate will be informed about current upload progress.
-    internal var progressDelegate:DFUProgressDelegate? {
+    internal var progressDelegate: DFUProgressDelegate? {
         // The delegate may change during DFU operation (by setting a new one in the initiator). Let's always use the current one.
         return initiator.progressDelegate
     }

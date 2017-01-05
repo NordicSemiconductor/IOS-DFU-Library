@@ -227,7 +227,7 @@ import CoreBluetooth
         }
 
         let controller = DFUServiceController()
-        let selector = DFUServiceSelector(initiator: self, controller: controller)
+        let selector   = DFUServiceSelector(initiator: self, controller: controller)
         controller.executor = selector
         selector.start()
         
