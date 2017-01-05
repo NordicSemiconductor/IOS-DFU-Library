@@ -22,21 +22,21 @@
 
 import CoreBluetooth
 
-internal protocol BaseExecutorAPI : class, BasePeripheralDelegate, DFUController {
+internal protocol BaseExecutorAPI : class, DFUController {
     /**
      Starts the DFU operation.
      */
     func start()
 }
 
-internal protocol BaseDFUExecutor : BaseExecutorAPI {
+internal protocol BaseDFUExecutor : BaseExecutorAPI, BasePeripheralDelegate {
     associatedtype DFUPeripheralType : BaseDFUPeripheralAPI
     /// Target peripheral object
-    var peripheral:DFUPeripheralType { get }
+    var peripheral: DFUPeripheralType { get }
     /// The DFU Service Initiator instance that was used to start the service.
-    var initiator:DFUServiceInitiator { get }
+    var initiator: DFUServiceInitiator { get }
     /// If an error occurred it is set as this variable. It will be reported to the user when the device gets disconnected.
-    var error:(error:DFUError, message:String)? { set get }
+    var error: (error: DFUError, message: String)? { set get }
 }
 
 extension BaseDFUExecutor {
@@ -50,11 +50,6 @@ extension BaseDFUExecutor {
     internal var progressDelegate:DFUProgressDelegate? {
         // The delegate may change during DFU operation (by setting a new one in the initiator). Let's always use the current one.
         return initiator.progressDelegate
-    }
-    
-    func start() {
-        self.error = nil
-        peripheral.start()
     }
     
     // MARK: - DFU Controller API

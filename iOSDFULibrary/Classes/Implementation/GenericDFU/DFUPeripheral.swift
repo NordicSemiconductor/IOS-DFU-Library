@@ -22,18 +22,13 @@
 
 import CoreBluetooth
 
-internal protocol BaseDFUPeripheralAPI: class, DFUController {
+internal protocol BaseDFUPeripheralAPI : class, DFUController {
     /**
      This method starts DFU process for given peripheral. If the peripheral is not connected it will call the connect() method,
      if it is connected, but services were not discovered before, it will try to discover services instead.
      If services were already discovered the DFU process will be started.
      */
     func start()
-    
-    /**
-     Connects to the peripheral and performs service discovery.
-     */
-    func connect()
     
     /**
      Disconnects the target device.
@@ -94,13 +89,14 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         super.init()
         // Set the initial peripheral. It may be changed later (flashing App fw after first flashing SD/BL)
         self.peripheral = initiator.target
-        // self.peripheral.delegate = self // this is set when device got connected
-        self.centralManager.delegate = self
     }
     
     // MARK: - Base DFU Peripheral API
     
     func start() {
+        aborted = false
+        centralManager.delegate = self
+        
         if peripheral!.state != .connected {
             connect()
         } else {
@@ -120,13 +116,6 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         }
     }
     
-    func connect() {
-        let name = peripheral!.name ?? "Unknown device"
-        logger.v("Connecting to \(name)...")
-        logger.d("centralManager.connect(peripheral, options:nil)")
-        centralManager.connect(peripheral!, options: nil)
-    }
-    
     func disconnect() {
         if peripheral!.state == .connected {
             logger.v("Disconnecting...")
@@ -140,7 +129,6 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     func destroy() {
         centralManager.delegate = nil
         peripheral?.delegate = nil
-        peripheral = nil
         delegate = nil
     }
     
@@ -357,6 +345,16 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         }
         peripheral!.delegate = self
         peripheral!.discoverServices(services)
+    }
+    
+    /**
+     Connects to the peripheral and performs service discovery.
+     */
+    fileprivate func connect() {
+        let name = peripheral!.name ?? "Unknown device"
+        logger.v("Connecting to \(name)...")
+        logger.d("centralManager.connect(peripheral, options: nil)")
+        centralManager.connect(peripheral!, options: nil)
     }
     
     fileprivate func cleanUp() {

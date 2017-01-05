@@ -22,7 +22,8 @@
 
 import CoreBluetooth
 
-internal class SecureDFUPeripheral: BaseCommonDFUPeripheral<SecureDFUExecutor, SecureDFUService> {
+internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, SecureDFUService> {
+    
     // MARK: - Peripheral API
     
     override var requiredServices: [CBUUID]? {
@@ -46,7 +47,7 @@ internal class SecureDFUPeripheral: BaseCommonDFUPeripheral<SecureDFUExecutor, S
         )
     }
     
-    override func isInApplicationMode(_ forceDfu:Bool) -> Bool {
+    override func isInApplicationMode(_ forceDfu: Bool) -> Bool {
         let applicationMode = dfuService!.isInApplicationMode() ?? !forceDfu
         
         if applicationMode {

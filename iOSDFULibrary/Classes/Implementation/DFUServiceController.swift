@@ -24,9 +24,9 @@ import CoreBluetooth
 
 @objc public class DFUServiceController : NSObject {
 
-    internal var executor:DFUController?
+    internal var executor: BaseExecutorAPI?
     
-    private var servicePaused = false
+    private var servicePaused  = false
     private var serviceAborted = false
     
     internal override init() {
@@ -73,6 +73,17 @@ import CoreBluetooth
             return executor!.abort()
         }
         return false
+    }
+    
+    /**
+     Starts again aborted DFU operation.
+     */
+    public func restart() {
+        if executor != nil && serviceAborted {
+            serviceAborted = false
+            servicePaused = false
+            executor!.start()
+        }
     }
     
     /**

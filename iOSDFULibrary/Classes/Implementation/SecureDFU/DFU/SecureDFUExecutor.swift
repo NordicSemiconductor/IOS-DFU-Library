@@ -50,8 +50,15 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         self.peripheral = SecureDFUPeripheral(initiator)
         
         self.retryCount = MaxRetryCount
-        self.peripheral.delegate = self
     }
+    
+    func start() {
+        error = nil
+        peripheral.delegate = self
+        peripheral.start()
+    }
+    
+    // MARK: - DFU Peripheral Delegate methods
     
     func peripheralDidBecomeReady() {
         if firmware.initPacket == nil && peripheral.isInitPacketRequired() {

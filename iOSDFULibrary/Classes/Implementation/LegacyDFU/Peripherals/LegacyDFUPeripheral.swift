@@ -22,7 +22,8 @@
 
 import CoreBluetooth
 
-internal class LegacyDFUPeripheral: BaseCommonDFUPeripheral<LegacyDFUExecutor, LegacyDFUService> {
+internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, LegacyDFUService> {
+    
     // MARK: - Peripheral API
     
     override var requiredServices: [CBUUID]? {
