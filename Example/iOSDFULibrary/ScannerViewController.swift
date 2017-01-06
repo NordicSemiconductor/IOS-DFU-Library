@@ -94,29 +94,35 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-            if advertisementData[CBAdvertisementDataServiceUUIDsKey] != nil {
-                let name = peripheral.name ?? "Unknown"
-                //Secure DFU UUID
-                let secureUUIDString = ScannerViewController.secureDfuServiceUUID.uuidString
-                let legacyUUIDString = ScannerViewController.legacyDfuServiceUUID.uuidString
-                let advertisedUUIDstring = ((advertisementData[CBAdvertisementDataServiceUUIDsKey]!) as AnyObject).firstObject as! CBUUID
-                if advertisedUUIDstring.uuidString == secureUUIDString {
-                    print("Found Secure Peripheral: \(name)")
-                    discoveredPeripherals.append(peripheral)
-                    securePeripheralMarkers.append(true)
-                    discoveredPeripheralsTableView.reloadData()
-                } else if advertisedUUIDstring.uuidString == legacyUUIDString {
-                    print("Found Legacy Peripheral: \(name)")
-                    discoveredPeripherals.append(peripheral)
-                    securePeripheralMarkers.append(false)
-                    discoveredPeripheralsTableView.reloadData()
-                } else {
-                    print("Found Peripheral: \(name)")
-                    discoveredPeripherals.append(peripheral)
-                    securePeripheralMarkers.append(nil)
-                    discoveredPeripheralsTableView.reloadData()
-                }
+        // Ignore dupliactes. 
+        // They will not be reported in a single scan, as we scan without CBCentralManagerScanOptionAllowDuplicatesKey flag,
+        // but after returning from DFU view another scan will be started.
+        guard discoveredPeripherals.contains(peripheral) == false else { return }
+        
+        if advertisementData[CBAdvertisementDataServiceUUIDsKey] != nil {
+            let name = peripheral.name ?? "Unknown"
+            
+            let secureUUIDString = ScannerViewController.secureDfuServiceUUID.uuidString
+            let legacyUUIDString = ScannerViewController.legacyDfuServiceUUID.uuidString
+            let advertisedUUIDstring = ((advertisementData[CBAdvertisementDataServiceUUIDsKey]!) as AnyObject).firstObject as! CBUUID
+            
+            if advertisedUUIDstring.uuidString == secureUUIDString {
+                print("Found Secure Peripheral: \(name)")
+                discoveredPeripherals.append(peripheral)
+                securePeripheralMarkers.append(true)
+                discoveredPeripheralsTableView.reloadData()
+            } else if advertisedUUIDstring.uuidString == legacyUUIDString {
+                print("Found Legacy Peripheral: \(name)")
+                discoveredPeripherals.append(peripheral)
+                securePeripheralMarkers.append(false)
+                discoveredPeripheralsTableView.reloadData()
+            } else {
+                print("Found Peripheral: \(name)")
+                discoveredPeripherals.append(peripheral)
+                securePeripheralMarkers.append(nil)
+                discoveredPeripheralsTableView.reloadData()
             }
+        }
     }
     
     //MARK: - UITableViewDataSource
