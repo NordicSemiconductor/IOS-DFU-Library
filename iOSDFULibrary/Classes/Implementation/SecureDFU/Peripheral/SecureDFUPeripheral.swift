@@ -67,7 +67,10 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         newAddressExpected = dfuService!.newAddressExpected
         dfuService!.jumpToBootloaderMode(
             // onSuccess the device gets disconnected and centralManager(_:didDisconnectPeripheral:error) will be called
-            onError: defaultErrorCallback
+            onError: { (error, message) in
+                self.jumpingToBootloader = false
+                self.delegate?.error(error, didOccurWithMessage: message)
+            }
         )
     }
     
