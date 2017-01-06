@@ -40,10 +40,9 @@ import CoreBluetooth
      of the firmware. With Packet Receipt Notifications disabled it is the only moment when upload may be paused.
      */
     public func pause() {
-        if executor != nil {
-            if !servicePaused && executor!.pause() {
-                servicePaused = true
-            }
+        guard let executor = executor, !servicePaused, !serviceAborted else { return }
+        if executor.pause() {
+            servicePaused = true
         }
     }
     
@@ -51,10 +50,9 @@ import CoreBluetooth
      Call this method to resume the paused transffer, otherwise does nothing.
      */
     public func resume() {
-        if executor != nil {
-            if servicePaused && executor!.resume() {
-                servicePaused = false
-            }
+        guard let executor = executor, servicePaused, !serviceAborted else { return }
+        if executor.resume() {
+            servicePaused = false
         }
     }
     
@@ -66,24 +64,24 @@ import CoreBluetooth
      Abort (Reset) command will be sent instead of a next Op Code, or after receiving a
      Packet Receipt Notification. It PRM procedure is disabled it will continue until the whole
      firmware is sent and then Reset will be sent instead of Verify Firmware op code.
+     
+     - returns: true if DFU has been aborted.
      */
     public func abort() -> Bool {
-        if executor != nil {
-            serviceAborted = true
-            return executor!.abort()
-        }
-        return false
+        guard let executor = executor, !serviceAborted else { return serviceAborted }
+        serviceAborted = true
+        servicePaused = false
+        return executor.abort()
     }
     
     /**
      Starts again aborted DFU operation.
      */
     public func restart() {
-        if executor != nil && serviceAborted {
-            serviceAborted = false
-            servicePaused = false
-            executor!.start()
-        }
+        guard let executor = executor, serviceAborted else { return }
+        serviceAborted = false
+        servicePaused = false
+        executor.start()
     }
     
     /**
