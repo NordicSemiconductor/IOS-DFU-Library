@@ -105,7 +105,7 @@ extension BaseDFUExecutor {
         peripheral.destroy()
     }
     
-    func error(_ error:DFUError, didOccurWithMessage message:String) {
+    func error(_ error: DFUError, didOccurWithMessage message: String) {
         // Save the error. It will be reported when the device disconnects
         if self.error == nil {
             self.error = (error, message)
@@ -124,13 +124,13 @@ extension BaseDFUExecutor {
 
 internal protocol DFUExecutorAPI : BaseExecutorAPI {
     /// Required constructor
-    init(_ initiator:DFUServiceInitiator)
+    init(_ initiator: DFUServiceInitiator)
 }
 
 internal protocol DFUExecutor : DFUExecutorAPI, BaseDFUExecutor, DFUPeripheralDelegate {
     associatedtype DFUPeripheralType : DFUPeripheralAPI
     /// The firmware to be sent over-the-air
-    var firmware:DFUFirmware { get }
+    var firmware: DFUFirmware { get }
 }
 
 extension DFUExecutor {

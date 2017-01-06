@@ -50,7 +50,7 @@ import CoreBluetooth
      
      - returns: true (YES) if given peripheral is what service is looking for
      */
-    func select(_ peripheral:CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) -> Bool
+    func select(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) -> Bool
     
     /**
      Returns an optional list of services that the scanner will use to filter advertising packets

@@ -155,7 +155,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     // MARK: - Central Manager methods
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        var stateAsString:String
+        var stateAsString: String
         
         switch (central.state) {
         case .poweredOn:

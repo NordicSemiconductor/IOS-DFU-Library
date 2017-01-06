@@ -44,7 +44,7 @@ internal class ZipArchive {
         let destinationPath = try createTemporaryFolderPath(fileName)
         
         // Unzip file to the destination folder
-        let destination = URL.init(fileURLWithPath: destinationPath)
+        let destination = URL(fileURLWithPath: destinationPath)
         try Zip.unzipFile(url, destination: destination, overwrite: true, password: nil, progress: nil)
         
         // Get folder content

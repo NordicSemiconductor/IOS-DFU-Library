@@ -56,7 +56,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         )
     }
     
-    override func isInApplicationMode(_ forceDfu:Bool) -> Bool {
+    override func isInApplicationMode(_ forceDfu: Bool) -> Bool {
         let applicationMode = dfuService!.isInApplicationMode() ?? !forceDfu
         
         if applicationMode {
@@ -91,7 +91,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      - parameter type: the firmware type bitfield. See FIRMWARE_TYPE_* constants
      - parameter size: the size of all parts of the firmware
      */
-    func sendStartDfu(withFirmwareType type:UInt8, andSize size:DFUFirmwareSize) {
+    func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize) {
         dfuService!.sendDfuStart(withFirmwareType: type, andSize: size,
             onSuccess: { self.delegate?.peripheralDidStartDfu() },
             onError: { error, message in
@@ -112,7 +112,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      
      - parameter size: the size of all parts of the firmware, where size of softdevice and bootloader are 0
      */
-    func sendStartDfu(withFirmwareSize size:DFUFirmwareSize) {
+    func sendStartDfu(withFirmwareSize size: DFUFirmwareSize) {
         logger.v("Switching to DFU v.1")
         dfuService!.sendStartDfu(withFirmwareSize: size,
             onSuccess: { self.delegate?.peripheralDidStartDfu() },
@@ -126,7 +126,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      
      - parameter data: Init Packet data
      */
-    func sendInitPacket(_ data:Data) {
+    func sendInitPacket(_ data: Data) {
         dfuService!.sendInitPacket(data,
             onSuccess: { self.delegate?.peripheralDidReceiveInitPacket() },
             onError: defaultErrorCallback
@@ -143,7 +143,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      before sending a new Packet Receipt Notification. Set 0 to disable PRNs (not recommended)
      - parameter progressDelegate: the deleagate that will be informed about progress changes
      */
-    func sendFirmware(_ aFirmware:DFUFirmware, withPacketReceiptNotificationNumber aPRNValue:UInt16, andReportProgressTo progressDelegate:DFUProgressDelegate?) {
+    func sendFirmware(_ aFirmware: DFUFirmware, withPacketReceiptNotificationNumber aPRNValue: UInt16, andReportProgressTo progressDelegate: DFUProgressDelegate?) {
         dfuService!.sendPacketReceiptNotificationRequest(aPRNValue,
             onSuccess: {
                 // Now the service is ready to send the firmware

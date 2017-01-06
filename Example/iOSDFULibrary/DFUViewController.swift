@@ -193,7 +193,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
 
     //MARK: - DFUServiceDelegate
     
-    func dfuStateDidChange(to state:DFUState) {
+    func dfuStateDidChange(to state: DFUState) {
         switch state {
         case .completed, .disconnecting:
             self.dfuActivityIndicator.stopAnimating()
@@ -237,7 +237,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
 
     //MARK: - LoggerDelegate
     
-    func logWith(_ level:LogLevel, message:String) {
+    func logWith(_ level: LogLevel, message: String) {
         print("\(level.name()): \(message)")
     }
 }

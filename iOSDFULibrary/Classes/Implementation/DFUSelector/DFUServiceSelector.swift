@@ -40,7 +40,7 @@ internal class DFUServiceSelector : BaseDFUExecutor, DFUStarterPeripheralDelegat
     internal let initiator:  DFUServiceInitiator
     internal let controller: DFUServiceController
     internal let peripheral: DFUStarterPeripheral
-    internal var error: (error:DFUError, message:String)?
+    internal var error: (error: DFUError, message: String)?
     
     init(initiator: DFUServiceInitiator, controller: DFUServiceController) {
         self.initiator  = initiator

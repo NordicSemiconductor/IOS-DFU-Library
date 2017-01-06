@@ -30,7 +30,7 @@ internal enum SecureDFUOpCode : UInt8 {
     case readObjectInfo       = 0x06
     case responseCode         = 0x60
 
-    var code:UInt8 {
+    var code: UInt8 {
         return rawValue
     }
 }
@@ -50,7 +50,7 @@ internal enum SecureDFUExtendedErrorCode : UInt8 {
     case verificationFailed   = 0x0C
     case insufficientSpace    = 0x0D
     
-    var code:UInt8 {
+    var code: UInt8 {
         return rawValue
     }
     
@@ -159,7 +159,7 @@ internal enum SecureDFUResultCode : UInt8 {
     case operationFailed       = 0x0A
     case extendedError         = 0x0B
     
-    var description:String {
+    var description: String {
         switch self {
             case .invalidCode:           return "Invalid code"
             case .success:               return "Success"
@@ -175,7 +175,7 @@ internal enum SecureDFUResultCode : UInt8 {
         }
     }
     
-    var code:UInt8 {
+    var code: UInt8 {
         return rawValue
     }
 }
@@ -191,7 +191,7 @@ internal struct SecureDFUResponse {
     let crc           : UInt32?
     let error         : SecureDFUExtendedErrorCode?
     
-    init?(_ data:Data) {
+    init?(_ data: Data) {
         var opCode        : UInt8 = 0
         var requestOpCode : UInt8 = 0
         var status        : UInt8 = 0
@@ -271,7 +271,7 @@ internal struct SecureDFUResponse {
         }
     }
 
-    var description:String {
+    var description: String {
         if status == .success {
             switch requestOpCode {
             case .some(.readObjectInfo):
@@ -301,7 +301,7 @@ internal struct SecureDFUPacketReceiptNotification {
     let offset        : UInt32
     let crc           : UInt32
 
-    init?(_ data:Data) {
+    init?(_ data: Data) {
         var opCode        : UInt8 = 0
         var requestOpCode : UInt8 = 0
         var resultCode    : UInt8 = 0
@@ -324,11 +324,11 @@ internal struct SecureDFUPacketReceiptNotification {
             return nil
         }
 
-        var offsetResult:UInt32 = 0
+        var offsetResult: UInt32 = 0
         (data as NSData).getBytes(&offsetResult, range: NSRange(location: 3, length: 4))
         self.offset = offsetResult
         
-        var crcResult:UInt32 = 0
+        var crcResult: UInt32 = 0
         (data as NSData).getBytes(&crcResult, range: NSRange(location: 7, length: 4))
         self.crc = crcResult
     }

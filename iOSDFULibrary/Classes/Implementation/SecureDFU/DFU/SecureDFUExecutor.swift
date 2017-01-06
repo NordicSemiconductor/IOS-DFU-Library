@@ -302,7 +302,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      This method creates a list of ranges that will be used to send data to the peripheral, for example:
      0 ..< 4096, 4096 ..< 5000 in case the firmware was 5000 bytes long.
      */
-    private func calculateFirmwareRanges(_ maxLen:Int) -> [Range<Int>] {
+    private func calculateFirmwareRanges(_ maxLen: Int) -> [Range<Int>] {
         var totalLength = firmware.data.count
         var ranges = [Range<Int>]()
         

@@ -34,7 +34,7 @@ internal enum DFUOpCode : UInt8 {
     case responseCode                       = 16
     case packetReceiptNotification          = 17
     
-    var code:UInt8 {
+    var code: UInt8 {
         return rawValue
     }
 }
@@ -43,14 +43,14 @@ internal enum InitDfuParametersRequest : UInt8 {
     case receiveInitPacket  = 0
     case initPacketComplete = 1
     
-    var code:UInt8 {
+    var code: UInt8 {
         return rawValue
     }
 }
 
 internal enum Request {
     case jumpToBootloader
-    case startDfu(type:UInt8)
+    case startDfu(type: UInt8)
     case startDfu_v1
     case initDfuParameters(req: InitDfuParametersRequest)
     case initDfuParameters_v1
@@ -126,7 +126,7 @@ internal enum DFUResultCode : UInt8 {
     case crcError             = 5
     case operationFailed      = 6
     
-    var description:String {
+    var description: String {
         switch self {
         case .success:              return "Success"
         case .invalidState:         return "Device is in invalid state"
@@ -137,7 +137,7 @@ internal enum DFUResultCode : UInt8 {
         }
     }
     
-    var code:UInt8 {
+    var code: UInt8 {
         return rawValue
     }
 }
@@ -147,7 +147,7 @@ internal struct Response {
     let requestOpCode : DFUOpCode?
     let status        : DFUResultCode?
     
-    init?(_ data:Data) {
+    init?(_ data: Data) {
         var opCode        : UInt8 = 0
         var requestOpCode : UInt8 = 0
         var status        : UInt8 = 0
@@ -165,7 +165,7 @@ internal struct Response {
         }
     }
     
-    var description:String {
+    var description: String {
         return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue))"
     }
 }
@@ -174,7 +174,7 @@ internal struct PacketReceiptNotification {
     let opCode        : DFUOpCode?
     let bytesReceived : UInt32
     
-    init?(_ data:Data) {
+    init?(_ data: Data) {
         var opCode: UInt8 = 0
         (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
         self.opCode = DFUOpCode(rawValue: opCode)
