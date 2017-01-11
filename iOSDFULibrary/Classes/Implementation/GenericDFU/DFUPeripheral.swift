@@ -552,10 +552,10 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             // Peripheral is nil when the switchToNewPeripheralAndConnect(_ selector:DFUPeripheralSelector) method was called
             // and the second peripheral has not been found yet.
             // Delegate is nil when peripheral was destroyed.
-            if delegate != nil && peripheral == nil {
+            if let delegate = delegate, peripheral == nil {
                 logger.w("Upload aborted. Part 1 flashed sucessfully")
                 centralManager.stopScan()
-                delegate?.peripheralDidDisconnectAfterAborting()
+                delegate.peripheralDidDisconnectAfterAborting()
             }
             return true
         }
