@@ -51,25 +51,26 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
             print("No DFU peripheral was set")
             return
         }
-        if dfuController!.aborted {
+        guard !dfuController!.aborted else {
             stopProcessButton.setTitle("Stop process", for: .normal)
             dfuController!.restart()
-        } else {
-            print("Action: DFU paused")
-            dfuController!.pause()
-            let alertView = UIAlertController(title: "Warning", message: "Are you sure you want to stop the process?", preferredStyle: .alert)
-            alertView.addAction(UIAlertAction(title: "Abort", style: .destructive) {
-                (action) in
-                print("Action: DFU aborted")
-                _ = self.dfuController!.abort()
-            })
-            alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel) {
-                (action) in
-                print("Action: DFU resumed")
-                self.dfuController!.resume()
-            })
-            present(alertView, animated: true)
+            return
         }
+        
+        print("Action: DFU paused")
+        dfuController!.pause()
+        let alertView = UIAlertController(title: "Warning", message: "Are you sure you want to stop the process?", preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: "Abort", style: .destructive) {
+            (action) in
+            print("Action: DFU aborted")
+            _ = self.dfuController!.abort()
+        })
+        alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel) {
+            (action) in
+            print("Action: DFU resumed")
+            self.dfuController!.resume()
+        })
+        present(alertView, animated: true)
     }
     
     //MARK: - Class Implementation
