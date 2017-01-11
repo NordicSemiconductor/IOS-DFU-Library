@@ -295,7 +295,7 @@ import CoreBluetooth
      */
     func sendNextObject(from aRange: Range<Int>, of aFirmware: DFUFirmware, andReportProgressTo progressDelegate: DFUProgressDelegate?,
                         onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
-        if aborted {
+        guard !aborted else {
             sendReset(onError: report)
             return
         }
