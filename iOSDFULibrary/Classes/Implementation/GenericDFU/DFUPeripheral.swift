@@ -146,7 +146,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     
     func abort() -> Bool {
         aborted = true
-        if peripheral!.state == .connecting {
+        if peripheral?.state == .connecting {
             disconnect()
         }
         return true
