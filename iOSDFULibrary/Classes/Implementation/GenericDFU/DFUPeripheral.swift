@@ -185,11 +185,12 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         let name = peripheral.name ?? "Unknown device"
         logger.i("Connected to \(name)")
         
-        if !aborted {
-            discoverServices()
-        } else {
+        guard !aborted else {
             resetDevice()
+            return
         }
+        
+        discoverServices()
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -251,7 +252,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         } else {
             logger.i("Services discovered")
             
-            if aborted {
+            guard !aborted else {
                 resetDevice()
                 return
             }
@@ -281,15 +282,16 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
      Method called when the device got disconnected.
      */
     func peripheralDidDisconnect() {
-        if aborted {
-            // The device has reseted. Notify user
+        guard !aborted else {
+            // The device has resetted. Notify user
             logger.w("Upload aborted")
             delegate?.peripheralDidDisconnectAfterAborting()
-        } else {
-            // Otherwise just notify the delegate about the disconnection
-            // Most probably an error occur and will be reported to the user
-            delegate?.peripheralDidDisconnect()
+            return
         }
+        
+        // Notify the delegate about the disconnection.
+        // Most probably an error occurred and will be reported to the user.
+        delegate?.peripheralDidDisconnect()
     }
     
     /**
@@ -447,12 +449,14 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     }
     
     override func peripheralDidDisconnect() {
-        // The aborted state should be checked first
-        if aborted {
-            // The device has reseted. Notify user
+        guard !aborted else {
+            // The device has resetted. Notify user
             logger.w("Upload aborted")
             delegate?.peripheralDidDisconnectAfterAborting()
-        } else if shouldReconnect {
+            return
+        }
+        
+        if shouldReconnect {
             shouldReconnect = false
             // We need to reconnect to the device
             connect()
@@ -498,7 +502,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         peripheral = nil
         cleanUp()
         
-        if aborted {
+        guard !aborted else {
             resetDevice()
             return
         }
@@ -529,34 +533,34 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     // MARK: - DFU Controller API
     
     override func pause() -> Bool {
-        if !aborted && dfuService != nil {
-            return dfuService!.pause()
-        }
-        return false
+        guard let dfuService = dfuService, !aborted else { return false }
+        return dfuService.pause()
     }
     
     override func resume() -> Bool {
-        if !aborted && dfuService != nil {
-            return dfuService!.resume() == false // resume() returns the 'paused' value
-        }
-        return false
+        guard let dfuService = dfuService, !aborted else { return false }
+        return dfuService.resume() == false // resume() returns the 'paused' value
     }
     
     override func abort() -> Bool {
         aborted = true
-        if dfuService != nil {
-            logger.w("Aborting upload...")
-            return dfuService!.abort()
+        
+        guard let dfuService = dfuService else {
+            // DFU service has not yet been found.
+            
+            // Peripheral is nil when the switchToNewPeripheralAndConnect(_ selector:DFUPeripheralSelector) method was called
+            // and the second peripheral has not been found yet.
+            // Delegate is nil when peripheral was destroyed.
+            if delegate != nil && peripheral == nil {
+                logger.w("Upload aborted. Part 1 flashed sucessfully")
+                centralManager.stopScan()
+                delegate?.peripheralDidDisconnectAfterAborting()
+            }
+            return true
         }
-        // Peripheral is nil when the switchToNewPeripheralAndConnect(_ selector:DFUPeripheralSelector) method was called
-        // and the second peripheral has not been found yet.
-        // Delegate is nil when peripheral was destroyed.
-        if delegate != nil && peripheral == nil {
-            logger.w("Upload aborted. Part 1 flashed sucessfully")
-            centralManager.stopScan()
-            delegate?.peripheralDidDisconnectAfterAborting()
-        }
-        return true
+        
+        logger.w("Aborting upload...")
+        return dfuService.abort()
     }
     
     // MARK: - Private methods
