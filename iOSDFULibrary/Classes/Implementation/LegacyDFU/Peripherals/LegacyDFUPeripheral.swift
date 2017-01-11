@@ -179,10 +179,10 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
     
     override func resetDevice() {
-        if dfuService != nil && dfuService!.supportsReset() {
-            dfuService!.sendReset(onError: defaultErrorCallback)
-        } else {
+        guard let dfuService = dfuService, dfuService.supportsReset() else {
             super.resetDevice()
+            return
         }
+        dfuService.sendReset(onError: defaultErrorCallback)
     }
 }

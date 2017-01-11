@@ -245,28 +245,29 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     // MARK: - Peripheral Delegate methods
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        if error != nil {
+        guard error == nil else {
             logger.e("Services discovery failed")
             logger.e(error!)
             delegate?.error(.serviceDiscoveryFailed, didOccurWithMessage: "Services discovery failed")
-        } else {
-            logger.i("Services discovered")
-            
-            guard !aborted else {
-                resetDevice()
-                return
-            }
-            
-            let dfuService = findDfuService(in: peripheral.services)
-            if dfuService != nil {
-                // A DFU service was found, congratulations!
-                peripheralDidDiscoverDfuService(dfuService!)
-            } else {
-                logger.e("DFU Service not found")
-                // The device does not support DFU, nor buttonless jump
-                delegate?.error(.deviceNotSupported, didOccurWithMessage: "DFU Service not found")
-            }
+            return
         }
+        
+        logger.i("Services discovered")
+        
+        guard !aborted else {
+            resetDevice()
+            return
+        }
+        
+        // Search for DFU service
+        guard let dfuService = findDfuService(in: peripheral.services) else {
+            logger.e("DFU Service not found")
+            // The device does not support DFU, nor buttonless jump
+            delegate?.error(.deviceNotSupported, didOccurWithMessage: "DFU Service not found")
+            return
+        }
+        // A DFU service was found, congratulations!
+        peripheralDidDiscoverDfuService(dfuService)
     }
     
     // MARK: - Methods to be overriden in the final implementation
