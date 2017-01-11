@@ -208,7 +208,7 @@ import CoreBluetooth
      - parameter report:  a callback called when a response with an error status is received
      */
     func sendDfuStart(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
-        if aborted {
+        guard !aborted else {
             sendReset(onError: report)
             return
         }
@@ -236,7 +236,7 @@ import CoreBluetooth
      - parameter report:  a callback called when a response with an error status is received
      */
     func sendStartDfu(withFirmwareSize size: DFUFirmwareSize, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
-        if aborted {
+        guard !aborted else {
             sendReset(onError: report)
             return
         }
@@ -260,7 +260,7 @@ import CoreBluetooth
      - parameter report:  a callback called when a response with an error status is received
      */
     func sendInitPacket(_ data: Data, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
-        if aborted {
+        guard !aborted else {
             sendReset(onError: report)
             return
         }
@@ -349,7 +349,7 @@ import CoreBluetooth
      */
     func sendFirmware(_ aFirmware: DFUFirmware, andReportProgressTo progressDelegate: DFUProgressDelegate?,
                       onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
-        if aborted {
+        guard !aborted else {
             sendReset(onError: report)
             return
         }
