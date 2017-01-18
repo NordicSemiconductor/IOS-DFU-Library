@@ -1,4 +1,6 @@
 ### Changelog
+- **3.0.5**:
+    - Bugfix: Removed Cartfile since it caused conflicts for users building using Carthage, Zip is already bundled via Cocoapods and no further installation is necessary
 - **3.0.4**:
     - Feature: restart() method restored in DFUServiceController
     - Bugfix: Fixed error reporting when Buttonless jump fails
