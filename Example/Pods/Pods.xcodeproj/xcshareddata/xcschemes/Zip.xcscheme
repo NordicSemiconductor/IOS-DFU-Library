@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "570B1EFB2D11F5B06166FDA2A614F81C"
-               BuildableName = "iOSDFULibrary.framework"
-               BlueprintName = "iOSDFULibrary"
+               BlueprintIdentifier = "6DE24706FE9CF4E6C5DB4508F180A481"
+               BuildableName = "Zip.framework"
+               BlueprintName = "Zip"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "570B1EFB2D11F5B06166FDA2A614F81C"
-            BuildableName = "iOSDFULibrary.framework"
-            BlueprintName = "iOSDFULibrary"
+            BlueprintIdentifier = "6DE24706FE9CF4E6C5DB4508F180A481"
+            BuildableName = "Zip.framework"
+            BlueprintName = "Zip"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -60,15 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "570B1EFB2D11F5B06166FDA2A614F81C"
-            BuildableName = "iOSDFULibrary.framework"
-            BlueprintName = "iOSDFULibrary"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
