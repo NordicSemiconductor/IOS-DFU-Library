@@ -1,4 +1,6 @@
 ### Changelog
+- **3.0.6**:
+    - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by carthage
 - **3.0.5**:
     - Bugfix: Removed Cartfile since it caused conflicts for users building using Carthage, Zip is already bundled via Cocoapods and no further installation is necessary
 - **3.0.4**:
