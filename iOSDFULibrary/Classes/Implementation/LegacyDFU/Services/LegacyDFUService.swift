@@ -244,7 +244,14 @@ import CoreBluetooth
         // 1. Sends the Start DFU command with the firmware type to the DFU Control Point characteristic
         // 2. Sends firmware sizes to the DFU Packet characteristic
         // 3. Receives response notification and calls onSuccess or onError
-        dfuControlPointCharacteristic!.send(Request.startDfu_v1, onSuccess: success, onError: report)
+        dfuControlPointCharacteristic!.send(Request.startDfu_v1, onSuccess: success)  { (error, aMessage) in
+            if error == .remoteLegacyDFUInvalidState {
+                self.targetPeripheral!.shouldReconnect = true
+                self.sendReset(onError: report)
+                return
+            }
+            report(error, aMessage)
+        }
         dfuPacketCharacteristic!.sendFirmwareSize_v1(size)
     }
     
