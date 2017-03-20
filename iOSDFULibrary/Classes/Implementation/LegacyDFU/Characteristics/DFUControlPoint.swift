@@ -309,7 +309,7 @@ internal struct PacketReceiptNotification {
         peripheral.delegate = self
         
         logger.a("Uploading firmware...")
-        logger.v("Sending firmware DFU Packet characteristic...")
+        logger.v("Sending firmware to DFU Packet characteristic...")
     }
     
     // MARK: - Peripheral Delegate callbacks
