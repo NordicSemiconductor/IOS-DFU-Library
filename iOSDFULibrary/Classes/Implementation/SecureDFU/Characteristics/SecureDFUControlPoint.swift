@@ -134,14 +134,14 @@ internal enum SecureDFURequest {
 
     var description : String {
         switch self {
-        case .createCommandObject(let size):  return "Create Command Object (Op Code = 1, Type = 1, Size: \(size)b)"
-        case .createDataObject(let size):     return "Create Data Object (Op Code = 1, Type = 2, Size: \(size)b)"
-        case .readCommandObjectInfo:        return "Read Command Object Info (Op Code = 6, Type = 1)"
-        case .readDataObjectInfo:           return "Read Data Object Info (Op Code = 6, Type = 2)"
+        case .createCommandObject(let size): return "Create Command Object (Op Code = 1, Type = 1, Size: \(size)b)"
+        case .createDataObject(let size):    return "Create Data Object (Op Code = 1, Type = 2, Size: \(size)b)"
+        case .readCommandObjectInfo:         return "Read Command Object Info (Op Code = 6, Type = 1)"
+        case .readDataObjectInfo:            return "Read Data Object Info (Op Code = 6, Type = 2)"
         case .setPacketReceiptNotification(let number):
-                                              return "Packet Receipt Notif Req (Op Code = 2, Value = \(number))"
-        case .calculateChecksumCommand:     return "Calculate Checksum (Op Code = 3)"
-        case .executeCommand:               return "Execute Object (Op Code = 4)"
+                                             return "Packet Receipt Notif Req (Op Code = 2, Value = \(number))"
+        case .calculateChecksumCommand:      return "Calculate Checksum (Op Code = 3)"
+        case .executeCommand:                return "Execute Object (Op Code = 4)"
         }
     }
 }
