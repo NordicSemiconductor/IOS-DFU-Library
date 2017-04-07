@@ -1,8 +1,15 @@
 ### Changelog
+- **3.1.0**:
+    - New: Buttonless service from SDK 13 supported (without bond info sharing)
+    - New: Library prepared for Buttonless service coming in SDK 14 (with bond sharing)
+    - Bugfix: Improved performance on DFU from SDK 6 and older
+
 - **3.0.6**:
     - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by carthage
+
 - **3.0.5**:
     - Bugfix: Removed Cartfile since it caused conflicts for users building using Carthage, Zip is already bundled via Cocoapods and no further installation is necessary
+
 - **3.0.4**:
     - Feature: restart() method restored in DFUServiceController
     - Bugfix: Fixed error reporting when Buttonless jump fails
