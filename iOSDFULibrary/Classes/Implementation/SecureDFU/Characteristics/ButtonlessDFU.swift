@@ -56,8 +56,7 @@ internal enum ButtonlessDFURequest {
     var data : Data {
         switch self {
         case .enterBootloader:
-            let byteArray: [UInt8] = [ButtonlessDFUOpCode.enterBootloader.code]
-            return Data(bytes: UnsafePointer<UInt8>(byteArray), count: byteArray.count)
+            return Data(bytes: [ButtonlessDFUOpCode.enterBootloader.code])
         }
     }
 }
@@ -68,20 +67,14 @@ internal struct ButtonlessDFUResponse {
     let status        : ButtonlessDFUResultCode?
 
     init?(_ data: Data) {
-        var opCode        : UInt8 = 0
-        var requestOpCode : UInt8 = 0
-        var status        : UInt8 = 0
-        
         // The correct response is always 3 bytes long: Response Op Code, Request Op Code and Status
-        if data.count == 3 {
-            (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
-            (data as NSData).getBytes(&requestOpCode, range: NSRange(location: 1, length: 1))
-            (data as NSData).getBytes(&status, range: NSRange(location: 2, length: 1))
-        }
+        let opCode        : UInt8 = data[0]
+        let requestOpCode : UInt8 = data[1]
+        let status        : UInt8 = data[2]
         
-        self.opCode = ButtonlessDFUOpCode(rawValue: opCode)
+        self.opCode        = ButtonlessDFUOpCode(rawValue: opCode)
         self.requestOpCode = ButtonlessDFUOpCode(rawValue: requestOpCode)
-        self.status = ButtonlessDFUResultCode(rawValue: status)
+        self.status        = ButtonlessDFUResultCode(rawValue: status)
         
         if self.opCode != .responseCode || self.requestOpCode == nil || self.status == nil {
             return nil
@@ -111,8 +104,8 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate {
     private var report:  ErrorCallback?
     
     internal var valid: Bool {
-        return (characteristic.properties.isSuperset(of: [CBCharacteristicProperties.write, CBCharacteristicProperties.notify]) && characteristic.uuid.isEqual(ButtonlessDFU.EXPERIMENTAL_UUID)) ||
-                characteristic.properties.isSuperset(of: [CBCharacteristicProperties.write, CBCharacteristicProperties.indicate])
+        return (characteristic.properties.isSuperset(of: [.write, .notify]) && characteristic.uuid.isEqual(ButtonlessDFU.EXPERIMENTAL_UUID)) ||
+                characteristic.properties.isSuperset(of: [.write, .indicate])
     }
     
     internal var newAddressExpected: Bool {

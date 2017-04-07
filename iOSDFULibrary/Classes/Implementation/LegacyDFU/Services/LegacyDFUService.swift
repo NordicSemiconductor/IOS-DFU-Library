@@ -45,7 +45,7 @@ import CoreBluetooth
     }
     
     /// The version read from the DFU Version charactertistic. Nil, if such does not exist.
-    private(set) var version: (major: Int, minor: Int)?
+    private(set) var version: (major: UInt8, minor: UInt8)?
     private var paused  = false
     private var aborted = false
     
