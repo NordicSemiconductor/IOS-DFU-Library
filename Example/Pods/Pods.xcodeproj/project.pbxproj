@@ -72,7 +72,7 @@
 		ED886A72EF34E4D15D2B23C28DFD0162 /* crc32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7322077855F96C619FDBEDFD93C8A3 /* crc32.swift */; };
 		F8CBF28667EDDEE6730C7A8C2D530705 /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BCA3223FEFA7C96D11DD97BC4C1236 /* SecureDFUServiceInitiator.swift */; };
 		FBDB721C38F74CE9C01E2D812B242DA0 /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FEB6B619123D08709101A98E357EB0 /* LegacyDFUPeripheralDelegate.swift */; };
-		FC5C3D42ABF001A6A8439ED1AD41F605 /* ExperimentalButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F51383B1094082F3C649133CFDA677 /* ExperimentalButtonlessDFU.swift */; };
+		FC5C3D42ABF001A6A8439ED1AD41F605 /* ButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F51383B1094082F3C649133CFDA677 /* ButtonlessDFU.swift */; };
 		FD431C08EB44CD5F8BE23B70E3A8642E /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AC2A73112AAEDFCE0B7117D06163E7 /* SecureDFUPeripheralDelegate.swift */; };
 		FF43CA4C5A2173977F85CBCD5EF809D4 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495D957C4E83A2BA83E11049E5DC76E4 /* Data.swift */; };
 /* End PBXBuildFile section */
@@ -158,7 +158,7 @@
 		6B33BB8733690C764BE010A4CD722907 /* iOSDFULibrary-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iOSDFULibrary-prefix.pch"; sourceTree = "<group>"; };
 		7BACEABA183938C68D9D5C8655C9ECFF /* Pods-iOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
 		80AB05A341B71E7785F934DDC8DD7C06 /* Pods-iOSDFULibrary_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Tests-umbrella.h"; sourceTree = "<group>"; };
-		83F51383B1094082F3C649133CFDA677 /* ExperimentalButtonlessDFU.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ExperimentalButtonlessDFU.swift; sourceTree = "<group>"; };
+		83F51383B1094082F3C649133CFDA677 /* ButtonlessDFU.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ButtonlessDFU.swift; sourceTree = "<group>"; };
 		86312F8702A77E8ACD8BA8217770949F /* Pods-iOSDFULibrary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iOSDFULibrary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		866788D5990831802B0F1CF51E7A19A6 /* Zip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Zip.swift; path = Zip/Zip.swift; sourceTree = "<group>"; };
 		8A1DEB3E205C7E2DB3E2BF45D01BB59B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -463,7 +463,7 @@
 		B3F988E7020D7892DB337D3101CEB516 /* Characteristics */ = {
 			isa = PBXGroup;
 			children = (
-				83F51383B1094082F3C649133CFDA677 /* ExperimentalButtonlessDFU.swift */,
+				83F51383B1094082F3C649133CFDA677 /* ButtonlessDFU.swift */,
 				B1848FE6A101BE308F6D35F6E8A76175 /* SecureDFUControlPoint.swift */,
 				DC021FF7AE3DFB797676FB98259B24F6 /* SecureDFUPacket.swift */,
 			);
@@ -830,7 +830,7 @@
 				143DD8CE0EE75F1E66639A529632C613 /* DFUStreamZip.swift in Sources */,
 				BDC862352266DFF35596671B9B2D616B /* DFUVersion.swift in Sources */,
 				789EB1464B1A57024C0677DD25445356 /* Double.swift in Sources */,
-				FC5C3D42ABF001A6A8439ED1AD41F605 /* ExperimentalButtonlessDFU.swift in Sources */,
+				FC5C3D42ABF001A6A8439ED1AD41F605 /* ButtonlessDFU.swift in Sources */,
 				2D5E114C30F92A81C25070361135A4EA /* IntelHex2BinConverter.m in Sources */,
 				E5906260EFA690A941CF8A12AB0CD7AF /* iOSDFULibrary-dummy.m in Sources */,
 				B41200CF12A7D719E96AE94ADF62DFBA /* LegacyDFUExecutor.swift in Sources */,
