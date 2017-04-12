@@ -1,8 +1,15 @@
 ### Changelog
+
+- **3.1.0**:
+    - Workaround: minor fix to circumvent an issue with SDK 6.1 when the link is lost during firmware upload resulting in an operation failed error (Code 6)
+    - Enhancement: Minor code refactor for Data struct manipulation
+
 - **3.0.6**:
     - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by carthage
+
 - **3.0.5**:
     - Bugfix: Removed Cartfile since it caused conflicts for users building using Carthage, Zip is already bundled via Cocoapods and no further installation is necessary
+
 - **3.0.4**:
     - Feature: restart() method restored in DFUServiceController
     - Bugfix: Fixed error reporting when Buttonless jump fails
@@ -84,32 +91,32 @@
     - Feature: Reverted bugfix in **0.1.16** that disabled extended error feature
 
  - **0.1.18**: 
- 	- Feature: Implemented new response code `operation_not_permitted`
+    - Feature: Implemented new response code `operation_not_permitted`
  
  - **0.1.17**: 
- 	- Bugfix: iOS10 bug fix that caused the dfu process not to initialize
+     - Bugfix: iOS10 bug fix that caused the dfu process not to initialize
  
  - **0.1.16**: 
- 	- Bugfix: Added earlier Secure DFU Signature mismatch handling without Extended error feature for backwards compatibility
+     - Bugfix: Added earlier Secure DFU Signature mismatch handling without Extended error feature for backwards compatibility
  
  - **0.1.15**: 
- 	- Added more verbose logging for debug purposes
+     - Added more verbose logging for debug purposes
  
  - **0.1.14**:
- 	- Feature: On DFU interruption, the next attempt always showed an peripheral in invalid state error, this is now bypassed by sending a reset command and reconnecting automaticaly, the handler will attempt to do that 3 times before throwing the appropriate error
+     - Feature: On DFU interruption, the next attempt always showed an peripheral in invalid state error, this is now bypassed by sending a reset command and reconnecting automaticaly, the handler will attempt to do that 3 times before throwing the appropriate error
  
  - **0.1.13**:
- 	- BugFix: @objc attributes where missing from LogLevel Enum and LoggerDelegate protocol, making thenm unavailable to Obj-C code
+     - BugFix: @objc attributes where missing from LogLevel Enum and LoggerDelegate protocol, making thenm unavailable to Obj-C code
 
  - **0.1.12**: 
- 	- BugFix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior
+     - BugFix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior
  
  - **0.1.11**:
- 	- BugFix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition
+    - BugFix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition
     - Feature: Removed one of the dependencies (EVReflection) in an appempt to make the library self contained
 
 - **0.1.10**:
- 	- Added Signature mismatch handling and better logging 
+    - Added Signature mismatch handling and better logging 
     - Bugfix: iOS10 bug that caused dfu process not to start
 
 - **0.1.9**:
