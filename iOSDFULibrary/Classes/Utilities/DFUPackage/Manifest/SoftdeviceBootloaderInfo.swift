@@ -5,7 +5,7 @@
 //  Created by Mostafa Berg on 28/07/16.
 //
 //
-
+import Foundation
 class SoftdeviceBootloaderInfo: ManifestFirmwareInfo {
     var blSize: UInt32 = 0
     var sdSize: UInt32 = 0
