@@ -1,7 +1,7 @@
 PODS:
-  - iOSDFULibrary (3.0.6):
-    - Zip (~> 0.6)
-  - Zip (0.6.0)
+  - iOSDFULibrary (3.1.0):
+    - Zip (~> 0.7)
+  - Zip (0.7.0)
 
 DEPENDENCIES:
   - iOSDFULibrary (from `../`)
@@ -11,9 +11,9 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  iOSDFULibrary: e01a7129eef7be58acffff284da0630e6b8759fb
-  Zip: 805fc2fa9d2f05bbb7762d982d7a42ccdcc51f42
+  iOSDFULibrary: c629c345864062d2abec0fb3d538e9800328d20b
+  Zip: e34513299ac38c0686d5b24504da7ce343799ab9
 
-PODFILE CHECKSUM: f02a613149cfa2aac7ce3d85b2697906507f0bdc
+PODFILE CHECKSUM: 5bd0431d5defabdebe7eb53b98be8edf3f33d422
 
-COCOAPODS: 1.2.0.rc.1
+COCOAPODS: 1.2.1
