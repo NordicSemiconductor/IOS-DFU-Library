@@ -65,17 +65,22 @@ internal class SecureDFUPacket {
     
     // MARK: - Characteristic API methods
     
-    func sendInitPacket(_ initPacketData : Data){
+    /**
+     Sends the whole content of the data object.
+     
+     - parameter data: the data to be sent
+     */
+    func sendInitPacket(_ data: Data){
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
         
         // Data may be sent in up-to-20-bytes packets
         var offset: UInt32 = 0
-        var bytesToSend = UInt32(initPacketData.count)
+        var bytesToSend = UInt32(data.count)
         
         repeat {
             let packetLength = min(bytesToSend, packetSize)
-            let packet = initPacketData.subdata(in: Int(offset) ..< Int(offset + packetLength))
+            let packet = data.subdata(in: Int(offset) ..< Int(offset + packetLength))
             
             logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
             logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(characteristic.uuid.uuidString), type: .withoutResponse)")
@@ -90,8 +95,8 @@ internal class SecureDFUPacket {
      Sends a given range of data from given firmware over DFU Packet characteristic. If the whole object is
      completed the completition callback will be called.
      */
-    func sendNext(_ aPRNValue: UInt16, bytesFrom aRange: Range<Int>, of aFirmware : DFUFirmware,
-                  andReportProgressTo aProgressDelegate : DFUProgressDelegate?, andCompletionTo aCompletion: @escaping Callback) {
+    func sendNext(_ aPRNValue: UInt16, packetsFrom aRange: Range<Int>, of aFirmware: DFUFirmware,
+                  andReportProgressTo aProgressDelegate: DFUProgressDelegate?, andCompletionTo aCompletion: @escaping Callback) {
         let peripheral          = characteristic.service.peripheral
         let objectData          = aFirmware.data.subdata(in: aRange)
         let objectSizeInBytes   = UInt32(objectData.count)
@@ -125,7 +130,7 @@ internal class SecureDFUPacket {
                 aProgressDelegate?.dfuProgressDidChange(
                     for:   aFirmware.currentPart,
                     outOf: aFirmware.parts,
-                    to:     0,
+                    to:    0,
                     currentSpeedBytesPerSecond: 0.0,
                     avgSpeedBytesPerSecond:     0.0)
             })
@@ -174,7 +179,7 @@ internal class SecureDFUPacket {
                     // The whole object has been sent but the DFU target will
                     // send a PRN notification as expected.
                     // The sendData method will be called again
-                    // with packetsLeft = 0 (see line 105)
+                    // with packetsLeft = 0 (see line 112)
                     
                     // Do nothing
                 }

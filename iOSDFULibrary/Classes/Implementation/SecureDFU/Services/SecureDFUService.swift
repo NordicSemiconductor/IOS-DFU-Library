@@ -81,7 +81,7 @@ import CoreBluetooth
     func resume() -> Bool {
         if !aborted && paused && firmware != nil {
             paused = false
-            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber, bytesFrom: range!, of: firmware!,
+            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber, packetsFrom: range!, of: firmware!,
                                               andReportProgressTo: progressDelegate, andCompletionTo: success!)
             return paused
         }
@@ -328,7 +328,7 @@ import CoreBluetooth
                 if !self.paused && !self.aborted {
                     let bytesSent = self.dfuPacketCharacteristic!.bytesSent + UInt32(aRange.lowerBound)
                     if bytesSent == bytesReceived {
-                        self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, bytesFrom: aRange, of: aFirmware,
+                        self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, packetsFrom: aRange, of: aFirmware,
                                                                andReportProgressTo: progressDelegate, andCompletionTo: self.success!)
                     } else {
                         // Target device deported invalid number of bytes received
@@ -350,7 +350,7 @@ import CoreBluetooth
         
         if !paused && !aborted {
             // ...and start sending firmware if
-            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber, bytesFrom: aRange, of: aFirmware,
+            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber, packetsFrom: aRange, of: aFirmware,
                                                    andReportProgressTo: progressDelegate, andCompletionTo: self.success!)
         } else if aborted {
             self.firmware = nil
