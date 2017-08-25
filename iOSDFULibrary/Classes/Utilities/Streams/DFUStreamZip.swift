@@ -118,7 +118,6 @@ internal class DFUStreamZip : DFUStream {
             manifest = Manifest(withJsonString: json)
 
             if manifest!.valid {
-
                 // After validation we are sure that the manifest file contains at most one
                 // of: softdeviceBootloader, softdevice or bootloader
                 
@@ -129,8 +128,17 @@ internal class DFUStreamZip : DFUStream {
                         let (bin, dat) = try getContentOf(softdeviceBootloader, from: contentUrls)
                         systemBinaries = bin
                         systemInitPacket = dat
-                        softdeviceSize = softdeviceBootloader.sdSize
-                        bootloaderSize = softdeviceBootloader.blSize
+                        if softdeviceBootloader.sdSize + softdeviceBootloader.blSize > 0 {
+                            softdeviceSize = softdeviceBootloader.sdSize
+                            bootloaderSize = softdeviceBootloader.blSize
+                        } else {
+                            // Secure DFU does not specify SD and BL sizes in the manifest file
+                            // (actually it does, but as an optional read_only value).
+                            // The exact sizes of SD and BL are not known (only the sum is), 
+                            // but some applications may rely on size > 0, so let's just say there is a bootloader.
+                            softdeviceSize = UInt32(bin.count) - 1
+                            bootloaderSize = 1
+                        }
                         currentPartType = softdeviceBootloaderType
                     }
                 }
