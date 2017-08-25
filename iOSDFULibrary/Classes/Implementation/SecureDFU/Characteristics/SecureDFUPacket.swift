@@ -29,7 +29,7 @@ internal class SecureDFUPacket {
         return characteristic.uuid.isEqual(UUID)
     }
     
-    private let PacketSize: UInt32 = 20
+    private let packetSize: UInt32
     
     private var characteristic: CBCharacteristic
     private var logger: LoggerHelper
@@ -52,6 +52,15 @@ internal class SecureDFUPacket {
     init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
+        
+        if #available(iOS 9.0, *) {
+            packetSize = UInt32(characteristic.service.peripheral.maximumWriteValueLength(for: .withoutResponse))
+            if packetSize > 20 {
+                logger.v("MTU set to \(packetSize + 3)") // MTU is 3 bytes larger than payload (1 octet for Op-Code and 2 octets for Att Handle)
+            }
+        } else {
+            packetSize = 20 // Default MTU is 23
+        }
     }
     
     // MARK: - Characteristic API methods
@@ -65,7 +74,7 @@ internal class SecureDFUPacket {
         var bytesToSend = UInt32(initPacketData.count)
         
         repeat {
-            let packetLength = min(bytesToSend, PacketSize)
+            let packetLength = min(bytesToSend, packetSize)
             let packet = initPacketData.subdata(in: Int(offset) ..< Int(offset + packetLength))
             
             logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
@@ -86,8 +95,8 @@ internal class SecureDFUPacket {
         let peripheral          = characteristic.service.peripheral
         let objectData          = aFirmware.data.subdata(in: aRange)
         let objectSizeInBytes   = UInt32(objectData.count)
-        let objectSizeInPackets = (objectSizeInBytes + PacketSize - 1) / PacketSize
-        let packetsSent         = (bytesSent + PacketSize - 1) / PacketSize
+        let objectSizeInPackets = (objectSizeInBytes + packetSize - 1) / packetSize
+        let packetsSent         = (bytesSent + packetSize - 1) / packetSize
         let packetsLeft         = objectSizeInPackets - packetsSent
 
         // Calculate how many packets should be sent before EOF or next receipt notification
@@ -125,7 +134,7 @@ internal class SecureDFUPacket {
         let originalPacketsToSendNow = packetsToSendNow
         while packetsToSendNow > 0 {
             let bytesLeft = objectSizeInBytes - bytesSent
-            let packetLength = min(bytesLeft, PacketSize)
+            let packetLength = min(bytesLeft, packetSize)
             let packet = objectData.subdata(in: Int(bytesSent) ..< Int(packetLength + bytesSent))
             peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
             

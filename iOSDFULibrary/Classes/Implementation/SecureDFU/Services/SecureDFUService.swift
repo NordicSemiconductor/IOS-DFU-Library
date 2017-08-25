@@ -468,7 +468,7 @@ import CoreBluetooth
             }
             
             // If the characteristic may support changing bootloader's name, try it
-            if (buttonlessDfuCharacteristic!.maySupportSettingName) {
+            if buttonlessDfuCharacteristic!.maySupportSettingName {
                 // Generate a random 8-character long name
                 let name = String(format: "Dfu%05d", arc4random_uniform(100000))
                 
@@ -480,7 +480,7 @@ import CoreBluetooth
                     enterBootloader()
                 }, onError: {
                     error, message in
-                    if (error == .remoteBootlonlessDFUOpCodeNotSupported) {
+                    if error == .remoteBootlonlessDFUOpCodeNotSupported {
                         // Setting name is not supported. Looks like it's buttonless service from SDK 13. We can't rely on bootloader's name.
                         self.logger.w("Setting bootloader name not supported")
                         enterBootloader()
