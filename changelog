@@ -1,8 +1,15 @@
 ### Changelog
+- **3.2.0**:
+    - Feature: Support for higher MTUs added on capable iOS devices
+    - Feature: Setting bootloader name (SDK 14 feature)
+    - Deprecation: select(_ peripheral:, advertisementData:, RSSI:) is now deprecated in favor of: select(_ peripheral:, advertisementData:, RSSI:, hint:)
+    - Bugfix: Report proper size of SoftDevice and Bootloader when not given in manifest file (for secure DFU)
+    - Enhancement: Minor code refactor and minor updates to comments/documentation
+    - Enhancement: All orientations supported in the example application
 
 - **3.1.0**:
     - Workaround: minor fix to circumvent an issue with SDK 6.1 when the link is lost during firmware upload resulting in an operation failed error (Code 6)
-    - Enhancement: Minor code refactor for Data struct manipulation
+    - Enhancement: Minor code refactor for Data struct manipulation		
 
 - **3.0.6**:
     - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by carthage
@@ -21,20 +28,20 @@
     - License changed to BSD 3-Clause in Podspec
 
 - **3.0.2**:
-    - BugFix: Ignoring updates from non-DFU characteristics (#66)
+    - Bugfix: Ignoring updates from non-DFU characteristics (#66)
     - Enhancement: Log messages improved for connected devices
 
 - **3.0.1**:
-    - BugFix: Crash if DFU Characteristic isn't found (#64)
-    - BugFix: Discovering all services to determine mode for Legacy bootloaders without DFU Version char.
-    - License changed to BSD 3-Clause
+    - Bugfix: Crash if DFU Characteristic isn't found (#64)
+    - Bugfix: Discovering all services to determine mode for Legacy bootloaders without DFU Version char.
+    - Enhancement: License changed to BSD 3-Clause
 
 - **3.0.0**:
-    - Improvement: A lot of code has been rewritten. API has slightly changed and now matches better Swift 3 requirements
+    - Enhancement: A lot of code has been rewritten. API has slightly changed and now matches better Swift 3 requirements
     - Feature: Better support for starting DFU on already connected devices
 
 - **2.1.6**:
-    - BugFix: Peripherals that are already connected now will start the DFU Process right away instead of halting"
+    - Bugfix: Peripherals that are already connected now will start the DFU Process right away instead of halting"
 
 - **2.1.5**:
     - Enhancement: Added @ObjC to `DFUPeripheralSelectorDelegate` to help with Obj-C Based project integration
@@ -50,15 +57,15 @@
     - Enhancement: Updated Readme to show SDK12's support.
 
 - **2.1.2**:
-    - Bugfix: Fixed issue causing the DFU process to constantly fail after peripheral is reset during the process
     - Feature: Added a failsafe solution for cases of an irrecoverable resume in the DFU process that simply starts the process from scratch ignoring it's state.
+    - Bugfix: Fixed issue causing the DFU process to constantly fail after peripheral is reset during the process
     - Bugfix: Fixed issue #14 that caused a crash when the logger delegate wasn't being set.
 
 - **2.1.1**:
     - Feature: Carthage is now fully supported
 
 - **2.1**:
-    - Obsolete: Deprecated enums are now obsolete: `State` is now `DFUState`, `StatusCode` is now `DFUResultCode`, `OpCode` is now `DFUOPCode`
+    - Deprecation: Deprecated enums are now obsolete: `State` is now `DFUState`, `StatusCode` is now `DFUResultCode`, `OpCode` is now `DFUOPCode`
     - Bugfix: Fixed issue in test target having a missing framework path
     - Bugfix: Fixed return values of Pause, Resume and Abort DFU methods that were returning wrong values
 
@@ -70,7 +77,7 @@
     - Bugfix: Issue where PRN `Packet Receipt Notification` values being overriden were ignored is now resolved
 
 - **1.0.12**:
-    - Improvement: Refactored code to remove warnings about deprecation in Siwft3 and some other related warnings
+    - Enhancement: Refactored code to remove warnings about deprecation in Siwft3 and some other related warnings
 
 - **1.0.11**:
     - Feature: Added ability to pause and resume DFU uploads
@@ -86,7 +93,7 @@
     - Feature: This version preps the Secure DFU feature for production, it is now a part of the development process
 
 - **1.0.8**:
-    - iOSDFULib is now up to date with the standalone library stability wise, this means it's now been bumped up to version 1.0.8
+    - Enhancemen: iOSDFULib is now up to date with the standalone library stability wise, this means it's now been bumped up to version 1.0.8
     - Feature: Implemented Extended error feature
     - Feature: Reverted bugfix in **0.1.16** that disabled extended error feature
 
@@ -100,50 +107,50 @@
      - Bugfix: Added earlier Secure DFU Signature mismatch handling without Extended error feature for backwards compatibility
  
  - **0.1.15**: 
-     - Added more verbose logging for debug purposes
+     - Enhancemen: Added more verbose logging for debug purposes
  
  - **0.1.14**:
      - Feature: On DFU interruption, the next attempt always showed an peripheral in invalid state error, this is now bypassed by sending a reset command and reconnecting automaticaly, the handler will attempt to do that 3 times before throwing the appropriate error
  
  - **0.1.13**:
-     - BugFix: @objc attributes where missing from LogLevel Enum and LoggerDelegate protocol, making thenm unavailable to Obj-C code
+     - Bugfix: @objc attributes where missing from LogLevel Enum and LoggerDelegate protocol, making thenm unavailable to Obj-C code
 
  - **0.1.12**: 
-     - BugFix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior
+     - Bugfix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior
  
  - **0.1.11**:
-    - BugFix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition
+    - Bugfix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition
     - Feature: Removed one of the dependencies (EVReflection) in an appempt to make the library self contained
 
 - **0.1.10**:
-    - Added Signature mismatch handling and better logging 
+    - Enhancement: Added Signature mismatch handling and better logging 
     - Bugfix: iOS10 bug that caused dfu process not to start
 
 - **0.1.9**:
     - Feature: Added a reset feature to allow flashing after an interruption due to connection issues or user aborting the process, this used to throw an invalid state error, handler will now retry 3 times before failing.
     - Feature: Added a fully working example app for users why `pod try` the library, this will attempt to flash the bundled firmware file `hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip`
-    - Feature : iOS Target lowered to 8.0, Added OSX 10.10 Target
+    - Feature: iOS target lowered to 8.0, Added OSX 10.10 Target
 
 - **0.1.8**:
-    - Removed unnecessary requirement to include a .dat file while uploading a hex, which caused some issues
+    - Enhancement: Removed unnecessary requirement to include a .dat file while uploading a hex, which caused some issues
 
 - **0.1.7**:
-    - Fixed all missing links
+    - Bugfix: Fixed all missing links
 
 - **0.1.6**:
-    - Fixed broken link in documentation  
+    - Bugfix: Fixed broken link in documentation  
 
 - **0.1.5**:
-    - Improved readme
+    - Enhancement: Improved readme
 
 - **0.1.4**:
-    - Removed unnecessary public headears from PodSpec
+    - Enhancement: Removed unnecessary public headears from PodSpec
 
 - **0.1.3**:
-    - Removed extraneous IntelHextBin module as it's no longer necessary
+    - Enhancement: Removed extraneous IntelHextBin module as it's no longer necessary
 
 - **0.1.2**:
-    - Added Pod name that caused a missing reference issue and other minor bugfixes
+    - Bugfix: Added Pod name that caused a missing reference issue and other minor bugfixes
 
 - **0.1.1**:
     - Bugfix: Release/Debug configurations had a missing reference
