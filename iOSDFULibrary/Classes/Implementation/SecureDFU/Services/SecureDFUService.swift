@@ -480,7 +480,7 @@ import CoreBluetooth
                     enterBootloader()
                 }, onError: {
                     error, message in
-                    if error == .remoteBootlonlessDFUOpCodeNotSupported {
+                    if error == .remoteButtonlessDFUOpCodeNotSupported {
                         // Setting name is not supported. Looks like it's buttonless service from SDK 13. We can't rely on bootloader's name.
                         self.logger.w("Setting bootloader name not supported")
                         enterBootloader()
