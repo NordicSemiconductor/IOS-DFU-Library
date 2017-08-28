@@ -53,7 +53,7 @@ internal class SecureDFUPacket {
         self.characteristic = characteristic
         self.logger = logger
         
-        if #available(iOS 9.0, *) {
+        if #available(iOS 9.0, macOS 10.12, *) {
             packetSize = UInt32(characteristic.service.peripheral.maximumWriteValueLength(for: .withoutResponse))
             if packetSize > 20 {
                 logger.v("MTU set to \(packetSize + 3)") // MTU is 3 bytes larger than payload (1 octet for Op-Code and 2 octets for Att Handle)
