@@ -6,6 +6,7 @@
     - Bugfix: Report proper size of SoftDevice and Bootloader when not given in manifest file (for secure DFU)
     - Enhancement: Minor code refactor and minor updates to comments/documentation
     - Enhancement: All orientations supported in the example application
+    - Enhancement: macOS API check for MTU
 
 - **3.1.0**:
     - Workaround: minor fix to circumvent an issue with SDK 6.1 when the link is lost during firmware upload resulting in an operation failed error (Code 6)
