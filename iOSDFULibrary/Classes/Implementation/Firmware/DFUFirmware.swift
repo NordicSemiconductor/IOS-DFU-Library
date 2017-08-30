@@ -21,11 +21,16 @@
 */
 
 /**
-The type of the BIN or HEX file.
+ The type of the BIN or HEX file, or selection of content from the Distribution packet (ZIP) file.
+ Select .softdeviceBootloaderApplication to sent all files from the ZIP (even it there is let's say
+ only application). This works as a filter. If you have SD+BL+App in the ZIP, but want to send
+ only App, you may set the type to .application.
 
-- Softdevice:           Firmware file will be sent as a new Softdevice
-- Bootloader:           Firmware file will be sent as a new Bootloader
-- Application:          Firmware file will be sent as a new application
+ - softdevice:           Firmware file will be sent as a new Softdevice
+ - bootloader:           Firmware file will be sent as a new Bootloader
+ - application:          Firmware file will be sent as a new application
+ - softdeviceBootloader: Firmware file will be sent as a new Softdevice + Bootloader
+ - softdeviceBootloaderApplication: All content of the ZIP file will be sent
 */
 @objc public enum DFUFirmwareType : UInt8 {
     case softdevice = 1
@@ -162,7 +167,7 @@ The type of the BIN or HEX file.
     
     /**
      Creates the DFU Firmware object from a BIN or HEX file. Setting the DAT file with an Init packet is optional,
-     but may be required by the bootloader (SDK 7.1+).
+     but may be required by the bootloader (SDK 7.0.0+).
      
      - parameter urlToBinOrHexFile: URL to a BIN or HEX file with the firmware
      - parameter urlToDatFile:      An optional URL to a DAT file with the Init packet
@@ -205,7 +210,7 @@ The type of the BIN or HEX file.
     
     /**
      Creates the DFU Firmware object from a BIN data. Setting the DAT file with an Init packet is optional,
-     but may be required by the bootloader (SDK 7.1+).
+     but may be required by the bootloader (SDK 7.0.0+).
      
      - parameter binFile: Content of the new firmware as BIN
      - parameter datFile: An optional DAT file data with the Init packet
@@ -223,7 +228,7 @@ The type of the BIN or HEX file.
     
     /**
      Creates the DFU Firmware object from a HEX data. Setting the DAT file with an Init packet is optional,
-     but may be required by the bootloader (SDK 7.1+).
+     but may be required by the bootloader (SDK 7.0.0+).
      
      - parameter binFile: Content of the HEX file containing new firmware
      - parameter datFile: An optional DAT file data with the Init packet
