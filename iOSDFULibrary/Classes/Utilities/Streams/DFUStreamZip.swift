@@ -80,17 +80,18 @@ internal class DFUStreamZip : DFUStream {
     }
     
     /**
-     Initializes the stream with URL to the ZIP file.
+     Initializes the stream with given data of a ZIP file.
      
-     - parameter urlToZipFile: URL to the ZIP file with firmware files and manifest.json file containing metadata.
+     - parameter zipFile: Content of the ZIP file with firmware files and manifest.json file containing metadata.
+     - parameter type:    The type of the firmware to use
      
      - throws: DFUStreamZipError when manifest file was not found or contained an error
      
      - returns: the stream
      */
-    convenience init(urlToZipFile: URL) throws {
-        let allTypes = FIRMWARE_TYPE_SOFTDEVICE | FIRMWARE_TYPE_BOOTLOADER | FIRMWARE_TYPE_APPLICATION
-        try self.init(urlToZipFile: urlToZipFile, type: allTypes)
+    convenience init(zipFile: Data, type: DFUFirmwareType) throws {
+        let url = try ZipArchive.createTemporaryFile(zipFile)
+        try self.init(urlToZipFile: url, type: type)
     }
     
     /**
@@ -103,7 +104,7 @@ internal class DFUStreamZip : DFUStream {
      
      - returns: the stream
      */
-    init(urlToZipFile: URL, type: UInt8) throws {
+    init(urlToZipFile: URL, type: DFUFirmwareType) throws {
         // Try to unzip the file. This may throw an exception
         let contentUrls = try ZipArchive.unzip(urlToZipFile)
         
@@ -123,7 +124,7 @@ internal class DFUStreamZip : DFUStream {
                 
                 // Look for and assign files specified in the manifest
                 let softdeviceBootloaderType = FIRMWARE_TYPE_SOFTDEVICE | FIRMWARE_TYPE_BOOTLOADER
-                if type & softdeviceBootloaderType == softdeviceBootloaderType {
+                if type.rawValue & softdeviceBootloaderType == softdeviceBootloaderType {
                     if let softdeviceBootloader = manifest!.softdeviceBootloader {
                         let (bin, dat) = try getContentOf(softdeviceBootloader, from: contentUrls)
                         systemBinaries = bin
@@ -144,7 +145,7 @@ internal class DFUStreamZip : DFUStream {
                 }
                 
                 let softdeviceType = FIRMWARE_TYPE_SOFTDEVICE
-                if type & softdeviceType == softdeviceType {
+                if type.rawValue & softdeviceType == softdeviceType {
                     if let softdevice = manifest!.softdevice {
                         if systemBinaries != nil {
                             // It is not allowed to put both softdevice and softdeviceBootloader in the manifest
@@ -159,7 +160,7 @@ internal class DFUStreamZip : DFUStream {
                 }
                 
                 let bootloaderType = FIRMWARE_TYPE_BOOTLOADER
-                if type & bootloaderType == bootloaderType {
+                if type.rawValue & bootloaderType == bootloaderType {
                     if let bootloader = manifest!.bootloader {
                         if systemBinaries != nil {
                             // It is not allowed to put both bootloader and softdeviceBootloader in the manifest
@@ -174,7 +175,7 @@ internal class DFUStreamZip : DFUStream {
                 }
                 
                 let applicationType = FIRMWARE_TYPE_APPLICATION
-                if type & applicationType == applicationType {
+                if type.rawValue & applicationType == applicationType {
                     if let application = manifest!.application {
                         let (bin, dat) = try getContentOf(application, from: contentUrls)
                         appBinaries = bin
