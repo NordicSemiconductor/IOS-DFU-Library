@@ -1,4 +1,8 @@
 ### Changelog
+
+- **3.2.1**:
+    - Feature: Convenience to start the DFU process with zip Data instead of Zip file URL
+
 - **3.2.0**:
     - Feature: Support for higher MTUs added on capable iOS devices
     - Feature: Setting bootloader name (SDK 14 feature)

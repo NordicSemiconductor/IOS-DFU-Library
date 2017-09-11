@@ -1,5 +1,5 @@
 PODS:
-  - iOSDFULibrary (3.2.0):
+  - iOSDFULibrary (3.2.1):
     - Zip (~> 0.7)
   - Zip (0.7.0)
 
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  iOSDFULibrary: 4fda40514eb12435b43bf84b18ed6c3f7820105c
+  iOSDFULibrary: c30fa1882d9a02f21037a2359ea1a3b9f6dfa3d1
   Zip: e34513299ac38c0686d5b24504da7ce343799ab9
 
 PODFILE CHECKSUM: 5bd0431d5defabdebe7eb53b98be8edf3f33d422
