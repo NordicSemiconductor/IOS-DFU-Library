@@ -19,7 +19,7 @@
 * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
+import Foundation
 /**
  The type of the BIN or HEX file, or selection of content from the Distribution packet (ZIP) file.
  Select .softdeviceBootloaderApplication to sent all files from the ZIP (even it there is let's say

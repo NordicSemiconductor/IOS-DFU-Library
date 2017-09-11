@@ -21,7 +21,7 @@
 */
 
 // Source: http://stackoverflow.com/a/24055762/2115352
-
+import Foundation
 extension Double {
     
     internal func format(_ f: String) -> String {

@@ -21,7 +21,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+@import Foundation;
 @interface IntelHex2BinConverter : NSObject
 
 /*!
