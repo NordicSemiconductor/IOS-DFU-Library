@@ -322,7 +322,7 @@ import CoreBluetooth
             self.progressDelegate = nil
             self.dfuControlPointCharacteristic!.peripheralDidReceiveObject()
             success()
-        }
+        } as Callback
 
         dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: self.success!, onPacketReceiptNofitication: { bytesReceived in
                 if !self.paused && !self.aborted {

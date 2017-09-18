@@ -30,15 +30,7 @@ import CoreBluetooth
         if let name = name, let localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
             return localName == name
         }
-        return select(peripheral, advertisementData: advertisementData, RSSI: RSSI)
-    }
-    
-    /**
-     Deprecated, use the select(_:advertisementData:RSSI:hint:) -> Bool instead.
-     */
-    @available(*, deprecated)
-    open func select(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) -> Bool {
-        return true
+        return false
     }
     
     open func filterBy(hint dfuServiceUUID: CBUUID) -> [CBUUID]? {
