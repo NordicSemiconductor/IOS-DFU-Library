@@ -1,5 +1,8 @@
 ### Changelog
 
+- **4.0**:
+    - Feature: Migration to Swift 4
+
 - **3.2.1**:
     - Feature: Convenience to start the DFU process with zip Data instead of Zip file URL
 
