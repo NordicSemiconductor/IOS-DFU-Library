@@ -183,7 +183,7 @@ import CoreBluetooth
      - seeAlso: peripheralSelector property - a selector used when scanning for a device in DFU Bootloader mode
      in case you want to update a Softdevice and Application from a single ZIP Distribution Packet.
      */
-    public init(centralManager: CBCentralManager, target: CBPeripheral) {
+    @objc public init(centralManager: CBCentralManager, target: CBPeripheral) {
         self.centralManager = centralManager
         // Just to be sure that manager is not scanning
         self.centralManager.stopScan()
@@ -201,7 +201,7 @@ import CoreBluetooth
      
      - returns: the initiator instance to allow chain use
      */
-    public func with(firmware file: DFUFirmware) -> DFUServiceInitiator {
+    @objc public func with(firmware file: DFUFirmware) -> DFUServiceInitiator {
         self.file = file
         return self
     }
