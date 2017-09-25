@@ -38,7 +38,7 @@ Log level. Logger application may filter log entries based on their level. Level
     case warning     = 15
     case error       = 20
     
-    @objc public func name() -> String {
+    public func name() -> String {
         var readableName: String
         switch (self) {
         case .debug:
