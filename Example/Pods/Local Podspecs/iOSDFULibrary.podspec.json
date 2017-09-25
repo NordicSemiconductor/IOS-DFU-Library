@@ -21,7 +21,7 @@
   "source_files": "iOSDFULibrary/Classes/**/*",
   "dependencies": {
     "Zip": [
-      "~> 0.7"
+      "~> 1.0"
     ]
   }
 }
