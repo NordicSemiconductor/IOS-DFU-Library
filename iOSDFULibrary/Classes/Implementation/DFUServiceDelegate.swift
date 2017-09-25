@@ -143,7 +143,7 @@
      - parameter currentSpeedBytesPerSecond: the current speed in bytes per second
      - parameter avgSpeedBytesPerSecond: the average speed in bytes per second
      */
-    func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int,
+    @objc func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int,
         currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double)
 }
 
@@ -158,7 +158,7 @@
      
      - parameter state: the new state fo the service
      */
-    func dfuStateDidChange(to state: DFUState)
+    @objc func dfuStateDidChange(to state: DFUState)
     
     /**
      Called after an error occurred.
@@ -169,6 +169,6 @@
      - parameter error:   the error code
      - parameter message: error description
      */
-    func dfuError(_ error: DFUError, didOccurWithMessage message: String)
+    @objc func dfuError(_ error: DFUError, didOccurWithMessage message: String)
 
 }

@@ -46,22 +46,22 @@
     internal let stream: DFUStream?
     
     /// The name of the firmware file.
-    public let fileName: String?
+    @objc public let fileName: String?
     /// The URL to the firmware file.
-    public let fileUrl: URL?
+    @objc public let fileUrl: URL?
     
     /// Information whether the firmware was successfully initialized.
-    public var valid: Bool {
+    @objc public var valid: Bool {
         return stream != nil
     }
     
     /// The size of each component of the firmware.
-    public var size: DFUFirmwareSize {
+    @objc public var size: DFUFirmwareSize {
         return stream!.size
     }
     
     /// Number of connectinos required to transfer the firmware. This does not include the connection needed to switch to the DFU mode.
-    public var parts: Int {
+    @objc public var parts: Int {
         if stream == nil {
             return 0
         }
@@ -89,7 +89,7 @@
      
      - returns: the DFU firmware object or null in case of an error
      */
-    convenience public init?(urlToZipFile: URL) {
+    @objc convenience public init?(urlToZipFile: URL) {
         self.init(urlToZipFile: urlToZipFile, type: DFUFirmwareType.softdeviceBootloaderApplication)
     }
     
@@ -103,7 +103,7 @@
      
      - returns: the DFU firmware object or null in case of an error
      */
-    public init?(urlToZipFile: URL, type: DFUFirmwareType) {
+    @objc public init?(urlToZipFile: URL, type: DFUFirmwareType) {
         fileUrl = urlToZipFile
         fileName = urlToZipFile.lastPathComponent
         
@@ -136,7 +136,7 @@
      
      - returns: the DFU firmware object or null in case of an error
      */
-    convenience public init?(zipFile: Data) {
+    @objc convenience public init?(zipFile: Data) {
         self.init(zipFile: zipFile, type: DFUFirmwareType.softdeviceBootloaderApplication)
     }
     
@@ -150,7 +150,7 @@
      
      - returns: the DFU firmware object or null in case of an error
      */
-    public init?(zipFile: Data, type: DFUFirmwareType) {
+    @objc public init?(zipFile: Data, type: DFUFirmwareType) {
         fileUrl = nil
         fileName = nil
         
@@ -175,7 +175,7 @@
      
      - returns: the DFU firmware object or null in case of an error
      */
-    public init?(urlToBinOrHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
+    @objc public init?(urlToBinOrHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
         fileUrl = urlToBinOrHexFile
         fileName = urlToBinOrHexFile.lastPathComponent
         
@@ -218,7 +218,7 @@
      
      - returns: the DFU firmware object or null in case of an error
      */
-    public init?(binFile: Data, datFile: Data?, type: DFUFirmwareType) {
+    @objc public init?(binFile: Data, datFile: Data?, type: DFUFirmwareType) {
         fileUrl = nil
         fileName = nil
         
@@ -236,7 +236,7 @@
      
      - returns: the DFU firmware object or null in case of an error
      */
-    public init?(hexFile: Data, datFile: Data?, type: DFUFirmwareType) {
+    @objc public init?(hexFile: Data, datFile: Data?, type: DFUFirmwareType) {
         fileUrl = nil
         fileName = nil
         
