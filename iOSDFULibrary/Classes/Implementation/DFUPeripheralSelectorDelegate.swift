@@ -57,7 +57,7 @@ import CoreBluetooth
      
      - returns: true (YES) if given peripheral is what service is looking for
      */
-    func select(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber, hint name: String?) -> Bool
+    @objc func select(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber, hint name: String?) -> Bool
     
     /**
      Returns an optional list of services that the scanner will use to filter advertising packets
@@ -72,5 +72,5 @@ import CoreBluetooth
      
      - returns: an optional list of services or nil
      */
-    func filterBy(hint dfuServiceUUID: CBUUID) -> [CBUUID]?
+    @objc func filterBy(hint dfuServiceUUID: CBUUID) -> [CBUUID]?
 }
