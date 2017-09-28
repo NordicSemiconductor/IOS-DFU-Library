@@ -1,5 +1,8 @@
 ### Changelog
 
+- **4.0.2**
+    - Bugfix: Fix for issue#149 which was caused by a false return in the selector method
+
 - **4.0.1**
     - Bugfix/Improvement: Added @objc tags for Xcode projects that are built with no Objc inference.
 
