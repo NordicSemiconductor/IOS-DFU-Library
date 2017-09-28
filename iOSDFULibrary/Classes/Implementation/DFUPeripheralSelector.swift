@@ -30,7 +30,7 @@ import CoreBluetooth
         if let name = name, let localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
             return localName == name
         }
-        return false
+        return true
     }
     
     open func filterBy(hint dfuServiceUUID: CBUUID) -> [CBUUID]? {
