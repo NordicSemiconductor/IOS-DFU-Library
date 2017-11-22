@@ -190,7 +190,7 @@ import CoreBluetooth
      
      - parameter report:  method called when an error occurred
      */
-    func jumpToBootloaderMode(onError report:@escaping ErrorCallback) {
+    func jumpToBootloaderMode(onError report: @escaping ErrorCallback) {
         if !aborted {
             dfuControlPointCharacteristic!.send(Request.jumpToBootloader, onSuccess: nil, onError: report)
         } else {

@@ -461,14 +461,14 @@ import CoreBluetooth
      
      - parameter report: method called when an error occurred
      */
-    func jumpToBootloaderMode(onError report: @escaping ErrorCallback) {
+    func jumpToBootloaderMode(dontSetAdvertisingName: Bool, onError report: @escaping ErrorCallback) {
         if !aborted {
             func enterBootloader() {
                 self.buttonlessDfuCharacteristic!.send(ButtonlessDFURequest.enterBootloader, onSuccess: nil, onError: report)
             }
             
             // If the characteristic may support changing bootloader's name, try it
-            if buttonlessDfuCharacteristic!.maySupportSettingName {
+            if dontSetAdvertisingName == false && buttonlessDfuCharacteristic!.maySupportSettingName {
                 // Generate a random 8-character long name
                 let name = String(format: "Dfu%05d", arc4random_uniform(100000))
                 
