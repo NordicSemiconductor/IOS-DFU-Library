@@ -137,16 +137,16 @@ import CoreBluetooth
      
      Read more: http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html
      
-     Setting this flag to true you may disable this feature. iOS DFU Library will not send the 0x02-[len]-[new name]
+     Setting this flag to false you will disable this feature. iOS DFU Library will not send the 0x02-[len]-[new name]
      command prior jumping and will rely on the DfuPeripheralSelectorDelegate just like it used to in previous SDK.
      
      This flag is ignored in Legacy DFU.
      
-     **It is recommended to keep this flag set to false unless necessary.**
+     **It is recommended to keep this flag set to true unless necessary.**
      
      For more information read: https://github.com/NordicSemiconductor/IOS-nRF-Connect/issues/16
      */
-    @objc public var disableSettingAlternativeAdvertisingName = false
+    @objc public var alternativeAdvertisingNameEnabled = true
     
     /**
      Set this flag to true to enable experimental buttonless feature in Secure DFU. When the 
