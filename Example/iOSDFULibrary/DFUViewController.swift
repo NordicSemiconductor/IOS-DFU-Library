@@ -109,6 +109,13 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
+        // Starting from iOS 11 and macOS 10.13 there is a new API that removes the need of PRNs.
+        // However, some devices may still work better with them enabled! A specially those
+        // based on SDK older than 8.0 where the flash saving was slower and modern phones
+        // can send data faster then that which causes the DFU bootloader to abort with an error.
+        if #available(iOS 11.0, macOS 10.13, *) {
+            dfuInitiator.packetReceiptNotificationParameter = 0
+        }
         
         // This enables the experimental Buttonless DFU feature from SDK 12.
         // Please, read the field documentation before use.
