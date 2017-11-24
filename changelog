@@ -1,5 +1,8 @@
 ### Changelog
 
+- **4.0.3**
+    - Improvement: Added option to disable peripheral rename feature in bootloader mode, This also fixes issue #159
+
 - **4.0.2**
     - Bugfix: Fix for issue#149 which was caused by a false return in the selector method
 
