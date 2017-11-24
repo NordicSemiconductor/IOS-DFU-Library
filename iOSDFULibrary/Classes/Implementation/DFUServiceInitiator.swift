@@ -130,6 +130,25 @@ import CoreBluetooth
     @objc public var forceDfu = false
     
     /**
+     In SDK 14.0.0 a new feature was added to the Buttonless DFU for non-bonded devices which allows to send a unique name
+     to the device before it is switched to bootloader mode. After jump, the bootloader will advertise with this name
+     as the Complete Local Name making it easy to select proper device. In this case you don't have to override the default
+     peripheral selector.
+     
+     Read more: http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html
+     
+     Setting this flag to false you will disable this feature. iOS DFU Library will not send the 0x02-[len]-[new name]
+     command prior jumping and will rely on the DfuPeripheralSelectorDelegate just like it used to in previous SDK.
+     
+     This flag is ignored in Legacy DFU.
+     
+     **It is recommended to keep this flag set to true unless necessary.**
+     
+     For more information read: https://github.com/NordicSemiconductor/IOS-nRF-Connect/issues/16
+     */
+    @objc public var alternativeAdvertisingNameEnabled = true
+    
+    /**
      Set this flag to true to enable experimental buttonless feature in Secure DFU. When the 
      experimental Buttonless DFU Service is found on a device, the service will use it to
      switch the device to the bootloader mode, connect to it in that mode and proceed with DFU.
