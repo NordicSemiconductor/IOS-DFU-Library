@@ -1,5 +1,9 @@
 ### Changelog
 
+- **4.1.0**
+    - Improvement: Using iOS 11's new `canSendWriteWithoutResponse` API to remove the need of using packet receipt notifications, setting a PRN value of 0 on iOS 11 will enable this feature.
+    - PRN will still be used as the default option.
+
 - **4.0.3**
     - Improvement: Added option to disable peripheral rename feature in bootloader mode, This also fixes issue #159
 
