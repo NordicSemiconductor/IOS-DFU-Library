@@ -325,14 +325,22 @@ import CoreBluetooth
         } as Callback
 
         dfuControlPointCharacteristic!.waitUntilUploadComplete(onSuccess: self.success!, onPacketReceiptNofitication: { bytesReceived in
+                // This callback is called from SecureDFUControlPoint in 2 cases: when a PRN is received (bytesReceived contains number
+                // of bytes reported), or when the iOS reports the peripheralIsReady(toSendWriteWithoutResponse:) callback
+                // (bytesReceived is nil). If PRNs are enabled we ignore this second case as the PRNs are responsible for synchronization.
+                let peripheralIsReadyToSendWriteWithoutRequest = bytesReceived == nil
+                if self.packetReceiptNotificationNumber > 0 && peripheralIsReadyToSendWriteWithoutRequest {
+                    return
+                }
+            
                 if !self.paused && !self.aborted {
                     let bytesSent = self.dfuPacketCharacteristic!.bytesSent + UInt32(aRange.lowerBound)
-                    if bytesSent == bytesReceived {
+                    if peripheralIsReadyToSendWriteWithoutRequest || bytesSent == bytesReceived! {
                         self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, packetsFrom: aRange, of: aFirmware,
                                                                andReportProgressTo: progressDelegate, andCompletionTo: self.success!)
                     } else {
                         // Target device deported invalid number of bytes received
-                        report(.bytesLost, "\(bytesSent) bytes were sent while \(bytesReceived) bytes were reported as received")
+                        report(.bytesLost, "\(bytesSent) bytes were sent while \(bytesReceived!) bytes were reported as received")
                     }
                 } else if self.aborted {
                     self.firmware = nil
