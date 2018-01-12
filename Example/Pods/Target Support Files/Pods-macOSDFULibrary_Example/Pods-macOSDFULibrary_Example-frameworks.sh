@@ -102,12 +102,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Zip-iOS/Zip.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/iOSDFULibrary-iOS/iOSDFULibrary.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Zip-macOS/Zip.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/iOSDFULibrary-macOS/iOSDFULibrary.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Zip-iOS/Zip.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/iOSDFULibrary-iOS/iOSDFULibrary.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Zip-macOS/Zip.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/iOSDFULibrary-macOS/iOSDFULibrary.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

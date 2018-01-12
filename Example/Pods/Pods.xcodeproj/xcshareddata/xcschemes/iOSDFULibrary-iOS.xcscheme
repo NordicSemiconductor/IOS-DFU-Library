@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "570B1EFB2D11F5B06166FDA2A614F81C"
+               BlueprintIdentifier = "AA3C39426CBD48108BC3ABCF231AC2DE"
                BuildableName = "iOSDFULibrary.framework"
-               BlueprintName = "iOSDFULibrary"
+               BlueprintName = "iOSDFULibrary-iOS"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "570B1EFB2D11F5B06166FDA2A614F81C"
+            BlueprintIdentifier = "AA3C39426CBD48108BC3ABCF231AC2DE"
             BuildableName = "iOSDFULibrary.framework"
-            BlueprintName = "iOSDFULibrary"
+            BlueprintName = "iOSDFULibrary-iOS"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,15 +62,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "570B1EFB2D11F5B06166FDA2A614F81C"
-            BuildableName = "iOSDFULibrary.framework"
-            BlueprintName = "iOSDFULibrary"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
