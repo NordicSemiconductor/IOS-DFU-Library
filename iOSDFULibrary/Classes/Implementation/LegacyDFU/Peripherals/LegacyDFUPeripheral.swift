@@ -173,6 +173,12 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      */
     func activateAndReset() {
         activating = true
+        
+        // In Legacy DFU the Buttonless service does not increment the device address.
+        // However, after sending the first part of the firmware, the device reboots
+        // and may use incremented MAC address to receive the second part.
+        newAddressExpected = true
+        
         dfuService!.sendActivateAndResetRequest(
             // onSuccess the device gets disconnected and centralManager(_:didDisconnectPeripheral:error) will be called
             onError: defaultErrorCallback
