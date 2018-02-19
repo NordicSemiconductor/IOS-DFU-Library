@@ -10,7 +10,7 @@ import Foundation
 import iOSDFULibrary
 
 class DFUFirmwareProvider {
-    private var steps: [(firmware: DFUFirmware, description: String, next: Filter?)]?
+    private var steps: [(firmware: DFUFirmware, options: ServiceModifier?, expectedError: DFUError?, description: String, next: Filter?)]?
     private var index: Int
     public  let count: Int
     public  let totalParts: Int
@@ -38,6 +38,17 @@ class DFUFirmwareProvider {
             return nil
         }
         return steps![index].description
+    }
+    
+    var expectedError: DFUError? {
+        guard index < count else {
+            return nil
+        }
+        return steps![index].expectedError
+    }
+    
+    func applyModifier(to initiator: DFUServiceInitiator) {
+        steps![index].options?(initiator)
     }
     
     var filter: Filter? {

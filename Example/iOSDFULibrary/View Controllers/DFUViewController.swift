@@ -32,6 +32,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     private var centralManager   : CBCentralManager!
     private var firmwareProvider : DFUFirmwareProvider!
     private var partsCompleted   : Int = 0
+    private var currentFirmwarePartsCompleted : Int = 0
     
     //MARK: - View Outlets
     @IBOutlet weak var totalProgressView     : UIProgressView!
@@ -140,18 +141,13 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             dfuInitiator.packetReceiptNotificationParameter = 0
         }
         
-        // This enables the experimental Buttonless DFU feature from SDK 12.
-        // Please, read the field documentation before use.
-        dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = true
+        firmwareProvider.applyModifier(to: dfuInitiator)
         
         dfuController = dfuInitiator.with(firmware: firmware).start()
     }
     
     func prepareNextStep() {
         stepDescriptionLabel.text = "Scanning for next target"
-        partLabel.text = "N/A"
-        currentSpeedLabel.text = "N/A"
-        averageSpeedLabel.text = "N/A"
         centralManager.delegate = self
         centralManager.scanForPeripherals(withServices: nil, options: nil)
     }
@@ -170,6 +166,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             // Stop scanning
             centralManager.stopScan()
             
+            currentFirmwarePartsCompleted = 0
             dfuPeripheral = peripheral
             firmwareProvider.next()
             startDFUProcess()
@@ -181,13 +178,16 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     func dfuStateDidChange(to state: DFUState) {
         switch state {
         case .completed, .disconnecting:
-            self.stopProcessButton.isEnabled = false
+            stopProcessButton.isEnabled = false
         case .aborted:
-            self.dfuUploadProgressView.setProgress(0, animated: true)
-            self.stopProcessButton.setTitle("Restart", for: .normal)
-            self.stopProcessButton.isEnabled = true
+            dfuUploadProgressView.setProgress(0, animated: true)
+            stopProcessButton.setTitle("Restart", for: .normal)
+            stopProcessButton.isEnabled = true
+        case .connecting:
+            dfuUploadProgressView.setProgress(0, animated: false)
+            stopProcessButton.isEnabled = true
         default:
-            self.stopProcessButton.isEnabled = true
+            stopProcessButton.isEnabled = true
         }
 
         dfuStatusLabel.text = state.description()
@@ -198,15 +198,21 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             dfuController = nil
             
             // Increment the parts counter
+            currentFirmwarePartsCompleted += 1
             partsCompleted += 1
             
+            partLabel.text = "N/A"
+            currentSpeedLabel.text = "N/A"
+            averageSpeedLabel.text = "N/A"
+            
             if firmwareProvider.hasNext() {
-                prepareNextStep()
+                if firmwareProvider.expectedError == nil {
+                    prepareNextStep()
+                } else {
+                    stepDescriptionLabel.text = "Step completed but error \(firmwareProvider.expectedError!.rawValue) was expected"
+                }
             } else {
                 stepDescriptionLabel.text = "Test finished"
-                partLabel.text = "N/A"
-                currentSpeedLabel.text = "N/A"
-                averageSpeedLabel.text = "N/A"
             }
         }
     }
@@ -217,6 +223,26 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         
         // Forget the controller when DFU finished with an error
         dfuController = nil
+        
+        // If expected error was returned, continue with next test
+        if let expectedError = firmwareProvider.expectedError {
+            if expectedError == error {
+                // Increment the parts counter
+                partsCompleted += firmwareProvider.firmware!.parts - currentFirmwarePartsCompleted
+                
+                // Update the total progress view
+                let totalProgress = Float(partsCompleted) / Float(firmwareProvider.totalParts)
+                totalProgressView.setProgress(totalProgress, animated: true)
+                
+                if firmwareProvider.hasNext() {
+                    prepareNextStep()
+                } else {
+                    stepDescriptionLabel.text = "Test finished"
+                }
+            } else {
+                stepDescriptionLabel.text = "Step failed with error \(error.rawValue) but \(firmwareProvider.expectedError!.rawValue) was expected"
+            }
+        }
     }
     
     //MARK: - DFUProgressDelegate
@@ -228,6 +254,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         
         // Increment the parts counter for 2-part uploads
         if progress == 100 && part == 1 && totalParts == 2 {
+            currentFirmwarePartsCompleted += 1
             partsCompleted += 1
         }
         
