@@ -49,7 +49,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         
         selectedPeripheral = nil
         connectionButton.isEnabled = false
-        peripheralNameLabel.text = "No peripheral selected"
+        peripheralNameLabel.text = "No selection"
     }
 
     //MARK: - UIViewController implementation
@@ -63,7 +63,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         connectionButton.isEnabled = false
-        peripheralNameLabel.text = "No peripheral selected"
+        peripheralNameLabel.text = "No selection"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -96,7 +96,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
-            print("CentralManager is now powered on")
+            print("Central Manager is now powered on")
             startDiscovery()
         }
     }
