@@ -22,8 +22,8 @@ class nRF52832TestSet: DFUTestSet {
             (DFUFirmware.from(zip: "nrf52832_sdk_12.2_to_13_all_in_one", locatedIn:  "Firmwares/nRF52832"),
              Option.experimentalButtonlessEnabled, nil, "Upgrading to SDK 13",        FilterBy.name("DFU2A13")),
             (DFUFirmware.from(zip: "nrf52832_sdk_13_app"               , locatedIn:  "Firmwares/nRF52832"), nil, nil, "Updating app from SDK 13",   FilterBy.name("DFU2A13")),
-            // In SDK 14 there was a bug releated to SD size. As SD size increased from pre-14 to 14 it is not possible to update without modifying the BL from 14
-            // like it was fixed in SDK 14.1. Here we can just skip this version and upgrade directly to 14.1.
+            // In SDK 14 there was a bug releated to SD size. As SD size increased from pre-14 to 14 it is not possible to update without a fix that was added in SDK 14.1.
+            // Here we can just skip this version and upgrade directly to 14.1.
             (DFUFirmware.from(zip: "nrf52832_sdk_13_to_14.1_all_in_one", locatedIn:  "Firmwares/nRF52832"), nil, nil, "Upgrading to SDK 14.1",      FilterBy.name("DFU2A141")),
             (DFUFirmware.from(zip: "nrf52832_sdk_14.1_app"             , locatedIn:  "Firmwares/nRF52832"), nil, nil, "Updating app from SDK 14.1", FilterBy.name("DFU2A141")),
             // The following steps may be removed without any harm if more SDKs are added.
