@@ -23,6 +23,7 @@
 import CoreBluetooth
 
 internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, LegacyDFUService> {
+    var slowDfuMode = false
     
     // MARK: - Peripheral API
     
@@ -115,6 +116,11 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      */
     func sendStartDfu(withFirmwareSize size: DFUFirmwareSize) {
         logger.v("Switching to DFU v.1")
+        
+        // Flash operation in DFU Bootloaders from SDK 6.0 and older were too slow for modern iDevices, so PRNs
+        // must be enabled to slow the transfer down. Also, a 1000ms delay is required before starting sending data.
+        slowDfuMode = true
+        
         dfuService!.sendStartDfu(withFirmwareSize: size,
             onSuccess: { self.delegate?.peripheralDidStartDfu() },
             onError: defaultErrorCallback
@@ -145,10 +151,14 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      - parameter progressDelegate: the deleagate that will be informed about progress changes
      */
     func sendFirmware(_ aFirmware: DFUFirmware, withPacketReceiptNotificationNumber aPRNValue: UInt16, andReportProgressTo progressDelegate: DFUProgressDelegate?) {
-        dfuService!.sendPacketReceiptNotificationRequest(aPRNValue,
+        var prn = aPRNValue
+        if slowDfuMode && (prn == 0 || prn > 2) {
+            prn = 2
+        }
+        dfuService!.sendPacketReceiptNotificationRequest(prn,
             onSuccess: {
                 // Now the service is ready to send the firmware
-                self.dfuService!.sendFirmware(aFirmware, andReportProgressTo: progressDelegate,
+                self.dfuService!.sendFirmware(aFirmware, withDelay: self.slowDfuMode, andReportProgressTo: progressDelegate,
                     onSuccess: { self.delegate?.peripheralDidReceiveFirmware() },
                     onError: self.defaultErrorCallback
                 )
