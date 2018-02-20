@@ -33,16 +33,24 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     private var firmwareProvider : DFUFirmwareProvider!
     private var partsCompleted   : Int = 0
     private var currentFirmwarePartsCompleted : Int = 0
+    private var firstPartRatio   : Float = 1.0
+    private var timer            : Timer!
+    private var startTime        : Date!
+    private var stepStartTime    : Date?
     
     //MARK: - View Outlets
     @IBOutlet weak var totalProgressView     : UIProgressView!
-    @IBOutlet weak var stepDescriptionLabel  : UILabel!
-    @IBOutlet weak var partLabel             : UILabel!
-    @IBOutlet weak var dfuUploadProgressView : UIProgressView!
+    @IBOutlet weak var stepProgressView      : UIProgressView!
+    @IBOutlet weak var partProgressView : UIProgressView!
     @IBOutlet weak var dfuStatusLabel        : UILabel!
-    @IBOutlet weak var currentSpeedLabel     : UILabel!
+    @IBOutlet weak var partLabel             : UILabel!
+    //@IBOutlet weak var currentSpeedLabel     : UILabel!
     @IBOutlet weak var averageSpeedLabel     : UILabel!
+    @IBOutlet weak var stepDescriptionLabel  : UILabel!
+    @IBOutlet weak var completedStepsLabel   : UILabel!
     @IBOutlet weak var stopProcessButton     : UIButton!
+    @IBOutlet weak var totalTimerLabel       : UILabel!
+    @IBOutlet weak var stepTimerLabel        : UILabel!
     
     //MARK: - View Actions
     
@@ -53,6 +61,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         }
         guard !dfuController!.aborted else {
             stopProcessButton.setTitle("Stop process", for: .normal)
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(DFUViewController.updateTimer), userInfo: nil, repeats: true)
             dfuController!.restart()
             return
         }
@@ -60,13 +69,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         print("Action: DFU paused")
         dfuController!.pause()
         let alertView = UIAlertController(title: "Warning", message: "Are you sure you want to stop the process?", preferredStyle: .alert)
-        alertView.addAction(UIAlertAction(title: "Abort", style: .destructive) {
-            (action) in
+        alertView.addAction(UIAlertAction(title: "Abort", style: .destructive) { action in
             print("Action: DFU aborted")
             _ = self.dfuController!.abort()
         })
-        alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel) {
-            (action) in
+        alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
             print("Action: DFU resumed")
             self.dfuController!.resume()
         })
@@ -84,34 +91,56 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         self.peripheralName   = name
         self.firmwareProvider = DFUFirmwareProvider.get(byName: name)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         if let firmware = firmwareProvider.firmware {
             dfuStatusLabel.text = ""
             partLabel.text = "1 / \(firmware.parts)"
+            
+            startTime = Date()
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(DFUViewController.updateTimer), userInfo: nil, repeats: true)
+            updateTimer()
         } else {
             dfuStatusLabel.text = "No firmware found"
             partLabel.text = "N/A"
         }
         totalProgressView.progress = 0.0
-        dfuUploadProgressView.progress = 0.0
+        stepProgressView.progress = 0.0
+        partProgressView.progress = 0.0
         stepDescriptionLabel.text = ""
-        currentSpeedLabel.text = "N/A"
-        averageSpeedLabel.text = "N/A"
+        completedStepsLabel.text = ""
+        //currentSpeedLabel.text = ""
+        averageSpeedLabel.text = ""
         stopProcessButton.isEnabled = false
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
         startDFUProcess()
-     }
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        _ = dfuController?.abort()
-        dfuController = nil
+        
+        // Cancel test only when going back to Scanner. If Home button is clicked the test will continue in the background.
+        if isMovingFromParentViewController {
+            stopTimer()
+            _ = dfuController?.abort()
+            dfuController = nil
+        }
+    }
+    
+    @objc private func updateTimer() {
+        let timeDiff = -Int(startTime.timeIntervalSinceNow)
+        totalTimerLabel.text = String(format: "%d:%02d", timeDiff / 60, timeDiff % 60)
+        
+        if let stepStartTime = stepStartTime {
+            let stepTimeDiff = -Int(stepStartTime.timeIntervalSinceNow)
+            stepTimerLabel.text = String(format: "%d:%02d", stepTimeDiff / 60, stepTimeDiff % 60)
+        }
+    }
+    
+    private func stopTimer() {
+        timer.invalidate()
     }
     
     //MARK: - DFU Methods
@@ -126,9 +155,22 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             return
         }
         
-        stepDescriptionLabel.text = firmwareProvider.description
-        dfuUploadProgressView.setProgress(0.0, animated: false)
+        // Calculate the first part ratio. It will be used to estimate the step progress view state.
+        if firmware.parts > 1 {
+            firstPartRatio = Float(firmware.size.softdevice + firmware.size.bootloader) /
+                Float(firmware.size.softdevice + firmware.size.bootloader + firmware.size.application)
+        } else {
+            firstPartRatio = 1.0
+        }
         
+        // Update UI
+        stepStartTime = Date()
+        stepTimerLabel.text = "0:00"
+        stepDescriptionLabel.text = firmwareProvider.description
+        stepProgressView.progress = 0.0
+        partProgressView.progress = 0.0
+        
+        // Create DFU initiator with some default configuration
         let dfuInitiator = DFUServiceInitiator(centralManager: centralManager, target: dfuPeripheral)
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
@@ -141,6 +183,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             dfuInitiator.packetReceiptNotificationParameter = 0
         }
         
+        // Apply step's modifications to the DFU initiator
         firmwareProvider.applyModifier(to: dfuInitiator)
         
         dfuController = dfuInitiator.with(firmware: firmware).start()
@@ -180,11 +223,12 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         case .completed, .disconnecting:
             stopProcessButton.isEnabled = false
         case .aborted:
-            dfuUploadProgressView.setProgress(0, animated: true)
+            stopTimer()
+            averageSpeedLabel.text = ""
             stopProcessButton.setTitle("Restart", for: .normal)
             stopProcessButton.isEnabled = true
         case .connecting:
-            dfuUploadProgressView.setProgress(0, animated: false)
+            partProgressView.setProgress(0, animated: false)
             stopProcessButton.isEnabled = true
         default:
             stopProcessButton.isEnabled = true
@@ -202,8 +246,10 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             partsCompleted += 1
             
             partLabel.text = "N/A"
-            currentSpeedLabel.text = "N/A"
-            averageSpeedLabel.text = "N/A"
+            //currentSpeedLabel.text = ""
+            averageSpeedLabel.text = ""
+            
+            addStepToCompleted(success: true)
             
             if firmwareProvider.hasNext() {
                 if firmwareProvider.expectedError == nil {
@@ -212,6 +258,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
                     stepDescriptionLabel.text = "Step completed but error \(firmwareProvider.expectedError!.rawValue) was expected"
                 }
             } else {
+                stopTimer()
                 stepDescriptionLabel.text = "Test finished"
             }
         }
@@ -234,15 +281,25 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
                 let totalProgress = Float(partsCompleted) / Float(firmwareProvider.totalParts)
                 totalProgressView.setProgress(totalProgress, animated: true)
                 
+                addStepToCompleted(success: false)
+                
                 if firmwareProvider.hasNext() {
                     prepareNextStep()
                 } else {
                     stepDescriptionLabel.text = "Test finished"
                 }
             } else {
+                stopTimer()
                 stepDescriptionLabel.text = "Step failed with error \(error.rawValue) but \(firmwareProvider.expectedError!.rawValue) was expected"
             }
         }
+    }
+    
+    private func addStepToCompleted(success: Bool) {
+        let mark = success ? "✓" : "✕"
+        completedStepsLabel.text = "\(mark) \(firmwareProvider.description!) (\(stepTimerLabel.text!))\n\(completedStepsLabel.text!)"
+        stepTimerLabel.text = ""
+        stepStartTime = nil
     }
     
     //MARK: - DFUProgressDelegate
@@ -252,6 +309,12 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         let totalProgress = (Float(partsCompleted) + (Float(progress) / 100.0)) / Float(firmwareProvider.totalParts)
         totalProgressView.setProgress(totalProgress, animated: true)
         
+        // Update step progress view
+        let stepProgress = part < totalParts || totalParts == 1 ?
+            firstPartRatio * Float(progress) / 100.0 :
+            firstPartRatio + (1.0 - firstPartRatio) * Float(progress) / 100.0
+        stepProgressView.setProgress(stepProgress, animated: true)
+        
         // Increment the parts counter for 2-part uploads
         if progress == 100 && part == 1 && totalParts == 2 {
             currentFirmwarePartsCompleted += 1
@@ -259,9 +322,9 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         }
         
         // Update views for current update
-        dfuUploadProgressView.setProgress(Float(progress) / 100.0, animated: Float(progress) > dfuUploadProgressView.progress)
+        partProgressView.setProgress(Float(progress) / 100.0, animated: Float(progress) > partProgressView.progress)
         partLabel.text = "\(part) / \(totalParts)"
-        currentSpeedLabel.text = String(format: "%.1f KB/s", currentSpeedBytesPerSecond / 1024)
+        //currentSpeedLabel.text = String(format: "%.1f KB/s", currentSpeedBytesPerSecond / 1024)
         averageSpeedLabel.text = String(format: "%.1f KB/s", avgSpeedBytesPerSecond / 1024)
     }
 
