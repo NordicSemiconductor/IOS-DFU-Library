@@ -1,5 +1,10 @@
 ### Changelog
 
+- **4.1.2**
+    - Bugfix: Fixed an issue introduced in 4.1.1 that caused legacy DFU to fail on some devices
+    - Bugfix: Fixed missing information in the documentation that explains how to enable the experimental buttonless DFU feature
+    - Improvement: Added test suites in the example app, this is available via the `pod try` command. It allows to automate testing of the DFU library using bootloaders from different SDKs on nRF51, nRF52832 and nRF840. It also provides a way to automate testing of custom firmware chain upgrade (v1.0 -> v2.0 -> v3.0, etc..).
+
 - **4.1.1**
     - Bugfix: Fixed an issue with DFU processes that had multiple DFU parts that caused the executor to connect to wrong peripherals after flashing the first part.
 	      The peripheral is now held in memory until it comes back online, so the library will no longer scan for DFU peripherals while waiting for it to restart.
