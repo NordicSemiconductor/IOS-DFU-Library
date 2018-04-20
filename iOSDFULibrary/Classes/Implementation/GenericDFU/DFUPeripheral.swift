@@ -179,6 +179,10 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        guard peripheral.isEqual(self.peripheral) else {
+            return
+        }
+        
         cleanUp()
         
         logger.d("[Callback] Central Manager did connect peripheral")
@@ -194,6 +198,10 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        guard peripheral.isEqual(self.peripheral) else {
+            return
+        }
+        
         cleanUp()
         
         if let error = error {
@@ -207,6 +215,10 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        guard peripheral.isEqual(self.peripheral) else {
+            return
+        }
+        
         cleanUp()
         
         // We may expect an error with 
