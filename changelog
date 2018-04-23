@@ -1,5 +1,7 @@
 ### Changelog
-
+- **4.1.3**
+    - Bugfix: Fix by @simonseyer that resolves a random disconnects issue caused by the reuse of the same CBCentralManager used by the library, which received callbacks of device disconnects that might not be the target perpiheral
+    - Bugfix: Fix by @alanfischer that resolves an Xcode warning related to documentation.
 - **4.1.2**
     - Bugfix: Fixed an issue introduced in 4.1.1 that caused legacy DFU to fail on some devices
     - Bugfix: Fixed missing information in the documentation that explains how to enable the experimental buttonless DFU feature
