@@ -8,3 +8,8 @@ target 'iOSDFULibrary_Tests' do
   platform :ios, '8.0'
   pod 'iOSDFULibrary', :path => '../'
 end
+
+target 'macOSDFULibrary_Example' do
+  platform :osx, '10.10'
+  pod 'iOSDFULibrary', :path => '../'
+end

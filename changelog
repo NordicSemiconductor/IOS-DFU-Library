@@ -1,4 +1,19 @@
 ### Changelog
+- **4.1.3**
+    - Bugfix: Fix by @simonseyer that resolves a random disconnects issue caused by the reuse of the same CBCentralManager used by the library, which received callbacks of device disconnects that might not be the target perpiheral
+    - Bugfix: Fix by @alanfischer that resolves an Xcode warning related to documentation.
+- **4.1.2**
+    - Bugfix: Fixed an issue introduced in 4.1.1 that caused legacy DFU to fail on some devices
+    - Bugfix: Fixed missing information in the documentation that explains how to enable the experimental buttonless DFU feature
+    - Improvement: Added test suites in the example app, this is available via the `pod try` command. It allows to automate testing of the DFU library using bootloaders from different SDKs on nRF51, nRF52832 and nRF840. It also provides a way to automate testing of custom firmware chain upgrade (v1.0 -> v2.0 -> v3.0, etc..).
+
+- **4.1.1**
+    - Bugfix: Fixed an issue with DFU processes that had multiple DFU parts that caused the executor to connect to wrong peripherals after flashing the first part.
+	      The peripheral is now held in memory until it comes back online, so the library will no longer scan for DFU peripherals while waiting for it to restart.
+    - Bugfix: Fixed an issue related to the new address expected flag.
+    - Improvement: Carthage support for MacOS.
+    - Improvement: Firmware size information is now available for Obj-C projects.
+    - Improvement: Added required imports for projects built without Cocoapods.
 
 - **4.1.0**
     - Improvement: Using iOS 11's new `canSendWriteWithoutResponse` API to remove the need of using packet receipt notifications, setting a PRN value of 0 on iOS 11 will enable this feature.
