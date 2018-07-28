@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DFUServiceDelegate Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/DFUServiceDelegate" class="dashAnchor"></a>
+    <a title="DFUServiceDelegate Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html">iOSDFULibrary Docs</a>
+          <span class="no-mobile"> (51% documented)</span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html">iOSDFULibrary Reference</a>
+            <img id="carat" src="../img/carat.png" />
+          </span>
+          DFUServiceDelegate Protocol Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>DFUServiceDelegate</h1>
+                <div class="declaration">
+                  <div class="language">
+                    <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DFUServiceDelegate</span></code></pre>
+
+                  </div>
+                </div>
+              <p>The service delegate reports about state changes and errors.</p>
+
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(pl)DFUServiceDelegate(im)dfuStateDidChangeTo:"></a>
+                      <a name="//apple_ref/swift/Method/dfuStateDidChange(to:)" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(pl)DFUServiceDelegate(im)dfuStateDidChangeTo:">dfuStateDidChange(to:)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Callback called when state of the DFU Service has changed.</p>
+
+<p>This method is called in the main thread and is safe to update any UI.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">dfuStateDidChange</span><span class="p">(</span><span class="n">to</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums/DFUState.html">DFUState</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>state</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the new state fo the service</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(pl)DFUServiceDelegate(im)dfuError:didOccurWithMessage:"></a>
+                      <a name="//apple_ref/swift/Method/dfuError(_:didOccurWithMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(pl)DFUServiceDelegate(im)dfuError:didOccurWithMessage:">dfuError(_:didOccurWithMessage:)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Called after an error occurred.
+The device will be disconnected and DFU operation has been aborted.</p>
+
+<p>This method is called in the main thread and is safe to update any UI.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">dfuError</span><span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/DFUError.html">DFUError</a></span><span class="p">,</span> <span class="n">didOccurWithMessage</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>error</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the error code</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>message</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>error description</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUFirmware.html">DFUFirmware</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUFirmwareSize.html">DFUFirmwareSize</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUPeripheralSelector.html">DFUPeripheralSelector</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUServiceController.html">DFUServiceController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUServiceInitiator.html">DFUServiceInitiator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUUuidHelper.html">DFUUuidHelper</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/LegacyDFUServiceInitiator.html">LegacyDFUServiceInitiator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/SecureDFUServiceInitiator.html">SecureDFUServiceInitiator</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/DFUError.html">DFUError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/DFUFirmwareType.html">DFUFirmwareType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/DFUState.html">DFUState</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/LogLevel.html">LogLevel</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Extensions/Data.html">Data</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/String.html">String</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Protocols/DFUPeripheralSelectorDelegate.html">DFUPeripheralSelectorDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DFUProgressDelegate.html">DFUProgressDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DFUServiceDelegate.html">DFUServiceDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DataConvertible.html">DataConvertible</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/LoggerDelegate.html">LoggerDelegate</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library" target="_blank" rel="external">Nordic Semiconductor</a>. All rights reserved. (Last updated: 2018-07-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</div>
+</html>

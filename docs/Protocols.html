@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Protocols  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Protocols" class="dashAnchor"></a>
+    <a title="Protocols  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="index.html">iOSDFULibrary Docs</a>
+          <span class="no-mobile"> (51% documented)</span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="index.html">iOSDFULibrary Reference</a>
+            <img id="carat" src="img/carat.png" />
+          </span>
+          Protocols  Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>Protocols</h1>
+              <p>The following protocols are available globally.</p>
+
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(pl)DFUPeripheralSelectorDelegate"></a>
+                      <a name="//apple_ref/swift/Protocol/DFUPeripheralSelectorDelegate" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(pl)DFUPeripheralSelectorDelegate">DFUPeripheralSelectorDelegate</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>The DFUPeripheralSelectorDelegate is used when both the Softdevice (or Softdevice and Bootloader) and Application
+are going to be updated, or when a peripheral is to be switched to the bootloader mode that will change its address.</p>
+
+<p>This library supports sending both BIN files from a ZIP Distribution Packet automatically.
+However, when sending the Softdevice update, the DFU Bootloader may remove the current application in order to
+make space for the new Softdevice firmware (Legacy DFU, or Secure DFU with single bank enabled when new SD+BL are larger then space available)
+or may advertise in Bootloader mode for number of seconds (Secure DFU). When the new Softdevice is flashed the bootloader restarts the device
+and starts advertising in DFU Bootloader mode.</p>
+
+<p>Since SDK 8.0.0, to solve caching problem on a host that is no bonded (in case there is no Service Changed characteristic),
+the bootloader starts to advertise with an address incremented by 1.
+The DFU Library has to scan for a peripheral with this new address. However, as iOS does not expose the device
+address in the public CoreBluetooth API, address matching, used on Android, can not be used.
+Instead, this selector is used. The DFU Service will start scanning for peripherals with a UUID filter, where
+the list of required UUID is returned by the <code>filterBy(hint:)</code> method. If your device in the Bootloader mode
+does not advertise with any service UUIDs, or this is not enough, you may select a target device
+by their advertising packet or RSSI using this delegate.</p>
+
+<p>In SDK 14.0.0 a new feature was added to the Buttonless DFU for non-bonded devices which allows to send a unique name
+to the device before it is switched to bootloader mode. After jump, the bootloader will advertise with this name
+as the Complete Local Name making it easy to select proper device. In this case you don&rsquo;t have to override the default
+peripheral selector. More: <a href="http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html">http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html</a></p>
+
+                          <a href="Protocols/DFUPeripheralSelectorDelegate.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DFUPeripheralSelectorDelegate</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(pl)DFUProgressDelegate"></a>
+                      <a name="//apple_ref/swift/Protocol/DFUProgressDelegate" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(pl)DFUProgressDelegate">DFUProgressDelegate</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>The progress delegates may be used to notify user about progress updates.
+The only method of the delegate is only called when the service is in the Uploading state.</p>
+
+                          <a href="Protocols/DFUProgressDelegate.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DFUProgressDelegate</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(pl)DFUServiceDelegate"></a>
+                      <a name="//apple_ref/swift/Protocol/DFUServiceDelegate" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(pl)DFUServiceDelegate">DFUServiceDelegate</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>The service delegate reports about state changes and errors.</p>
+
+                          <a href="Protocols/DFUServiceDelegate.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DFUServiceDelegate</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:13iOSDFULibrary15DataConvertibleP"></a>
+                      <a name="//apple_ref/swift/Protocol/DataConvertible" class="dashAnchor"></a>
+                      <a class="token" href="#/s:13iOSDFULibrary15DataConvertibleP">DataConvertible</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Protocols/DataConvertible.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DataConvertible</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(pl)LoggerDelegate"></a>
+                      <a name="//apple_ref/swift/Protocol/LoggerDelegate" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(pl)LoggerDelegate">LoggerDelegate</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>The Logger delegate.</p>
+
+                          <a href="Protocols/LoggerDelegate.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LoggerDelegate</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Classes/DFUFirmware.html">DFUFirmware</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Classes/DFUFirmwareSize.html">DFUFirmwareSize</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Classes/DFUPeripheralSelector.html">DFUPeripheralSelector</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Classes/DFUServiceController.html">DFUServiceController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Classes/DFUServiceInitiator.html">DFUServiceInitiator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Classes/DFUUuidHelper.html">DFUUuidHelper</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Classes/LegacyDFUServiceInitiator.html">LegacyDFUServiceInitiator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Classes/SecureDFUServiceInitiator.html">SecureDFUServiceInitiator</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Enums/DFUError.html">DFUError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/DFUFirmwareType.html">DFUFirmwareType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/DFUState.html">DFUState</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/LogLevel.html">LogLevel</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Extensions/Data.html">Data</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Extensions/String.html">String</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Protocols/DFUPeripheralSelectorDelegate.html">DFUPeripheralSelectorDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/DFUProgressDelegate.html">DFUProgressDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/DFUServiceDelegate.html">DFUServiceDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/DataConvertible.html">DataConvertible</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/LoggerDelegate.html">LoggerDelegate</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library" target="_blank" rel="external">Nordic Semiconductor</a>. All rights reserved. (Last updated: 2018-07-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</div>
+</html>

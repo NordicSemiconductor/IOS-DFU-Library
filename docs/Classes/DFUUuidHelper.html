@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DFUUuidHelper Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/DFUUuidHelper" class="dashAnchor"></a>
+    <a title="DFUUuidHelper Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html">iOSDFULibrary Docs</a>
+          <span class="no-mobile"> (51% documented)</span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html">iOSDFULibrary Reference</a>
+            <img id="carat" src="../img/carat.png" />
+          </span>
+          DFUUuidHelper Class Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>DFUUuidHelper</h1>
+                <div class="declaration">
+                  <div class="language">
+                    <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">DFUUuidHelper</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                  </div>
+                </div>
+              <p>UUID Helper for DFU Process</p>
+
+<p>The UUID can be modified for each of the DFU types supported by
+the Nordic devices.  This should be done prior to calling DFUServiceInitiator</p>
+
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(cpy)shared"></a>
+                      <a name="//apple_ref/swift/Variable/shared" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(cpy)shared">shared</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">shared</span><span class="p">:</span> <span class="kt">DFUUuidHelper</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUService"></a>
+                      <a name="//apple_ref/swift/Property/legacyDFUService" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUService">legacyDFUService</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Legacy DFU Service</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">legacyDFUService</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUControlPoint"></a>
+                      <a name="//apple_ref/swift/Property/legacyDFUControlPoint" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUControlPoint">legacyDFUControlPoint</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Legacy DFU Control Point Characteristic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">legacyDFUControlPoint</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUPacket"></a>
+                      <a name="//apple_ref/swift/Property/legacyDFUPacket" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUPacket">legacyDFUPacket</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Legacy DFU Packet Characteristic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">legacyDFUPacket</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUVersion"></a>
+                      <a name="//apple_ref/swift/Property/legacyDFUVersion" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)legacyDFUVersion">legacyDFUVersion</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Legacy DFU Version Characteristic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">legacyDFUVersion</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)secureDFUService"></a>
+                      <a name="//apple_ref/swift/Property/secureDFUService" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)secureDFUService">secureDFUService</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Secure DFU Service</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">secureDFUService</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)secureDFUControlPoint"></a>
+                      <a name="//apple_ref/swift/Property/secureDFUControlPoint" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)secureDFUControlPoint">secureDFUControlPoint</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Secure DFU Control Characteristic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">secureDFUControlPoint</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)secureDFUPacket"></a>
+                      <a name="//apple_ref/swift/Property/secureDFUPacket" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)secureDFUPacket">secureDFUPacket</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Secure DFU Packet Characteristic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">secureDFUPacket</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessExperimentalService"></a>
+                      <a name="//apple_ref/swift/Property/buttolessExperimentalService" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessExperimentalService">buttolessExperimentalService</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Buttonless DFU Service</p>
+
+<p>This UUID is also used for the Characteristic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">buttolessExperimentalService</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessExperimentalCharacteristic"></a>
+                      <a name="//apple_ref/swift/Property/buttolessExperimentalCharacteristic" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessExperimentalCharacteristic">buttolessExperimentalCharacteristic</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Buttonless DFU Characteristic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">buttolessExperimentalCharacteristic</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessWithoutBonds"></a>
+                      <a name="//apple_ref/swift/Property/buttolessWithoutBonds" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessWithoutBonds">buttolessWithoutBonds</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Buttonless DFU Without Bond Sharing Characterisitic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">buttolessWithoutBonds</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessWithBonds"></a>
+                      <a name="//apple_ref/swift/Property/buttolessWithBonds" class="dashAnchor"></a>
+                      <a class="token" href="#/c:@M@iOSDFULibrary@objc(cs)DFUUuidHelper(py)buttolessWithBonds">buttolessWithBonds</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>UUID for Buttonless DFU With Bond Sharing Characterisitic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">buttolessWithBonds</span><span class="p">:</span> <span class="kt">CBUUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUFirmware.html">DFUFirmware</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUFirmwareSize.html">DFUFirmwareSize</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUPeripheralSelector.html">DFUPeripheralSelector</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUServiceController.html">DFUServiceController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUServiceInitiator.html">DFUServiceInitiator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DFUUuidHelper.html">DFUUuidHelper</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/LegacyDFUServiceInitiator.html">LegacyDFUServiceInitiator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/SecureDFUServiceInitiator.html">SecureDFUServiceInitiator</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/DFUError.html">DFUError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/DFUFirmwareType.html">DFUFirmwareType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/DFUState.html">DFUState</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/LogLevel.html">LogLevel</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Extensions/Data.html">Data</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/String.html">String</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Protocols/DFUPeripheralSelectorDelegate.html">DFUPeripheralSelectorDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DFUProgressDelegate.html">DFUProgressDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DFUServiceDelegate.html">DFUServiceDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DataConvertible.html">DataConvertible</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/LoggerDelegate.html">LoggerDelegate</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library" target="_blank" rel="external">Nordic Semiconductor</a>. All rights reserved. (Last updated: 2018-07-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</div>
+</html>
