@@ -176,7 +176,7 @@ internal struct PacketReceiptNotification {
 }
 
 @objc internal class DFUControlPoint : NSObject, CBPeripheralDelegate {
-    static let UUID = CBUUID(string: "00001531-1212-EFDE-1523-785FEABCD123")
+    static let UUID = DFUUuidHelper.shared.legacyDFUControlPoint
     
     static func matches(_ characteristic: CBCharacteristic) -> Bool {
         return characteristic.uuid.isEqual(UUID)

@@ -23,7 +23,7 @@
 import CoreBluetooth
 
 @objc internal class LegacyDFUService : NSObject, CBPeripheralDelegate, DFUService {
-    static let UUID = CBUUID(string: "00001530-1212-EFDE-1523-785FEABCD123")
+    static let UUID = DFUUuidHelper.shared.legacyDFUService
     
     static func matches(_ service: CBService) -> Bool {
         return service.uuid.isEqual(UUID)

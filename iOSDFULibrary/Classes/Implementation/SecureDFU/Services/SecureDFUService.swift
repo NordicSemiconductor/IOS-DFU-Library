@@ -23,7 +23,7 @@
 import CoreBluetooth
 
 @objc internal class SecureDFUService : NSObject, CBPeripheralDelegate, DFUService {
-    static internal let UUID = CBUUID(string: "FE59")
+    static internal let UUID = DFUUuidHelper.shared.secureDFUService
     
     static func matches(_ service: CBService) -> Bool {
         return service.uuid.isEqual(UUID)
@@ -432,7 +432,7 @@ import CoreBluetooth
     
     /// The buttonless jump feature was experimental in SDK 12. It did not support passing bond information to the DFU bootloader,
     /// was not safe (possible DOS attack) and had bugs. This is the service UUID used by this service.
-    static internal let ExperimentalButtonlessDfuUUID = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
+    static internal let ExperimentalButtonlessDfuUUID = DFUUuidHelper.shared.buttolessExperimentalService
     
     static func matches(experimental service: CBService) -> Bool {
         return service.uuid.isEqual(ExperimentalButtonlessDfuUUID)

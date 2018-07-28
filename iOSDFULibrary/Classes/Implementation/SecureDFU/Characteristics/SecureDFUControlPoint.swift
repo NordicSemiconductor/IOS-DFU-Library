@@ -295,8 +295,8 @@ internal struct SecureDFUPacketReceiptNotification {
 }
 
 internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
-    static let UUID = CBUUID(string: "8EC90001-F315-4F60-9FB8-838830DAEA50")
-    
+    static let UUID = DFUUuidHelper.shared.secureDFUControlPoint
+
     static func matches(_ characteristic: CBCharacteristic) -> Bool {
         return characteristic.uuid.isEqual(UUID)
     }

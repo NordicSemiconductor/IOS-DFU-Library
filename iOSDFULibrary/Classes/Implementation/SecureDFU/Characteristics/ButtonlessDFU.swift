@@ -94,9 +94,9 @@ internal struct ButtonlessDFUResponse {
 }
 
 internal class ButtonlessDFU : NSObject, CBPeripheralDelegate {
-    static let EXPERIMENTAL_UUID         = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50") // the same UUID as the service
-    static let WITHOUT_BOND_SHARING_UUID = CBUUID(string: "8EC90003-F315-4F60-9FB8-838830DAEA50")
-    static let WITH_BOND_SHARING_UUID    = CBUUID(string: "8EC90004-F315-4F60-9FB8-838830DAEA50")
+    static let EXPERIMENTAL_UUID         = DFUUuidHelper.shared.buttolessExperimentalCharacteristic
+    static let WITHOUT_BOND_SHARING_UUID = DFUUuidHelper.shared.buttolessWithoutBonds
+    static let WITH_BOND_SHARING_UUID    = DFUUuidHelper.shared.buttolessWithBonds
     
     static func matches(_ characteristic: CBCharacteristic) -> Bool {
         return characteristic.uuid.isEqual(WITHOUT_BOND_SHARING_UUID) ||

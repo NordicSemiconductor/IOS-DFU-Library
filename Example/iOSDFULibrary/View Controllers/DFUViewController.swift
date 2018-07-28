@@ -94,7 +94,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let firmware = firmwareProvider.firmware {
             dfuStatusLabel.text = ""
             partLabel.text = "1 / \(firmware.parts)"
@@ -169,12 +169,21 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         stepDescriptionLabel.text = firmwareProvider.description
         stepProgressView.progress = 0.0
         partProgressView.progress = 0.0
-        
+
+        ///
+        /// Here would be a good chance to change the UUIDs to your custom UUIDs
+        ///
+//        DFUUuidHelper.shared.legacyDFUService       = CBUUID(string: "00001530-1212-EFDE-1523-000000000000")
+//        DFUUuidHelper.shared.legacyDFUControlPoint  = CBUUID(string: "00001531-1212-EFDE-1523-000000000000")
+//        DFUUuidHelper.shared.legacyDFUPacket        = CBUUID(string: "00001532-1212-EFDE-1523-000000000000")
+//        DFUUuidHelper.shared.legacyDFUVersion       = CBUUID(string: "00001534-1212-EFDE-1523-000000000000")
+
         // Create DFU initiator with some default configuration
         let dfuInitiator = DFUServiceInitiator(centralManager: centralManager, target: dfuPeripheral)
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
+        
         // Starting from iOS 11 and macOS 10.13 there is a new API that removes the need of PRNs.
         // However, some devices may still work better with them enabled! A specially those
         // based on SDK older than 8.0 where the flash saving was slower and modern phones
