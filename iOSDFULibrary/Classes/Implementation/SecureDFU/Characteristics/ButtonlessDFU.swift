@@ -94,9 +94,9 @@ internal struct ButtonlessDFUResponse {
 }
 
 internal class ButtonlessDFU : NSObject, CBPeripheralDelegate {
-    static let EXPERIMENTAL_UUID         = DFUUuidHelper.shared.buttolessExperimentalCharacteristic
-    static let WITHOUT_BOND_SHARING_UUID = DFUUuidHelper.shared.buttolessWithoutBonds
-    static let WITH_BOND_SHARING_UUID    = DFUUuidHelper.shared.buttolessWithBonds
+    static let EXPERIMENTAL_UUID         = DFUUuidHelper.shared.buttonlessExperimentalCharacteristic
+    static let WITHOUT_BOND_SHARING_UUID = DFUUuidHelper.shared.buttonlessWithoutBonds
+    static let WITH_BOND_SHARING_UUID    = DFUUuidHelper.shared.buttonlessWithBonds
     
     static func matches(_ characteristic: CBCharacteristic) -> Bool {
         return characteristic.uuid.isEqual(WITHOUT_BOND_SHARING_UUID) ||

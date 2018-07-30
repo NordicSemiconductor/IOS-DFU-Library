@@ -432,7 +432,7 @@ import CoreBluetooth
     
     /// The buttonless jump feature was experimental in SDK 12. It did not support passing bond information to the DFU bootloader,
     /// was not safe (possible DOS attack) and had bugs. This is the service UUID used by this service.
-    static internal let ExperimentalButtonlessDfuUUID = DFUUuidHelper.shared.buttolessExperimentalService
+    static internal let ExperimentalButtonlessDfuUUID = DFUUuidHelper.shared.buttonlessExperimentalService
     
     static func matches(experimental service: CBService) -> Bool {
         return service.uuid.isEqual(ExperimentalButtonlessDfuUUID)

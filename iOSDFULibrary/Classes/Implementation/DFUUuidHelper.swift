@@ -65,19 +65,19 @@ import CoreBluetooth
     ///
     /// This UUID is also used for the Characteristic
     @objc
-    public var buttolessExperimentalService: CBUUID
+    public var buttonlessExperimentalService: CBUUID
 
     /// UUID for Buttonless DFU Characteristic
     @objc
-    public var buttolessExperimentalCharacteristic: CBUUID
+    public var buttonlessExperimentalCharacteristic: CBUUID
 
     /// UUID for Buttonless DFU Without Bond Sharing Characterisitic
     @objc
-    public var buttolessWithoutBonds: CBUUID
+    public var buttonlessWithoutBonds: CBUUID
 
     /// UUID for Buttonless DFU With Bond Sharing Characterisitic
     @objc
-    public var buttolessWithBonds: CBUUID
+    public var buttonlessWithBonds: CBUUID
 
     private override init() {
 
@@ -99,14 +99,13 @@ import CoreBluetooth
         ///
         /// Buttonless DFU
         ///
-        self.buttolessExperimentalService = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
+        self.buttonlessExperimentalService = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
         // the same UUID as the service by default
-        self.buttolessExperimentalCharacteristic = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
+        self.buttonlessExperimentalCharacteristic = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
         
-        self.buttolessWithoutBonds = CBUUID(string: "8EC90003-F315-4F60-9FB8-838830DAEA50")
-        self.buttolessWithBonds = CBUUID(string: "8EC90004-F315-4F60-9FB8-838830DAEA50")
+        self.buttonlessWithoutBonds = CBUUID(string: "8EC90003-F315-4F60-9FB8-838830DAEA50")
+        self.buttonlessWithBonds = CBUUID(string: "8EC90004-F315-4F60-9FB8-838830DAEA50")
 
         super.init()
     }
-
 }
