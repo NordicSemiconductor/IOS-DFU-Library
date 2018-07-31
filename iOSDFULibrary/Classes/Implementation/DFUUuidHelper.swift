@@ -79,8 +79,8 @@ import CoreBluetooth
     @objc
     public var buttonlessWithBonds: CBUUID
 
-    private override init() {
-
+    @objc
+    public override init() {
         ///
         /// Legacy DFU
         ///
@@ -102,10 +102,25 @@ import CoreBluetooth
         self.buttonlessExperimentalService = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
         // the same UUID as the service by default
         self.buttonlessExperimentalCharacteristic = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
-        
+
         self.buttonlessWithoutBonds = CBUUID(string: "8EC90003-F315-4F60-9FB8-838830DAEA50")
         self.buttonlessWithBonds = CBUUID(string: "8EC90004-F315-4F60-9FB8-838830DAEA50")
 
         super.init()
     }
+
+//    private override init() {
+//
+//        super.init()
+//    }
+
+
+    internal func matches(_ characteristic: CBCharacteristic, uuid: CBUUID) -> Bool {
+        return characteristic.uuid.isEqual(uuid)
+    }
+
+    internal func matches(_ service: CBService, uuid: CBUUID) -> Bool {
+        return service.uuid.isEqual(uuid)
+    }
+
 }
