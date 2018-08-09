@@ -415,9 +415,6 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         
         // Set the peripheral delegate to self
         peripheral.delegate = self
-        
-        logger.a("Uploading firmware...")
-        logger.v("Sending firmware to DFU Packet characteristic...")
     }
 
     // MARK: - Peripheral Delegate callbacks
@@ -456,7 +453,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
             // For bonded devices make sure it sends the Service Changed indication after connecting.
             report?(.writingCharacteristicFailed, "Writing to characteristic failed")
         } else {
-            logger.i("Data written to \(characteristic.uuid.uuidString)")
+            logger.v("Data written to \(characteristic.uuid.uuidString)")
         }
     }
     
@@ -480,7 +477,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
                 }
             }
             //Otherwise...    
-            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
+            logger.v("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
 
             // Parse response received
             let dfuResponse = SecureDFUResponse(characteristic.value!)
@@ -488,13 +485,13 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
                 if dfuResponse.status == .success {
                     switch dfuResponse.requestOpCode! {
                     case .readObjectInfo, .calculateChecksum:
-                        logger.a("\(dfuResponse.description) received")
+                        logger.v("\(dfuResponse.description) received")
                         response?(dfuResponse)
                     case .createObject, .setPRNValue, .execute:
                         // Don't log, executor or service will do it for us
                         success?()
                     default:
-                        logger.a("\(dfuResponse.description) received")
+                        logger.v("\(dfuResponse.description) received")
                         success?()
                     }
                 } else if dfuResponse.status == .extendedError {

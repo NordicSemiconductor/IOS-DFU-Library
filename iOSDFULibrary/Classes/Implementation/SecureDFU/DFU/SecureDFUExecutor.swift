@@ -133,7 +133,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidReceiveInitPacket() {
-        logWith(.application, message: String(format: "Command object sent (CRC = %08X)", CRC32(data: firmware.initPacket!).crc))
+        logWith(.verbose, message: String(format: "Command object sent (CRC = %08X)", CRC32(data: firmware.initPacket!).crc))
         peripheral.sendCalculateChecksumCommand()
     }
     
@@ -167,11 +167,11 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     func peripheralDidExecuteObject() {
         if initPacketSent == false {
-            logWith(.application, message: "Command object executed")
+            logWith(.verbose, message: "Command object executed")
             initPacketSent = true
             peripheral.readDataObjectInfo()
         } else {
-            logWith(.application, message: "Data object executed")
+            logWith(.verbose, message: "Data object executed")
             
             if firmwareSent == false {
                 currentRangeIdx += 1
@@ -201,6 +201,9 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             firmwareRanges = calculateFirmwareRanges(Int(maxLen))
             currentRangeIdx = 0
         }
+        
+        logWith(.application, message: "Uploading firmware...")
+        logWith(.verbose, message: "Sending firmware to DFU Packet characteristic...")
         
         DispatchQueue.main.async(execute: {
             self.delegate?.dfuStateDidChange(to: .uploading)
@@ -261,7 +264,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidCreateDataObject() {
-        logWith(.info, message: "Data object \(currentRangeIdx + 1)/\(firmwareRanges!.count) created")
+        logWith(.verbose, message: "Data object \(currentRangeIdx + 1)/\(firmwareRanges!.count) created")
         sendDataObject(currentRangeIdx)
     }
     
