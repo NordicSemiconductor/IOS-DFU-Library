@@ -22,18 +22,14 @@
 
 import CoreBluetooth
 
-internal class SecureDFUPacket {
-    static fileprivate let UUID = DFUUuidHelper.shared.secureDFUPacket
-    
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(UUID)
-    }
+internal class SecureDFUPacket: DFUCharacteristic {
     
     private let packetSize: UInt32
     
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+    internal var dfuHelper: DFUUuidHelper
+
     /// Number of bytes of firmware already sent.
     private(set) var bytesSent: UInt32 = 0
     /// Number of bytes sent at the last progress notification. This value is used to calculate the current speed.
@@ -49,9 +45,10 @@ internal class SecureDFUPacket {
         return characteristic.properties.contains(.writeWithoutResponse)
     }
     
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.characteristic = characteristic
         self.logger = logger
+        self.dfuHelper = dfuHelper
         
         if #available(iOS 9.0, macOS 10.12, *) {
             packetSize = UInt32(characteristic.service.peripheral.maximumWriteValueLength(for: .withoutResponse))

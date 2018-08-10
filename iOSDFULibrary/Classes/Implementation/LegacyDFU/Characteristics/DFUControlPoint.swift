@@ -175,16 +175,12 @@ internal struct PacketReceiptNotification {
     }
 }
 
-@objc internal class DFUControlPoint : NSObject, CBPeripheralDelegate {
-    static let UUID = DFUUuidHelper.shared.legacyDFUControlPoint
-    
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(UUID)
-    }
-    
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+@objc internal class DFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharacteristic {
+
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+    internal var dfuHelper: DFUUuidHelper
+
     private var success: Callback?
     private var proceed: ProgressCallback?
     private var report:  ErrorCallback?
@@ -197,12 +193,13 @@ internal struct PacketReceiptNotification {
     }
     
     // MARK: - Initialization
-    
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.characteristic = characteristic
         self.logger = logger
+        self.dfuHelper = dfuHelper
     }
-    
+
     // MARK: - Characteristic API methods
     
     /**
@@ -312,10 +309,10 @@ internal struct PacketReceiptNotification {
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        guard characteristic.uuid.isEqual(DFUControlPoint.UUID) else {
+        guard characteristic.uuid.isEqual(dfuHelper.legacyDFUControlPoint) else {
             return
         }
-        
+
         if error != nil {
             if !resetSent {
                 logger.e("Writing to characteristic failed. Check if Service Changed service is enabled.")
@@ -360,10 +357,10 @@ internal struct PacketReceiptNotification {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(DFUControlPoint.UUID) else {
+        guard characteristic.uuid.isEqual(dfuHelper.legacyDFUControlPoint) else {
             return
         }
-        
+
         if error != nil {
             // This characteristic is never read, the error may only pop up when notification is received
             logger.e("Receiving notification failed")

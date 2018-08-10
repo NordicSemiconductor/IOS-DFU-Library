@@ -30,7 +30,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     // MARK: - Peripheral API
     
     override var requiredServices: [CBUUID]? {
-        return [SecureDFUService.UUID]
+        return [dfuHelper.secureDFUService]
     }
     
     override func isInitPacketRequired() -> Bool {
@@ -64,7 +64,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         
         return applicationMode
     }
-    
+
     /**
      Switches target device to the DFU Bootloader mode using either the 
      experimental or final Buttonless DFU feature. The experimental buttonless DFU from SDK 12 must be

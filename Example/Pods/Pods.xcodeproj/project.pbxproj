@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		01F2E855D2CDB3461C9EBF8974351727 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E188DAEE389B9A4DB937A435DE771D /* zip.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		02C6514A5BCFF83B585CC1E83F648F5D /* SecureDFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47760AB23A42013B6DF89B2FB1A7B00 /* SecureDFUControlPoint.swift */; };
+		047845692116067A00DADB98 /* DFUCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047845682116067A00DADB98 /* DFUCharacteristic.swift */; };
 		04B109C8210B759100FE6295 /* DFUUuidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B109C7210B759100FE6295 /* DFUUuidHelper.swift */; };
 		04B109C9210B759100FE6295 /* DFUUuidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B109C7210B759100FE6295 /* DFUUuidHelper.swift */; };
 		0588F6025EE7A8EA90D5FEC630809209 /* Pods-iOSDFULibrary_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DE0A2DA7943AA00FAC043B3120DBA7A /* Pods-iOSDFULibrary_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -207,6 +208,7 @@
 		028145855C9F64385776F7A31B38B3C7 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		0330E9028E9DE41F6E8B3C31F16FC9D4 /* DFUStreamZip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamZip.swift; sourceTree = "<group>"; };
 		03FB6258026DB5BE79B2019BC0E8A90B /* SecureDFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPacket.swift; sourceTree = "<group>"; };
+		047845682116067A00DADB98 /* DFUCharacteristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUCharacteristic.swift; sourceTree = "<group>"; };
 		04B109C7210B759100FE6295 /* DFUUuidHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUUuidHelper.swift; sourceTree = "<group>"; };
 		04B2853CB858100FED4BCC7412F0037F /* DFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUService.swift; sourceTree = "<group>"; };
 		0719941AB58AED77CE70FF83B24FA45C /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = Zip/minizip/ioapi.c; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				9294247F327AA1ACC1C0E0F6377013F8 /* DFUPeripheral.swift */,
 				C557E40AEB5AD532A6145B567F496155 /* DFUPeripheralDelegate.swift */,
 				04B2853CB858100FED4BCC7412F0037F /* DFUService.swift */,
+				047845682116067A00DADB98 /* DFUCharacteristic.swift */,
 			);
 			path = GenericDFU;
 			sourceTree = "<group>";
@@ -1062,6 +1065,7 @@
 				AB0DF4AB6B966C13A8228FB0DAFEF0CE /* DFUPeripheralSelectorDelegate.swift in Sources */,
 				0C9DB18009CD102329F7C5B5BDA33BCE /* DFUService.swift in Sources */,
 				ED2EE8AA1AD75AAD5FCD9857622FC5E1 /* DFUServiceController.swift in Sources */,
+				047845692116067A00DADB98 /* DFUCharacteristic.swift in Sources */,
 				66798A7001616D84AD6059C00D1AA7B9 /* DFUServiceDelegate.swift in Sources */,
 				CC28CEC956FBDEE97DCB706BC7C6B8B7 /* DFUServiceInitiator.swift in Sources */,
 				DA9166C43D2EE6B0CA9FE58062716249 /* DFUServiceSelector.swift in Sources */,

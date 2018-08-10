@@ -22,18 +22,14 @@
 
 import CoreBluetooth
 
-internal class DFUPacket {
-    static fileprivate let UUID = DFUUuidHelper.shared.legacyDFUPacket
-    
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(UUID)
-    }
-    
+internal class DFUPacket: DFUCharacteristic {
+
     private let packetSize: UInt32 = 20 // Legacy DFU does not support higher MTUs
     
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+    internal var dfuHelper: DFUUuidHelper
+
     /// Number of bytes of firmware already sent.
     private(set) var bytesSent: UInt32 = 0
     /// Number of bytes sent at the last progress notification. This value is used to calculate the current speed.
@@ -48,9 +44,10 @@ internal class DFUPacket {
         return characteristic.properties.contains(.writeWithoutResponse)
     }
     
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.characteristic = characteristic
         self.logger = logger
+        self.dfuHelper = dfuHelper
     }
     
     // MARK: - Characteristic API methods
@@ -68,9 +65,11 @@ internal class DFUPacket {
         data += size.softdevice.littleEndian
         data += size.bootloader.littleEndian
         data += size.application.littleEndian
+
+        let packetUUID = dfuHelper.legacyDFUPacket.uuidString
         
-        logger.v("Writing image sizes (\(size.softdevice)b, \(size.bootloader)b, \(size.application)b) to characteristic \(DFUPacket.UUID.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(data.hexString), for: \(DFUPacket.UUID.uuidString), type: .withoutResponse)")
+        logger.v("Writing image sizes (\(size.softdevice)b, \(size.bootloader)b, \(size.application)b) to characteristic \(packetUUID)...")
+        logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
         peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
     }
 
@@ -85,9 +84,11 @@ internal class DFUPacket {
         
         var data = Data(capacity: 4)
         data += size.application.littleEndian
-        
-        logger.v("Writing image size (\(size.application)b) to characteristic \(DFUPacket.UUID.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(data.hexString), for: \(DFUPacket.UUID.uuidString), type: .withoutResponse)")
+
+        let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+
+        logger.v("Writing image size (\(size.application)b) to characteristic \(packetUUID)...")
+        logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
         peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
     }
     
@@ -107,8 +108,12 @@ internal class DFUPacket {
         repeat {
             let packetLength = min(bytesToSend, packetSize)
             let packet = data.subdata(in: Int(offset) ..< Int(offset + packetLength))
-            logger.v("Writing to characteristic \(DFUPacket.UUID.uuidString)...")
-            logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(DFUPacket.UUID.uuidString), type: .withoutResponse)")
+
+            let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+
+            logger.v("Writing to characteristic \(packetUUID)...")
+            logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(packetUUID), type: .withoutResponse)")
+
             peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             offset += packetLength

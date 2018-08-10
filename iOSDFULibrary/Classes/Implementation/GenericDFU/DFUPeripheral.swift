@@ -78,7 +78,10 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     internal var defaultErrorCallback: ErrorCallback {
         return { (error, message) in self.delegate?.error(error, didOccurWithMessage: message) }
     }
-    
+
+    /// UUIDs for Service/Characteristids
+    internal var dfuHelper: DFUUuidHelper
+
     /// A flag set when upload has been aborted.
     fileprivate var aborted: Bool = false
     
@@ -86,6 +89,8 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         self.centralManager = initiator.centralManager
         self.logger = LoggerHelper(initiator.logger)
         self.experimentalButtonlessServiceInSecureDfuEnabled = initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu
+        self.dfuHelper = initiator.dfuHelper
+
         super.init()
         // Set the initial peripheral. It may be changed later (flashing App fw after first flashing SD/BL)
         self.peripheral = initiator.target
@@ -329,15 +334,17 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         if let services = services {
             for service in services {
                 // Skip the experimental Buttonless DFU Service if this feature wasn't enabled
-                if experimentalButtonlessServiceInSecureDfuEnabled && SecureDFUService.matches(experimental: service) {
+                if experimentalButtonlessServiceInSecureDfuEnabled && DFUUuidHelper.matches(service, uuid: dfuHelper.buttonlessExperimentalService) {
                     // The experimental Buttonless DFU Service for Secure DFU has been found
                     return service
                 }
-                if SecureDFUService.matches(service) {
+
+                if DFUUuidHelper.matches(service, uuid: dfuHelper.secureDFUService) {
                     // Secure DFU Service has been found
                     return service
                 }
-                if LegacyDFUService.matches(service) {
+
+                if DFUUuidHelper.matches(service, uuid: dfuHelper.legacyDFUService) {
                     // Legacy DFU Service has been found
                     return service
                 }
@@ -456,7 +463,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     // MARK: - Base DFU Peripheral API
     
     override func peripheralDidDiscoverDfuService(_ service: CBService) {
-        dfuService = DFUServiceType(service, logger)
+        dfuService = DFUServiceType(service, logger, dfuHelper)
         dfuService!.targetPeripheral = self
         dfuService!.discoverCharacteristics(
             onSuccess: { self.delegate?.peripheralDidBecomeReady() },
@@ -539,7 +546,11 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         }
         
         logger.v("Scanning for the DFU Bootloader...")
-        centralManager.scanForPeripherals(withServices: peripheralSelector.filterBy(hint: DFUServiceType.UUID))
+
+        if let dfuService = dfuService {
+            centralManager.scanForPeripherals(withServices: peripheralSelector.filterBy(hint: dfuService.serviceUuid))
+        }
+
     }
     
     // MARK: - Peripheral Delegate methods

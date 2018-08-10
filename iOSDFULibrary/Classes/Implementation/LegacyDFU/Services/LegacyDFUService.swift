@@ -23,12 +23,7 @@
 import CoreBluetooth
 
 @objc internal class LegacyDFUService : NSObject, CBPeripheralDelegate, DFUService {
-    static let UUID = DFUUuidHelper.shared.legacyDFUService
-    
-    static func matches(_ service: CBService) -> Bool {
-        return service.uuid.isEqual(UUID)
-    }
-    
+
     /// The target DFU Peripheral
     internal var targetPeripheral: DFUPeripheralAPI?
     /// The logger helper.
@@ -38,6 +33,10 @@ import CoreBluetooth
     private var dfuPacketCharacteristic       : DFUPacket?
     private var dfuControlPointCharacteristic : DFUControlPoint?
     private var dfuVersionCharacteristic      : DFUVersion?
+    
+    internal var dfuHelper: DFUUuidHelper
+    internal var serviceUuid: CBUUID
+
     /// This method returns true if DFU Control Point characteristc has been discovered.
     /// A device without this characteristic is not supported and even can't be resetted by sending a Reset command.
     internal func supportsReset() -> Bool {
@@ -63,9 +62,12 @@ import CoreBluetooth
     
     // MARK: - Initialization
     
-    required init(_ service: CBService, _ logger: LoggerHelper) {
+    required init(_ service: CBService, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.service = service
         self.logger = logger
+        self.dfuHelper = dfuHelper
+        self.serviceUuid = dfuHelper.legacyDFUService
+        
         super.init()
         self.logger.v("Legacy DFU Service found")
     }
@@ -136,7 +138,8 @@ import CoreBluetooth
         
         // Discover DFU characteristics
         logger.v("Discovering characteristics in DFU Service...")
-        logger.d("peripheral.discoverCharacteristics(nil, for: \(LegacyDFUService.UUID.uuidString))")
+        logger.d("peripheral.discoverCharacteristics(nil, for: \(serviceUuid.uuidString))")
+        
         peripheral.discoverCharacteristics(nil, for: service)
     }
     
@@ -554,13 +557,17 @@ import CoreBluetooth
             
             // Find DFU characteristics
             for characteristic in service.characteristics! {
-                if (DFUPacket.matches(characteristic)) {
-                    dfuPacketCharacteristic = DFUPacket(characteristic, logger)
-                } else if (DFUControlPoint.matches(characteristic)) {
-                    dfuControlPointCharacteristic = DFUControlPoint(characteristic, logger)
-                } else if (DFUVersion.matches(characteristic)) {
-                    dfuVersionCharacteristic = DFUVersion(characteristic, logger)
+                
+                if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.legacyDFUPacket) {
+                    dfuPacketCharacteristic = DFUPacket(characteristic, logger, dfuHelper)
+
+                } else if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.legacyDFUControlPoint) {
+                    dfuControlPointCharacteristic = DFUControlPoint(characteristic, logger, dfuHelper)
+                    
+                } else if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.legacyDFUVersion) {
+                    dfuVersionCharacteristic = DFUVersion(characteristic, logger, dfuHelper)
                 }
+
             }
             
             // Some validation

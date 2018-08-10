@@ -24,63 +24,110 @@
 import Foundation
 import CoreBluetooth
 
+/// UUID Types for DFU
+@objc public enum DFUUuidType: Int {
+    /// Legacy DFU Service
+    case lagacyService                  = 0
+    /// Legacy DFU Control Point Characteristic
+    case legacyControlPoint             = 1
+    /// Legacy DFU Packet Characteristic
+    case legacyPacket                   = 2
+    /// Legacy DFU Version Characteristic
+    case legacyVersion                  = 3
+    /// Secure DFU Service
+    case secureService                  = 4
+    /// Secure DFU Control Characteristic
+    case secureControl                  = 5
+    /// Secure DFU Packet Characteristic
+    case securePacket                   = 6
+    /// Buttonless DFU Service
+    case buttonlessService              = 7
+    /// Buttonless DFU Characteristic
+    case buttonlessCharacteristic       = 8
+    /// Buttonless DFU Without Bond Sharing Characterisitic
+    case buttonlessWithoutBondSharing   = 9
+    /// Buttonless DFU With Bond Sharing Characterisitic
+    case buttonlessWithBondSharing      = 10
+}
+
+/// DFU UUID object
+@objc public class DFUUuid: NSObject {
+
+    /// UUID For the DFU UUID Object
+    @objc
+    public let uuid: CBUUID
+
+    /// Type of DFU UUID
+    @objc
+    public let type: DFUUuidType
+
+    @objc
+    public init(withUUID: CBUUID, forType: DFUUuidType) {
+
+        self.uuid = withUUID
+        self.type = forType
+
+        super.init()
+    }
+}
+
 /// UUID Helper for DFU Process
 ///
 /// The UUID can be modified for each of the DFU types supported by
-/// the Nordic devices.  This should be done prior to calling DFUServiceInitiator
+/// the Nordic devices.
 @objc public class DFUUuidHelper: NSObject {
-
-    @objc
-    public static let shared: DFUUuidHelper = DFUUuidHelper()
 
     /// UUID for Legacy DFU Service
     @objc
-    public var legacyDFUService: CBUUID
+    private(set) public var legacyDFUService: CBUUID
 
     /// UUID for Legacy DFU Control Point Characteristic
     @objc
-    public var legacyDFUControlPoint: CBUUID
+    private(set) public var legacyDFUControlPoint: CBUUID
 
     /// UUID for Legacy DFU Packet Characteristic
     @objc
-    public var legacyDFUPacket: CBUUID
+    private(set) public var legacyDFUPacket: CBUUID
 
     /// UUID for Legacy DFU Version Characteristic
     @objc
-    public var legacyDFUVersion: CBUUID
+    private(set) public var legacyDFUVersion: CBUUID
 
     /// UUID for Secure DFU Service
     @objc
-    public var secureDFUService: CBUUID
+    private(set) public var secureDFUService: CBUUID
 
     /// UUID for Secure DFU Control Characteristic
     @objc
-    public var secureDFUControlPoint: CBUUID
+    private(set) public var secureDFUControlPoint: CBUUID
 
     /// UUID for Secure DFU Packet Characteristic
     @objc
-    public var secureDFUPacket: CBUUID
+    private(set) public var secureDFUPacket: CBUUID
 
     /// UUID for Buttonless DFU Service
     ///
     /// This UUID is also used for the Characteristic
     @objc
-    public var buttonlessExperimentalService: CBUUID
+    private(set) public var buttonlessExperimentalService: CBUUID
 
     /// UUID for Buttonless DFU Characteristic
     @objc
-    public var buttonlessExperimentalCharacteristic: CBUUID
+    private(set) public var buttonlessExperimentalCharacteristic: CBUUID
 
     /// UUID for Buttonless DFU Without Bond Sharing Characterisitic
     @objc
-    public var buttonlessWithoutBonds: CBUUID
+    private(set) public var buttonlessWithoutBonds: CBUUID
 
     /// UUID for Buttonless DFU With Bond Sharing Characterisitic
     @objc
-    public var buttonlessWithBonds: CBUUID
+    private(set) public var buttonlessWithBonds: CBUUID
 
+    /// Creates the DFU Helper with Default UUIDs
     @objc
     public override init() {
+        // setup the default UUIDs
+        
         ///
         /// Legacy DFU
         ///
@@ -109,17 +156,77 @@ import CoreBluetooth
         super.init()
     }
 
-//    private override init() {
-//
-//        super.init()
-//    }
+    @objc
+    /// Create the DFU UUID Helper with Custom UUIDs
+    ///
+    /// - Parameter uuids: Array of Custom UUIDs
+    public convenience init(customUuids uuids: [DFUUuid]) {
 
+        self.init()
 
-    internal func matches(_ characteristic: CBCharacteristic, uuid: CBUUID) -> Bool {
+        for uuid in uuids {
+
+            switch uuid.type {
+            case .lagacyService:
+                self.legacyDFUService = uuid.uuid
+            case .legacyControlPoint:
+                self.legacyDFUControlPoint = uuid.uuid
+            case .legacyPacket:
+                self.legacyDFUPacket = uuid.uuid
+            case .legacyVersion:
+                self.legacyDFUVersion = uuid.uuid
+            case .secureService:
+                self.secureDFUService = uuid.uuid
+            case .secureControl:
+                self.secureDFUControlPoint = uuid.uuid
+            case .securePacket:
+                self.secureDFUPacket = uuid.uuid
+            case .buttonlessService:
+                self.buttonlessExperimentalService = uuid.uuid
+            case .buttonlessCharacteristic:
+                self.buttonlessExperimentalCharacteristic = uuid.uuid
+            case .buttonlessWithoutBondSharing:
+                self.buttonlessWithoutBonds = uuid.uuid
+            case .buttonlessWithBondSharing:
+                self.buttonlessWithBonds = uuid.uuid
+            }
+        }
+
+    }
+
+}
+
+internal extension DFUUuidHelper {
+
+    /// Checks if the Characteristic matches the ButtonLess Characteristics
+    ///
+    /// - Parameters:
+    ///   - characteristic: Characteristic to check for match
+    ///   - helper: Instance of the UUID Helper
+    /// - Returns: Bool Value
+    internal static func matchesButtonLess(_ characteristic: CBCharacteristic, helper: DFUUuidHelper) -> Bool {
+        return characteristic.uuid.isEqual(helper.buttonlessWithBonds) ||
+            characteristic.uuid.isEqual(helper.buttonlessWithoutBonds) ||
+            characteristic.uuid.isEqual(helper.buttonlessExperimentalCharacteristic)
+    }
+
+    /// Checks if the Characteristic matches the DFU UUID
+    ///
+    /// - Parameters:
+    ///   - characteristic: Characteristic to check for match
+    ///   - uuid: DFU UUID
+    /// - Returns: Bool Value
+    internal static func matches(_ characteristic: CBCharacteristic, uuid: CBUUID) -> Bool {
         return characteristic.uuid.isEqual(uuid)
     }
 
-    internal func matches(_ service: CBService, uuid: CBUUID) -> Bool {
+    /// Checks if the Service matches the DFU UUID
+    ///
+    /// - Parameters:
+    ///   - service: Service to check for match
+    ///   - uuid: DFU UUID
+    /// - Returns: Bool Value
+    internal static func matches(_ service: CBService, uuid: CBUUID) -> Bool {
         return service.uuid.isEqual(uuid)
     }
 
