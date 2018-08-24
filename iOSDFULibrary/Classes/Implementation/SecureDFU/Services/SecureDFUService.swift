@@ -223,9 +223,9 @@ import CoreBluetooth
         dfuControlPointCharacteristic?.send(SecureDFURequest.setPacketReceiptNotification(value: aValue),
             onSuccess: {
                 if aValue > 0 {
-                    self.logger.a("Packet Receipt Notif enabled (Op Code = 2, Value = \(aValue))")
+                    self.logger.v("Packet Receipt Notif enabled (Op Code = 2, Value = \(aValue))")
                 } else {
-                    self.logger.a("Packet Receipt Notif disabled (Op Code = 2, Value = 0)")
+                    self.logger.v("Packet Receipt Notif disabled (Op Code = 2, Value = 0)")
                 }
                 success()
             },
