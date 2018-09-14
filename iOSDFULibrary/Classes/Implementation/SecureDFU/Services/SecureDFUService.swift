@@ -50,7 +50,7 @@ import CoreBluetooth
     
     // -- Properties stored when upload started in order to resume it --
     private var firmware: DFUFirmware?
-    private var packetReceiptNotificationNumber: UInt16 = 0
+    private var packetReceiptNotificationNumber: UInt16?
     private var range: Range<Int>?
     // -- End --
     
@@ -81,7 +81,7 @@ import CoreBluetooth
     func resume() -> Bool {
         if !aborted && paused && firmware != nil {
             paused = false
-            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber, packetsFrom: range!, of: firmware!,
+            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber ?? 0, packetsFrom: range!, of: firmware!,
                                               andReportProgressTo: progressDelegate, andCompletionTo: success!)
             return paused
         }
@@ -219,18 +219,22 @@ import CoreBluetooth
      - parameter report:  method called when an error occurred
      */
     func setPacketReceiptNotificationValue(_ aValue: UInt16 = 0, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
-        self.packetReceiptNotificationNumber = aValue
-        dfuControlPointCharacteristic?.send(SecureDFURequest.setPacketReceiptNotification(value: aValue),
-            onSuccess: {
-                if aValue > 0 {
-                    self.logger.a("Packet Receipt Notif enabled (Op Code = 2, Value = \(aValue))")
-                } else {
-                    self.logger.a("Packet Receipt Notif disabled (Op Code = 2, Value = 0)")
-                }
-                success()
-            },
-            onError: report
-        )
+        if packetReceiptNotificationNumber == aValue {
+            success()
+        } else {
+            packetReceiptNotificationNumber = aValue
+            dfuControlPointCharacteristic?.send(SecureDFURequest.setPacketReceiptNotification(value: aValue),
+                onSuccess: {
+                    if aValue > 0 {
+                        self.logger.a("Packet Receipt Notif enabled (Op Code = 2, Value = \(aValue))")
+                    } else {
+                        self.logger.a("Packet Receipt Notif disabled (Op Code = 2, Value = 0)")
+                    }
+                    success()
+                },
+                onError: report
+            )
+        }
     }
     
     /**
@@ -329,14 +333,14 @@ import CoreBluetooth
                 // of bytes reported), or when the iOS reports the peripheralIsReady(toSendWriteWithoutResponse:) callback
                 // (bytesReceived is nil). If PRNs are enabled we ignore this second case as the PRNs are responsible for synchronization.
                 let peripheralIsReadyToSendWriteWithoutRequest = bytesReceived == nil
-                if self.packetReceiptNotificationNumber > 0 && peripheralIsReadyToSendWriteWithoutRequest {
+                if self.packetReceiptNotificationNumber ?? 0 > 0 && peripheralIsReadyToSendWriteWithoutRequest {
                     return
                 }
             
                 if !self.paused && !self.aborted {
                     let bytesSent = self.dfuPacketCharacteristic!.bytesSent + UInt32(aRange.lowerBound)
                     if peripheralIsReadyToSendWriteWithoutRequest || bytesSent == bytesReceived! {
-                        self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber, packetsFrom: aRange, of: aFirmware,
+                        self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber ?? 0, packetsFrom: aRange, of: aFirmware,
                                                                andReportProgressTo: progressDelegate, andCompletionTo: self.success!)
                     } else {
                         // Target device deported invalid number of bytes received
@@ -358,7 +362,7 @@ import CoreBluetooth
         
         if !paused && !aborted {
             // ...and start sending firmware if
-            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber, packetsFrom: aRange, of: aFirmware,
+            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber ?? 0, packetsFrom: aRange, of: aFirmware,
                                                    andReportProgressTo: progressDelegate, andCompletionTo: self.success!)
         } else if aborted {
             self.firmware = nil

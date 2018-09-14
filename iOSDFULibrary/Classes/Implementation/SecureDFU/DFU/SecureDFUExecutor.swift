@@ -128,7 +128,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         if initPacketSent == false {
             sendInitPacket(fromOffset: offset!)
         } else {
-            sendDataObject(currentRangeIdx, from: offset!)
+            peripheral.readDataObjectInfo()
         }
     }
     
@@ -169,7 +169,10 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         if initPacketSent == false {
             logWith(.application, message: "Command object executed")
             initPacketSent = true
-            peripheral.readDataObjectInfo()
+            // Set the correct PRN value. If initiator.packetReceiptNotificationParameter is 0
+            // and PRNs were already disabled to send the Init packet, this method will immediately
+            // call peripheralDidSetPRNValue() callback.
+            peripheral.setPRNValue(initiator.packetReceiptNotificationParameter)
         } else {
             logWith(.application, message: "Data object executed")
             
@@ -225,14 +228,14 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                     peripheral.sendExecuteCommand(andActivateIf: firmwareSent)
                 } else {
                     logWith(.info, message: "Resuming uploading firmware...")
-                    // If the PRNs are enabled the value must be sent to the target
-                    if initiator.packetReceiptNotificationParameter > 0 {
-                        peripheral.setPRNValue(initiator.packetReceiptNotificationParameter)
+                    
+                    // If the whole object was sent before, make sure it's executed
+                    if (offset % maxLen) == 0 {
+                        // currentRangeIdx won't go below 0 because offset > 0 and offset % maxLen == 0
+                        currentRangeIdx -= 1
+                        peripheral.sendExecuteCommand()
                     } else {
-                        // Otherwise we can just start by creating the first object. PRNs were set to 0 before, to send the init packet.
-                        // Note: setting PRNs to 0 (disabling them) will not work!
-                        
-                        // Otherwise create current object
+                        // Otherwise, continue sending the current object from given offset
                         sendDataObject(currentRangeIdx, from: offset)
                     }
                 }
@@ -247,16 +250,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 })
             }
         } else {
-            // If the PRNs are enabled the value must be sent to the target
-            if initiator.packetReceiptNotificationParameter > 0 {
-                peripheral.setPRNValue(initiator.packetReceiptNotificationParameter)
-            } else {
-                // Otherwise we can just start by creating the first object. PRNs were set to 0 before, to send the init packet.
-                // Note: setting PRNs to 0 (disabling them) will not work!
-                
-                // Create the first data object
-                createDataObject(currentRangeIdx)
-            }
+            // Create the first data object
+            createDataObject(currentRangeIdx)
         }
     }
     
