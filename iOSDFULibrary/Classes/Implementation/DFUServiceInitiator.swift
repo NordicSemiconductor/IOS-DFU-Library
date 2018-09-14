@@ -251,7 +251,7 @@ import CoreBluetooth
     @objc public func start() -> DFUServiceController? {
         // The firmware file must be specified before calling `start()`
         if file == nil {
-            delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firmare not specified")
+            delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firwmare not specified")
             return nil
         }
 
