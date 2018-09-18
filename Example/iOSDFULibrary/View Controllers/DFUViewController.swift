@@ -56,7 +56,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     
     @IBAction func stopProcessButtonTapped(_ sender: AnyObject) {
         guard dfuController != nil else {
-            print("No DFU peripheral was set")
+            initialize()
+            startDFUProcess()
             return
         }
         guard !dfuController!.aborted else {
@@ -95,6 +96,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initialize()
+        startDFUProcess()
+    }
+    
+    private func initialize() {
         if let firmware = firmwareProvider.firmware {
             dfuStatusLabel.text = ""
             partLabel.text = "1 / \(firmware.parts)"
@@ -114,8 +120,6 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         //currentSpeedLabel.text = ""
         averageSpeedLabel.text = ""
         stopProcessButton.isEnabled = false
-        
-        startDFUProcess()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -286,12 +290,18 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
                 if firmwareProvider.hasNext() {
                     prepareNextStep()
                 } else {
+                    stopTimer()
                     stepDescriptionLabel.text = "Test finished"
                 }
             } else {
                 stopTimer()
-                stepDescriptionLabel.text = "Step failed with error \(error.rawValue) but \(firmwareProvider.expectedError!.rawValue) was expected"
+                stepDescriptionLabel.text! += ": Failed with error \(error.rawValue) but \(firmwareProvider.expectedError!.rawValue) was expected"
+                stopProcessButton.setTitle("Restart", for: .normal)
             }
+        } else {
+            stopTimer()
+            stepDescriptionLabel.text! += ": Failed"
+            stopProcessButton.setTitle("Restart", for: .normal)
         }
     }
     
