@@ -334,8 +334,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
-        self.success = success
-        self.report  = report
+        self.success  = success
+        self.response = nil
+        self.report   = report
         
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
@@ -358,8 +359,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
      */
     func send(_ request: SecureDFURequest, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
-        self.success = success
-        self.report  = report
+        self.success  = success
+        self.response = nil
+        self.report   = report
         
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
@@ -382,6 +384,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
      */
     func send(_ request: SecureDFURequest, onResponse response: SecureDFUResponseCallback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
+        self.success  = nil
         self.response = response
         self.report   = report
         

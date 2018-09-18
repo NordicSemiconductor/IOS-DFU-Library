@@ -25,7 +25,7 @@ import CoreBluetooth
 internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, SecureDFUService> {
     
     /// A flag indicating whether setting alternative advertising name is enabled (SDK 14+) (true by default)
-    internal let alternativeAdvertisingNameEnabled: Bool
+    let alternativeAdvertisingNameEnabled: Bool
     
     // MARK: - Peripheral API
     
@@ -145,8 +145,8 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Sets the Packet Receipt Notification value. 0 disables the PRN procedure. On iOS the value may not be greater than ~20 or equal to 0
-     if more than ~20 are to be sent or a buffer overflow error may occur.
+     Sets the Packet Receipt Notification value. 0 disables the PRN procedure.
+     On older version of iOS the value may not be greater than ~20 or equal to 0, otherwise a buffer overflow error may occur.
      This library sends the Init packet without PRNs, but that's only because of the Init packet is small enough.
      
      - parameter aValue:  Packet Receipt Notification value (0 to disable PRNs)
