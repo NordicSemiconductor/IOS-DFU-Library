@@ -324,11 +324,12 @@
 				TargetAttributes = {
 					37E4ADEF2008CA1C005464DD = {
 						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = P3R8YQEV4L;
 						ProvisioningStyle = Automatic;
 					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = K82A2U6DU4;
+						DevelopmentTeam = P3R8YQEV4L;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -339,7 +340,7 @@
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = K82A2U6DU4;
+						DevelopmentTeam = P3R8YQEV4L;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 607FACCF1AFB9204008FA782;
@@ -645,11 +646,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "macOS-DFU-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.macOS-DFU-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.macOS-DFU-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -671,11 +673,12 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "macOS-DFU-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.macOS-DFU-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.macOS-DFU-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.0;
@@ -796,12 +799,12 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K82A2U6DU4;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				INFOPLIST_FILE = iOSDFULibrary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.DFU-Example";
 				PRODUCT_NAME = "DFU Example";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "";
@@ -820,12 +823,12 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K82A2U6DU4;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				INFOPLIST_FILE = iOSDFULibrary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.DFU-Example";
 				PRODUCT_NAME = "DFU Example";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "";
@@ -842,7 +845,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K82A2U6DU4;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/System/Library/Frameworks",
 					"$(inherited)",
@@ -869,7 +872,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K82A2U6DU4;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/System/Library/Frameworks",
 					"$(inherited)",
