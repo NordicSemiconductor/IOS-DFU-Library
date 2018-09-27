@@ -260,7 +260,6 @@
 				37E4ADED2008CA1C005464DD /* Frameworks */,
 				37E4ADEE2008CA1C005464DD /* Resources */,
 				C2117B5ADF3004A94C7E5900 /* [CP] Embed Pods Frameworks */,
-				97CA591FF7F717C1EA74518C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -280,7 +279,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				8CC9A5FC22615A4B5C894693 /* [CP] Embed Pods Frameworks */,
-				0364318946015A092A6047D2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -300,7 +298,6 @@
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
 				25FE51633CD9631C5141DAA6 /* [CP] Embed Pods Frameworks */,
-				189C618E4AD3BD6F26D31C09 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -398,36 +395,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0364318946015A092A6047D2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		189C618E4AD3BD6F26D31C09 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		25FE51633CD9631C5141DAA6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,21 +487,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97CA591FF7F717C1EA74518C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-macOSDFULibrary_Example/Pods-macOSDFULibrary_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C2117B5ADF3004A94C7E5900 /* [CP] Embed Pods Frameworks */ = {
