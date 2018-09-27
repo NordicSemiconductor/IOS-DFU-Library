@@ -93,30 +93,22 @@ internal struct ButtonlessDFUResponse {
     }
 }
 
-internal class ButtonlessDFU : NSObject, CBPeripheralDelegate {
-    static let EXPERIMENTAL_UUID         = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50") // the same UUID as the service
-    static let WITHOUT_BOND_SHARING_UUID = CBUUID(string: "8EC90003-F315-4F60-9FB8-838830DAEA50")
-    static let WITH_BOND_SHARING_UUID    = CBUUID(string: "8EC90004-F315-4F60-9FB8-838830DAEA50")
+internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic {
     
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(WITHOUT_BOND_SHARING_UUID) ||
-            characteristic.uuid.isEqual(WITH_BOND_SHARING_UUID) ||
-            characteristic.uuid.isEqual(EXPERIMENTAL_UUID)
-    }
-    
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+    internal var dfuHelper: DFUUuidHelper
+
     private var success: Callback?
     private var report:  ErrorCallback?
     
     internal var valid: Bool {
-        return (characteristic.properties.isSuperset(of: [.write, .notify]) && characteristic.uuid.isEqual(ButtonlessDFU.EXPERIMENTAL_UUID)) ||
+        return (characteristic.properties.isSuperset(of: [.write, .notify]) && characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic)) ||
                 characteristic.properties.isSuperset(of: [.write, .indicate])
     }
     
     internal var newAddressExpected: Bool {
-        return characteristic.uuid.isEqual(ButtonlessDFU.EXPERIMENTAL_UUID) || characteristic.uuid.isEqual(ButtonlessDFU.WITHOUT_BOND_SHARING_UUID)
+        return characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic) || characteristic.uuid.isEqual(dfuHelper.buttonlessWithoutBonds)
     }
     
     /**
@@ -128,13 +120,14 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate {
      command to that characteristic will end with ButtonlessDFUResultCode.opCodeNotSupported.
      */
     internal var maySupportSettingName: Bool {
-        return characteristic.uuid.isEqual(ButtonlessDFU.WITHOUT_BOND_SHARING_UUID)
+        return characteristic.uuid.isEqual(dfuHelper.buttonlessWithoutBonds)
     }
     
     // MARK: - Initialization
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.characteristic = characteristic
         self.logger = logger
+        self.dfuHelper = dfuHelper
     }
     
     // MARK: - Characteristic API methods
@@ -227,10 +220,10 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard ButtonlessDFU.matches(characteristic) else {
+        guard characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic) else {
             return
         }
-        
+
         if error != nil {
             // This characteristic is never read, the error may only pop up when notification/indication is received
             logger.e("Receiving response failed")
@@ -253,7 +246,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate {
                     logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
                     // The returned errod code is incremented by 30 or 9000 to match Buttonless DFU or Experimental Buttonless DFU remote codes
                     // See DFUServiceDelegate.swift -> DFUError
-                    let offset = characteristic.uuid.isEqual(ButtonlessDFU.EXPERIMENTAL_UUID) ? 9000 : 30
+                    let offset = characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic) ? 9000 : 30
                     report?(DFUError(rawValue: Int(dfuResponse.status!.code) + offset)!, dfuResponse.status!.description)
                 }
             } else {

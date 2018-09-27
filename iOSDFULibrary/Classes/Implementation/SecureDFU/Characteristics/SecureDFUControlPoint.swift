@@ -294,16 +294,12 @@ internal struct SecureDFUPacketReceiptNotification {
     }
 }
 
-internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
-    static let UUID = CBUUID(string: "8EC90001-F315-4F60-9FB8-838830DAEA50")
+internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharacteristic {
     
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(UUID)
-    }
-    
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+    internal var dfuHelper: DFUUuidHelper
+
     private var success:  Callback?
     private var response: SecureDFUResponseCallback?
     private var proceed:  ProgressCallback?
@@ -314,9 +310,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     }
     
     // MARK: - Initialization
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.characteristic = characteristic
         self.logger = logger
+        self.dfuHelper = dfuHelper
     }
 
     func peripheralDidReceiveObject() {
@@ -445,10 +442,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        guard characteristic.uuid.isEqual(SecureDFUControlPoint.UUID) else {
+        guard characteristic.uuid.isEqual(dfuHelper.secureDFUControlPoint) else {
             return
         }
-        
+
         if error != nil {
             logger.e("Writing to characteristic failed. Check if Service Changed service is enabled.")
             logger.e(error!)
@@ -465,10 +462,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(SecureDFUControlPoint.UUID) else {
+        guard characteristic.uuid.isEqual(dfuHelper.secureDFUControlPoint) else {
             return
         }
-        
+
         if error != nil {
             // This characteristic is never read, the error may only pop up when notification is received
             logger.e("Receiving notification failed")

@@ -24,16 +24,12 @@ import CoreBluetooth
 
 internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
 
-@objc internal class DFUVersion : NSObject, CBPeripheralDelegate {
-    static let UUID = CBUUID(string: "00001534-1212-EFDE-1523-785FEABCD123")
+@objc internal class DFUVersion : NSObject, CBPeripheralDelegate, DFUCharacteristic {
     
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(UUID)
-    }
-    
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+    internal var dfuHelper: DFUUuidHelper
+
     private var success: VersionCallback?
     private var report: ErrorCallback?
     
@@ -43,9 +39,10 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     
     // MARK: - Initialization
     
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.characteristic = characteristic
         self.logger = logger
+        self.dfuHelper = dfuHelper
     }
     
     // MARK: - Characteristic API methods
@@ -77,10 +74,10 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(DFUVersion.UUID) else {
+        guard characteristic.uuid.isEqual(dfuHelper.legacyDFUVersion) else {
             return
         }
-        
+
         if error != nil {
             logger.e("Reading DFU Version characteristic failed")
             logger.e(error!)

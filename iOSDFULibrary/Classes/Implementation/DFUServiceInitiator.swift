@@ -194,7 +194,12 @@ import CoreBluetooth
      new service when SDK 13 (or later) is out. TODO: fix the docs when SDK 13 is out.
      */
     @objc public var enableUnsafeExperimentalButtonlessServiceInSecureDfu = false
-    
+
+    /// UUIDs used during the DFU Process
+    ///
+    /// This allows you to pass in Custom UUIDs for the DFU Service/Characteristics
+    @objc public var dfuHelper: DFUUuidHelper
+
     //MARK: - Public API
     
     /**
@@ -219,6 +224,8 @@ import CoreBluetooth
         self.target = target
         // Default peripheral selector will choose the service UUID as a filter
         self.peripheralSelector = DFUPeripheralSelector()
+        self.dfuHelper = DFUUuidHelper()
+
         super.init()
     }
     

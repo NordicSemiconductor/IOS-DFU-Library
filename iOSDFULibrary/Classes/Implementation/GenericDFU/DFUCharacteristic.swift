@@ -20,30 +20,20 @@
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import Foundation
 import CoreBluetooth
 
-internal class DFUStarterPeripheral : BaseDFUPeripheral<DFUServiceSelector> {
-    
-    /**
-     Method called when a DFU service has been found.
-     */
-    override func peripheralDidDiscoverDfuService(_ service: CBService) {
+/// Describes a DFU Characteristic
+internal protocol DFUCharacteristic {
 
-        if DFUUuidHelper.matches(service, uuid: dfuHelper.secureDFUService) {
-            logger.v("Starting Secure DFU...")
-            delegate?.peripheralDidSelectedExecutor(SecureDFUExecutor.self)
+    /// Characteristic
+    var characteristic: CBCharacteristic { get }
 
-        } else if (DFUUuidHelper.matches(service, uuid: dfuHelper.legacyDFUService)) {
-            logger.v("Starting Legacy DFU...")
-            delegate?.peripheralDidSelectedExecutor(LegacyDFUExecutor.self)
+    /// logger delegate
+    var logger: LoggerHelper { get }
 
-        } else if (DFUUuidHelper.matches(service, uuid: dfuHelper.buttonlessExperimentalService)) {
-            logger.v("Starting Secure DFU...")
-            delegate?.peripheralDidSelectedExecutor(SecureDFUExecutor.self)
+    /// UUID Helper
+    var dfuHelper: DFUUuidHelper { get }
 
-        } else {
-            // This will never go in here
-            delegate?.error(.deviceNotSupported, didOccurWithMessage: "Device not supported")
-        }
-    }
+    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper)
 }

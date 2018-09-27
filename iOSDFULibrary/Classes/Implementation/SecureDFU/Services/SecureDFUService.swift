@@ -23,12 +23,7 @@
 import CoreBluetooth
 
 @objc internal class SecureDFUService : NSObject, CBPeripheralDelegate, DFUService {
-    static internal let UUID = CBUUID(string: "FE59")
-    
-    static func matches(_ service: CBService) -> Bool {
-        return service.uuid.isEqual(UUID)
-    }
-    
+
     /// The target DFU Peripheral
     internal var targetPeripheral: DFUPeripheralAPI?
     /// The logger helper.
@@ -37,6 +32,9 @@ import CoreBluetooth
     private let service                       : CBService
     private var dfuPacketCharacteristic       : SecureDFUPacket?
     private var dfuControlPointCharacteristic : SecureDFUControlPoint?
+
+    internal var dfuHelper: DFUUuidHelper
+    internal var serviceUuid: CBUUID
 
     private var paused  = false
     private var aborted = false
@@ -56,9 +54,12 @@ import CoreBluetooth
     
     // MARK: - Initialization
     
-    required init(_ service: CBService, _ logger: LoggerHelper) {
+    required init(_ service: CBService, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
         self.service = service
         self.logger = logger
+        self.dfuHelper = dfuHelper
+        self.serviceUuid = dfuHelper.secureDFUService
+
         super.init()
         self.logger.v("Secure DFU Service found")
     }
@@ -128,7 +129,8 @@ import CoreBluetooth
         
         // Discover DFU characteristics
         logger.v("Discovering characteristics in DFU Service...")
-        logger.d("peripheral.discoverCharacteristics(nil, for: \(SecureDFUService.UUID.uuidString))")
+        logger.d("peripheral.discoverCharacteristics(nil, for: \(serviceUuid.uuidString))")
+        
         peripheral.discoverCharacteristics(nil, for: service)
     }
     
@@ -392,16 +394,18 @@ import CoreBluetooth
             
             // Find DFU characteristics
             for characteristic in service.characteristics! {
-                if SecureDFUPacket.matches(characteristic) {
-                    dfuPacketCharacteristic = SecureDFUPacket(characteristic, logger)
-                } else if SecureDFUControlPoint.matches(characteristic) {
-                    dfuControlPointCharacteristic = SecureDFUControlPoint(characteristic, logger)
+                
+                if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.secureDFUPacket) {
+                    dfuPacketCharacteristic = SecureDFUPacket(characteristic, logger, dfuHelper)
+                    
+                } else if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.secureDFUControlPoint) {
+                    dfuControlPointCharacteristic = SecureDFUControlPoint(characteristic, logger, dfuHelper)
                 }
                 // Support for Buttonless DFU Service from SDK 12.x (as experimental).
                 // SDK 13 added a new characteristic in Secure DFU Service with buttonless feature without bond sharing (bootloader uses different device address).
                 // SDK 14 will add a new characteristic with buttonless service for bonded devices with bond information sharing between app and the bootloader.
-                else if ButtonlessDFU.matches(characteristic) {
-                    buttonlessDfuCharacteristic = ButtonlessDFU(characteristic, logger)
+                else if DFUUuidHelper.matchesButtonLess(characteristic, helper: dfuHelper) {
+                    buttonlessDfuCharacteristic = ButtonlessDFU(characteristic, logger, dfuHelper)
                     _success?()
                     return
                 }
@@ -436,12 +440,7 @@ import CoreBluetooth
     
     /// The buttonless jump feature was experimental in SDK 12. It did not support passing bond information to the DFU bootloader,
     /// was not safe (possible DOS attack) and had bugs. This is the service UUID used by this service.
-    static internal let ExperimentalButtonlessDfuUUID = CBUUID(string: "8E400001-F315-4F60-9FB8-838830DAEA50")
-    
-    static func matches(experimental service: CBService) -> Bool {
-        return service.uuid.isEqual(ExperimentalButtonlessDfuUUID)
-    }
-    
+
     private var buttonlessDfuCharacteristic: ButtonlessDFU?
     
     /**

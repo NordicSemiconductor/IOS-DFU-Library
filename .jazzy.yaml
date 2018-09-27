@@ -1,0 +1,10 @@
+podspec: iOSDFULibrary.podspec
+
+author: Nordic Semiconductor 
+
+readme: README.md
+
+output: docs
+clean: true
+theme: jony
+
