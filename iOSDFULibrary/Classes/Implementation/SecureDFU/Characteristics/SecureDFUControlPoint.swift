@@ -339,8 +339,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Enabling notifications for \(characteristic.uuid.uuidString)...")
-        logger.d("peripheral.setNotifyValue(true, for: \(characteristic.uuid.uuidString))")
+        let controlPointUUID = characteristic.uuid.uuidString
+        
+        logger.v("Enabling notifications for \(controlPointUUID)...")
+        logger.d("peripheral.setNotifyValue(true, for: \(controlPointUUID))")
         peripheral.setNotifyValue(true, for: characteristic)
     }
     
@@ -364,8 +366,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(characteristic.uuid.uuidString), type: .withResponse)")
+        let controlPointUUID = characteristic.uuid.uuidString
+        
+        logger.v("Writing to characteristic \(controlPointUUID)...")
+        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(controlPointUUID), type: .withResponse)")
         peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     
@@ -389,8 +393,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(characteristic.uuid.uuidString), type: .withResponse)")
+        let controlPointUUID = characteristic.uuid.uuidString
+        
+        logger.v("Writing to characteristic \(controlPointUUID)...")
+        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(controlPointUUID), type: .withResponse)")
         peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     

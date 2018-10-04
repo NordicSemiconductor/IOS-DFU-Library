@@ -73,12 +73,13 @@ internal class SecureDFUPacket: DFUCharacteristic {
         var offset: UInt32 = 0
         var bytesToSend = UInt32(data.count)
         
+        let packetUUID = characteristic.uuid.uuidString
         repeat {
             let packetLength = min(bytesToSend, packetSize)
             let packet = data.subdata(in: Int(offset) ..< Int(offset + packetLength))
             
-            logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
-            logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(characteristic.uuid.uuidString), type: .withoutResponse)")
+            logger.v("Writing to characteristic \(packetUUID)...")
+            logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(packetUUID), type: .withoutResponse)")
             peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             offset += packetLength

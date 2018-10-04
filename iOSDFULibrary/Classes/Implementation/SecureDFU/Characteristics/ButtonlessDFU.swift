@@ -183,8 +183,10 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(characteristic.uuid.uuidString), type: .withResponse)")
+        let buttonlessUUID = characteristic.uuid.uuidString
+        
+        logger.v("Writing to characteristic \(buttonlessUUID)...")
+        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(buttonlessUUID), type: .withResponse)")
         peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     
