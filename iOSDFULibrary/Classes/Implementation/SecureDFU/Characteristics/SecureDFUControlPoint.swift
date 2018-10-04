@@ -298,7 +298,6 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     
     internal var characteristic: CBCharacteristic
     internal var logger: LoggerHelper
-    internal var dfuHelper: DFUUuidHelper
 
     private var success:  Callback?
     private var response: SecureDFUResponseCallback?
@@ -310,10 +309,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     }
     
     // MARK: - Initialization
-    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
-        self.dfuHelper = dfuHelper
     }
 
     func peripheralDidReceiveObject() {
@@ -442,7 +440,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        guard characteristic.uuid.isEqual(dfuHelper.secureDFUControlPoint) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
 
@@ -462,7 +460,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(dfuHelper.secureDFUControlPoint) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
 

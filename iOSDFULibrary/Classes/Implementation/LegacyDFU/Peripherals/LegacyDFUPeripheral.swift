@@ -28,7 +28,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     // MARK: - Peripheral API
     
     override var requiredServices: [CBUUID]? {
-        return [dfuHelper.legacyDFUService]
+        return [LegacyDFUService.serviceUuid(from: uuidHelper)]
     }
     
     override func isInitPacketRequired() -> Bool {

@@ -24,8 +24,13 @@ import CoreBluetooth
 
 @objc internal class LegacyDFUService : NSObject, CBPeripheralDelegate, DFUService {
 
-    /// The target DFU Peripheral
     internal var targetPeripheral: DFUPeripheralAPI?
+    internal var uuidHelper: DFUUuidHelper
+    
+    static func serviceUuid(from uuidHelper: DFUUuidHelper) -> CBUUID {
+        return uuidHelper.legacyDFUService
+    }
+    
     /// The logger helper.
     private var logger: LoggerHelper
     /// The service object from CoreBluetooth used to initialize the DFUService instance.
@@ -34,8 +39,6 @@ import CoreBluetooth
     private var dfuControlPointCharacteristic : DFUControlPoint?
     private var dfuVersionCharacteristic      : DFUVersion?
     
-    internal var dfuHelper: DFUUuidHelper
-    internal var serviceUuid: CBUUID
 
     /// This method returns true if DFU Control Point characteristc has been discovered.
     /// A device without this characteristic is not supported and even can't be resetted by sending a Reset command.
@@ -62,11 +65,10 @@ import CoreBluetooth
     
     // MARK: - Initialization
     
-    required init(_ service: CBService, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ service: CBService, _ logger: LoggerHelper, _ uuidHelper: DFUUuidHelper) {
         self.service = service
         self.logger = logger
-        self.dfuHelper = dfuHelper
-        self.serviceUuid = dfuHelper.legacyDFUService
+        self.uuidHelper = uuidHelper
         
         super.init()
         self.logger.v("Legacy DFU Service found")
@@ -138,7 +140,7 @@ import CoreBluetooth
         
         // Discover DFU characteristics
         logger.v("Discovering characteristics in DFU Service...")
-        logger.d("peripheral.discoverCharacteristics(nil, for: \(serviceUuid.uuidString))")
+        logger.d("peripheral.discoverCharacteristics(nil, for: \(uuidHelper.legacyDFUService.uuidString))")
         
         peripheral.discoverCharacteristics(nil, for: service)
     }
@@ -556,18 +558,14 @@ import CoreBluetooth
             logger.i("DFU characteristics discovered")
             
             // Find DFU characteristics
-            for characteristic in service.characteristics! {
-                
-                if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.legacyDFUPacket) {
-                    dfuPacketCharacteristic = DFUPacket(characteristic, logger, dfuHelper)
-
-                } else if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.legacyDFUControlPoint) {
-                    dfuControlPointCharacteristic = DFUControlPoint(characteristic, logger, dfuHelper)
-                    
-                } else if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.legacyDFUVersion) {
-                    dfuVersionCharacteristic = DFUVersion(characteristic, logger, dfuHelper)
+            for characteristic in service.characteristics! {                
+                if characteristic.matches(uuid: uuidHelper.legacyDFUPacket) {
+                    dfuPacketCharacteristic = DFUPacket(characteristic, logger)
+                } else if characteristic.matches(uuid: uuidHelper.legacyDFUControlPoint) {
+                    dfuControlPointCharacteristic = DFUControlPoint(characteristic, logger)
+                } else if characteristic.matches(uuid: uuidHelper.legacyDFUVersion) {
+                    dfuVersionCharacteristic = DFUVersion(characteristic, logger)
                 }
-
             }
             
             // Some validation

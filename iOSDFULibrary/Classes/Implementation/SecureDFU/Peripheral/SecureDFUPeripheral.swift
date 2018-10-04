@@ -30,7 +30,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     // MARK: - Peripheral API
     
     override var requiredServices: [CBUUID]? {
-        return [dfuHelper.secureDFUService]
+        return [SecureDFUService.serviceUuid(from: uuidHelper)]
     }
     
     override func isInitPacketRequired() -> Bool {

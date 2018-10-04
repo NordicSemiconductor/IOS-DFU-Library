@@ -28,7 +28,6 @@ internal class SecureDFUPacket: DFUCharacteristic {
     
     internal var characteristic: CBCharacteristic
     internal var logger: LoggerHelper
-    internal var dfuHelper: DFUUuidHelper
 
     /// Number of bytes of firmware already sent.
     private(set) var bytesSent: UInt32 = 0
@@ -37,7 +36,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
     private var totalBytesSentWhenDfuStarted: UInt32 = 0
 
     /// Current progress in percents (0-99).
-    private var progress:  UInt8 = 0
+    private var progressReported: UInt8 = 0
     private var startTime: CFAbsoluteTime?
     private var lastTime:  CFAbsoluteTime?
 
@@ -45,10 +44,9 @@ internal class SecureDFUPacket: DFUCharacteristic {
         return characteristic.properties.contains(.writeWithoutResponse)
     }
     
-    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
-        self.dfuHelper = dfuHelper
         
         if #available(iOS 9.0, macOS 10.12, *) {
             packetSize = UInt32(characteristic.service.peripheral.maximumWriteValueLength(for: .withoutResponse))

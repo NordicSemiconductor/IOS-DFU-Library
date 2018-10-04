@@ -24,17 +24,19 @@ import CoreBluetooth
 
 @objc internal class SecureDFUService : NSObject, CBPeripheralDelegate, DFUService {
 
-    /// The target DFU Peripheral
     internal var targetPeripheral: DFUPeripheralAPI?
+    internal var uuidHelper: DFUUuidHelper
+    
+    static func serviceUuid(from uuidHelper: DFUUuidHelper) -> CBUUID {
+        return uuidHelper.secureDFUService
+    }
+    
     /// The logger helper.
     private var logger: LoggerHelper
     /// The service object from CoreBluetooth used to initialize the SecureDFUService instance.
     private let service                       : CBService
     private var dfuPacketCharacteristic       : SecureDFUPacket?
     private var dfuControlPointCharacteristic : SecureDFUControlPoint?
-
-    internal var dfuHelper: DFUUuidHelper
-    internal var serviceUuid: CBUUID
 
     private var paused  = false
     private var aborted = false
@@ -54,11 +56,10 @@ import CoreBluetooth
     
     // MARK: - Initialization
     
-    required init(_ service: CBService, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ service: CBService, _ logger: LoggerHelper, _ uuidHelper: DFUUuidHelper) {
         self.service = service
         self.logger = logger
-        self.dfuHelper = dfuHelper
-        self.serviceUuid = dfuHelper.secureDFUService
+        self.uuidHelper = uuidHelper
 
         super.init()
         self.logger.v("Secure DFU Service found")
@@ -129,7 +130,7 @@ import CoreBluetooth
         
         // Discover DFU characteristics
         logger.v("Discovering characteristics in DFU Service...")
-        logger.d("peripheral.discoverCharacteristics(nil, for: \(serviceUuid.uuidString))")
+        logger.d("peripheral.discoverCharacteristics(nil, for: \(uuidHelper.secureDFUService.uuidString))")
         
         peripheral.discoverCharacteristics(nil, for: service)
     }
@@ -393,19 +394,20 @@ import CoreBluetooth
             logger.i("DFU characteristics discovered")
             
             // Find DFU characteristics
-            for characteristic in service.characteristics! {
-                
-                if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.secureDFUPacket) {
-                    dfuPacketCharacteristic = SecureDFUPacket(characteristic, logger, dfuHelper)
-                    
-                } else if DFUUuidHelper.matches(characteristic, uuid: dfuHelper.secureDFUControlPoint) {
-                    dfuControlPointCharacteristic = SecureDFUControlPoint(characteristic, logger, dfuHelper)
+            for characteristic in service.characteristics! {                
+                if characteristic.matches(uuid: uuidHelper.secureDFUPacket) {
+                    dfuPacketCharacteristic = SecureDFUPacket(characteristic, logger)
+                } else if characteristic.matches(uuid: uuidHelper.secureDFUControlPoint) {
+                    dfuControlPointCharacteristic = SecureDFUControlPoint(characteristic, logger)
                 }
                 // Support for Buttonless DFU Service from SDK 12.x (as experimental).
-                // SDK 13 added a new characteristic in Secure DFU Service with buttonless feature without bond sharing (bootloader uses different device address).
-                // SDK 14 will add a new characteristic with buttonless service for bonded devices with bond information sharing between app and the bootloader.
-                else if DFUUuidHelper.matchesButtonLess(characteristic, helper: dfuHelper) {
-                    buttonlessDfuCharacteristic = ButtonlessDFU(characteristic, logger, dfuHelper)
+                // SDK 13 added a new characteristic in Secure DFU Service with buttonless
+                // feature without bond sharing (bootloader uses different device address).
+                // SDK 14 will add a new characteristic with buttonless service for bonded
+                // devices with bond information sharing between app and the bootloader.
+                else if uuidHelper.matchesButtonless(characteristic) {
+                    buttonlessDfuCharacteristic = ButtonlessDFU(characteristic, logger)
+                    buttonlessDfuCharacteristic?.uuidHelper = uuidHelper
                     _success?()
                     return
                 }

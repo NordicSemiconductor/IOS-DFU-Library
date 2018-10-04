@@ -31,11 +31,11 @@ internal protocol DFUService : DFUController {
     /// The target DFU Peripheral
     var targetPeripheral: DFUPeripheralAPI? { get set }
     
-    /// DFU Helper
-    var dfuHelper: DFUUuidHelper { get }
-
-    /// Service UUID
-    var serviceUuid: CBUUID { get }
+    /// UUID Helper
+    var uuidHelper: DFUUuidHelper { get }
+    
+    /// Returns the service UUID based on the UUID helper
+    static func serviceUuid(from uuidHelper: DFUUuidHelper) -> CBUUID
 
     /**
      Required constructor of a service.

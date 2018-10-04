@@ -32,8 +32,5 @@ internal protocol DFUCharacteristic {
     /// logger delegate
     var logger: LoggerHelper { get }
 
-    /// UUID Helper
-    var dfuHelper: DFUUuidHelper { get }
-
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper)
+    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper)
 }

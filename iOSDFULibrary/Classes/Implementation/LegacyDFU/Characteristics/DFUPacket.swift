@@ -28,7 +28,6 @@ internal class DFUPacket: DFUCharacteristic {
     
     internal var characteristic: CBCharacteristic
     internal var logger: LoggerHelper
-    internal var dfuHelper: DFUUuidHelper
 
     /// Number of bytes of firmware already sent.
     private(set) var bytesSent: UInt32 = 0
@@ -44,10 +43,9 @@ internal class DFUPacket: DFUCharacteristic {
         return characteristic.properties.contains(.writeWithoutResponse)
     }
     
-    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
-        self.dfuHelper = dfuHelper
     }
     
     // MARK: - Characteristic API methods
@@ -66,7 +64,7 @@ internal class DFUPacket: DFUCharacteristic {
         data += size.bootloader.littleEndian
         data += size.application.littleEndian
 
-        let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+        let packetUUID = characteristic.uuid.uuidString
         
         logger.v("Writing image sizes (\(size.softdevice)b, \(size.bootloader)b, \(size.application)b) to characteristic \(packetUUID)...")
         logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
@@ -85,7 +83,7 @@ internal class DFUPacket: DFUCharacteristic {
         var data = Data(capacity: 4)
         data += size.application.littleEndian
 
-        let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+        let packetUUID = characteristic.uuid.uuidString
 
         logger.v("Writing image size (\(size.application)b) to characteristic \(packetUUID)...")
         logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
@@ -109,7 +107,7 @@ internal class DFUPacket: DFUCharacteristic {
             let packetLength = min(bytesToSend, packetSize)
             let packet = data.subdata(in: Int(offset) ..< Int(offset + packetLength))
 
-            let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+            let packetUUID = characteristic.uuid.uuidString
 
             logger.v("Writing to characteristic \(packetUUID)...")
             logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(packetUUID), type: .withoutResponse)")

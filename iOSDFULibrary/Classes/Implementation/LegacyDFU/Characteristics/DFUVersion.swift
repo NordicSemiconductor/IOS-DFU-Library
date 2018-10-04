@@ -28,7 +28,6 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     
     internal var characteristic: CBCharacteristic
     internal var logger: LoggerHelper
-    internal var dfuHelper: DFUUuidHelper
 
     private var success: VersionCallback?
     private var report: ErrorCallback?
@@ -39,10 +38,9 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     
     // MARK: - Initialization
     
-    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
-        self.dfuHelper = dfuHelper
     }
     
     // MARK: - Characteristic API methods
@@ -74,7 +72,7 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(dfuHelper.legacyDFUVersion) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
 

@@ -97,18 +97,24 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     
     internal var characteristic: CBCharacteristic
     internal var logger: LoggerHelper
-    internal var dfuHelper: DFUUuidHelper
+    internal var uuidHelper: DFUUuidHelper!
 
     private var success: Callback?
     private var report:  ErrorCallback?
     
     internal var valid: Bool {
-        return (characteristic.properties.isSuperset(of: [.write, .notify]) && characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic)) ||
-                characteristic.properties.isSuperset(of: [.write, .indicate])
+        return (characteristic.properties.isSuperset(of: [.write, .notify])
+            &&  characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic))
+            ||  characteristic.properties.isSuperset(of: [.write, .indicate])
     }
     
+    /**
+     Returns true if the device address is expected to change. In that case,
+     the service should scan for another device using DFUPeripheralSelectorDelegate.
+     */
     internal var newAddressExpected: Bool {
-        return characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic) || characteristic.uuid.isEqual(dfuHelper.buttonlessWithoutBonds)
+        return characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic)
+            || characteristic.uuid.isEqual(uuidHelper.buttonlessWithoutBonds)
     }
     
     /**
@@ -120,14 +126,13 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
      command to that characteristic will end with ButtonlessDFUResultCode.opCodeNotSupported.
      */
     internal var maySupportSettingName: Bool {
-        return characteristic.uuid.isEqual(dfuHelper.buttonlessWithoutBonds)
+        return characteristic.uuid.isEqual(uuidHelper.buttonlessWithoutBonds)
     }
     
     // MARK: - Initialization
-    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
-        self.dfuHelper = dfuHelper
     }
     
     // MARK: - Characteristic API methods
@@ -220,7 +225,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
 
@@ -246,7 +251,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
                     logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
                     // The returned errod code is incremented by 30 or 9000 to match Buttonless DFU or Experimental Buttonless DFU remote codes
                     // See DFUServiceDelegate.swift -> DFUError
-                    let offset = characteristic.uuid.isEqual(dfuHelper.buttonlessExperimentalCharacteristic) ? 9000 : 30
+                    let offset = characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic) ? 9000 : 30
                     report?(DFUError(rawValue: Int(dfuResponse.status!.code) + offset)!, dfuResponse.status!.description)
                 }
             } else {
