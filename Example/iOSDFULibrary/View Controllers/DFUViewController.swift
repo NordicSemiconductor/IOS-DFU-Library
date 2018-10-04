@@ -126,7 +126,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         super.viewDidDisappear(animated)
         
         // Cancel test only when going back to Scanner. If Home button is clicked the test will continue in the background.
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             stopTimer()
             _ = dfuController?.abort()
             dfuController = nil
