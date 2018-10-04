@@ -321,12 +321,12 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     // MARK: - Characteristic API methods
     
     /**
-    Enables notifications for the DFU Control Point characteristics. Reports success or an error 
-    using callbacks.
+     Enables notifications for the DFU Control Point characteristics.
+     Reports success or an error using callbacks.
     
-    - parameter success: method called when notifications were successfully enabled
-    - parameter report:  method called in case of an error
-    */
+     - parameter success: Method called when notifications were successfully enabled
+     - parameter report:  Method called in case of an error
+     */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
         self.success  = success
@@ -350,9 +350,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      Sends given request to the DFU Control Point characteristic. Reports success or an error
      using callbacks.
      
-     - parameter request: request to be sent
-     - parameter success: method called when peripheral reported with status success
-     - parameter report:  method called in case of an error
+     - parameter request: Request to be sent
+     - parameter success: Method called when peripheral reported with status success
+     - parameter report:  Method called in case of an error
      */
     func send(_ request: SecureDFURequest, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
@@ -377,9 +377,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      Sends given request to the DFU Control Point characteristic. Reports received data or an error
      using callbacks.
      
-     - parameter request:  request to be sent
-     - parameter response: method called when peripheral sent a notification with requested data and status success
-     - parameter report:   method called in case of an error
+     - parameter request:  Request to be sent
+     - parameter response: Method called when peripheral sent a notification with requested data and status success
+     - parameter report:   Method called in case of an error
      */
     func send(_ request: SecureDFURequest, onResponse response: SecureDFUResponseCallback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
@@ -401,12 +401,13 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     }
     
     /**
-     Sets the callbacks used later on when a Packet Receipt Notification is received, a device reported an error or the whole firmware has been sent. 
+     Sets the callbacks used later on when a Packet Receipt Notification is received,
+     a device reported an error or the whole firmware has been sent. 
      Sending the firmware is done using DFU Packet characteristic.
      
-     - parameter success: method called when peripheral reported with status success
-     - parameter proceed: method called the a PRN has been received and sending following data can be resumed
-     - parameter report:  method called in case of an error
+     - parameter success: Method called when peripheral reported with status success
+     - parameter proceed: Method called the a PRN has been received and sending following data can be resumed
+     - parameter report:  Method called in case of an error
      */
     func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {
         // Save callbacks. The proceed callback will be called periodically whenever a packet receipt notification is received. It resumes uploading.
@@ -483,7 +484,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
                     return
                 }
             }
-            //Otherwise...    
+            // Otherwise...    
             logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
 
             // Parse response received

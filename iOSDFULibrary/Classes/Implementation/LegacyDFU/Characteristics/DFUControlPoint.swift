@@ -201,12 +201,12 @@ internal struct PacketReceiptNotification {
     // MARK: - Characteristic API methods
     
     /**
-    Enables notifications for the DFU Control Point characteristics. Reports success or an error 
-    using callbacks.
+     Enables notifications for the DFU Control Point characteristics.
+     Reports success or an error using callbacks.
     
-    - parameter success: method called when notifications were successfully enabled
-    - parameter report:  method called in case of an error
-    */
+     - parameter success: method called when notifications were successfully enabled
+     - parameter report:  method called in case of an error
+     */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
         self.success = success
@@ -224,8 +224,8 @@ internal struct PacketReceiptNotification {
     }
     
     /**
-     Sends given request to the DFU Control Point characteristic. Reports success or an error
-     using callbacks.
+     Sends given request to the DFU Control Point characteristic.
+     Reports success or an error using callbacks.
      
      - parameter request: request to be sent
      - parameter success: method called when peripheral reported with status success
@@ -264,11 +264,14 @@ internal struct PacketReceiptNotification {
     }
     
     /**
-     Sets the callbacks used later on when a Packet Receipt Notification is received, a device reported an error or the whole firmware has been sent
-     and the notification with success status was received. Sending the firmware is done using DFU Packet characteristic.
+     Sets the callbacks used later on when a Packet Receipt Notification is received,
+     a device reported an error or the whole firmware has been sent and the notification
+     with success status was received. Sending the firmware is done using DFU Packet
+     characteristic.
      
      - parameter success: method called when peripheral reported with status success
-     - parameter proceed: method called the a PRN has been received and sending following data can be resumed
+     - parameter proceed: method called the a PRN has been received and sending following
+     data can be resumed
      - parameter report:  method called in case of an error
      */
     func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {

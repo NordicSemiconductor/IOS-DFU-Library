@@ -26,10 +26,11 @@ import CoreBluetooth
 /// Describes a DFU Characteristic
 internal protocol DFUCharacteristic {
 
-    /// Characteristic
+    /// Discovered characteristic.
     var characteristic: CBCharacteristic { get }
 
-    /// logger delegate
+    /// Logger helper.
+    /// The logger inside may be nil, but the helper may not.
     var logger: LoggerHelper { get }
 
     init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper)

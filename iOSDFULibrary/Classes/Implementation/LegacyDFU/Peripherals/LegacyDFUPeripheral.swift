@@ -90,8 +90,8 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      updating Softdevice or Bootloader and the old Start DFU command needs to be used. The old command
      (without a type) allowed to send only an application firmware.
      
-     - parameter type: the firmware type bitfield. See FIRMWARE_TYPE_* constants
-     - parameter size: the size of all parts of the firmware
+     - parameter type: The firmware type bitfield. See FIRMWARE_TYPE_* constants
+     - parameter size: The size of all parts of the firmware
      */
     func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize) {
         dfuService!.sendDfuStart(withFirmwareType: type, andSize: size,
@@ -145,20 +145,20 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      packets to be received before sending a new Packet Receipt Notification.
      When the whole firmware is transferred the `delegate.peripheralDidReceiveFirmware()` callback is invoked.
      
-     - parameter aFirmware: the firmware
-     - parameter aPRNValue: number of packets of firmware data to be received by the DFU target
+     - parameter firmware: The firmware to be sent
+     - parameter prnValue: Number of packets of firmware data to be received by the DFU target
      before sending a new Packet Receipt Notification. Set 0 to disable PRNs (not recommended)
-     - parameter progressDelegate: the deleagate that will be informed about progress changes
+     - parameter progress: The deleagate that will be informed about progress changes
      */
-    func sendFirmware(_ aFirmware: DFUFirmware, withPacketReceiptNotificationNumber aPRNValue: UInt16, andReportProgressTo progressDelegate: DFUProgressDelegate?) {
-        var prn = aPRNValue
+    func sendFirmware(_ firmware: DFUFirmware, withPacketReceiptNotificationNumber prnValue: UInt16, andReportProgressTo progress: DFUProgressDelegate?) {
+        var prn = prnValue
         if slowDfuMode && (prn == 0 || prn > 2) {
             prn = 2
         }
         dfuService!.sendPacketReceiptNotificationRequest(prn,
             onSuccess: {
                 // Now the service is ready to send the firmware
-                self.dfuService!.sendFirmware(aFirmware, withDelay: self.slowDfuMode, andReportProgressTo: progressDelegate,
+                self.dfuService!.sendFirmware(firmware, withDelay: self.slowDfuMode, andReportProgressTo: progress,
                     onSuccess: { self.delegate?.peripheralDidReceiveFirmware() },
                     onError: self.defaultErrorCallback
                 )

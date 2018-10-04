@@ -141,8 +141,8 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
      Enables notifications or indications for the DFU Control Point characteristics, depending on the characteristic property.
      Reports success or an error using callbacks.
      
-     - parameter success: method called when notifications were successfully enabled
-     - parameter report:  method called in case of an error
+     - parameter success: Method called when notifications were successfully enabled
+     - parameter report:  Method called in case of an error
      */
     func enable(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
@@ -168,9 +168,9 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
      Sends given request to the Buttonless DFU characteristic. Reports success or an error
      using callbacks.
      
-     - parameter request: request to be sent
-     - parameter success: method called when peripheral reported with status success
-     - parameter report:  method called in case of an error
+     - parameter request: Request to be sent
+     - parameter success: Method called when peripheral reported with status success
+     - parameter report:  Method called in case of an error
      */
     func send(_ request: ButtonlessDFURequest, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter

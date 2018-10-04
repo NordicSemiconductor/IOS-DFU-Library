@@ -46,12 +46,12 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     // MARK: - Characteristic API methods
     
     /**
-    Reads the value of the DFU Version characteristic.
-    The value, or an error, will be reported as a callback.
+     Reads the value of the DFU Version characteristic.
+     The value, or an error, will be reported as a callback.
     
-    - parameter callback: method called when version is read and is supported
-    - parameter error:    method called on error of if version is not supported
-    */
+     - parameter success: Method called when version is read and is supported
+     - parameter report:  Method called on error of if version is not supported
+     */
     func readVersion(onSuccess success: VersionCallback?, onError report: ErrorCallback?) {
         // Save callbacks
         self.success = success

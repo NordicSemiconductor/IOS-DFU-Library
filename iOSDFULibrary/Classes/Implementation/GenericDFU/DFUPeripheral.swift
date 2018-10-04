@@ -23,6 +23,7 @@
 import CoreBluetooth
 
 internal protocol BaseDFUPeripheralAPI : class, DFUController {
+    
     /**
      This method starts DFU process for given peripheral. If the peripheral is not connected it will call the connect() method,
      if it is connected, but services were not discovered before, it will try to discover services instead.
@@ -327,8 +328,9 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     
     /**
      Looks for a DFU Service in given list of services.
-     - returns: a DFUService type if a DFU service has been found, or nil if services are nil or the list
-     does not contain any supported DFU Service.
+     
+     - returns: a DFUService type if a DFU service has been found, or nil if services
+     are nil or the list does not contain any supported DFU Service.
      */
     private func findDfuService(in services:[CBService]?) -> CBService? {
         if let services = services {
@@ -385,6 +387,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
 }
 
 internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
+    
     /**
      Checks whether the target device is in application mode and must be switched to the DFU mode.
      
