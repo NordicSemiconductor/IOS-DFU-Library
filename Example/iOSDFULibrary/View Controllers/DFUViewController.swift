@@ -175,7 +175,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         partProgressView.progress = 0.0
 
         // Create DFU initiator with some default configuration
-        let dfuInitiator = DFUServiceInitiator(centralManager: centralManager, target: dfuPeripheral)
+        let dfuInitiator = DFUServiceInitiator(target: dfuPeripheral)
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
