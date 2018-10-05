@@ -256,6 +256,7 @@ import CoreBluetooth
      the process. The app should not send any data to DFU characteristics when DFU is in progress.
      
      - parameter target: The DFU target peripheral
+     - parameter queue: The dispatch queue to run BLE operations on
      
      - returns: The initiator instance
      
@@ -263,9 +264,9 @@ import CoreBluetooth
      - seeAlso: peripheralSelector property - a selector used when scanning for a device in DFU Bootloader mode
      in case you want to update a Softdevice and Application from a single ZIP Distribution Packet.
      */
-    @objc public init(target: CBPeripheral) {
+    @objc public init(target: CBPeripheral, queue: DispatchQueue? = nil) {
         // Create a new instance of CBCentralManager
-        self.centralManager = CBCentralManager()
+        self.centralManager = CBCentralManager(delegate: nil, queue: queue)
         // As the given peripheral was obtained using a different central manager,
         // its new instance must be obtained from the new manager.
         self.target = self.centralManager.retrievePeripherals(withIdentifiers: [target.identifier]).first!
