@@ -381,16 +381,21 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
      Starts the service discovery.
      */
     private func discoverServices() {
-        let services = requiredServices
-        // Discover DFU service on the device to determine the DFU implementation.
-        logger.v("Discovering services...")
-        if services != nil {
-            logger.d("peripheral.discoverServices(\(services!))")
+        if let peripheral = peripheral {
+            // Discover DFU service on the device to determine the DFU implementation.
+            logger.v("Discovering services...")
+            if let services = requiredServices {
+                logger.d("peripheral.discoverServices(\(services))")
+            } else {
+                logger.d("peripheral.discoverServices(nil)")
+            }
+            peripheral.delegate = self
+            peripheral.discoverServices(requiredServices)
         } else {
-            logger.d("peripheral.discoverServices(nil)")
+            logger.e("Unable to discover services: peripheral is nil. Is Bluetooth enabled?")
+            delegate?.error(.serviceDiscoveryFailed, didOccurWithMessage: "Peripheral is nil")
+            resetDevice()
         }
-        peripheral!.delegate = self
-        peripheral!.discoverServices(services)
     }
     
     /**
