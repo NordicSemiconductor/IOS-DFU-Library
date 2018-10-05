@@ -558,25 +558,40 @@ import CoreBluetooth
             logger.i("DFU characteristics discovered")
             
             // Find DFU characteristics
-            for characteristic in service.characteristics! {                
-                if characteristic.matches(uuid: uuidHelper.legacyDFUPacket) {
-                    dfuPacketCharacteristic = DFUPacket(characteristic, logger)
-                } else if characteristic.matches(uuid: uuidHelper.legacyDFUControlPoint) {
-                    dfuControlPointCharacteristic = DFUControlPoint(characteristic, logger)
-                } else if characteristic.matches(uuid: uuidHelper.legacyDFUVersion) {
-                    dfuVersionCharacteristic = DFUVersion(characteristic, logger)
+            if let characteristics = service.characteristics {
+                for characteristic in characteristics {
+                    if characteristic.matches(uuid: uuidHelper.legacyDFUPacket) {
+                        dfuPacketCharacteristic = DFUPacket(characteristic, logger)
+                    } else if characteristic.matches(uuid: uuidHelper.legacyDFUControlPoint) {
+                        dfuControlPointCharacteristic = DFUControlPoint(characteristic, logger)
+                    } else if characteristic.matches(uuid: uuidHelper.legacyDFUVersion) {
+                        dfuVersionCharacteristic = DFUVersion(characteristic, logger)
+                    }
                 }
+            }
+            
+            // Log what was found in case of an error
+            if dfuPacketCharacteristic == nil {
+                if let characteristics = service.characteristics, characteristics.isEmpty == false {
+                    logger.d("The following characteristics were found:")
+                    characteristics.forEach { characteristic in
+                        logger.d(" - \(characteristic.uuid.uuidString)")
+                    }
+                } else {
+                    logger.d("No characteristics found in the service")
+                }
+                logger.d("Is it the right device? If so, it may be caching issue. Try again after restarting Bluetooth. Make sure that your device has the Service Changed characteristic")
             }
             
             // Some validation
             if dfuControlPointCharacteristic == nil {
-                logger.e("DFU Control Point characteristics not found")
+                logger.e("DFU Control Point characteristic not found")
                 // DFU Control Point characteristic is required
                 _report?(.deviceNotSupported, "DFU Control Point characteristic not found")
                 return
             }
             if !dfuControlPointCharacteristic!.valid {
-                logger.e("DFU Control Point characteristics must have Write and Notify properties")
+                logger.e("DFU Control Point characteristic must have Write and Notify properties")
                 // DFU Control Point characteristic must have Write and Notify properties
                 _report?(.deviceNotSupported, "DFU Control Point characteristic does not have the Write and Notify properties")
                 return
