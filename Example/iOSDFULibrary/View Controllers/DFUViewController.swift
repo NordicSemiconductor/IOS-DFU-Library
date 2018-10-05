@@ -56,7 +56,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     
     @IBAction func stopProcessButtonTapped(_ sender: AnyObject) {
         guard dfuController != nil else {
-            print("No DFU peripheral was set")
+            initialize()
+            startDFUProcess()
             return
         }
         guard !dfuController!.aborted else {
@@ -95,6 +96,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initialize()
+        startDFUProcess()
+    }
+    
+    private func initialize() {
         if let firmware = firmwareProvider.firmware {
             dfuStatusLabel.text = ""
             partLabel.text = "1 / \(firmware.parts)"
@@ -114,15 +120,13 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         //currentSpeedLabel.text = ""
         averageSpeedLabel.text = ""
         stopProcessButton.isEnabled = false
-        
-        startDFUProcess()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         // Cancel test only when going back to Scanner. If Home button is clicked the test will continue in the background.
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             stopTimer()
             _ = dfuController?.abort()
             dfuController = nil
@@ -169,12 +173,27 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         stepDescriptionLabel.text = firmwareProvider.description
         stepProgressView.progress = 0.0
         partProgressView.progress = 0.0
-        
+
         // Create DFU initiator with some default configuration
-        let dfuInitiator = DFUServiceInitiator(centralManager: centralManager, target: dfuPeripheral)
+        let dfuInitiator = DFUServiceInitiator(target: dfuPeripheral)
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
+
+
+        ///
+        /// Here would be a good chance to change the UUIDs to your custom UUIDs
+        ///
+
+       //let customUUIDs = [ DFUUuid(withUUID: CBUUID(string: "46B3C11D-7AA7-DFB8-2998-B0BABBF03670"), forType: .lagacyService),
+       //                    DFUUuid(withUUID: CBUUID(string: "00001531-1212-EFDE-1523-000000000000"), forType: .legacyControlPoint),
+       //                    DFUUuid(withUUID: CBUUID(string: "00001532-1212-EFDE-1523-000000000000"), forType: .legacyPacket),
+       //                    DFUUuid(withUUID: CBUUID(string: "00001534-1212-EFDE-1523-000000000000"), forType: .legacyVersion),
+       //                    ]
+
+        /// set the custom UUDIds
+        //dfuInitiator.dfuHelper = DFUUuidHelper(customUuids: customUUIDs)
+        
         // Starting from iOS 11 and macOS 10.13 there is a new API that removes the need of PRNs.
         // However, some devices may still work better with them enabled! A specially those
         // based on SDK older than 8.0 where the flash saving was slower and modern phones
@@ -286,12 +305,18 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
                 if firmwareProvider.hasNext() {
                     prepareNextStep()
                 } else {
+                    stopTimer()
                     stepDescriptionLabel.text = "Test finished"
                 }
             } else {
                 stopTimer()
-                stepDescriptionLabel.text = "Step failed with error \(error.rawValue) but \(firmwareProvider.expectedError!.rawValue) was expected"
+                stepDescriptionLabel.text! += ": Failed with error \(error.rawValue) but \(firmwareProvider.expectedError!.rawValue) was expected"
+                stopProcessButton.setTitle("Restart", for: .normal)
             }
+        } else {
+            stopTimer()
+            stepDescriptionLabel.text! += ": Failed"
+            stopProcessButton.setTitle("Restart", for: .normal)
         }
     }
     

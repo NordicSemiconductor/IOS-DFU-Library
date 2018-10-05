@@ -21,6 +21,7 @@
  */
 
 internal protocol BasePeripheralDelegate : class {
+    
     /**
      Method called when the iDevice failed to connect to the given peripheral.
      The DFU operation will be aborter as nothing can be done.
@@ -56,6 +57,7 @@ internal protocol BasePeripheralDelegate : class {
 }
 
 internal protocol DFUPeripheralDelegate : BasePeripheralDelegate {
+    
     /**
      Callback called when the target device got connected and DFU Service and DFU Characteristics were found.
      If DFU Version characteristic were found among them it has also been read.

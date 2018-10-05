@@ -1,4 +1,17 @@
 ### Changelog
+- **4.2.0**
+    - Improvement: Swift 4.2 migration.
+    - Improvement: Added .swift-version file.
+    - Improvement: UUID Helper that allows using custom service identifiers for DFU.
+    - Improvement: Jazzy Docs can now be easily generated.
+    - Improvement: Added more logging to services on not supported devices.
+    - Improvement: DFU no longer takes control over delegates.
+    - Improvement: Refactoring and comments have been improved.
+    - Improvement: Added more DFU automated tests, covering SDK 15 and 15.2 + some older SDKs due to a MBR workaround.
+    - Improvement: Improved error handling.
+    - Bugfix: The previous ZIP files from SDK 14+ had bootloaders with disabled Service Changed characteristic.
+    - Bugfix: Fixed memory cycle caused by a strong delegate reference.
+    - Bugfix: Fixed update failures because of device disconnects.
 - **4.1.3**
     - Bugfix: Fix by @simonseyer that resolves a random disconnects issue caused by the reuse of the same CBCentralManager used by the library, which received callbacks of device disconnects that might not be the target perpiheral
     - Bugfix: Fix by @alanfischer that resolves an Xcode warning related to documentation.
