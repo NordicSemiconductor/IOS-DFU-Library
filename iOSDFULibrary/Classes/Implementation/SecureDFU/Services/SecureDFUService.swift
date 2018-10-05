@@ -386,15 +386,18 @@ import CoreBluetooth
         self.success = nil
         self.report  = nil
         
-        if error != nil {
+        guard error == nil else {
             logger.e("Characteristics discovery failed")
             logger.e(error!)
             _report?(.serviceDiscoveryFailed, "Characteristics discovery failed")
-        } else {
-            logger.i("DFU characteristics discovered")
-            
-            // Find DFU characteristics
-            for characteristic in service.characteristics! {                
+            return
+        }
+
+        logger.i("DFU characteristics discovered")
+        
+        // Find DFU characteristics
+        if let characteristics = service.characteristics {
+            for characteristic in characteristics {
                 if characteristic.matches(uuid: uuidHelper.secureDFUPacket) {
                     dfuPacketCharacteristic = SecureDFUPacket(characteristic, logger)
                 } else if characteristic.matches(uuid: uuidHelper.secureDFUControlPoint) {
@@ -403,7 +406,7 @@ import CoreBluetooth
                 // Support for Buttonless DFU Service from SDK 12.x (as experimental).
                 // SDK 13 added a new characteristic in Secure DFU Service with buttonless
                 // feature without bond sharing (bootloader uses different device address).
-                // SDK 14 will add a new characteristic with buttonless service for bonded
+                // SDK 14 added a new characteristic with buttonless service for bonded
                 // devices with bond information sharing between app and the bootloader.
                 else if uuidHelper.matchesButtonless(characteristic) {
                     buttonlessDfuCharacteristic = ButtonlessDFU(characteristic, logger)
@@ -413,29 +416,48 @@ import CoreBluetooth
                 }
                 // End
             }
-            
-            // Some validation
-            if dfuControlPointCharacteristic == nil {
-                logger.e("DFU Control Point characteristics not found")
-                // DFU Control Point characteristic is required
-                _report?(.deviceNotSupported, "DFU Control Point characteristic not found")
-                return
-            }
-            if dfuPacketCharacteristic == nil {
-                logger.e("DFU Packet characteristics not found")
-                // DFU Packet characteristic is required
-                _report?(.deviceNotSupported, "DFU Packet characteristic not found")
-                return
-            }
-            if !dfuControlPointCharacteristic!.valid {
-                logger.e("DFU Control Point characteristics must have Write and Notify properties")
-                // DFU Control Point characteristic must have Write and Notify properties
-                _report?(.deviceNotSupported, "DFU Control Point characteristic does not have the Write and Notify properties")
-                return
-            }
-            
-            _success?()
         }
+        
+        // Log what was found in case of an error
+        if dfuPacketCharacteristic == nil || dfuControlPointCharacteristic == nil {
+            if let characteristics = service.characteristics, characteristics.isEmpty == false {
+                logger.d("The following characteristics were found:")
+                characteristics.forEach { characteristic in
+                    logger.d(" - \(characteristic.uuid.uuidString)")
+                }
+            } else {
+                logger.d("No characteristics found in the service")
+            }
+            logger.d("Did you connect to the correct target? It might be that the previous services were cached: toggle Bluetooth from iOS settings to clear cache. Also, ensure the device contains the Service Changed characteristic")
+        }
+        
+        // Some validation
+        guard dfuControlPointCharacteristic != nil else {
+            logger.e("DFU Control Point characteristic not found")
+            // DFU Control Point characteristic is required
+            _report?(.deviceNotSupported, "DFU Control Point characteristic not found")
+            return
+        }
+        guard dfuPacketCharacteristic != nil else {
+            logger.e("DFU Packet characteristic not found")
+            // DFU Packet characteristic is required
+            _report?(.deviceNotSupported, "DFU Packet characteristic not found")
+            return
+        }
+        guard dfuControlPointCharacteristic!.valid else {
+            logger.e("DFU Control Point characteristic must have Write and Notify properties")
+            // DFU Control Point characteristic must have Write and Notify properties
+            _report?(.deviceNotSupported, "DFU Control Point characteristic does not have the Write and Notify properties")
+            return
+        }
+        guard dfuPacketCharacteristic!.valid else {
+            logger.e("DFU Packet characteristic must have Write Without Response property")
+            // DFU Packet characteristic must have Write Without Response property
+            _report?(.deviceNotSupported, "DFU Packet characteristic must have Write Without Response property")
+            return
+        }
+        
+        _success?()
     }
     
     // MARK: - Support for Buttonless DFU Service

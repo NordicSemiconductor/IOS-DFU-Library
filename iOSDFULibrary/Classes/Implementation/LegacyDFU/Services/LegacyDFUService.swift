@@ -550,15 +550,18 @@ import CoreBluetooth
         self.success = nil
         self.report = nil
         
-        if error != nil {
+        guard error == nil else {
             logger.e("Characteristics discovery failed")
             logger.e(error!)
             _report?(.serviceDiscoveryFailed, "Characteristics discovery failed")
-        } else {
-            logger.i("DFU characteristics discovered")
-            
-            // Find DFU characteristics
-            for characteristic in service.characteristics! {                
+            return
+        }
+
+        logger.i("DFU characteristics discovered")
+        
+        // Find DFU characteristics
+        if let characteristics = service.characteristics {
+            for characteristic in characteristics {
                 if characteristic.matches(uuid: uuidHelper.legacyDFUPacket) {
                     dfuPacketCharacteristic = DFUPacket(characteristic, logger)
                 } else if characteristic.matches(uuid: uuidHelper.legacyDFUControlPoint) {
@@ -567,37 +570,50 @@ import CoreBluetooth
                     dfuVersionCharacteristic = DFUVersion(characteristic, logger)
                 }
             }
-            
-            // Some validation
-            if dfuControlPointCharacteristic == nil {
-                logger.e("DFU Control Point characteristics not found")
-                // DFU Control Point characteristic is required
-                _report?(.deviceNotSupported, "DFU Control Point characteristic not found")
-                return
-            }
-            if !dfuControlPointCharacteristic!.valid {
-                logger.e("DFU Control Point characteristics must have Write and Notify properties")
-                // DFU Control Point characteristic must have Write and Notify properties
-                _report?(.deviceNotSupported, "DFU Control Point characteristic does not have the Write and Notify properties")
-                return
-            }
-            
-            // Note: DFU Packet characteristic is not required in the App mode.
-            //       The mbed implementation of DFU Service doesn't have such.
-            
-            // Read DFU Version characteristic if such exists
-            if self.dfuVersionCharacteristic != nil {
-                if dfuVersionCharacteristic!.valid {
-                    readDfuVersion(onSuccess: _success!, onError: _report!)
-                } else {
-                    version = nil
-                    _report?(.readingVersionFailed, "DFU Version found, but does not have the Read property")
+        }
+        
+        // Log what was found in case of an error
+        if dfuPacketCharacteristic == nil {
+            if let characteristics = service.characteristics, characteristics.isEmpty == false {
+                logger.d("The following characteristics were found:")
+                characteristics.forEach { characteristic in
+                    logger.d(" - \(characteristic.uuid.uuidString)")
                 }
             } else {
-                // Else... proceed
-                version = nil
-                _success?()
+                logger.d("No characteristics found in the service")
             }
+            logger.d("Did you connect to the correct target? It might be that the previous services were cached: toggle Bluetooth from iOS settings to clear cache. Also, ensure the device contains the Service Changed characteristic")
+        }
+        
+        // Some validation
+        guard dfuControlPointCharacteristic != nil else {
+            logger.e("DFU Control Point characteristic not found")
+            // DFU Control Point characteristic is required
+            _report?(.deviceNotSupported, "DFU Control Point characteristic not found")
+            return
+        }
+        guard dfuControlPointCharacteristic!.valid else {
+            logger.e("DFU Control Point characteristic must have Write and Notify properties")
+            // DFU Control Point characteristic must have Write and Notify properties
+            _report?(.deviceNotSupported, "DFU Control Point characteristic does not have the Write and Notify properties")
+            return
+        }
+        
+        // Note: DFU Packet characteristic is not required in the App mode.
+        //       The mbed implementation of DFU Service doesn't have such.
+        
+        // Read DFU Version characteristic if such exists
+        if self.dfuVersionCharacteristic != nil {
+            guard dfuVersionCharacteristic!.valid else {
+                version = nil
+                _report?(.readingVersionFailed, "DFU Version found, but does not have the Read property")
+                return
+            }
+            readDfuVersion(onSuccess: _success!, onError: _report!)
+        } else {
+            // Else... proceed
+            version = nil
+            _success?()
         }
     }
 }

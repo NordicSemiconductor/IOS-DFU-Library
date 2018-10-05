@@ -290,6 +290,18 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         // Search for DFU service
         guard let dfuService = findDfuService(in: peripheral.services) else {
             logger.e("DFU Service not found")
+            
+            // Log what was found in case of an error
+            if let services = peripheral.services, services.isEmpty == false {
+                logger.d("The following services were discovered:")
+                services.forEach { service in
+                    logger.d(" - \(service.uuid.uuidString)")
+                }
+            } else {
+                logger.d("No services found")
+            }
+            logger.d("Did you connect to the correct target? It might be that the previous services were cached: toggle Bluetooth from iOS settings to clear cache. Also, ensure the device contains the Service Changed characteristic")
+            
             // The device does not support DFU, nor buttonless jump
             delegate?.error(.deviceNotSupported, didOccurWithMessage: "DFU Service not found")
             return
