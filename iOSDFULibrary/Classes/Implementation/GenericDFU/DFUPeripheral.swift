@@ -300,7 +300,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
             } else {
                 logger.d("No services found")
             }
-            logger.d("Is it the right device? If so, it may be caching issue. Try again after restarting Bluetooth. Make sure that your device has the Service Changed characteristic")
+            logger.d("Did you connect to the correct target? It might be that the previous services were cached: toggle Bluetooth from iOS settings to clear cache. Also, ensure the device contains the Service Changed characteristic")
             
             // The device does not support DFU, nor buttonless jump
             delegate?.error(.deviceNotSupported, didOccurWithMessage: "DFU Service not found")
