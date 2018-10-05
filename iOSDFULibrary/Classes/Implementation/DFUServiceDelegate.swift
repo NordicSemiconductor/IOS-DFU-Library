@@ -124,6 +124,7 @@ import Foundation
  *  The only method of the delegate is only called when the service is in the Uploading state.
  */
 @objc public protocol DFUProgressDelegate {
+    
     /**
      Callback called in the `State.Uploading` state. Gives detailed information about the progress
      and speed of transmission. This method is always called at least two times (for 0% and 100%)
@@ -153,6 +154,7 @@ import Foundation
  *  The service delegate reports about state changes and errors.
  */
 @objc public protocol DFUServiceDelegate {
+    
     /**
      Callback called when state of the DFU Service has changed.
      

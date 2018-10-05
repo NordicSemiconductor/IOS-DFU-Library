@@ -179,7 +179,6 @@ internal struct PacketReceiptNotification {
 
     internal var characteristic: CBCharacteristic
     internal var logger: LoggerHelper
-    internal var dfuHelper: DFUUuidHelper
 
     private var success: Callback?
     private var proceed: ProgressCallback?
@@ -194,21 +193,20 @@ internal struct PacketReceiptNotification {
     
     // MARK: - Initialization
 
-    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
-        self.dfuHelper = dfuHelper
     }
 
     // MARK: - Characteristic API methods
     
     /**
-    Enables notifications for the DFU Control Point characteristics. Reports success or an error 
-    using callbacks.
+     Enables notifications for the DFU Control Point characteristics.
+     Reports success or an error using callbacks.
     
-    - parameter success: method called when notifications were successfully enabled
-    - parameter report:  method called in case of an error
-    */
+     - parameter success: method called when notifications were successfully enabled
+     - parameter report:  method called in case of an error
+     */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
         self.success = success
@@ -226,8 +224,8 @@ internal struct PacketReceiptNotification {
     }
     
     /**
-     Sends given request to the DFU Control Point characteristic. Reports success or an error
-     using callbacks.
+     Sends given request to the DFU Control Point characteristic.
+     Reports success or an error using callbacks.
      
      - parameter request: request to be sent
      - parameter success: method called when peripheral reported with status success
@@ -266,11 +264,14 @@ internal struct PacketReceiptNotification {
     }
     
     /**
-     Sets the callbacks used later on when a Packet Receipt Notification is received, a device reported an error or the whole firmware has been sent
-     and the notification with success status was received. Sending the firmware is done using DFU Packet characteristic.
+     Sets the callbacks used later on when a Packet Receipt Notification is received,
+     a device reported an error or the whole firmware has been sent and the notification
+     with success status was received. Sending the firmware is done using DFU Packet
+     characteristic.
      
      - parameter success: method called when peripheral reported with status success
-     - parameter proceed: method called the a PRN has been received and sending following data can be resumed
+     - parameter proceed: method called the a PRN has been received and sending following
+     data can be resumed
      - parameter report:  method called in case of an error
      */
     func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {
@@ -309,7 +310,7 @@ internal struct PacketReceiptNotification {
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        guard characteristic.uuid.isEqual(dfuHelper.legacyDFUControlPoint) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
 
@@ -357,7 +358,7 @@ internal struct PacketReceiptNotification {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(dfuHelper.legacyDFUControlPoint) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
 

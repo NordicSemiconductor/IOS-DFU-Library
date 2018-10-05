@@ -23,6 +23,7 @@
 import CoreBluetooth
 
 internal protocol BaseExecutorAPI : class, DFUController {
+    
     /**
      Starts the DFU operation.
      */
@@ -31,6 +32,7 @@ internal protocol BaseExecutorAPI : class, DFUController {
 
 internal protocol BaseDFUExecutor : BaseExecutorAPI, BasePeripheralDelegate {
     associatedtype DFUPeripheralType : BaseDFUPeripheralAPI
+    
     /// Target peripheral object
     var peripheral: DFUPeripheralType { get }
     /// The DFU Service Initiator instance that was used to start the service.
@@ -40,6 +42,7 @@ internal protocol BaseDFUExecutor : BaseExecutorAPI, BasePeripheralDelegate {
 }
 
 extension BaseDFUExecutor {
+    
     /// The service delegate will be informed about status changes and errors.
     internal var delegate: DFUServiceDelegate? {
         // The delegate may change during DFU operation (by setting a new one in the initiator). Let's always use the current one.

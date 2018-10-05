@@ -26,21 +26,20 @@ internal class DFUStarterPeripheral : BaseDFUPeripheral<DFUServiceSelector> {
     
     /**
      Method called when a DFU service has been found.
+     
+     - parameter service: The DFU service found on the device
      */
     override func peripheralDidDiscoverDfuService(_ service: CBService) {
 
-        if DFUUuidHelper.matches(service, uuid: dfuHelper.secureDFUService) {
+        if service.matches(uuid: uuidHelper.secureDFUService) {
             logger.v("Starting Secure DFU...")
             delegate?.peripheralDidSelectedExecutor(SecureDFUExecutor.self)
-
-        } else if (DFUUuidHelper.matches(service, uuid: dfuHelper.legacyDFUService)) {
+        } else if service.matches(uuid: uuidHelper.legacyDFUService) {
             logger.v("Starting Legacy DFU...")
             delegate?.peripheralDidSelectedExecutor(LegacyDFUExecutor.self)
-
-        } else if (DFUUuidHelper.matches(service, uuid: dfuHelper.buttonlessExperimentalService)) {
+        } else if service.matches(uuid: uuidHelper.buttonlessExperimentalService) {
             logger.v("Starting Secure DFU...")
             delegate?.peripheralDidSelectedExecutor(SecureDFUExecutor.self)
-
         } else {
             // This will never go in here
             delegate?.error(.deviceNotSupported, didOccurWithMessage: "Device not supported")

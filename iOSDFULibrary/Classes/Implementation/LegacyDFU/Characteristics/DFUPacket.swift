@@ -28,7 +28,6 @@ internal class DFUPacket: DFUCharacteristic {
     
     internal var characteristic: CBCharacteristic
     internal var logger: LoggerHelper
-    internal var dfuHelper: DFUUuidHelper
 
     /// Number of bytes of firmware already sent.
     private(set) var bytesSent: UInt32 = 0
@@ -36,7 +35,7 @@ internal class DFUPacket: DFUCharacteristic {
     private var bytesSentSinceProgessNotification: UInt32 = 0
     
     /// Current progress in percents (0-99).
-    private var progress:  UInt8 = 0
+    private var progressReported: UInt8 = 0
     private var startTime: CFAbsoluteTime?
     private var lastTime:  CFAbsoluteTime?
     
@@ -44,19 +43,19 @@ internal class DFUPacket: DFUCharacteristic {
         return characteristic.properties.contains(.writeWithoutResponse)
     }
     
-    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
-        self.dfuHelper = dfuHelper
     }
     
     // MARK: - Characteristic API methods
     
     /**
-    Sends the firmware sizes in format [softdevice size, bootloader size, application size], where each size is a UInt32 number.
+     Sends the firmware sizes in format [softdevice size, bootloader size, application size],
+     where each size is a UInt32 number.
     
-    - parameter size: sizes of firmware in the current part
-    */
+     - parameter size: sizes of firmware in the current part
+     */
     func sendFirmwareSize(_ size: DFUFirmwareSize) {
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
@@ -66,7 +65,7 @@ internal class DFUPacket: DFUCharacteristic {
         data += size.bootloader.littleEndian
         data += size.application.littleEndian
 
-        let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+        let packetUUID = characteristic.uuid.uuidString
         
         logger.v("Writing image sizes (\(size.softdevice)b, \(size.bootloader)b, \(size.application)b) to characteristic \(packetUUID)...")
         logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
@@ -76,7 +75,8 @@ internal class DFUPacket: DFUCharacteristic {
     /**
      Sends the application firmware size in format [application size] (UInt32).
      
-     - parameter size: sizes of firmware in the current part. Only the application size may ne grater than 0.
+     - parameter size: sizes of firmware in the current part.
+     Only the application size may ne grater than 0.
      */
     func sendFirmwareSize_v1(_ size: DFUFirmwareSize) {
         // Get the peripheral object
@@ -85,7 +85,7 @@ internal class DFUPacket: DFUCharacteristic {
         var data = Data(capacity: 4)
         data += size.application.littleEndian
 
-        let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+        let packetUUID = characteristic.uuid.uuidString
 
         logger.v("Writing image size (\(size.application)b) to characteristic \(packetUUID)...")
         logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
@@ -109,7 +109,7 @@ internal class DFUPacket: DFUCharacteristic {
             let packetLength = min(bytesToSend, packetSize)
             let packet = data.subdata(in: Int(offset) ..< Int(offset + packetLength))
 
-            let packetUUID = dfuHelper.legacyDFUPacket.uuidString
+            let packetUUID = characteristic.uuid.uuidString
 
             logger.v("Writing to characteristic \(packetUUID)...")
             logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(packetUUID), type: .withoutResponse)")
@@ -130,19 +130,19 @@ internal class DFUPacket: DFUCharacteristic {
      - parameter aFirmware:         the firmware to be sent
      - parameter aProgressDelegate: an optional progress delegate
      */
-    func sendNext(_ aPRNValue: UInt16, packetsOf aFirmware: DFUFirmware, andReportProgressTo aProgressDelegate: DFUProgressDelegate?) {
+    func sendNext(_ prnValue: UInt16, packetsOf firmware: DFUFirmware, andReportProgressTo progress: DFUProgressDelegate?) {
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
         
         // Some super complicated computations...
-        let bytesTotal   = UInt32(aFirmware.data.count)
+        let bytesTotal   = UInt32(firmware.data.count)
         let totalPackets = (bytesTotal + packetSize - 1) / packetSize
         let packetsSent  = (bytesSent + packetSize - 1) / packetSize
         let packetsLeft  = totalPackets - packetsSent
         
         // Calculate how many packets should be sent before EOF or next receipt notification
-        var packetsToSendNow = min(UInt32(aPRNValue), packetsLeft)
-        if aPRNValue == 0 {
+        var packetsToSendNow = min(UInt32(prnValue), packetsLeft)
+        if prnValue == 0 {
             // When Packet Receipt Notification procedure is disabled, the service will send all data here
             packetsToSendNow = packetsLeft
         }
@@ -154,9 +154,9 @@ internal class DFUPacket: DFUCharacteristic {
             
             // Notify progress delegate that upload has started (0%)
             DispatchQueue.main.async(execute: {
-                aProgressDelegate?.dfuProgressDidChange(
-                    for:   aFirmware.currentPart,
-                    outOf: aFirmware.parts,
+                progress?.dfuProgressDidChange(
+                    for:   firmware.currentPart,
+                    outOf: firmware.parts,
                     to:    0,
                     currentSpeedBytesPerSecond: 0.0,
                     avgSpeedBytesPerSecond:     0.0)
@@ -171,13 +171,13 @@ internal class DFUPacket: DFUCharacteristic {
                 canSendPacket = bytesSent == 0 || peripheral.canSendWriteWithoutResponse
             }
             // If PRNs are enabled we will ignore the new API and base synchronization on PRNs only
-            guard canSendPacket || aPRNValue > 0 else {
+            guard canSendPacket || prnValue > 0 else {
                 break
             }
             
             let bytesLeft    = bytesTotal - bytesSent
             let packetLength = min(bytesLeft, packetSize)
-            let packet       = aFirmware.data.subdata(in: Int(bytesSent) ..< Int(bytesSent + packetLength))
+            let packet       = firmware.data.subdata(in: Int(bytesSent) ..< Int(bytesSent + packetLength))
             peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             bytesSent += packetLength
@@ -187,7 +187,7 @@ internal class DFUPacket: DFUCharacteristic {
             let currentProgress = UInt8(bytesSent * 100 / bytesTotal) // in percantage (0-100)
             
             // Notify progress listener
-            if currentProgress > progress {
+            if currentProgress > progressReported {
                 // Calculate current transfer speed in bytes per second
                 let now = CFAbsoluteTimeGetCurrent()
                 let currentSpeed = Double(bytesSent - bytesSentSinceProgessNotification) / (now - lastTime!)
@@ -196,14 +196,14 @@ internal class DFUPacket: DFUCharacteristic {
                 bytesSentSinceProgessNotification = bytesSent
                 
                 DispatchQueue.main.async(execute: {
-                    aProgressDelegate?.dfuProgressDidChange(
-                        for:   aFirmware.currentPart,
-                        outOf: aFirmware.parts,
+                    progress?.dfuProgressDidChange(
+                        for:   firmware.currentPart,
+                        outOf: firmware.parts,
                         to:    Int(currentProgress),
                         currentSpeedBytesPerSecond: currentSpeed,
                         avgSpeedBytesPerSecond:     avgSpeed)
                 })
-                progress = currentProgress
+                progressReported = currentProgress
             }
         }
     }
