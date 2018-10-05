@@ -103,6 +103,11 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         aborted = false
         centralManager.delegate = self
         
+        if centralManager.state != .poweredOn {
+            // Central manager not ready. Wait for poweredOn state.
+            return
+        }
+        
         if peripheral!.state != .connected {
             connect()
         } else {
@@ -135,6 +140,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     func destroy() {
         centralManager.delegate = nil
         peripheral?.delegate = nil
+        peripheral = nil
         delegate = nil
     }
     
@@ -178,9 +184,13 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
             stateAsString = "Unknown"
         }
         logger.d("[Callback] Central Manager did update state to: \(stateAsString)")
-        if central.state != .poweredOn {
+        if central.state == .poweredOn {
+            // We are now ready to rumble!
+            start()
+        } else {
             // The device has been already disconnected if it was connected
             delegate?.error(.bluetoothDisabled, didOccurWithMessage: "Bluetooth adapter powered off")
+            destroy()
         }
     }
     
