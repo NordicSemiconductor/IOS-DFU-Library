@@ -175,24 +175,21 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         partProgressView.progress = 0.0
 
         // Create DFU initiator with some default configuration
-        let dfuInitiator = DFUServiceInitiator(target: dfuPeripheral)
+        let dfuInitiator = DFUServiceInitiator(target: dfuPeripheral, queue: DispatchQueue(label: "Other"))
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
 
+        // Here would be a good chance to change the UUIDs to your custom UUIDs
 
-        ///
-        /// Here would be a good chance to change the UUIDs to your custom UUIDs
-        ///
+        //let customUUIDs = [ DFUUuid(withUUID: CBUUID(string: "46B3C11D-7AA7-DFB8-2998-B0BABBF03670"), forType: .lagacyService),
+        //                    DFUUuid(withUUID: CBUUID(string: "00001531-1212-EFDE-1523-000000000000"), forType: .legacyControlPoint),
+        //                    DFUUuid(withUUID: CBUUID(string: "00001532-1212-EFDE-1523-000000000000"), forType: .legacyPacket),
+        //                    DFUUuid(withUUID: CBUUID(string: "00001534-1212-EFDE-1523-000000000000"), forType: .legacyVersion),
+        //                    ]
 
-       //let customUUIDs = [ DFUUuid(withUUID: CBUUID(string: "46B3C11D-7AA7-DFB8-2998-B0BABBF03670"), forType: .lagacyService),
-       //                    DFUUuid(withUUID: CBUUID(string: "00001531-1212-EFDE-1523-000000000000"), forType: .legacyControlPoint),
-       //                    DFUUuid(withUUID: CBUUID(string: "00001532-1212-EFDE-1523-000000000000"), forType: .legacyPacket),
-       //                    DFUUuid(withUUID: CBUUID(string: "00001534-1212-EFDE-1523-000000000000"), forType: .legacyVersion),
-       //                    ]
-
-        /// set the custom UUDIds
-        //dfuInitiator.dfuHelper = DFUUuidHelper(customUuids: customUUIDs)
+        // Set the custom UUDIds
+        // dfuInitiator.dfuHelper = DFUUuidHelper(customUuids: customUUIDs)
         
         // Starting from iOS 11 and macOS 10.13 there is a new API that removes the need of PRNs.
         // However, some devices may still work better with them enabled! A specially those
