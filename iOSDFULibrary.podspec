@@ -13,7 +13,7 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
   s.social_media_url = 'https://twitter.com/nordictweets'
   s.swift_version = '4.2'
   s.ios.deployment_target = '8.0'
-  s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.14'
 
   s.source_files = 'iOSDFULibrary/Classes/**/*'
 
