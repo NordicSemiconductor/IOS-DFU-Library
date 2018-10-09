@@ -1,4 +1,7 @@
 ### Changelog
+- **4.2.1**
+    - Bugfix: Fixed issue causing a crash when the target peripheral was set to `nil` and `discoverServices()` got called.
+    - Bugfix: Raised MacOS Deployment target to 10.14 due to missing `identifier` property on `CBPeripheral` to avoid hacky workarounds.
 - **4.2.0**
     - Improvement: Swift 4.2 migration.
     - Improvement: Added .swift-version file.

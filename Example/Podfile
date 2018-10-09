@@ -10,6 +10,6 @@ target 'iOSDFULibrary_Tests' do
 end
 
 target 'macOSDFULibrary_Example' do
-  platform :osx, '10.10'
+  platform :osx, '10.14'
   pod 'iOSDFULibrary', :path => '../'
 end
