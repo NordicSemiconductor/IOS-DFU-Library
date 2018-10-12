@@ -30,7 +30,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
     internal var firmware   : DFUFirmware
     internal var error      : (error: DFUError, message: String)?
     
-    /// Retry counter for peripheral invalid state issue
+    /// Retry counter for peripheral invalid state issue.
     private let MaxRetryCount = 1
     private var invalidStateRetryCount: Int
     

@@ -73,14 +73,14 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         return [uuidHelper.legacyDFUService, uuidHelper.secureDFUService]
         */
     }
-    /// A flag indicating whether the eperimental Buttonless DFU Service in Secure DFU is supported
+    /// A flag indicating whether the eperimental Buttonless DFU Service in Secure DFU is supported.
     internal let experimentalButtonlessServiceInSecureDfuEnabled: Bool
-    /// Default error callback
+    /// Default error callback.
     internal var defaultErrorCallback: ErrorCallback {
         return { (error, message) in self.delegate?.error(error, didOccurWithMessage: message) }
     }
 
-    /// UUIDs for Service/Characteristics
+    /// UUIDs for Service/Characteristics.
     internal var uuidHelper: DFUUuidHelper
 
     /// A flag set when upload has been aborted.
@@ -351,7 +351,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     /**
      Looks for a DFU Service in given list of services.
      
-     - returns: a DFUService type if a DFU service has been found, or nil if services
+     - returns: A DFUService type if a DFU service has been found, or nil if services
      are nil or the list does not contain any supported DFU Service.
      */
     private func findDfuService(in services:[CBService]?) -> CBService? {
@@ -421,7 +421,7 @@ internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
      - parameter forceDfu: should the service assume the device is in DFU Bootloader mode when
      DFU Version characteristic does not exist and at least one other service has been found on the device.
      
-     - returns: true if device needs buttonless jump to DFU Bootloader mode
+     - returns: True if device needs buttonless jump to DFU Bootloader mode.
      */
     func isInApplicationMode(_ forceDfu: Bool) -> Bool
     
@@ -437,7 +437,7 @@ internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
     /**
      Returns whether the Init Packet is required by the target DFU device.
      
-     - returns: true if init packet is required, false if not. Init packet is required
+     - returns: True if init packet is required, false if not. Init packet is required
      since DFU Bootloader version 0.5 (SDK 7.0.0).
      */
     func isInitPacketRequired() -> Bool
@@ -448,7 +448,7 @@ internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
     var activating: Bool { get set }
     /// A flag set when the library should try again connecting to the device (it may be then in a correct state).
     var shouldReconnect: Bool { get set }
-    /// A unique name that the bootloader will use in advertisement packets (used since SDK 14)
+    /// A unique name that the bootloader will use in advertisement packets (used since SDK 14).
     var bootloaderName: String? { get set }
 }
 
@@ -463,7 +463,7 @@ internal protocol DFUPeripheral : DFUPeripheralAPI {
 }
 
 internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUService> : BaseDFUPeripheral<TD>, DFUPeripheral {
-    /// The peripheral selector instance specified in the initiator
+    /// The peripheral selector instance specified in the initiator.
     internal let peripheralSelector: DFUPeripheralSelectorDelegate
     
     internal typealias DFUServiceType = TS

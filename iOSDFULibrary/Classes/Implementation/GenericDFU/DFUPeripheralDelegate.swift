@@ -37,8 +37,8 @@ internal protocol BasePeripheralDelegate : class {
     /**
      Method called when the device got unexpectadly disconnected with an error.
      
-     - parameter error: the error returned by
-     `centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?)`
+     - parameter error: The error returned by
+     `centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?)`.
      */
     func peripheralDidDisconnect(withError error: Error)
     
@@ -50,8 +50,8 @@ internal protocol BasePeripheralDelegate : class {
     /**
      Method called when an error occurred during the last operation.
      
-     - parameter error:   the error type
-     - parameter message: details
+     - parameter error:   The error type.
+     - parameter message: Details.
      */
     func error(_ error: DFUError, didOccurWithMessage message: String)
 }
@@ -75,7 +75,7 @@ internal protocol DFUPeripheralDelegate : BasePeripheralDelegate {
      DFUServiceInitiator and continue with second part. The `peripheralDidBecomeReady()`
      callback will be called again when DFU service is be found in its database.
      
-     - returns: true if there is another part to be sent, false otherwise.
+     - returns: True if there is another part to be sent, false otherwise.
      */
     func peripheralDidDisconnectAfterFirmwarePartSent() -> Bool
 }

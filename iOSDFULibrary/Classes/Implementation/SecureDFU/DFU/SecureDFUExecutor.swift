@@ -320,13 +320,13 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     /**
-     Verifies if the CRC-32 of the data for byte 0 to given offset matches the given CRC value.
+     Verifies if the CRC-32 of the data from byte 0 to given offset matches the given CRC value.
      
-     - parameter data:   Firmware or Init packet data
-     - parameter offset: Number of bytes that should be used for CRC calculation
-     - parameter crc:    The CRC obtained from the DFU Target to be matched
+     - parameter data:   Firmware or Init packet data.
+     - parameter offset: Number of bytes that should be used for CRC calculation.
+     - parameter crc:    The CRC obtained from the DFU Target to be matched.
      
-     - returns: True if CRCs are identical, false otherwise
+     - returns: True if CRCs are identical, false otherwise.
      */
     private func verifyCRC(for data: Data, andPacketOffset offset: UInt32, matches crc: UInt32) -> Bool {
         // Edge case where a different objcet might be flashed with a biger init file
@@ -342,7 +342,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     /**
-     Sends the Init packet starting from the given offset. This method is synchronous, however it calls 
+     Sends the Init packet starting from the given offset. This method is asynchronous, it calls
      peripheralDidReceiveInitPacket() callback when done.
      
      - parameter offset: The starting offset from which the Init Packet should be sent.

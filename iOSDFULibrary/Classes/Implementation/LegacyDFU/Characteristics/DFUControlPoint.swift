@@ -204,8 +204,8 @@ internal struct PacketReceiptNotification {
      Enables notifications for the DFU Control Point characteristics.
      Reports success or an error using callbacks.
     
-     - parameter success: method called when notifications were successfully enabled
-     - parameter report:  method called in case of an error
+     - parameter success: Method called when notifications were successfully enabled.
+     - parameter report:  Method called in case of an error.
      */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
@@ -227,9 +227,9 @@ internal struct PacketReceiptNotification {
      Sends given request to the DFU Control Point characteristic.
      Reports success or an error using callbacks.
      
-     - parameter request: request to be sent
-     - parameter success: method called when peripheral reported with status success
-     - parameter report:  method called in case of an error
+     - parameter request: Request to be sent.
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter report:  Method called in case of an error.
      */
     func send(_ request: Request, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
@@ -269,10 +269,10 @@ internal struct PacketReceiptNotification {
      with success status was received. Sending the firmware is done using DFU Packet
      characteristic.
      
-     - parameter success: method called when peripheral reported with status success
-     - parameter proceed: method called the a PRN has been received and sending following
-     data can be resumed
-     - parameter report:  method called in case of an error
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter proceed: Method called the a PRN has been received and sending following
+     data can be resumed.
+     - parameter report:  Method called in case of an error.
      */
     func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {
         // Save callbacks. The proceed callback will be called periodically whenever a packet receipt notification is received. It resumes uploading.

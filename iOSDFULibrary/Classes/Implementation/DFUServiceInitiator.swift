@@ -221,9 +221,9 @@ import CoreBluetooth
      which does not take control over the give peripheral, and is using a copy instead.
      
      - parameter centralManager: Manager that will be used to connect to the peripheral
-     - parameter target: The DFU target peripheral
+     - parameter target: The DFU target peripheral.
      
-     - returns: The initiator instance
+     - returns: The initiator instance.
      
      - seeAlso: peripheralSelector property - a selector used when scanning for a device in DFU Bootloader mode
      in case you want to update a Softdevice and Application from a single ZIP Distribution Packet.
@@ -255,10 +255,10 @@ import CoreBluetooth
      that the original peripheral delegate may receive a lot of calls, and will restart during
      the process. The app should not send any data to DFU characteristics when DFU is in progress.
      
-     - parameter target: The DFU target peripheral
-     - parameter queue: The dispatch queue to run BLE operations on
+     - parameter target: The DFU target peripheral.
+     - parameter queue: The dispatch queue to run BLE operations on.
      
-     - returns: The initiator instance
+     - returns: The initiator instance.
      
      - version: Added in version 4.2 of the iOS DFU Library.
      - seeAlso: peripheralSelector property - a selector used when scanning for a device in DFU Bootloader mode
@@ -282,9 +282,9 @@ import CoreBluetooth
      Sets the file with the firmware. The file must be specified before calling `start()` method,
      and must not be nil.
      
-     - parameter file: The firmware wrapper object
+     - parameter file: The firmware wrapper object.
      
-     - returns: The initiator instance to allow chain use
+     - returns: The initiator instance to allow chain use.
      */
     @objc public func with(firmware file: DFUFirmware) -> DFUServiceInitiator {
         self.file = file

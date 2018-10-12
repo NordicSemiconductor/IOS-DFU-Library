@@ -109,7 +109,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     /**
      Creates data object with given length.
      
-     - parameter length: Exact size of the object
+     - parameter length: Exact size of the object.
      */
     func createDataObject(withLength length: UInt32) {
         dfuService!.createDataObject(withLength: length,
@@ -121,7 +121,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     /**
      Creates command object with given length.
      
-     - parameter length: Exact size of the object
+     - parameter length: Exact size of the object.
      */
     func createCommandObject(withLength length: UInt32) {
         dfuService!.createCommandObject(withLength: length,
@@ -133,9 +133,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     /**
      Sends a given range of data from the firmware.
      
-     - parameter range:    Given range of the firmware will be sent
-     - parameter firmware: The firmware from with part is to be sent
-     - parameter progress: An optional progress delegate
+     - parameter range:    Given range of the firmware will be sent.
+     - parameter firmware: The firmware from with part is to be sent.
+     - parameter progress: An optional progress delegate.
      */
     func sendNextObject(from range: Range<Int>, of firmware: DFUFirmware, andReportProgressTo progress: DFUProgressDelegate?) {
         dfuService!.sendNextObject(from: range, of: firmware, andReportProgressTo: progress,
@@ -149,7 +149,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      On older version of iOS the value may not be greater than ~20 or equal to 0, otherwise a buffer overflow error may occur.
      This library sends the Init packet without PRNs, but that's only because of the Init packet is small enough.
      
-     - parameter newValue: Packet Receipt Notification value (0 to disable PRNs)
+     - parameter newValue: Packet Receipt Notification value (0 to disable PRNs).
      */
     func setPRNValue(_ newValue: UInt16 = 0) {
         dfuService!.setPacketReceiptNotificationValue(newValue,
@@ -162,7 +162,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      Sends Init packet. This method is synchronuous and calls delegate's
      `peripheralDidReceiveInitPacket()` method ater the given data are sent.
      
-     - parameter packetData: Data to be sent as Init Packet
+     - parameter packetData: Data to be sent as Init Packet.
      */
     func sendInitPacket(_ packetData: Data){
         // This method is synchronuous.

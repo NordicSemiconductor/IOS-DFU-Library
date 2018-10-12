@@ -30,7 +30,7 @@ internal protocol SecureDFUPeripheralDelegate : DFUPeripheralDelegate {
     /**
      Callback when Command Object Info has been received from the peripheral.
      
-     - parameter maxLen: The maximum size of the Init Packet in bytes
+     - parameter maxLen: The maximum size of the Init Packet in bytes.
      - parameter offset: Number of bytes of Init Packet already sent, for example during last DFU operation.
      This resets to 0 on Create Command Object or when the DFU operation completes.
      - parameter crc: The CRC-32 calculated from the 'offset' bytes. This may be used to calculate if
