@@ -258,18 +258,21 @@ import CoreBluetooth
      - parameter target: The DFU target peripheral.
      - parameter queue: The dispatch queue to run BLE operations on.
      
-     - returns: The initiator instance.
+     - returns: The initiator instance, or nil if target could not have been found (Bluetooth is disabled).
      
      - version: Added in version 4.2 of the iOS DFU Library.
      - seeAlso: peripheralSelector property - a selector used when scanning for a device in DFU Bootloader mode
      in case you want to update a Softdevice and Application from a single ZIP Distribution Packet.
      */
-    @objc public init(target: CBPeripheral, queue: DispatchQueue? = nil) {
+    @objc public init?(target: CBPeripheral, queue: DispatchQueue? = nil) {
         // Create a new instance of CBCentralManager
         self.centralManager = CBCentralManager(delegate: nil, queue: queue)
         // As the given peripheral was obtained using a different central manager,
         // its new instance must be obtained from the new manager.
-        self.target = self.centralManager.retrievePeripherals(withIdentifiers: [target.identifier]).first!
+        guard let peripheral = self.centralManager.retrievePeripherals(withIdentifiers: [target.identifier]).first else {
+            return nil
+        }
+        self.target = peripheral
         // Default peripheral selector will choose the service UUID as a filter
         self.peripheralSelector = DFUPeripheralSelector()
         // Default UUID helper with standard set of UUIDs

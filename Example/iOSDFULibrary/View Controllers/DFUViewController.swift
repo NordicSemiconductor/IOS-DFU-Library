@@ -175,7 +175,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         partProgressView.progress = 0.0
 
         // Create DFU initiator with some default configuration
-        let dfuInitiator = DFUServiceInitiator(target: dfuPeripheral, queue: DispatchQueue(label: "Other"))
+        guard let dfuInitiator = DFUServiceInitiator(target: dfuPeripheral, queue: DispatchQueue(label: "Other")) else {
+            // Looks like the Bluetooth is disabled?
+            // Check https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/239
+            return
+        }
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
