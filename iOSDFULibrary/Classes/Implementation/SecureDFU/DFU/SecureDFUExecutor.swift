@@ -159,6 +159,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             } else {
                 // The CRC does not match, let's start from the beginning.
                 retryOrReportCrcError({
+                    self.offset = 0
+                    self.crc = 0
                     peripheral.createCommandObject(withLength: UInt32(firmware.initPacket!.count)) // -> peripheralDidCreateCommandObject()
                 })
             }
