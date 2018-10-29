@@ -191,7 +191,10 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         
         dfuService!.sendActivateAndResetRequest(
             // onSuccess the device gets disconnected and centralManager(_:didDisconnectPeripheral:error) will be called
-            onError: defaultErrorCallback
+            onError: { (error, message) in
+                self.activating = false
+                self.delegate?.error(error, didOccurWithMessage: message)
+            }
         )
     }
     
