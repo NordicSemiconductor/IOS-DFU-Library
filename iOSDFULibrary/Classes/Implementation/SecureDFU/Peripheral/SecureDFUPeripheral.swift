@@ -189,11 +189,14 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      and the device will disconnect on its own on Execute command. Delegate's onTransferComplete event will be called when
      the disconnect event is receviced.
      */
-    func sendExecuteCommand(andActivateIf activating: Bool = false) {
-        self.activating = activating
+    func sendExecuteCommand(andActivateIf complete: Bool = false) {
+        activating = complete
         dfuService!.executeCommand(
             onSuccess: { self.delegate?.peripheralDidExecuteObject() },
-            onError: defaultErrorCallback
+            onError: { (error, message) in
+                self.activating = false
+                self.delegate?.error(error, didOccurWithMessage: message)
+            }
         )
     }
 }
