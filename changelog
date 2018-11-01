@@ -1,4 +1,6 @@
 ### Changelog
+- **4.2.2**
+    - Bugfix: Fixed issue #245 where operationFailed error messages where not reported in some cases.
 - **4.2.1**
     - Bugfix: Fixed issue causing a crash when the target peripheral was set to `nil` and `discoverServices()` got called.
     - Bugfix: Raised MacOS Deployment target to 10.14 due to missing `identifier` property on `CBPeripheral` to avoid hacky workarounds.
