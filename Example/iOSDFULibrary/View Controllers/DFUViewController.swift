@@ -175,7 +175,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         partProgressView.progress = 0.0
 
         // Create DFU initiator with some default configuration
-        let dfuInitiator = DFUServiceInitiator(target: dfuPeripheral, queue: DispatchQueue(label: "Other"))
+        let dfuInitiator = DFUServiceInitiator(queue: DispatchQueue(label: "Other"))
         dfuInitiator.delegate = self
         dfuInitiator.progressDelegate = self
         dfuInitiator.logger = self
@@ -202,7 +202,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         // Apply step's modifications to the DFU initiator
         firmwareProvider.applyModifier(to: dfuInitiator)
         
-        dfuController = dfuInitiator.with(firmware: firmware).start()
+        dfuController = dfuInitiator.with(firmware: firmware).start(target: dfuPeripheral)
     }
     
     func prepareNextStep() {

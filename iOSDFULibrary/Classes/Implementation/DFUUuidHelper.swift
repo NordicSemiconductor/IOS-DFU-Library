@@ -176,7 +176,7 @@ internal extension DFUUuidHelper {
  
      - parameter characteristic: Characteristic to check for match.
      
-     - returns: Bool Value
+     - returns: Bool Value.
     */
     func matchesButtonless(_ characteristic: CBCharacteristic) -> Bool {
         return characteristic.uuid.isEqual(buttonlessWithBonds)
@@ -190,7 +190,7 @@ internal extension CBCharacteristic {
     /**
      Checks if the Characteristic has the given UUID.
  
-     - parameter uuid: DFU UUID
+     - parameter uuid: DFU UUID.
      
      - returns: True, if the charactersistic's UUID is equal to the given one.
     */
@@ -204,7 +204,7 @@ internal extension CBService {
     /**
      Checks if the Service has the given UUID.
      
-     - parameter uuid: DFU UUID
+     - parameter uuid: DFU UUID.
      
      - returns: True, if the service's UUID is equal to the given one.
      */

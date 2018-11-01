@@ -30,7 +30,7 @@ internal protocol DFUStarterPeripheralDelegate : BasePeripheralDelegate {
      - parameter ExecutorType: The type of the seleceted executor.
      
      - returns: The executor type based on the found DFU Service:
-                SecureDFUExecutor or LegacyDFUExecutor
+                SecureDFUExecutor or LegacyDFUExecutor.
      */
     func peripheralDidSelectedExecutor(_ ExecutorType: DFUExecutorAPI.Type)
 }

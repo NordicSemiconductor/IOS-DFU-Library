@@ -28,13 +28,13 @@ internal typealias ProgressCallback = (_ bytesReceived: UInt32?) -> Void
 
 internal protocol DFUService : DFUController {
 
-    /// The target DFU Peripheral
+    /// The target DFU Peripheral.
     var targetPeripheral: DFUPeripheralAPI? { get set }
     
-    /// UUID Helper
+    /// UUID Helper.
     var uuidHelper: DFUUuidHelper { get }
     
-    /// Returns the service UUID based on the UUID helper
+    /// Returns the service UUID based on the UUID helper.
     static func serviceUuid(from uuidHelper: DFUUuidHelper) -> CBUUID
 
     /**

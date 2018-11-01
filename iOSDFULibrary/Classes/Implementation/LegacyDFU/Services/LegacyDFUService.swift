@@ -124,8 +124,8 @@ import CoreBluetooth
     /**
      Discovers characteristics in the DFU Service. Result it reported using callbacks.
      
-     - parameter success: Method called when required DFU characteristics were discovered
-     - parameter report:  Method called when an error occurred
+     - parameter success: Method called when required DFU characteristics were discovered.
+     - parameter report:  Method called when an error occurred.
      */
     func discoverCharacteristics(onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         // Save callbacks
@@ -149,7 +149,7 @@ import CoreBluetooth
      This method tries to estimate whether the DFU target device is in Application mode which supports
      the buttonless jump to the DFU Bootloader.
      
-     - returns: True, if it is for sure in the Application more, false, if definitely is not, nil if unknown
+     - returns: True, if it is for sure in the Application more, false, if definitely is not, nil if unknown.
      */
     func isInApplicationMode() -> Bool? {
         // If DFU Version characteritsic returned a correct value...
@@ -193,8 +193,8 @@ import CoreBluetooth
     /**
      Enables notifications for DFU Control Point characteristic. Result it reported using callbacks.
      
-     - parameter success: Method called when notifications were enabled without a problem
-     - parameter report:  Method called when an error occurred
+     - parameter success: Method called when notifications were enabled without a problem.
+     - parameter report:  Method called when an error occurred.
      */
     func enableControlPoint(onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         if !aborted {
@@ -207,7 +207,7 @@ import CoreBluetooth
     /**
      Triggers a switch to DFU Bootloader mode on the remote target by sending DFU Start command.
      
-     - parameter report: Method called when an error occurred
+     - parameter report: Method called when an error occurred.
      */
     func jumpToBootloaderMode(onError report: @escaping ErrorCallback) {
         if !aborted {
@@ -221,10 +221,10 @@ import CoreBluetooth
      This methods sends the Start DFU command with the firmware type to the DFU Control Point characterristic,
      followed by the sizes of each firware component <softdevice, bootloader, application> (each as UInt32, Little Endian).
      
-     - parameter type:    The type of the current firmware part
-     - parameter size:    The sizes of firmware components in the current part
-     - parameter success: A callback called when a response with status Success is received
-     - parameter report:  A callback called when a response with an error status is received
+     - parameter type:    The type of the current firmware part.
+     - parameter size:    The sizes of firmware components in the current part.
+     - parameter success: A callback called when a response with status Success is received.
+     - parameter report:  A callback called when a response with an error status is received.
      */
     func sendDfuStart(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         guard !aborted else {
@@ -268,9 +268,9 @@ import CoreBluetooth
      This methods sends the old Start DFU command (without the firmware type) to the DFU Control Point characterristic,
      followed by the application size <application> (UInt32, Little Endian).
      
-     - parameter size:    The sizes of firmware components in the current part
-     - parameter success: A callback called when a response with status Success is received
-     - parameter report:  A callback called when a response with an error status is received
+     - parameter size:    The sizes of firmware components in the current part.
+     - parameter success: A callback called when a response with status Success is received.
+     - parameter report:  A callback called when a response with an error status is received.
      */
     func sendStartDfu(withFirmwareSize size: DFUFirmwareSize, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         guard !aborted else {
@@ -303,9 +303,9 @@ import CoreBluetooth
      The extended Init Packet may also contain a hash of the firmware (since DFU from SDK 9.0.0).
      Before Init Packet became required it could have contained only 2-byte CRC of the firmware.
      
-     - parameter data:    The Init Packet data
-     - parameter success: A callback called when a response with status Success is received
-     - parameter report:  A callback called when a response with an error status is received
+     - parameter data:    The Init Packet data.
+     - parameter success: A callback called when a response with status Success is received.
+     - parameter report:  A callback called when a response with an error status is received.
      */
     func sendInitPacket(_ data: Data, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         guard !aborted else {
@@ -373,8 +373,8 @@ import CoreBluetooth
      
      - parameter prnValue: Number of packets of firmware data to be received by the DFU target before
      sending a new Packet Receipt Notification.
-     - parameter success:  A callback called when a response with status Success is received
-     - parameter report:   A callback called when a response with an error status is received
+     - parameter success:  A callback called when a response with status Success is received.
+     - parameter report:   A callback called when a response with an error status is received.
      */
     func sendPacketReceiptNotificationRequest(_ prnValue: UInt16, onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         if !aborted {
@@ -388,11 +388,11 @@ import CoreBluetooth
     /**
      Sends the firmware data to the DFU target device.
      
-     - parameter firmware: The firmware to be sent
-     - parameter delay:    If true, upload will be delayed by 1000ms
-     - parameter progress: A progress delagate that will be informed about transfer progress
-     - parameter success:  A callback called when a response with status Success is received
-     - parameter report:   A callback called when a response with an error status is received
+     - parameter firmware: The firmware to be sent.
+     - parameter delay:    If true, upload will be delayed by 1000ms.
+     - parameter progress: A progress delagate that will be informed about transfer progress.
+     - parameter success:  A callback called when a response with status Success is received.
+     - parameter report:   A callback called when a response with an error status is received.
      */
     func sendFirmware(_ firmware: DFUFirmware, withDelay delay: Bool, andReportProgressTo progress: DFUProgressDelegate?,
                       onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
@@ -486,8 +486,8 @@ import CoreBluetooth
     /**
      Sends the Validate Firmware request to DFU Control Point characteristic.
      
-     - parameter success: A callback called when a response with status Success is received
-     - parameter report:  A callback called when a response with an error status is received
+     - parameter success: A callback called when a response with status Success is received.
+     - parameter report:  A callback called when a response with an error status is received.
      */
     func sendValidateFirmwareRequest(onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         if !aborted {
@@ -501,7 +501,7 @@ import CoreBluetooth
      Sends a command that will activate the new firmware and reset the DFU target device.
      Soon after calling this method the device should disconnect.
      
-     - parameter report: A callback called when writing characteristic failed
+     - parameter report: A callback called when writing characteristic failed.
      */
     func sendActivateAndResetRequest(onError report: @escaping ErrorCallback) {
         if !aborted {
@@ -516,7 +516,7 @@ import CoreBluetooth
      previous application (if DFU dual bank was used and application wasn't removed to make space for a new
      softdevice) or bootloader.
      
-     - parameter report: A callback called when writing characteristic failed
+     - parameter report: A callback called when writing characteristic failed.
      */
     func sendReset(onError report: @escaping ErrorCallback) {
         dfuControlPointCharacteristic!.send(Request.reset, onSuccess: nil, onError: report)
@@ -527,8 +527,8 @@ import CoreBluetooth
     /**
     Reads the DFU Version characteristic value. The characteristic must not be nil.
     
-    - parameter success: The callback called when supported version number has been received
-    - parameter report:  The error callback which is called in case of an error, or when obtained data are not supported
+    - parameter success: The callback called when supported version number has been received.
+    - parameter report:  The error callback which is called in case of an error, or when obtained data are not supported.
     */
     private func readDfuVersion(onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         dfuVersionCharacteristic!.readVersion(

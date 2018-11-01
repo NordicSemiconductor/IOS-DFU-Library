@@ -63,7 +63,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
     /**
      Sends the whole content of the data object.
      
-     - parameter data: The data to be sent
+     - parameter data: The data to be sent.
      */
     func sendInitPacket(_ data: Data){
         // Get the peripheral object

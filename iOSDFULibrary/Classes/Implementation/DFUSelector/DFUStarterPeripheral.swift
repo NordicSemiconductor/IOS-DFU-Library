@@ -27,7 +27,7 @@ internal class DFUStarterPeripheral : BaseDFUPeripheral<DFUServiceSelector> {
     /**
      Method called when a DFU service has been found.
      
-     - parameter service: The DFU service found on the device
+     - parameter service: The DFU service found on the device.
      */
     override func peripheralDidDiscoverDfuService(_ service: CBService) {
 

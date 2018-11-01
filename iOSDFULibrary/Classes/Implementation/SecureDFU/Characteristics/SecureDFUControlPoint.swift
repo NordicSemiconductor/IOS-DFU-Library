@@ -324,8 +324,8 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      Enables notifications for the DFU Control Point characteristics.
      Reports success or an error using callbacks.
     
-     - parameter success: Method called when notifications were successfully enabled
-     - parameter report:  Method called in case of an error
+     - parameter success: Method called when notifications were successfully enabled.
+     - parameter report:  Method called in case of an error.
      */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
@@ -350,9 +350,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      Sends given request to the DFU Control Point characteristic. Reports success or an error
      using callbacks.
      
-     - parameter request: Request to be sent
-     - parameter success: Method called when peripheral reported with status success
-     - parameter report:  Method called in case of an error
+     - parameter request: Request to be sent.
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter report:  Method called in case of an error.
      */
     func send(_ request: SecureDFURequest, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
@@ -377,9 +377,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      Sends given request to the DFU Control Point characteristic. Reports received data or an error
      using callbacks.
      
-     - parameter request:  Request to be sent
-     - parameter response: Method called when peripheral sent a notification with requested data and status success
-     - parameter report:   Method called in case of an error
+     - parameter request:  Request to be sent.
+     - parameter response: Method called when peripheral sent a notification with requested data and status success.
+     - parameter report:   Method called in case of an error.
      */
     func send(_ request: SecureDFURequest, onResponse response: SecureDFUResponseCallback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
@@ -405,9 +405,9 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      a device reported an error or the whole firmware has been sent. 
      Sending the firmware is done using DFU Packet characteristic.
      
-     - parameter success: Method called when peripheral reported with status success
-     - parameter proceed: Method called the a PRN has been received and sending following data can be resumed
-     - parameter report:  Method called in case of an error
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter proceed: Method called the a PRN has been received and sending following data can be resumed.
+     - parameter report:  Method called in case of an error.
      */
     func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {
         // Save callbacks. The proceed callback will be called periodically whenever a packet receipt notification is received. It resumes uploading.
