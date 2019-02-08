@@ -96,8 +96,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         
         // Was Init packet sent, at least partially, before?
         if offset > 0 {
-            // Verify CRC of the part that was sent before
-            if verifyCRC(for: firmware.initPacket!, andPacketOffset: offset, matches: crc) {
+            // If we are allowed to resume, then verify CRC of the part that was sent before
+            if !initiator.disableResume && verifyCRC(for: firmware.initPacket!, andPacketOffset: offset, matches: crc) {
                 // Resume sending Init Packet
                 if offset < UInt32(firmware.initPacket!.count) {
                     logWith(.application, message: "Resuming sending Init packet...")
