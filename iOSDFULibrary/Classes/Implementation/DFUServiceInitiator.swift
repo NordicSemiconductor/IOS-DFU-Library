@@ -201,6 +201,11 @@ import CoreBluetooth
     */
     @objc public var uuidHelper: DFUUuidHelper
 
+    /**
+     Disable the ability for the DFU process to resume from where it was.
+    */
+    @objc public var disableResume: Bool = false
+
     //MARK: - Public API
     
     /**
