@@ -182,7 +182,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
 
         // Here would be a good chance to change the UUIDs to your custom UUIDs
 
-        //let customUUIDs = [ DFUUuid(withUUID: CBUUID(string: "46B3C11D-7AA7-DFB8-2998-B0BABBF03670"), forType: .lagacyService),
+        //let customUUIDs = [ DFUUuid(withUUID: CBUUID(string: "46B3C11D-7AA7-DFB8-2998-B0BABBF03670"), forType: .legacyService),
         //                    DFUUuid(withUUID: CBUUID(string: "00001531-1212-EFDE-1523-000000000000"), forType: .legacyControlPoint),
         //                    DFUUuid(withUUID: CBUUID(string: "00001532-1212-EFDE-1523-000000000000"), forType: .legacyPacket),
         //                    DFUUuid(withUUID: CBUUID(string: "00001534-1212-EFDE-1523-000000000000"), forType: .legacyVersion),
