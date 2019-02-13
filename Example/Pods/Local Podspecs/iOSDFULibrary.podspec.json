@@ -16,13 +16,13 @@
   "social_media_url": "https://twitter.com/nordictweets",
   "swift_version": "4.2",
   "platforms": {
-    "ios": "8.0",
+    "ios": "9.0",
     "osx": "10.14"
   },
   "source_files": "iOSDFULibrary/Classes/**/*",
   "dependencies": {
-    "Zip": [
-      "~> 1.0"
+    "ZIPFoundation": [
+      "~> 0.9.6"
     ]
   }
 }
