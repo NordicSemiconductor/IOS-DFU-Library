@@ -223,7 +223,7 @@
 		39F5433B6C6A61DE63E8448FD57D0809 /* DFUServiceDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceDelegate.swift; sourceTree = "<group>"; };
 		3AB623CFC62A96D2B50FE7BB0177C06B /* DFUCharacteristic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUCharacteristic.swift; sourceTree = "<group>"; };
 		3B1552FF760D0065A1C9571004C7F3A5 /* DFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheral.swift; sourceTree = "<group>"; };
-		3C06971EBE450497834D75891395EDD1 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = iOSDFULibrary.framework; path = "iOSDFULibrary-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C06971EBE450497834D75891395EDD1 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE5C6E82ABDE843742A47C11BA0B933 /* DFUPeripheralSelectorDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelectorDelegate.swift; sourceTree = "<group>"; };
 		43A37BF9B54ADABFBC03BE67C6D3E01B /* SecureDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheral.swift; sourceTree = "<group>"; };
 		43C9272A2CAA71AB8CB7C69363D4DAF3 /* iOSDFULibrary-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "iOSDFULibrary-macOS.modulemap"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS.modulemap"; sourceTree = "<group>"; };
@@ -232,9 +232,9 @@
 		4A556F51D5E19926B6D5884ED84B77DB /* DFUStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStream.swift; sourceTree = "<group>"; };
 		4F338A7C6251B2835736DF0E062E4590 /* Pods-macOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
 		5447A932871C3238E152AF0F184DA1F1 /* iOSDFULibrary-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iOSDFULibrary-iOS-dummy.m"; sourceTree = "<group>"; };
-		56208EA4E4281D064F4507F2D1B4CF63 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iOSDFULibrary_Example.framework; path = "Pods-iOSDFULibrary_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		56208EA4E4281D064F4507F2D1B4CF63 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5700EEA297642C08DD780724B5ABADC0 /* DFUUuidHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUUuidHelper.swift; sourceTree = "<group>"; };
-		5B9F1378A6CF9836BA13DA156658EB5B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		5B9F1378A6CF9836BA13DA156658EB5B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		5E01390BC6D46D90878FFACC31F924A0 /* Pods-iOSDFULibrary_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Tests.modulemap"; sourceTree = "<group>"; };
 		5EF0200EEB0B443629873CB67370569E /* ZipArchive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
 		613C0DA4EC75FB32AF32852BA97832A0 /* Pods-macOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-macOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
@@ -248,30 +248,30 @@
 		727FC7F9CAE972B59A001666073E97A5 /* DFUServiceSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceSelector.swift; sourceTree = "<group>"; };
 		72D985DAA7E97E4E4654567F634C2AC2 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		77846807B2FC37A74356AB7EC4B4A02E /* ZIPFoundation-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZIPFoundation-iOS-Info.plist"; sourceTree = "<group>"; };
-		7B94C90582F9B6816C3AF1B9C8AC4251 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = iOSDFULibrary.framework; path = "iOSDFULibrary-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B94C90582F9B6816C3AF1B9C8AC4251 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D51F24076A01A13C42E731EC81CCA3A /* Entry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Sources/ZIPFoundation/Entry.swift; sourceTree = "<group>"; };
 		7F196AE2901BACE34162DC9266E2DC41 /* DFUFirmware.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUFirmware.swift; sourceTree = "<group>"; };
 		8010C930E2C00031A793CBB98E350326 /* Pods-macOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-macOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
 		8183CABF2C2CA09947A34BDFBF84D2F2 /* DFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceInitiator.swift; sourceTree = "<group>"; };
 		824298E05059464A81BD7D8812A0ADFB /* DFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPacket.swift; sourceTree = "<group>"; };
-		83B835408A31F08967117B6E3D69FE91 /* Pods_iOSDFULibrary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iOSDFULibrary_Tests.framework; path = "Pods-iOSDFULibrary_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83B835408A31F08967117B6E3D69FE91 /* Pods_iOSDFULibrary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C81008407A99B3A9042500B57462EF2 /* Archive+Writing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Writing.swift"; path = "Sources/ZIPFoundation/Archive+Writing.swift"; sourceTree = "<group>"; };
-		8D477E8EEF809104530523147E634AC3 /* Pods_macOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_macOSDFULibrary_Example.framework; path = "Pods-macOSDFULibrary_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D477E8EEF809104530523147E634AC3 /* Pods_macOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FA7FE2139CE3C9F80A8B42F3AD9399F /* SecureDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUServiceInitiator.swift; sourceTree = "<group>"; };
 		90686C915F6F8FF6AC4D0E6CA4D173D2 /* LegacyDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUServiceInitiator.swift; sourceTree = "<group>"; };
-		909CFCD1B9180DBE63F00C86A437134F /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = iOSDFULibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		909CFCD1B9180DBE63F00C86A437134F /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = iOSDFULibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9441904651576A11868BCE6CB187CEF5 /* iOSDFULibrary-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iOSDFULibrary-iOS-umbrella.h"; sourceTree = "<group>"; };
 		955D8483E191CF27AC2C20AA279ACB87 /* DFUPeripheralSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelector.swift; sourceTree = "<group>"; };
 		98629E3497FD9617AFCBF40D9DE1A8CB /* ZIPFoundation-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZIPFoundation-iOS-dummy.m"; sourceTree = "<group>"; };
 		9A332E3FE5FDB03CB8D683170A632647 /* DFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUExecutor.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F1A8670DA84132625ACC6A6F093F1B1 /* iOSDFULibrary-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "iOSDFULibrary-macOS-umbrella.h"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-umbrella.h"; sourceTree = "<group>"; };
 		9F537CD59BBF3295E955838158D8EAB0 /* DFUStreamBin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamBin.swift; sourceTree = "<group>"; };
 		9F8874492DC8DFF0987C005702DECC55 /* Pods-iOSDFULibrary_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		A0984654F246346A94CA53B36957DD74 /* iOSDFULibrary-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "iOSDFULibrary-macOS.xcconfig"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS.xcconfig"; sourceTree = "<group>"; };
 		A16245687AC872CABA07E2F4BA0676E9 /* DFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralDelegate.swift; sourceTree = "<group>"; };
 		A3B8A4145C723C2056DB98628370DBCE /* iOSDFULibrary-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "iOSDFULibrary-iOS.xcconfig"; sourceTree = "<group>"; };
-		A9973AD842D80984D175EE0891BC5876 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		A9973AD842D80984D175EE0891BC5876 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A9FE184612697B6877B21D31634DA410 /* ZIPFoundation-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZIPFoundation-macOS-umbrella.h"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-umbrella.h"; sourceTree = "<group>"; };
 		AADE5D738CDED659A8CD3CD38F1207E4 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ACF6FC15DE225DFE90ACD5CF028ABC19 /* SecureDFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUExecutor.swift; sourceTree = "<group>"; };
@@ -307,13 +307,13 @@
 		EBB3665C83C7BF9882825803FE5A225B /* SecureDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
 		EBEBEE68867E8543448B193D786B520D /* DFUServiceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceController.swift; sourceTree = "<group>"; };
 		ED0BBC4B3EAD39527574554D290AED69 /* ZIPFoundation-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ZIPFoundation-iOS.xcconfig"; sourceTree = "<group>"; };
-		ED3A4B81043280B11F064191BC79FDD6 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZIPFoundation.framework; path = "ZIPFoundation-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED3A4B81043280B11F064191BC79FDD6 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF690070CE031DDF233B6CF676EFA9C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		F08F8C11BED1C416AB415BD7377A8EB7 /* DFUStarterPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStarterPeripheral.swift; sourceTree = "<group>"; };
 		F4705D7BBD6CE01019EEF66A1644340B /* Pods-iOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
 		F4E1DFA2BE0A683D83A5B4C647F8D0F2 /* Archive+Reading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Reading.swift"; path = "Sources/ZIPFoundation/Archive+Reading.swift"; sourceTree = "<group>"; };
 		F634C2A0578B56D74085D561EB8F5F05 /* Data.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		F73ACA72E9BDDF136F14D9C102DF17CF /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZIPFoundation.framework; path = "ZIPFoundation-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F73ACA72E9BDDF136F14D9C102DF17CF /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA7448FB47544DA96875CEBCEC4ABD9B /* Pods-macOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		FAED589889C0403B7EFEC24A84248048 /* Pods-macOSDFULibrary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-macOSDFULibrary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -395,7 +395,6 @@
 				824298E05059464A81BD7D8812A0ADFB /* DFUPacket.swift */,
 				37BB7A3D1E5F3744A5B113FF6B93AF9C /* DFUVersion.swift */,
 			);
-			name = Characteristics;
 			path = Characteristics;
 			sourceTree = "<group>";
 		};
@@ -409,7 +408,6 @@
 				A16245687AC872CABA07E2F4BA0676E9 /* DFUPeripheralDelegate.swift */,
 				1C86ADC378FB3CC2ACA42437EFB8F8D6 /* DFUService.swift */,
 			);
-			name = GenericDFU;
 			path = GenericDFU;
 			sourceTree = "<group>";
 		};
@@ -429,7 +427,6 @@
 				DFC3F3C018F808E68DCE1D7B79339904 /* IntelHex2BinConverter.h */,
 				6690F5589DFF2F9D2365E52C89F9B140 /* IntelHex2BinConverter.m */,
 			);
-			name = HexToBinConverter;
 			path = HexToBinConverter;
 			sourceTree = "<group>";
 		};
@@ -445,7 +442,6 @@
 				EB090FD3F4F23B877035C60F4CAB4590 /* FileManager+ZIP.swift */,
 				4E06EADA3B25B6D344338AF0F1C34589 /* Support Files */,
 			);
-			name = ZIPFoundation;
 			path = ZIPFoundation;
 			sourceTree = "<group>";
 		};
@@ -456,7 +452,6 @@
 				064D28B9D2F4526C8F1CF9A234F277FF /* ManifestFirmwareInfo.swift */,
 				0AF0A63AD704D0318BFDF08EA978F851 /* SoftdeviceBootloaderInfo.swift */,
 			);
-			name = Manifest;
 			path = Manifest;
 			sourceTree = "<group>";
 		};
@@ -467,7 +462,6 @@
 				E758F806A9BD5AF9E21585B7948F84F0 /* SecureDFUControlPoint.swift */,
 				E576598385F3649B20F50D07816A0298 /* SecureDFUPacket.swift */,
 			);
-			name = Characteristics;
 			path = Characteristics;
 			sourceTree = "<group>";
 		};
@@ -497,7 +491,6 @@
 				B837A4E7414EED2A46942766F3DB5D41 /* LegacyDFUPeripheral.swift */,
 				670C59D1154DCDF079413042D22D70AE /* LegacyDFUPeripheralDelegate.swift */,
 			);
-			name = Peripherals;
 			path = Peripherals;
 			sourceTree = "<group>";
 		};
@@ -506,7 +499,6 @@
 			children = (
 				7F196AE2901BACE34162DC9266E2DC41 /* DFUFirmware.swift */,
 			);
-			name = Firmware;
 			path = Firmware;
 			sourceTree = "<group>";
 		};
@@ -516,7 +508,6 @@
 				ACF6FC15DE225DFE90ACD5CF028ABC19 /* SecureDFUExecutor.swift */,
 				8FA7FE2139CE3C9F80A8B42F3AD9399F /* SecureDFUServiceInitiator.swift */,
 			);
-			name = DFU;
 			path = DFU;
 			sourceTree = "<group>";
 		};
@@ -528,7 +519,6 @@
 				4E5029F89F538C27EECC10B0B65FA924 /* Peripherals */,
 				819AF78DBC5B90CCC9A5A5BD8482491E /* Services */,
 			);
-			name = LegacyDFU;
 			path = LegacyDFU;
 			sourceTree = "<group>";
 		};
@@ -627,7 +617,6 @@
 				B52CFDE58A23E5395AB259D04794D4C6 /* DFUStreamHex.swift */,
 				28F65BE59E26ECEA13CC72521A2CEF56 /* DFUStreamZip.swift */,
 			);
-			name = Streams;
 			path = Streams;
 			sourceTree = "<group>";
 		};
@@ -636,7 +625,6 @@
 			children = (
 				397DFB47818B39E08039A44CEF7EB4DD /* LegacyDFUService.swift */,
 			);
-			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -668,7 +656,6 @@
 				8FB324B22947F9F886102144E86F59B6 /* Peripheral */,
 				E04C8229B9DDAEDBAD1D02826C62C2F2 /* Services */,
 			);
-			name = SecureDFU;
 			path = SecureDFU;
 			sourceTree = "<group>";
 		};
@@ -678,7 +665,6 @@
 				43A37BF9B54ADABFBC03BE67C6D3E01B /* SecureDFUPeripheral.swift */,
 				EBB3665C83C7BF9882825803FE5A225B /* SecureDFUPeripheralDelegate.swift */,
 			);
-			name = Peripheral;
 			path = Peripheral;
 			sourceTree = "<group>";
 		};
@@ -702,7 +688,6 @@
 				2524ACC4453CFB8533CD5240ED63BB53 /* LoggerDelegate.swift */,
 				104DC712E1915E649C44A77455F28675 /* LoggerHelper.swift */,
 			);
-			name = Logging;
 			path = Logging;
 			sourceTree = "<group>";
 		};
@@ -732,7 +717,6 @@
 				B8B8AB9CDA3886C41B7ED0C65B616399 /* LegacyDFUExecutor.swift */,
 				90686C915F6F8FF6AC4D0E6CA4D173D2 /* LegacyDFUServiceInitiator.swift */,
 			);
-			name = DFU;
 			path = DFU;
 			sourceTree = "<group>";
 		};
@@ -741,7 +725,6 @@
 			children = (
 				B25287E6A04C7DFEA0DF0B6DAFE228F0 /* SecureDFUService.swift */,
 			);
-			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -768,7 +751,6 @@
 				727FC7F9CAE972B59A001666073E97A5 /* DFUServiceSelector.swift */,
 				F08F8C11BED1C416AB415BD7377A8EB7 /* DFUStarterPeripheral.swift */,
 			);
-			name = DFUSelector;
 			path = DFUSelector;
 			sourceTree = "<group>";
 		};
@@ -807,7 +789,6 @@
 			children = (
 				481C378A54CB181BFDD3DFD0FE2CB7D5 /* Manifest */,
 			);
-			name = DFUPackage;
 			path = DFUPackage;
 			sourceTree = "<group>";
 		};
@@ -1016,7 +997,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1312,7 +1293,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A0984654F246346A94CA53B36957DD74 /* iOSDFULibrary-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1540,7 +1520,6 @@
 			baseConfigurationReference = FA7448FB47544DA96875CEBCEC4ABD9B /* Pods-macOSDFULibrary_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1609,7 +1588,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F69D43E7CBEFCD410DBA5F3B43A7B07 /* ZIPFoundation-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1643,7 +1621,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F69D43E7CBEFCD410DBA5F3B43A7B07 /* ZIPFoundation-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1775,7 +1752,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A0984654F246346A94CA53B36957DD74 /* iOSDFULibrary-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1810,7 +1786,6 @@
 			baseConfigurationReference = 4F338A7C6251B2835736DF0E062E4590 /* Pods-macOSDFULibrary_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1895,8 +1870,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};

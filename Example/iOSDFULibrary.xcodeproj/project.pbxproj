@@ -20,12 +20,14 @@
 		52237250202B117700068EE4 /* CustomTestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223724F202B117700068EE4 /* CustomTestSet.swift */; };
 		5223729B202B275F00068EE4 /* Firmwares in Resources */ = {isa = PBXBuildFile; fileRef = 5223729A202B275F00068EE4 /* Firmwares */; };
 		5223729D2036DDFC00068EE4 /* nRF52840TestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223729C2036DDFC00068EE4 /* nRF52840TestSet.swift */; };
+		52FB0B022220168D00B1E575 /* PeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB0B012220168D00B1E575 /* PeripheralCell.swift */; };
+		52FB0B04222019C700B1E575 /* MainNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */; };
+		52FB0B0622201A4A00B1E575 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52FB0B0522201A4A00B1E575 /* LaunchScreen.storyboard */; };
 		56F53BEE6CB888BD46537F0A /* Pods_macOSDFULibrary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED399E1B36FF8615AC574C30 /* Pods_macOSDFULibrary_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ScannerViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
-		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		7EF5A5E71EC4881ADD87C90D /* Pods_iOSDFULibrary_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0CB27D92FDC7A734D97789 /* Pods_iOSDFULibrary_Example.framework */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,9 @@
 		5223724F202B117700068EE4 /* CustomTestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTestSet.swift; sourceTree = "<group>"; };
 		5223729A202B275F00068EE4 /* Firmwares */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firmwares; sourceTree = "<group>"; };
 		5223729C2036DDFC00068EE4 /* nRF52840TestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF52840TestSet.swift; sourceTree = "<group>"; };
+		52FB0B012220168D00B1E575 /* PeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCell.swift; sourceTree = "<group>"; };
+		52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewController.swift; sourceTree = "<group>"; };
+		52FB0B0522201A4A00B1E575 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BD6C71870F01CBE222B5F31 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* DFU Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DFU Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,7 +71,6 @@
 		607FACD71AFB9204008FA782 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* iOSDFULibrary_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSDFULibrary_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
@@ -124,8 +128,10 @@
 		522372402029CC5900068EE4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */,
 				5223723E2029C40F00068EE4 /* DFUViewController.swift */,
 				607FACD71AFB9204008FA782 /* ScannerViewController.swift */,
+				52FB0B012220168D00B1E575 /* PeripheralCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -134,7 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				52FB0B0522201A4A00B1E575 /* LaunchScreen.storyboard */,
+				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -179,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				522372422029CCAB00068EE4 /* DFU Test Performer */,
 				522372402029CC5900068EE4 /* View Controllers */,
 				5223729A202B275F00068EE4 /* Firmwares */,
@@ -379,8 +385,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				52FB0B0622201A4A00B1E575 /* LaunchScreen.storyboard in Resources */,
 				5223729B202B275F00068EE4 /* Firmwares in Resources */,
-				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,12 +532,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ScannerViewController.swift in Sources */,
+				52FB0B022220168D00B1E575 /* PeripheralCell.swift in Sources */,
 				5223723F2029C40F00068EE4 /* DFUViewController.swift in Sources */,
 				5223724C2029D3FC00068EE4 /* nRF52832TestSet.swift in Sources */,
 				5223724E202B0B0C00068EE4 /* DFUFirmwareProvider.swift in Sources */,
 				522372462029CFFD00068EE4 /* nRF51TestSet.swift in Sources */,
 				52237250202B117700068EE4 /* CustomTestSet.swift in Sources */,
 				522372442029CCDE00068EE4 /* DFUTestSet.swift in Sources */,
+				52FB0B04222019C700B1E575 /* MainNavigationViewController.swift in Sources */,
 				5223729D2036DDFC00068EE4 /* nRF52840TestSet.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
@@ -570,14 +578,6 @@
 				607FACDA1AFB9204008FA782 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				607FACDF1AFB9204008FA782 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
