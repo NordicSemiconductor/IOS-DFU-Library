@@ -2,10 +2,10 @@
 //  Archive+Reading.swift
 //  ZIPFoundation
 //
-//  Copyright © 2017 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
+//  Copyright © 2017-2019 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
 //  Released under the MIT License.
 //
-//  See https://github.com/weichsel/ZIPFoundation/LICENSE for license information.
+//  See https://github.com/weichsel/ZIPFoundation/blob/master/LICENSE for license information.
 //
 
 import Foundation
@@ -30,8 +30,10 @@ extension Archive {
                 throw CocoaError.error(.fileWriteFileExists, userInfo: [NSFilePathErrorKey: url.path], url: nil)
             }
             try fileManager.createParentDirectoryStructure(for: url)
-            let destinationFileSystemRepresentation = fileManager.fileSystemRepresentation(withPath: url.path)
-            let destinationFile: UnsafeMutablePointer<FILE> = fopen(destinationFileSystemRepresentation, "wb+")
+            let destinationRepresentation = fileManager.fileSystemRepresentation(withPath: url.path)
+            guard let destinationFile: UnsafeMutablePointer<FILE> = fopen(destinationRepresentation, "wb+") else {
+                throw CocoaError.error(.fileNoSuchFile)
+            }
             defer { fclose(destinationFile) }
             let consumer = { _ = try Data.write(chunk: $0, to: destinationFile) }
             checksum = try self.extract(entry, bufferSize: bufferSize, progress: progress, consumer: consumer)

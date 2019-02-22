@@ -2,10 +2,10 @@
 //  FileManager+ZIP.swift
 //  ZIPFoundation
 //
-//  Copyright © 2017 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
+//  Copyright © 2017-2019 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
 //  Released under the MIT License.
 //
-//  See https://github.com/weichsel/ZIPFoundation/LICENSE for license information.
+//  See https://github.com/weichsel/ZIPFoundation/blob/master/LICENSE for license information.
 //
 
 import Foundation
@@ -25,10 +25,12 @@ extension FileManager {
     ///   - destinationURL: The file URL that identifies the destination of the zip operation.
     ///   - shouldKeepParent: Indicates that the directory name of a source item should be used as root element
     ///                       within the archive. Default is `true`.
+    ///   - compressionMethod: Indicates the `CompressionMethod` that should be applied.
     ///   - progress: A progress object that can be used to track or cancel the zip operation.
     /// - Throws: Throws an error if the source item does not exist or the destination URL is not writable.
     public func zipItem(at sourceURL: URL, to destinationURL: URL,
-                        shouldKeepParent: Bool = true, progress: Progress? = nil) throws {
+                        shouldKeepParent: Bool = true, compressionMethod: CompressionMethod = .none,
+                        progress: Progress? = nil) throws {
         guard self.fileExists(atPath: sourceURL.path) else {
             throw CocoaError.error(.fileReadNoSuchFile, userInfo: [NSFilePathErrorKey: sourceURL.path], url: nil)
         }
@@ -61,15 +63,18 @@ extension FileManager {
                     let itemURL = sourceURL.appendingPathComponent(entryPath)
                     let entryProgress = archive.makeProgressForAddingItem(at: itemURL)
                     progress.addChild(entryProgress, withPendingUnitCount: entryProgress.totalUnitCount)
-                    try archive.addEntry(with: finalEntryPath, relativeTo: finalBaseURL, progress: entryProgress)
+                    try archive.addEntry(with: finalEntryPath, relativeTo: finalBaseURL,
+                                         compressionMethod: compressionMethod, progress: entryProgress)
                 } else {
-                    try archive.addEntry(with: finalEntryPath, relativeTo: finalBaseURL)
+                    try archive.addEntry(with: finalEntryPath, relativeTo: finalBaseURL,
+                                         compressionMethod: compressionMethod)
                 }
             }
         } else {
             progress?.totalUnitCount = archive.totalUnitCountForAddingItem(at: sourceURL)
             let baseURL = sourceURL.deletingLastPathComponent()
-            try archive.addEntry(with: sourceURL.lastPathComponent, relativeTo: baseURL, progress: progress)
+            try archive.addEntry(with: sourceURL.lastPathComponent, relativeTo: baseURL,
+                                 compressionMethod: compressionMethod, progress: progress)
         }
     }
 
@@ -77,7 +82,7 @@ extension FileManager {
     ///
     /// - Parameters:
     ///   - sourceURL: The file URL pointing to an existing ZIP file.
-    ///   - destinationURL: The file URL that identifies the destination of the unzip operation.
+    ///   - destinationURL: The file URL that identifies the destination directory of the unzip operation.
     ///   - progress: A progress object that can be used to track or cancel the unzip operation.
     /// - Throws: Throws an error if the source item does not exist or the destination URL is not writable.
     public func unzipItem(at sourceURL: URL, to destinationURL: URL, progress: Progress? = nil) throws {
@@ -105,6 +110,11 @@ extension FileManager {
 
         for entry in sortedEntries {
             let destinationEntryURL = destinationURL.appendingPathComponent(entry.path)
+            guard destinationEntryURL.isContained(in: destinationURL) else {
+                throw CocoaError.error(.fileReadInvalidFileName,
+                                       userInfo: [NSFilePathErrorKey: destinationEntryURL.path],
+                                       url: nil)
+            }
             if let progress = progress {
                 let entryProgress = archive.makeProgressForReading(entry)
                 progress.addChild(entryProgress, withPendingUnitCount: entryProgress.totalUnitCount)
@@ -127,19 +137,20 @@ extension FileManager {
     class func attributes(from entry: Entry) -> [FileAttributeKey: Any] {
         let centralDirectoryStructure = entry.centralDirectoryStructure
         let entryType = entry.type
-        var attributes = [.posixPermissions: entryType ==
-            .directory ? defaultDirectoryPermissions : defaultFilePermissions,
-                          .modificationDate: Date()] as [FileAttributeKey: Any]
-        let versionMadeBy = centralDirectoryStructure.versionMadeBy
         let fileTime = centralDirectoryStructure.lastModFileTime
         let fileDate = centralDirectoryStructure.lastModFileDate
-        guard let osType = Entry.OSType(rawValue: UInt(versionMadeBy >> 8)) else {
-            return attributes
-        }
+        let defaultPermissions = entryType == .directory ? defaultDirectoryPermissions : defaultFilePermissions
+        var attributes = [.posixPermissions: defaultPermissions] as [FileAttributeKey: Any]
+        // Certain keys are not yet supported in swift-corelibs
+        #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+        attributes[.modificationDate] = Date(dateTime: (fileDate, fileTime))
+        #endif
+        let versionMadeBy = centralDirectoryStructure.versionMadeBy
+        guard let osType = Entry.OSType(rawValue: UInt(versionMadeBy >> 8)) else { return attributes }
+
         let externalFileAttributes = centralDirectoryStructure.externalFileAttributes
         let permissions = self.permissions(for: externalFileAttributes, osType: osType, entryType: entryType)
         attributes[.posixPermissions] = NSNumber(value: permissions)
-        attributes[.modificationDate] = Date(dateTime: (fileDate, fileTime))
         return attributes
     }
 
@@ -291,3 +302,11 @@ public extension CocoaError {
 
 #endif
 #endif
+
+public extension URL {
+    func isContained(in parentDirectoryURL: URL) -> Bool {
+        // Ensure this URL is contained in the passed in URL
+        let parentDirectoryURL = URL(fileURLWithPath: parentDirectoryURL.path, isDirectory: true).standardized
+        return self.standardized.absoluteString.hasPrefix(parentDirectoryURL.absoluteString)
+    }
+}

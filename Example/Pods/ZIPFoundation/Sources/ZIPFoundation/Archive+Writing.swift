@@ -2,10 +2,10 @@
 //  Archive+Writing.swift
 //  ZIPFoundation
 //
-//  Copyright © 2017 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
+//  Copyright © 2017-2019 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
 //  Released under the MIT License.
 //
-//  See https://github.com/weichsel/ZIPFoundation/LICENSE for license information.
+//  See https://github.com/weichsel/ZIPFoundation/blob/master/LICENSE for license information.
 //
 
 import Foundation
@@ -44,7 +44,9 @@ extension Archive {
         switch type {
         case .file:
             let entryFileSystemRepresentation = fileManager.fileSystemRepresentation(withPath: entryURL.path)
-            let entryFile: UnsafeMutablePointer<FILE> = fopen(entryFileSystemRepresentation, "rb")
+            guard let entryFile: UnsafeMutablePointer<FILE> = fopen(entryFileSystemRepresentation, "rb") else {
+                throw CocoaError.error(.fileNoSuchFile)
+            }
             defer { fclose(entryFile) }
             provider = { _, _ in return try Data.readChunk(of: Int(bufferSize), from: entryFile) }
             try self.addEntry(with: path, type: type, uncompressedSize: uncompressedSize,
@@ -60,7 +62,6 @@ extension Archive {
                               progress: progress, provider: provider)
         case .symlink:
             provider = { _, _ -> Data in
-                let fileManager = FileManager()
                 let linkDestination = try fileManager.destinationOfSymbolicLink(atPath: entryURL.path)
                 let linkFileSystemRepresentation = fileManager.fileSystemRepresentation(withPath: linkDestination)
                 let linkLength = Int(strlen(linkFileSystemRepresentation))

@@ -2,10 +2,10 @@
 //  Data+Compression.swift
 //  ZIPFoundation
 //
-//  Copyright © 2017 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
+//  Copyright © 2017-2019 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
 //  Released under the MIT License.
 //
-//  See https://github.com/weichsel/ZIPFoundation/LICENSE for license information.
+//  See https://github.com/weichsel/ZIPFoundation/blob/master/LICENSE for license information.
 //
 
 import Foundation
@@ -176,7 +176,6 @@ extension Data {
                     try consumer(outputData)
                     if operation == COMPRESSION_STREAM_DECODE { checksum = outputData.crc32(checksum: checksum) }
                 }
-            case COMPRESSION_STATUS_ERROR: fallthrough
             default: throw CompressionError.corruptedData
             }
         } while (status == COMPRESSION_STATUS_OK)

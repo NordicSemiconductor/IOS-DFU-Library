@@ -22,7 +22,7 @@
   "source_files": "iOSDFULibrary/Classes/**/*",
   "dependencies": {
     "ZIPFoundation": [
-      "~> 0.9.6"
+      "~> 0.9.8"
     ]
   }
 }

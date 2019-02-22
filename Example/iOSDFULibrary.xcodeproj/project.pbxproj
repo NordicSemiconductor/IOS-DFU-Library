@@ -401,7 +401,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ZIPFoundation-iOS/ZIPFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSDFULibrary-iOS/iOSDFULibrary.framework",
 			);
@@ -412,7 +412,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6CD96D9272CAE8668D3CFE3E /* [CP] Check Pods Manifest.lock */ = {
@@ -475,7 +475,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ZIPFoundation-iOS/ZIPFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSDFULibrary-iOS/iOSDFULibrary.framework",
 			);
@@ -486,7 +486,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C2117B5ADF3004A94C7E5900 /* [CP] Embed Pods Frameworks */ = {
@@ -495,7 +495,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-macOSDFULibrary_Example/Pods-macOSDFULibrary_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-macOSDFULibrary_Example/Pods-macOSDFULibrary_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ZIPFoundation-macOS/ZIPFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSDFULibrary-macOS/iOSDFULibrary.framework",
 			);
@@ -506,7 +506,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-macOSDFULibrary_Example/Pods-macOSDFULibrary_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-macOSDFULibrary_Example/Pods-macOSDFULibrary_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
