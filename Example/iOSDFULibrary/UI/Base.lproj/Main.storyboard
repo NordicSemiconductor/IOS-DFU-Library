@@ -136,7 +136,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="578"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o3D-3w-IzO">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="262.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="36" width="375" height="262.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total progress:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Su-7R-DBr">
                                                 <rect key="frame" x="8" y="8" width="102" height="18"/>
@@ -146,7 +146,7 @@
                                             </label>
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RbA-og-mKq" userLabel="Total Progress View">
                                                 <rect key="frame" x="8" y="34" width="359" height="2"/>
-                                                <color key="progressTintColor" red="0.0" green="0.46666666670000001" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="progressTintColor" red="0.96078431369999995" green="0.50980392159999999" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="trackTintColor" red="0.85098039219999999" green="0.88235294119999996" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                             </progressView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part progress (        ):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xmr-ck-MmL">
@@ -157,7 +157,7 @@
                                             </label>
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rj4-mf-no1">
                                                 <rect key="frame" x="8" y="106" width="359" height="2"/>
-                                                <color key="progressTintColor" red="0.0" green="0.46666666670000001" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="progressTintColor" red="0.81568627449999997" green="0.87450980389999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="trackTintColor" red="0.85098039219999999" green="0.88235294119999996" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                             </progressView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8X-vZ-PtK">
@@ -204,7 +204,7 @@
                                             </label>
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xBI-Ol-Olb">
                                                 <rect key="frame" x="8" y="70" width="359" height="2"/>
-                                                <color key="progressTintColor" red="0.0" green="0.46666666670000001" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="progressTintColor" red="1" green="0.80392156859999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="trackTintColor" red="0.85098039219999999" green="0.88235294119999996" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                             </progressView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 / 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3j-8E-gSk">
@@ -273,21 +273,20 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="o3D-3w-IzO" firstAttribute="leading" secondItem="gHN-JO-xfB" secondAttribute="leading" id="8Wq-UX-fvz"/>
-                                    <constraint firstItem="o3D-3w-IzO" firstAttribute="top" secondItem="gHN-JO-xfB" secondAttribute="top" id="Xan-Qz-nqA"/>
+                                    <constraint firstItem="o3D-3w-IzO" firstAttribute="top" secondItem="gHN-JO-xfB" secondAttribute="top" constant="36" id="Xan-Qz-nqA"/>
                                     <constraint firstAttribute="bottom" secondItem="o3D-3w-IzO" secondAttribute="bottom" constant="8" id="gxQ-Pn-nGb"/>
                                     <constraint firstAttribute="trailing" secondItem="o3D-3w-IzO" secondAttribute="trailing" id="nRS-yT-ALO"/>
                                     <constraint firstItem="o3D-3w-IzO" firstAttribute="width" secondItem="gHN-JO-xfB" secondAttribute="width" id="rgm-DJ-PUv"/>
                                 </constraints>
                             </scrollView>
-                            <imageView userInteractionEnabled="NO" alpha="0.029999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dfu" translatesAutoresizingMaskIntoConstraints="NO" id="oc8-qr-Ulx" userLabel="DFU Image">
-                                <rect key="frame" x="121" y="269.66666666666669" width="133" height="133"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uFl-km-Zbz" userLabel="Bottom View">
                                 <rect key="frame" x="0.0" y="578" width="375" height="94"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLe-do-8Lr">
                                         <rect key="frame" x="142" y="16" width="91" height="30"/>
-                                        <state key="normal" title="Stop process"/>
+                                        <state key="normal" title="Stop process">
+                                            <color key="titleColor" red="0.0" green="0.46666666670000001" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="stopProcessButtonTapped:" destination="lLM-cg-IuR" eventType="touchUpInside" id="Nlu-aT-xLC"/>
                                         </connections>
@@ -306,10 +305,8 @@
                             <constraint firstItem="7gN-m3-zHu" firstAttribute="trailing" secondItem="gHN-JO-xfB" secondAttribute="trailing" id="3rq-yG-dZw"/>
                             <constraint firstItem="gHN-JO-xfB" firstAttribute="leading" secondItem="7gN-m3-zHu" secondAttribute="leading" id="6d3-6y-l1E"/>
                             <constraint firstItem="uFl-km-Zbz" firstAttribute="top" secondItem="7gN-m3-zHu" secondAttribute="bottom" constant="-60" id="I9D-A5-7Xh"/>
-                            <constraint firstItem="oc8-qr-Ulx" firstAttribute="centerX" secondItem="7gN-m3-zHu" secondAttribute="centerX" id="YUt-PS-1xc"/>
                             <constraint firstItem="gHN-JO-xfB" firstAttribute="top" secondItem="7gN-m3-zHu" secondAttribute="top" id="f7C-hq-oUh"/>
                             <constraint firstItem="uFl-km-Zbz" firstAttribute="top" secondItem="gHN-JO-xfB" secondAttribute="bottom" id="iLQ-qq-9os"/>
-                            <constraint firstItem="oc8-qr-Ulx" firstAttribute="centerY" secondItem="ND7-bN-SO2" secondAttribute="centerY" id="vdA-Uj-ilc"/>
                             <constraint firstItem="7gN-m3-zHu" firstAttribute="trailing" secondItem="uFl-km-Zbz" secondAttribute="trailing" id="wpx-yz-K2h"/>
                             <constraint firstItem="uFl-km-Zbz" firstAttribute="leading" secondItem="7gN-m3-zHu" secondAttribute="leading" id="yIb-ok-oOQ"/>
                         </constraints>
@@ -338,7 +335,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dfu" width="133" height="133"/>
         <image name="scanning" width="64" height="64"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.60392159219999997" blue="0.85490196939999996" alpha="1" colorSpace="calibratedRGB"/>
