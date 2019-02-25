@@ -338,7 +338,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         stepProgressView.setProgress(stepProgress, animated: true)
         
         // Increment the parts counter for 2-part uploads
-        if progress == 100 && part == 1 && totalParts == 2 {
+        if progress == 100 && part == 1 && totalParts == 2 || (currentFirmwarePartsCompleted == 0 && part == 2) {
             currentFirmwarePartsCompleted += 1
             partsCompleted += 1
         }
