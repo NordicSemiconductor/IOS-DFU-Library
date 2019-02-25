@@ -505,8 +505,8 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
                 } else if dfuResponse.status == .extendedError {
                     // An extended error was received
                     logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
-                    // The returned errod code is incremented by 10 to match Secure DFU remote codes
-                    report?(DFUError(rawValue: Int(dfuResponse.status!.code) + 10)!, dfuResponse.error!.description)
+                    // The returned errod code is incremented by 20 to match Secure DFU remote codes
+                    report?(DFUError(rawValue: Int(dfuResponse.error!.code) + 20)!, dfuResponse.error!.description)
                 } else {
                     logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
                     // The returned errod code is incremented by 10 to match Secure DFU remote codes

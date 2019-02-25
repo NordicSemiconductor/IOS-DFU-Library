@@ -41,17 +41,32 @@ import Foundation
     case remoteSecureDFUUnsupportedType       = 17 // 10 + 7
     case remoteSecureDFUOperationNotpermitted = 18 // 10 + 8
     case remoteSecureDFUOperationFailed       = 20 // 10 + 10
+    
+    // This error will no longer be reported
     case remoteSecureDFUExtendedError         = 21 // 10 + 11
+    // Instead, one of the extended errors below will used
+    case remoteExtendedErrorWrongCommandFormat   = 22 // 20 + 0x02
+    case remoteExtendedErrorUnknownCommand       = 23 // 20 + 0x03
+    case remoteExtendedErrorInitCommandInvalid   = 24 // 20 + 0x04
+    case remoteExtendedErrorFwVersionFailure     = 25 // 20 + 0x05
+    case remoteExtendedErrorHwVersionFailure     = 26 // 20 + 0x06
+    case remoteExtendedErrorSdVersionFailure     = 27 // 20 + 0x07
+    case remoteExtendedErrorSignatureMissing     = 28 // 20 + 0x08
+    case remoteExtendedErrorWrongHashType        = 29 // 20 + 0x09
+    case remoteExtendedErrorHashFailed           = 30 // 20 + 0x0A
+    case remoteExtendedErrorWrongSignatureType   = 31 // 20 + 0x0B
+    case remoteExtendedErrorVerificationFailed   = 32 // 20 + 0x0C
+    case remoteExtendedErrorInsufficientSpace    = 33 // 20 + 0x0D
     
     // Experimental Buttonless DFU errors (received value + 9000 as they overlap legacy and secure DFU errors)
     case remoteExperimentalButtonlessDFUSuccess               = 9001 // 9000 + 1
     case remoteExperimentalButtonlessDFUOpCodeNotSupported    = 9002 // 9000 + 2
     case remoteExperimentalButtonlessDFUOperationFailed       = 9004 // 9000 + 4
     
-    // Buttonless DFU errors (received value + 30 as they overlap legacy and secure DFU errors)
-    case remoteButtonlessDFUSuccess            = 31 // 30 + 1
-    case remoteButtonlessDFUOpCodeNotSupported = 32 // 30 + 2
-    case remoteButtonlessDFUOperationFailed    = 34 // 30 + 4
+    // Buttonless DFU errors (received value + 90 as they overlap legacy and secure DFU errors)
+    case remoteButtonlessDFUSuccess            = 91 // 90 + 1
+    case remoteButtonlessDFUOpCodeNotSupported = 92 // 90 + 2
+    case remoteButtonlessDFUOperationFailed    = 94 // 90 + 4
     
     /// Providing the DFUFirmware is required.
     case fileNotSpecified                     = 101
