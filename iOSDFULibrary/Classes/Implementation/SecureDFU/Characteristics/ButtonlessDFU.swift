@@ -251,9 +251,9 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
                     success?()
                 } else {
                     logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
-                    // The returned errod code is incremented by 30 or 9000 to match Buttonless DFU or Experimental Buttonless DFU remote codes
+                    // The returned errod code is incremented by 90 or 9000 to match Buttonless DFU or Experimental Buttonless DFU remote codes
                     // See DFUServiceDelegate.swift -> DFUError
-                    let offset = characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic) ? 9000 : 30
+                    let offset = characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic) ? 9000 : 90
                     report?(DFUError(rawValue: Int(dfuResponse.status!.code) + offset)!, dfuResponse.status!.description)
                 }
             } else {
