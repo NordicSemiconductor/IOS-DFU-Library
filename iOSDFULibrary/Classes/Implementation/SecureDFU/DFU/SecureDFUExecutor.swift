@@ -107,7 +107,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 } else {
                     // The same Init Packet was already sent. We must execute it, as it may have not been executed before.
                     logWith(.application, message: "Received CRC match Init packet")
-                    peripheral.sendExecuteCommand() // -> peripheralDidExecuteObject() will be called
+                    peripheral.sendExecuteCommand(forCommandObject: true) // -> peripheralDidExecuteObject() or peripheralRejectedCommandObject(...) will be called
                 }
             } else {
                 // Start new update. We are either flashing a different firmware,
@@ -155,7 +155,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 crcOk()
                 
                 // It must be now executed.
-                peripheral.sendExecuteCommand() // -> peripheralDidExecuteObject() will be called
+                peripheral.sendExecuteCommand(forCommandObject: true) // -> peripheralDidExecuteObject() or peripheralRejectedCommandObject(...) will be called
             } else {
                 // The CRC does not match, let's start from the beginning.
                 retryOrReportCrcError({
@@ -178,6 +178,25 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                     createDataObject(currentRangeIdx) // -> peripheralDidCreateDataObject() will be called
                 })
             }
+        }
+    }
+    
+    func peripheralRejectedCommandObject(withError remoteError: DFUError, andMessage message: String) {
+        // If the terget device has rejected the firtst part, try sending the second part.
+        // If may be that the SD+BL were flashed before and can't be updated again due to
+        // sd-req and bootloader-version parameters set in the init packet.
+        // In that case app update should be possible.
+        if firmware.hasNextPart() {
+            firmware.switchToNextPart()
+            
+            logWith(.warning, message: "Invalid system components. Trying to send application")
+            
+            // New Init Packet has to be sent. Create the Command object.
+            offset = 0
+            crc = 0
+            peripheral.createCommandObject(withLength: UInt32(firmware.initPacket!.count)) // -> peripheralDidCreateCommandObject()
+        } else {
+            error(remoteError, didOccurWithMessage: message)
         }
     }
     
