@@ -78,8 +78,13 @@ import Foundation
     case unsupportedResponse                  = 307
     /// Error raised during upload when the number of bytes sent is not equal to number of bytes confirmed in Packet Receipt Notification.
     case bytesLost                            = 308
-    /// Error raised when the CRC reported by the remote device does not match. Service has done 3 tries to send the data.
+    /// Error raised when the CRC reported by the remote device does not match. Service has done 3 attempts to send the data.
     case crcError                             = 309
+    
+    /// Returns whether the error has been returned by the remote device or occurred locally.
+    var isRemote: Bool {
+        return rawValue < 100 || rawValue > 9000
+    }
 }
 
 /**

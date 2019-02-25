@@ -185,17 +185,22 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     /**
      Sends Execute command.
      
+     - parameter isCommandObject: True, when it is the Command Object executed, false if a Data Object.
      - parameter activating: If the parameter is set to true the service will assume that the whole firmware was sent
      and the device will disconnect on its own on Execute command. Delegate's onTransferComplete event will be called when
      the disconnect event is receviced.
      */
-    func sendExecuteCommand(andActivateIf complete: Bool = false) {
+    func sendExecuteCommand(forCommandObject isCommandObject: Bool = false, andActivateIf complete: Bool = false) {
         activating = complete
         dfuService!.executeCommand(
             onSuccess: { self.delegate?.peripheralDidExecuteObject() },
             onError: { (error, message) in
                 self.activating = false
-                self.delegate?.error(error, didOccurWithMessage: message)
+                if isCommandObject && error.isRemote {
+                    self.delegate?.peripheralRejectedCommandObject(withError: error, andMessage: message)
+                } else {
+                    self.delegate?.error(error, didOccurWithMessage: message)
+                }
             }
         )
     }
