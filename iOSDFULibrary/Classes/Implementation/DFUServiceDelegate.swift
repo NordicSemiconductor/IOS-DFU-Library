@@ -39,7 +39,7 @@ import Foundation
     case remoteSecureDFUInvalidObject         = 15 // 10 + 5
     case remoteSecureDFUSignatureMismatch     = 16 // 10 + 6
     case remoteSecureDFUUnsupportedType       = 17 // 10 + 7
-    case remoteSecureDFUOperationNotpermitted = 18 // 10 + 8
+    case remoteSecureDFUOperationNotPermitted = 18 // 10 + 8
     case remoteSecureDFUOperationFailed       = 20 // 10 + 10
     
     // This error will no longer be reported

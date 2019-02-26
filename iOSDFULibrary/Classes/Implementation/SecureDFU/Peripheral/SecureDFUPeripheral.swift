@@ -196,11 +196,25 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             onSuccess: { self.delegate?.peripheralDidExecuteObject() },
             onError: { (error, message) in
                 self.activating = false
-                if isCommandObject && error.isRemote {
-                    self.delegate?.peripheralRejectedCommandObject(withError: error, andMessage: message)
-                } else {
-                    self.delegate?.error(error, didOccurWithMessage: message)
+                
+                // In SDK 15.2 (and perhaps 15.x), the DFU target may reoprt only full pages
+                // when reconnected after interrupted DFU. In such case Executing object will fail
+                // with Operation Not Permitted error. Instead, we have to create the new object
+                // and continue sending data assuming the last object executed.
+                if isCommandObject == false && error == DFUError.remoteSecureDFUOperationNotPermitted {
+                    self.delegate?.peripheralDidExecuteObject()
+                    return
                 }
+                
+                // When a remote error is return from a Command Object execution, the library
+                // may still be able to continue with second part of the Firmware, if such exist.
+                if isCommandObject == true && error.isRemote {
+                    self.delegate?.peripheralRejectedCommandObject(withError: error, andMessage: message)
+                    return
+                }
+                
+                // Default action for an error
+                self.delegate?.error(error, didOccurWithMessage: message)
             }
         )
     }
