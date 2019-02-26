@@ -140,7 +140,9 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     func destroy() {
         centralManager.delegate = nil
         peripheral?.delegate = nil
-        peripheral = nil
+        // Peripheral can't be cleared here to make restart() possible.
+        // See https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/269
+        // peripheral = nil
         delegate = nil
     }
     
