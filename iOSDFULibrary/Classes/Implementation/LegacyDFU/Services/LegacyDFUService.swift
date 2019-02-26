@@ -24,6 +24,7 @@ import CoreBluetooth
 
 @objc internal class LegacyDFUService : NSObject, CBPeripheralDelegate, DFUService {
 
+    internal let queue: DispatchQueue
     internal var targetPeripheral: DFUPeripheralAPI?
     internal var uuidHelper: DFUUuidHelper
     
@@ -66,10 +67,11 @@ import CoreBluetooth
     
     // MARK: - Initialization
     
-    required init(_ service: CBService, _ logger: LoggerHelper, _ uuidHelper: DFUUuidHelper) {
+    required init(_ service: CBService, _ logger: LoggerHelper, _ uuidHelper: DFUUuidHelper, _ queue: DispatchQueue) {
         self.service = service
         self.logger = logger
         self.uuidHelper = uuidHelper
+        self.queue = queue
         
         super.init()
         self.logger.v("Legacy DFU Service found")
@@ -263,7 +265,7 @@ import CoreBluetooth
         } else {
             // DFU Version characteristic did not exist in SDK 6.1 or before. Delay is required as stated above.
             logger.d("wait(1000)")
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000), execute: sendStartDfu)
+            queue.asyncAfter(deadline: .now() + .milliseconds(1000), execute: sendStartDfu)
         }
     }
     
@@ -283,7 +285,7 @@ import CoreBluetooth
         
         // See comment in sendDfuStart(withFirmwareType:andSize:onSuccess:onError) above
         logger.d("wait(1000)")
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+        queue.asyncAfter(deadline: .now() + .milliseconds(1000)) {
             // 1. Sends the Start DFU command with the firmware type to the DFU Control Point characteristic
             // 2. Sends firmware sizes to the DFU Packet characteristic
             // 3. Receives response notification and calls onSuccess or onError
@@ -479,7 +481,7 @@ import CoreBluetooth
                     // On devices running SDK 6.0 or older a delay is required before the device is ready to receive data
                     if delay {
                         self.logger.d("wait(1000)")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000), execute: start)
+                        queue.asyncAfter(deadline: .now() + .milliseconds(1000), execute: start)
                     } else {
                         start()
                     }

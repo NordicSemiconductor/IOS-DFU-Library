@@ -24,6 +24,7 @@ import CoreBluetooth
 
 @objc internal class SecureDFUService : NSObject, CBPeripheralDelegate, DFUService {
 
+    internal let queue: DispatchQueue
     internal var targetPeripheral: DFUPeripheralAPI?
     internal var uuidHelper: DFUUuidHelper
     
@@ -57,10 +58,11 @@ import CoreBluetooth
     
     // MARK: - Initialization
     
-    required init(_ service: CBService, _ logger: LoggerHelper, _ uuidHelper: DFUUuidHelper) {
+    required init(_ service: CBService, _ logger: LoggerHelper, _ uuidHelper: DFUUuidHelper, _ queue: DispatchQueue) {
         self.service = service
         self.logger = logger
         self.uuidHelper = uuidHelper
+        self.queue = queue
 
         super.init()
         self.logger.v("Secure DFU Service found")

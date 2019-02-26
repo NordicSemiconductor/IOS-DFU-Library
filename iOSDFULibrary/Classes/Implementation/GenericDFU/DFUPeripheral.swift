@@ -50,6 +50,7 @@ internal protocol BaseDFUPeripheralAPI : class, DFUController {
 internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDFUPeripheralAPI, CBPeripheralDelegate, CBCentralManagerDelegate {
     /// Bluetooth Central Manager used to scan for the peripheral.
     internal let centralManager: CBCentralManager
+    internal let queue: DispatchQueue
     /// The DFU Target peripheral.
     internal var peripheral: CBPeripheral?
     /// The peripheral delegate.
@@ -88,6 +89,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     
     init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.centralManager = initiator.centralManager
+        self.queue = initiator.queue
         self.logger = logger
         self.experimentalButtonlessServiceInSecureDfuEnabled = initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu
         self.uuidHelper = initiator.uuidHelper
@@ -495,7 +497,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     // MARK: - Base DFU Peripheral API
     
     override func peripheralDidDiscoverDfuService(_ service: CBService) {
-        dfuService = DFUServiceType(service, logger, uuidHelper)
+        dfuService = DFUServiceType(service, logger, uuidHelper, queue)
         dfuService!.targetPeripheral = self
         dfuService!.discoverCharacteristics(
             onSuccess: { self.delegate?.peripheralDidBecomeReady() },

@@ -35,6 +35,7 @@ import CoreBluetooth
     internal var target         : CBPeripheral!
     internal var file           : DFUFirmware?
     
+    internal var queue                 : DispatchQueue
     internal var delegateQueue         : DispatchQueue
     internal var progressDelegateQueue : DispatchQueue
     internal var loggerQueue           : DispatchQueue
@@ -243,6 +244,7 @@ import CoreBluetooth
         // Default UUID helper with standard set of UUIDs
         self.uuidHelper = DFUUuidHelper()
 
+        self.queue = DispatchQueue.main
         self.delegateQueue = DispatchQueue.main
         self.progressDelegateQueue = DispatchQueue.main
         self.loggerQueue = DispatchQueue.main
@@ -274,6 +276,7 @@ import CoreBluetooth
         // Default UUID helper with standard set of UUIDs
         self.uuidHelper = DFUUuidHelper()
         
+        self.queue = queue ?? DispatchQueue.main
         self.delegateQueue = delegateQueue
         self.progressDelegateQueue = progressQueue
         self.loggerQueue = loggerQueue
