@@ -40,9 +40,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     
     // MARK: - Implementation
     
-    override init(_ initiator: DFUServiceInitiator) {
+    override init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.alternativeAdvertisingNameEnabled = initiator.alternativeAdvertisingNameEnabled
-        super.init(initiator)
+        super.init(initiator, logger)
     }
     
     /**
@@ -136,9 +136,12 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      - parameter range:    Given range of the firmware will be sent.
      - parameter firmware: The firmware from with part is to be sent.
      - parameter progress: An optional progress delegate.
+     - parameter queue:    The queue to dispatch progress events on.
      */
-    func sendNextObject(from range: Range<Int>, of firmware: DFUFirmware, andReportProgressTo progress: DFUProgressDelegate?) {
-        dfuService!.sendNextObject(from: range, of: firmware, andReportProgressTo: progress,
+    func sendNextObject(from range: Range<Int>, of firmware: DFUFirmware,
+                        andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
+        dfuService!.sendNextObject(from: range, of: firmware,
+            andReportProgressTo: progress, on: queue,
             onSuccess: { self.delegate?.peripheralDidReceiveObject() },
             onError: defaultErrorCallback
         )

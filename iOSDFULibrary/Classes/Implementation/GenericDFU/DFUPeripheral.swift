@@ -86,9 +86,9 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     /// A flag set when upload has been aborted.
     fileprivate var aborted: Bool = false
     
-    init(_ initiator: DFUServiceInitiator) {
+    init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.centralManager = initiator.centralManager
-        self.logger = LoggerHelper(initiator.logger)
+        self.logger = logger
         self.experimentalButtonlessServiceInSecureDfuEnabled = initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu
         self.uuidHelper = initiator.uuidHelper
 
@@ -487,9 +487,9 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     internal var newAddressExpected  : Bool = false
     internal var bootloaderName      : String?
     
-    override init(_ initiator: DFUServiceInitiator) {
+    override init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.peripheralSelector = initiator.peripheralSelector
-        super.init(initiator)
+        super.init(initiator, logger)
     }
     
     // MARK: - Base DFU Peripheral API
