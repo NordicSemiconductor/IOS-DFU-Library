@@ -168,11 +168,16 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         }
         
         // Update UI
+        stopProcessButton.setTitle("Stop process", for: .normal)
         stepStartTime = Date()
         stepTimerLabel.text = "0:00"
         stepDescriptionLabel.text = firmwareProvider.description
         stepProgressView.progress = 0.0
         partProgressView.progress = 0.0
+        
+        // Update counters
+        partsCompleted = 0
+        currentFirmwarePartsCompleted = 0
 
         // Create DFU initiator with some default configuration
         let dfuInitiator = DFUServiceInitiator(queue: DispatchQueue(label: "Other"))
@@ -275,6 +280,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
                 }
             } else {
                 stopTimer()
+                stopProcessButton.setTitle("Restart", for: .normal)
+                stopProcessButton.isEnabled = true
                 stepDescriptionLabel.text = "Test finished"
             }
         }
