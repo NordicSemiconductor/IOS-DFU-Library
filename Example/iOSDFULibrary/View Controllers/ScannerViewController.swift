@@ -32,38 +32,28 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
 
     //MARK: - Class properties
     var centralManager              : CBCentralManager!
-    var selectedPeripheral          : (peripheral: CBPeripheral, name: String?)?
     var discoveredPeripherals       : [(peripheral: CBPeripheral, name: String?)]
     var scanningStarted             : Bool = false
 
     //MARK: - View Outlets
-    @IBOutlet weak var connectionButton: UIButton!
     @IBOutlet weak var discoveredPeripheralsTableView: UITableView!
-    @IBOutlet weak var peripheralNameLabel: UILabel!
-    @IBAction func connectionButtonTapped(_ sender: Any) {
-        showDfuView()
-    }
+    @IBOutlet weak var emptyView: UIView!
+    
     @IBAction func refreshButtonTapped(_ sender: Any) {
         discoveredPeripherals.removeAll()
         discoveredPeripheralsTableView.reloadData()
         
-        selectedPeripheral = nil
-        connectionButton.isEnabled = false
-        peripheralNameLabel.text = "No selection"
+        UIView.animate(withDuration: 0.5) {
+            self.emptyView.alpha = 1
+        }
     }
 
     //MARK: - UIViewController implementation
     
     required init?(coder aDecoder: NSCoder) {
-        discoveredPeripherals   = []
+        discoveredPeripherals = []
         super.init(coder: aDecoder)
-        centralManager          = CBCentralManager(delegate: self, queue: nil) // The delegate must be set in init in order to work on iOS 8
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        connectionButton.isEnabled = false
-        peripheralNameLabel.text = "No selection"
+        centralManager = CBCentralManager(delegate: self, queue: nil) // The delegate must be set in init in order to work on iOS 8
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -111,6 +101,10 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
             return
         }
         
+        UIView.animate(withDuration: 0.5) {
+            self.emptyView.alpha = 0
+        }
+        
         discoveredPeripherals.append((peripheral, name))
         discoveredPeripheralsTableView.reloadData()
     }
@@ -122,30 +116,17 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let aCell = tableView.dequeueReusableCell(withIdentifier: "peripheralCell", for: indexPath)
-        aCell.textLabel!.text = discoveredPeripherals[indexPath.row].name ?? "No name"
-        return aCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "peripheralCell", for: indexPath) as! PeripheralCell
+        let selectedPeripheral = discoveredPeripherals[indexPath.row]
+        cell.assign(peripheral: selectedPeripheral.peripheral, withName: selectedPeripheral.name)
+        return cell
     }
-    
-    //MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        selectedPeripheral = discoveredPeripherals[indexPath.row]
-        peripheralNameLabel.text = selectedPeripheral!.name ?? "No name"
-        connectionButton.isEnabled = true
     }
     
     //MARK: - Navigation
-    
-    func showDfuView() {
-        performSegue(withIdentifier: "showDFUView", sender: self)
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        return identifier == "showDFUView"
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         scanningStarted = false
@@ -154,7 +135,8 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         if segue.identifier == "showDFUView" {
             // Sent the peripheral in the dfu view
             let dfuViewController = segue.destination as! DFUViewController
-            dfuViewController.setTargetPeripheral(selectedPeripheral!.peripheral, withName: selectedPeripheral!.name)
+            let cell = sender as! PeripheralCell
+            dfuViewController.setTargetPeripheral(cell.peripheral!, withName: cell.name)
             dfuViewController.setCentralManager(centralManager)
         }
     }
