@@ -25,6 +25,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     typealias DFUPeripheralType = SecureDFUPeripheral
     
     internal let initiator  : DFUServiceInitiator
+    internal let logger     : LoggerHelper
     internal let peripheral : SecureDFUPeripheral
     internal var firmware   : DFUFirmware
     internal var error      : (error: DFUError, message: String)?
@@ -45,10 +46,11 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     private var retryCount: Int
     
     // MARK: - Initialization
-    required init(_ initiator: DFUServiceInitiator) {
+    required init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.initiator  = initiator
+        self.logger     = logger
         self.firmware   = initiator.file!
-        self.peripheral = SecureDFUPeripheral(initiator)
+        self.peripheral = SecureDFUPeripheral(initiator, logger)
         
         self.retryCount = MaxRetryCount
     }
@@ -68,18 +70,18 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         }
         resetFirmwareRanges()
         
-        DispatchQueue.main.async(execute: {
-            self.delegate?.dfuStateDidChange(to: .starting)
-        })
+        delegate {
+            $0.dfuStateDidChange(to: .starting)
+        }
         peripheral.enableControlPoint() // -> peripheralDidEnableControlPoint() will be called when done
     }
     
     func peripheralDidEnableControlPoint() {
         // Check whether the target is in application or bootloader mode
         if peripheral.isInApplicationMode(initiator.forceDfu) {
-            DispatchQueue.main.async(execute: {
-                self.delegate?.dfuStateDidChange(to: .enablingDfuMode)
-            })
+            delegate {
+                $0.dfuStateDidChange(to: .enablingDfuMode)
+            }
             peripheral.jumpToBootloader() // -> peripheralDidBecomeReady() will be called again, when connected to the Bootloader
         } else {
             // The device is ready to proceed with DFU
@@ -100,13 +102,13 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             if !initiator.disableResume && verifyCRC(for: firmware.initPacket!, andPacketOffset: offset, matches: crc) {
                 // Resume sending Init Packet
                 if offset < UInt32(firmware.initPacket!.count) {
-                    logWith(.application, message: "Resuming sending Init packet...")
+                    logger.a("Resuming sending Init packet...")
                     
                     // We need to send rest of the Init packet, but before that let's make sure the PRNs are disabled
                     peripheral.setPRNValue(0) // -> peripheralDidSetPRNValue() will be called
                 } else {
                     // The same Init Packet was already sent. We must execute it, as it may have not been executed before.
-                    logWith(.application, message: "Received CRC match Init packet")
+                    logger.a("Received CRC match Init packet")
                     peripheral.sendExecuteCommand(forCommandObject: true) // -> peripheralDidExecuteObject() or peripheralRejectedCommandObject(...) will be called
                 }
             } else {
@@ -138,7 +140,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidReceiveInitPacket() {
-        logWith(.application, message: String(format: "Command object sent (CRC = %08X)", CRC32(data: firmware.initPacket!).crc))
+        logger.a(String(format: "Command object sent (CRC = %08X)", CRC32(data: firmware.initPacket!).crc))
         
         // Init Packet sent. Let's check the CRC before executing it.
         peripheral.sendCalculateChecksumCommand() // -> peripheralDidSendChecksum(...) will be called
@@ -189,7 +191,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         if firmware.hasNextPart() {
             firmware.switchToNextPart()
             
-            logWith(.warning, message: "Invalid system components. Trying to send application")
+            logger.w("Invalid system components. Trying to send application")
             
             // New Init Packet has to be sent. Create the Command object.
             offset = 0
@@ -202,14 +204,14 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     func peripheralDidExecuteObject() {
         if initPacketSent == false {
-            logWith(.application, message: "Command object executed")
+            logger.a("Command object executed")
             initPacketSent = true
             // Set the correct PRN value. If initiator.packetReceiptNotificationParameter is 0
             // and PRNs were already disabled to send the Init packet, this method will immediately
             // call peripheralDidSetPRNValue() callback.
             peripheral.setPRNValue(initiator.packetReceiptNotificationParameter) // -> peripheralDidSetPRNValue() will be called
         } else {
-            logWith(.application, message: "Data object executed")
+            logger.a("Data object executed")
             
             if firmwareSent == false {
                 currentRangeIdx += 1
@@ -218,11 +220,11 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 // The last data object was sent
                 // Now the device will reset itself and onTransferCompleted() method will ba called (from the extension)
                 let interval = CFAbsoluteTimeGetCurrent() - uploadStartTime! as CFTimeInterval
-                logWith(.application, message: "Upload completed in \(interval.format(".2")) seconds")
+                logger.a("Upload completed in \(interval.format(".2")) seconds")
                 
-                DispatchQueue.main.async(execute: {
-                    self.delegate?.dfuStateDidChange(to: .disconnecting)
-                })
+                delegate {
+                    $0.dfuStateDidChange(to: .disconnecting)
+                }
             }
         }
     }
@@ -240,9 +242,9 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             currentRangeIdx = 0
         }
         
-        DispatchQueue.main.async(execute: {
-            self.delegate?.dfuStateDidChange(to: .uploading)
-        })
+        delegate {
+            $0.dfuStateDidChange(to: .uploading)
+        }
         
         if offset > 0 {
             // Find the current range index.
@@ -255,13 +257,13 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             }
             
             if verifyCRC(for: firmware.data, andPacketOffset: offset, matches: crc) {
-                logWith(.info, message: "\(offset) bytes of data sent before, CRC match")
+                logger.i("\(offset) bytes of data sent before, CRC match")
                 // Did we sent the whole firmware?
                 if offset == UInt32(firmware.data.count) {
                     firmwareSent = true
                     peripheral.sendExecuteCommand(andActivateIf: firmwareSent) // -> peripheralDidExecuteObject() will be called
                 } else {
-                    logWith(.info, message: "Resuming uploading firmware...")
+                    logger.i("Resuming uploading firmware...")
                     
                     // If the whole object was sent before, make sure it's executed
                     if (offset % maxLen) == 0 {
@@ -290,7 +292,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidCreateDataObject() {
-        logWith(.info, message: "Data object \(currentRangeIdx + 1)/\(firmwareRanges!.count) created")
+        logger.i("Data object \(currentRangeIdx + 1)/\(firmwareRanges!.count) created")
         sendDataObject(currentRangeIdx) // -> peripheralDidReceiveObject() will be called
     }
     
@@ -303,10 +305,10 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     private func retryOrReportCrcError(_ operation:()->()) {
         retryCount -= 1
         if retryCount > 0 {
-            logWith(.warning, message: "CRC does not match! Retrying...")
+            logger.w("CRC does not match! Retrying...")
             operation()
         } else {
-            logWith(.error, message: "CRC does not match!")
+            logger.e("CRC does not match!")
             error(.crcError, didOccurWithMessage: "Sending firmware failed")
         }
     }
@@ -427,7 +429,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             aRange = Int(resumeOffset) ..< newLength + Int(resumeOffset)
         }
         
-        peripheral.sendNextObject(from: aRange, of: firmware, andReportProgressTo: progressDelegate)
+        peripheral.sendNextObject(from: aRange, of: firmware,
+                                  andReportProgressTo: initiator.progressDelegate, on: initiator.progressDelegateQueue)
         // -> peripheralDidReceiveObject() will be called
     }
 }
