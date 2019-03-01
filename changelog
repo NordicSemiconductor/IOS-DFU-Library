@@ -1,9 +1,21 @@
 ### Changelog
+- **4.3.0**
+    - Improvement: Zip dependency switched to ZipFramework (#251).
+    - Improvement: Dispatching delegates in designated queues (#249).
+    - Improvement: Added option to disable resuming Secure DFU operation (#264).
+    - Improvement: Attempt to send an App when SD+BL update failed with remote error (#266).
+    - Improvement: Extended errors exposed (#262).
+    - Bugfix: Fixed a crash during restarting DFU (#269).
+    - Bugfix: Fixed resuming Secure DFU on SDK 15 (#270).
+    - Bugfix: Typos in 2 error constants fixed (#263).
+
 - **4.2.2**
     - Bugfix: Fixed issue #245 where operationFailed error messages where not reported in some cases.
+
 - **4.2.1**
     - Bugfix: Fixed issue causing a crash when the target peripheral was set to `nil` and `discoverServices()` got called.
     - Bugfix: Raised MacOS Deployment target to 10.14 due to missing `identifier` property on `CBPeripheral` to avoid hacky workarounds.
+
 - **4.2.0**
     - Improvement: Swift 4.2 migration.
     - Improvement: Added .swift-version file.
@@ -17,9 +29,11 @@
     - Bugfix: The previous ZIP files from SDK 14+ had bootloaders with disabled Service Changed characteristic.
     - Bugfix: Fixed memory cycle caused by a strong delegate reference.
     - Bugfix: Fixed update failures because of device disconnects.
+
 - **4.1.3**
     - Bugfix: Fix by @simonseyer that resolves a random disconnects issue caused by the reuse of the same CBCentralManager used by the library, which received callbacks of device disconnects that might not be the target perpiheral
     - Bugfix: Fix by @alanfischer that resolves an Xcode warning related to documentation.
+
 - **4.1.2**
     - Bugfix: Fixed an issue introduced in 4.1.1 that caused legacy DFU to fail on some devices
     - Bugfix: Fixed missing information in the documentation that explains how to enable the experimental buttonless DFU feature
