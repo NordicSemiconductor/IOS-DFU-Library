@@ -58,9 +58,9 @@ internal enum ButtonlessDFURequest {
     var data : Data {
         switch self {
         case .enterBootloader:
-            return Data(bytes: [ButtonlessDFUOpCode.enterBootloader.code])
+            return Data([ButtonlessDFUOpCode.enterBootloader.code])
         case .set(let name):
-            var data = Data(bytes: [ButtonlessDFUOpCode.setName.code])
+            var data = Data([ButtonlessDFUOpCode.setName.code])
             data += UInt8(name.lengthOfBytes(using: String.Encoding.utf8))
             data += name.utf8
             return data
