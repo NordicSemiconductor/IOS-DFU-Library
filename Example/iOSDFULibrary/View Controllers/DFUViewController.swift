@@ -176,7 +176,6 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         partProgressView.progress = 0.0
         
         // Update counters
-        partsCompleted = 0
         currentFirmwarePartsCompleted = 0
 
         // Create DFU initiator with some default configuration
