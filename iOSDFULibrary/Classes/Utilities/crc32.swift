@@ -142,10 +142,6 @@ final class CRC32: Hashable {
     fileprivate var initialized = false
     fileprivate(set) var crc: UInt32 = 0
     
-    var hashValue: Int {
-        return Int(crc)
-    }
-    
     init() {}
     
     convenience init(data: Data) {
@@ -162,5 +158,9 @@ final class CRC32: Hashable {
     func run(data: Data) {
         crc = crc32(crc, data: data)
         initialized = true
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(crc)
     }
 }
