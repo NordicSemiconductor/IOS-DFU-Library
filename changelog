@@ -1,4 +1,8 @@
 ### Changelog
+- **4.4.1**
+    - Bugfix: Fixed calculatign number of bytes received from PRN (#288).
+- Improvement: ZIPFoundation dependency upgraded to 0.9.9. (#281)
+
 - **4.4.0**
     - Improvement: Swift 5.0 migration.
     - Improvement: New App Store icon added to supress the warning.
