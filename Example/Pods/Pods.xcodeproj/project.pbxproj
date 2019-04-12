@@ -7,135 +7,135 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		001DBB32CF4F8E74DAE8DD8ABA6A8C68 /* SecureDFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E758F806A9BD5AF9E21585B7948F84F0 /* SecureDFUControlPoint.swift */; };
-		0111A7A0D19716A17678F3EF8100D3AB /* SecureDFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E758F806A9BD5AF9E21585B7948F84F0 /* SecureDFUControlPoint.swift */; };
-		05CCFD12B02F365D848D6AC31308271B /* LegacyDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397DFB47818B39E08039A44CEF7EB4DD /* LegacyDFUService.swift */; };
-		06C3BE6F8823F8BB8E27C14C90D6E914 /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C81008407A99B3A9042500B57462EF2 /* Archive+Writing.swift */; };
-		0A55BBCA180092230099CE37E105EDFA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFA5AB1F675BBE39B21F4DDA6ED661A /* Cocoa.framework */; };
-		0A8E47A7B620F3DD5F9539F36B3DAC31 /* ButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C1BE947FECF2D51E79589079B61FA8 /* ButtonlessDFU.swift */; };
-		0F2B32CE7B842F955E369267FB347608 /* SecureDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A37BF9B54ADABFBC03BE67C6D3E01B /* SecureDFUPeripheral.swift */; };
-		10D476AC10D7516842E90D4FDCE7F524 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB090FD3F4F23B877035C60F4CAB4590 /* FileManager+ZIP.swift */; };
-		10EBEF9A22AD3CCA8576CC7A6C537E88 /* DFUStreamHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52CFDE58A23E5395AB259D04794D4C6 /* DFUStreamHex.swift */; };
-		13567FA15722529B798F09DBA281D673 /* DFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F5433B6C6A61DE63E8448FD57D0809 /* DFUServiceDelegate.swift */; };
-		13DD77E2628B7284E0A6E09D384F7279 /* LegacyDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = B837A4E7414EED2A46942766F3DB5D41 /* LegacyDFUPeripheral.swift */; };
-		192F5A5AE81C8D6D0B63A8EBDBAEEE70 /* SecureDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25287E6A04C7DFEA0DF0B6DAFE228F0 /* SecureDFUService.swift */; };
-		19A966617AD75B7EE6B8F54392897CD9 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104DC712E1915E649C44A77455F28675 /* LoggerHelper.swift */; };
-		1BD4953A2B9A2EE4A16E8EA45179BCB8 /* DFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEBEE68867E8543448B193D786B520D /* DFUServiceController.swift */; };
-		1C916AACC1DB66512B66AD3E5C0CA06B /* LegacyDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397DFB47818B39E08039A44CEF7EB4DD /* LegacyDFUService.swift */; };
-		1E37A5EBFBBB1B9CA10A00F89FA2EAFC /* DFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEBEE68867E8543448B193D786B520D /* DFUServiceController.swift */; };
-		20D1443FC6D5D7A644A71AFE0585E2E5 /* DFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104F7E286A9FD32E9F1ED9F9ABE15AB /* DFUControlPoint.swift */; };
-		220C261A51702B38DCF0F122A1547FA6 /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAF5E1526B47DBB7A08ED02EDD71152 /* Manifest.swift */; };
-		23A4665086FDCC98A9DBBA906151B4C0 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = E045E794648F7F12DE7FB81C107E27A8 /* Archive.swift */; };
-		242ACA6D98C6EA8034C73A0D0A83E7BA /* ZIPFoundation-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 98629E3497FD9617AFCBF40D9DE1A8CB /* ZIPFoundation-iOS-dummy.m */; };
-		28E370F002C62D12DAE25E83126C6F91 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7232B7B5EBE868E53251FEFD2A909326 /* ZIPFoundation.framework */; };
-		2E36A2D96C2F2A77C6F9074EC3B0B009 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFA5AB1F675BBE39B21F4DDA6ED661A /* Cocoa.framework */; };
-		300537EE4BB76474ACBDF93343B22952 /* DFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F5433B6C6A61DE63E8448FD57D0809 /* DFUServiceDelegate.swift */; };
-		30EA5098422E108198EA4D82F9F735B5 /* DFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D104F7E286A9FD32E9F1ED9F9ABE15AB /* DFUControlPoint.swift */; };
-		317F315BA3FB20845BDCB30DA621BE66 /* iOSDFULibrary-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFBE61E0E61A85FE4DB7D5B1C82D0AA /* iOSDFULibrary-macOS-dummy.m */; };
-		31C305D20E51FE47D992D84074A6D28A /* DFUCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB623CFC62A96D2B50FE7BB0177C06B /* DFUCharacteristic.swift */; };
-		32919C8D3985F165244B5079AF4D81AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFA5AB1F675BBE39B21F4DDA6ED661A /* Cocoa.framework */; };
-		33C312FF88754C27A82A1675A3264381 /* DFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16245687AC872CABA07E2F4BA0676E9 /* DFUPeripheralDelegate.swift */; };
-		35271D57EDF56B93C4F4053819F4BCF4 /* DFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1552FF760D0065A1C9571004C7F3A5 /* DFUPeripheral.swift */; };
-		38F8CB48F41D4333A04B711A326251D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF690070CE031DDF233B6CF676EFA9C /* Foundation.framework */; };
-		3D55346D5A56AF5B6EF37F2097D17D18 /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0200EEB0B443629873CB67370569E /* ZipArchive.swift */; };
-		3F24A23BB0323E3A9A8BB5E571DC3FCE /* DFUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264C3CEB3F6BA9CA24152F7C288D615E /* DFUController.swift */; };
-		3FDCA59176DD3CEBF098EDF38B1E9161 /* ButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C1BE947FECF2D51E79589079B61FA8 /* ButtonlessDFU.swift */; };
-		40B2875E9BA7100F8D8CB66994161B13 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51F24076A01A13C42E731EC81CCA3A /* Entry.swift */; };
-		40EC8798BFB41C68A947CD7BCA9464A9 /* LegacyDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B8AB9CDA3886C41B7ED0C65B616399 /* LegacyDFUExecutor.swift */; };
-		4791F101CD0C47CE5056C88F42E64BCE /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB3665C83C7BF9882825803FE5A225B /* SecureDFUPeripheralDelegate.swift */; };
-		48329DE14A40C5FEB11BE44428E714D8 /* IntelHex2BinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6690F5589DFF2F9D2365E52C89F9B140 /* IntelHex2BinConverter.m */; };
-		48EE247CC13B31812412041006251C25 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104DC712E1915E649C44A77455F28675 /* LoggerHelper.swift */; };
-		4B97CB87625E4C6EB21CDDAB7C2A7D02 /* DFUStarterPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08F8C11BED1C416AB415BD7377A8EB7 /* DFUStarterPeripheral.swift */; };
-		4BD800A50460EF32B48A279025FE285E /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0A63AD704D0318BFDF08EA978F851 /* SoftdeviceBootloaderInfo.swift */; };
-		4C3E6E6B93521C335FACD09A2644D7A4 /* SecureDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6FC15DE225DFE90ACD5CF028ABC19 /* SecureDFUExecutor.swift */; };
-		4C4D4302206B3EBDC9A254FEF27202E6 /* ZIPFoundation-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5095D474F36188D276AA7596D793DC /* ZIPFoundation-macOS-dummy.m */; };
-		4CDF16DA9C21A28C0F2C0B011425521A /* DFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1552FF760D0065A1C9571004C7F3A5 /* DFUPeripheral.swift */; };
-		4CE33E0651182F036DC1D0515C2B6A2E /* DFUStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A556F51D5E19926B6D5884ED84B77DB /* DFUStream.swift */; };
-		4E620C8074E1F681890599E11E39500A /* Pods-iOSDFULibrary_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DD1C5EB29ABC575CF6D38138BB008F35 /* Pods-iOSDFULibrary_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E787A8E77F696F450434D318B28FBB3 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634C2A0578B56D74085D561EB8F5F05 /* Data.swift */; };
-		4FEEFFEB55A582FC2E683FD86FF1DD9C /* SecureDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A37BF9B54ADABFBC03BE67C6D3E01B /* SecureDFUPeripheral.swift */; };
-		507EA7BF03A17B2881C6ADF974BF7D6F /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C81008407A99B3A9042500B57462EF2 /* Archive+Writing.swift */; };
-		515AAE24C5ECB8338667B6C8C6D4DD58 /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0A63AD704D0318BFDF08EA978F851 /* SoftdeviceBootloaderInfo.swift */; };
-		577473878E558FA8425F40A1E468F84C /* DFUVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB7A3D1E5F3744A5B113FF6B93AF9C /* DFUVersion.swift */; };
-		5797404E409CD56F6C5371FB621330B9 /* iOSDFULibrary-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F1A8670DA84132625ACC6A6F093F1B1 /* iOSDFULibrary-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AC2DAC2E91670C3033EB04B8126C3F3 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48484DA35B63745FBC23B2544EBB4FAE /* Data+Compression.swift */; };
-		5E7237C921D7E1CFA22615C002AF4C0E /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2524ACC4453CFB8533CD5240ED63BB53 /* LoggerDelegate.swift */; };
-		5F0A3676AB0E773F1756A3B8F0EC6D0E /* DFUStreamZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F65BE59E26ECEA13CC72521A2CEF56 /* DFUStreamZip.swift */; };
-		5FAE6904FA7D6E38D5D8F57F062B8B47 /* Pods-iOSDFULibrary_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BB30CF240D59E065EC92DB41FB0594FE /* Pods-iOSDFULibrary_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		631F525F6DE994F60A9604ED2EAA661C /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064D28B9D2F4526C8F1CF9A234F277FF /* ManifestFirmwareInfo.swift */; };
-		650653697B8910990174C7FB6990FC9A /* DFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C86ADC378FB3CC2ACA42437EFB8F8D6 /* DFUService.swift */; };
-		674F84E5BC9DEB2877F14E3134FF7BCA /* iOSDFULibrary-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5447A932871C3238E152AF0F184DA1F1 /* iOSDFULibrary-iOS-dummy.m */; };
-		678A4205CB492C4FA886BE81D074FB08 /* LegacyDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B8AB9CDA3886C41B7ED0C65B616399 /* LegacyDFUExecutor.swift */; };
-		678ADD7BFDD9C1FBC3FE79D19A9E8A5E /* DFUFirmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F196AE2901BACE34162DC9266E2DC41 /* DFUFirmware.swift */; };
-		6B9F345F0D621C7FF2025A376CD9878F /* Pods-macOSDFULibrary_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B3AA1299302EE7A8F92B6FF70B783 /* Pods-macOSDFULibrary_Example-dummy.m */; };
-		6D51A2B71069B2962811652B83F7AD97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF690070CE031DDF233B6CF676EFA9C /* Foundation.framework */; };
-		6D820945DD482243FB3EA854E1B348DE /* LegacyDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = B837A4E7414EED2A46942766F3DB5D41 /* LegacyDFUPeripheral.swift */; };
-		6E610DA7B91C227BA8FCBB5A928DA073 /* DFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824298E05059464A81BD7D8812A0ADFB /* DFUPacket.swift */; };
-		70849F9E97E26DD027615C87A5CF0E5D /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670C59D1154DCDF079413042D22D70AE /* LegacyDFUPeripheralDelegate.swift */; };
-		76462C51E154D358B05296328E841FB4 /* IntelHex2BinConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = DFC3F3C018F808E68DCE1D7B79339904 /* IntelHex2BinConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7765618370AAB333F54886D1E81F27E7 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CE67018E528E3A3CFBB99B14DECD0 /* Data+Serialization.swift */; };
-		7A26CBB406D7E61F87286C08D7EF78D5 /* ZIPFoundation-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0EEF0BB4BEC4C564EBC446F26D3D7 /* ZIPFoundation-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7D821BE1B89337F1B42BA90BC3A385E8 /* DFUStreamHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52CFDE58A23E5395AB259D04794D4C6 /* DFUStreamHex.swift */; };
-		7F30148B7A87CABA0AFE34F498B24478 /* LegacyDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90686C915F6F8FF6AC4D0E6CA4D173D2 /* LegacyDFUServiceInitiator.swift */; };
-		89403A6B6B2EDC858ED72206057940E2 /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670C59D1154DCDF079413042D22D70AE /* LegacyDFUPeripheralDelegate.swift */; };
-		89644CCD5A9A5D4230B0427707FA5D50 /* DFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A332E3FE5FDB03CB8D683170A632647 /* DFUExecutor.swift */; };
-		8A6DC21BC0819E531827D9770514FAA9 /* Pods-iOSDFULibrary_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2BFB4370B7AE1AB5DCD8BC8DD8269 /* Pods-iOSDFULibrary_Tests-dummy.m */; };
-		8A8CD56F2E6FE8327F5A2997D3AB3EBB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF690070CE031DDF233B6CF676EFA9C /* Foundation.framework */; };
-		8B49EBD77137AF44376B1D39BF6E4456 /* SecureDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25287E6A04C7DFEA0DF0B6DAFE228F0 /* SecureDFUService.swift */; };
-		8B58E15D2CD8FA71FDB11AED08F041B0 /* DFUStreamBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F537CD59BBF3295E955838158D8EAB0 /* DFUStreamBin.swift */; };
-		8EAD46F70E9A2D9EE31015843939877C /* iOSDFULibrary-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9441904651576A11868BCE6CB187CEF5 /* iOSDFULibrary-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91DE91CC6137330E497AE0C58A1677C5 /* DFUUuidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700EEA297642C08DD780724B5ABADC0 /* DFUUuidHelper.swift */; };
-		9486ED18EA0FDF6FF49359466EE1CFEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF690070CE031DDF233B6CF676EFA9C /* Foundation.framework */; };
-		95B032BA96FC3604DA702899ED110FC1 /* Pods-iOSDFULibrary_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E00C9B99A719AA1AA8A493BB4E776E7C /* Pods-iOSDFULibrary_Example-dummy.m */; };
-		9E448FA6AD50381F9F7DA0590592F774 /* SecureDFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576598385F3649B20F50D07816A0298 /* SecureDFUPacket.swift */; };
-		A0280A5F505C7740A824E5FA34EDDD73 /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955D8483E191CF27AC2C20AA279ACB87 /* DFUPeripheralSelector.swift */; };
-		A035F689F66F68D870EB805D0F91BA12 /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB3665C83C7BF9882825803FE5A225B /* SecureDFUPeripheralDelegate.swift */; };
-		A0ABB8C87D5F2908ACAD70751C29D803 /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA7FE2139CE3C9F80A8B42F3AD9399F /* SecureDFUServiceInitiator.swift */; };
-		A33F3F887672BB4F72327BBE2A2BF556 /* DFUFirmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F196AE2901BACE34162DC9266E2DC41 /* DFUFirmware.swift */; };
-		A35A1D01BE74DE4B519F23E04FA3E711 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48484DA35B63745FBC23B2544EBB4FAE /* Data+Compression.swift */; };
-		A588D881DC5AAF2E1CC158BDE909C8A9 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7232B7B5EBE868E53251FEFD2A909326 /* ZIPFoundation.framework */; };
-		A67DBA153FBE29AF43DBEE2E07A6A1F1 /* DFUStarterPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08F8C11BED1C416AB415BD7377A8EB7 /* DFUStarterPeripheral.swift */; };
-		A90F9796AB6F9BD09F358C8E4AB34A13 /* SecureDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6FC15DE225DFE90ACD5CF028ABC19 /* SecureDFUExecutor.swift */; };
-		ABCF34F2708569D8CDD58D1C078FA577 /* Pods-macOSDFULibrary_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 006C175A846ADD321D67BFDB5F485F07 /* Pods-macOSDFULibrary_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AF6DEA627FCE59ADF663E848C33A0A32 /* DFUVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB7A3D1E5F3744A5B113FF6B93AF9C /* DFUVersion.swift */; };
-		AF94715E54790B08C8DDA76BF7B73439 /* DFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8183CABF2C2CA09947A34BDFBF84D2F2 /* DFUServiceInitiator.swift */; };
-		B0AFA945B65B52DFE905E634D15A39F7 /* DFUStreamBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F537CD59BBF3295E955838158D8EAB0 /* DFUStreamBin.swift */; };
-		B1345607E82B0A9A730F98DC81F88128 /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E1DFA2BE0A683D83A5B4C647F8D0F2 /* Archive+Reading.swift */; };
-		B77DFA58DD6C33C423E69BD9CBB2E63D /* DFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8183CABF2C2CA09947A34BDFBF84D2F2 /* DFUServiceInitiator.swift */; };
-		B7ACD5823ED2891093B4BF946BB628AF /* DFUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264C3CEB3F6BA9CA24152F7C288D615E /* DFUController.swift */; };
-		B7F85F76A980F1BCAEF7CFD61C03CF1C /* DFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A332E3FE5FDB03CB8D683170A632647 /* DFUExecutor.swift */; };
-		B90A6FE4C45B4623D259544C9B2E57BF /* DFUStreamZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F65BE59E26ECEA13CC72521A2CEF56 /* DFUStreamZip.swift */; };
-		BA3DDA4030C084D0BD67E44890D56F3D /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA7FE2139CE3C9F80A8B42F3AD9399F /* SecureDFUServiceInitiator.swift */; };
-		BAA4EF38209BC88E88027BC7D3041A64 /* LegacyDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90686C915F6F8FF6AC4D0E6CA4D173D2 /* LegacyDFUServiceInitiator.swift */; };
-		BDD44749B549CF86107F84C36D757FC2 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634C2A0578B56D74085D561EB8F5F05 /* Data.swift */; };
-		C1DF4625FA02CDD177FB718F86EDC900 /* DFUServiceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FC7F9CAE972B59A001666073E97A5 /* DFUServiceSelector.swift */; };
-		C4457100C893FF68080713A876FB2BE2 /* crc32.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0784D5D2200DFB629CA9829D836FB2 /* crc32.swift */; };
-		C7F43639C7135AEE80DA3E673EF79612 /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5C6E82ABDE843742A47C11BA0B933 /* DFUPeripheralSelectorDelegate.swift */; };
-		CB9E658B3CCD06EDB3056DBDB63E72CC /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51F24076A01A13C42E731EC81CCA3A /* Entry.swift */; };
-		CE973E0792A05AE2B088677605583B89 /* DFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824298E05059464A81BD7D8812A0ADFB /* DFUPacket.swift */; };
-		CF468BC2016203AF646F112F0D415A05 /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5C6E82ABDE843742A47C11BA0B933 /* DFUPeripheralSelectorDelegate.swift */; };
-		D357DABFE2A476E46F794EA8C0666271 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB090FD3F4F23B877035C60F4CAB4590 /* FileManager+ZIP.swift */; };
-		D50F7721E57B6F682C23D0CCF1E3B6C2 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CE67018E528E3A3CFBB99B14DECD0 /* Data+Serialization.swift */; };
-		D52D1A4556DC36FC35B2D4E62C4BCFEB /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064D28B9D2F4526C8F1CF9A234F277FF /* ManifestFirmwareInfo.swift */; };
-		D59F67504D1F075A05103F1CF25CC2C9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042090AEB5CAAA5FE3B8BB632792990F /* Double.swift */; };
-		D5F045793FBC426A245D05769355C13F /* SecureDFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576598385F3649B20F50D07816A0298 /* SecureDFUPacket.swift */; };
-		D8C217D0B6A9A1031001CB161EC58DD2 /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2524ACC4453CFB8533CD5240ED63BB53 /* LoggerDelegate.swift */; };
-		DD01C993702493BCD4A112009A18FC6D /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955D8483E191CF27AC2C20AA279ACB87 /* DFUPeripheralSelector.swift */; };
-		DE6C5F18D00EF33F02DB7070A450F0FF /* DFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16245687AC872CABA07E2F4BA0676E9 /* DFUPeripheralDelegate.swift */; };
-		DE98CF86C12D2D99F6677C5D6E7B0B1D /* DFUUuidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700EEA297642C08DD780724B5ABADC0 /* DFUUuidHelper.swift */; };
-		E10BBB8899855166E8A6CCC69C547F5E /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042090AEB5CAAA5FE3B8BB632792990F /* Double.swift */; };
-		E1BF18FAC2448FED5C51692084128B08 /* DFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C86ADC378FB3CC2ACA42437EFB8F8D6 /* DFUService.swift */; };
-		E20BBC1B1F396DED9E9A16F67EA7556A /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E1DFA2BE0A683D83A5B4C647F8D0F2 /* Archive+Reading.swift */; };
-		E4663ACFC3FDCAAF6BA04E91880BBF86 /* DFUServiceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FC7F9CAE972B59A001666073E97A5 /* DFUServiceSelector.swift */; };
-		E6A40F11576080722E7F5483D8D03A87 /* ZIPFoundation-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A9FE184612697B6877B21D31634DA410 /* ZIPFoundation-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E8062E74C7CA38AFB8EB160E8EAFB185 /* IntelHex2BinConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = DFC3F3C018F808E68DCE1D7B79339904 /* IntelHex2BinConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC69DBDF6754162834858BB125BC39CA /* DFUStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A556F51D5E19926B6D5884ED84B77DB /* DFUStream.swift */; };
-		ECCED6AB43D3A0C8A86F395ACEC712E1 /* IntelHex2BinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6690F5589DFF2F9D2365E52C89F9B140 /* IntelHex2BinConverter.m */; };
-		F3E010153D3B30DA11084883FB6F17E2 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = E045E794648F7F12DE7FB81C107E27A8 /* Archive.swift */; };
-		F72459A5795E4465C37B1CB3CF00176B /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAF5E1526B47DBB7A08ED02EDD71152 /* Manifest.swift */; };
-		FAAFDACE39EE35184BBE90C8B464F3D6 /* crc32.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0784D5D2200DFB629CA9829D836FB2 /* crc32.swift */; };
-		FAF9A2A565A6688A035434DC14DB675E /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0200EEB0B443629873CB67370569E /* ZipArchive.swift */; };
-		FDA7AC97E8413258D6F2CECEDCED3B29 /* DFUCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB623CFC62A96D2B50FE7BB0177C06B /* DFUCharacteristic.swift */; };
+		00F788081542B3DB06E7E9D4A57C5D54 /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569A612C3E3FBAC3AD05DA11D2B640E3 /* DFUPeripheralSelector.swift */; };
+		032251AB7989B0BD53FDB3E40D18AE08 /* DFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7B5AAF9CED8C1937EA2055BCA5D871 /* DFUControlPoint.swift */; };
+		05F1175CEE5261226A48597C887FCB59 /* SecureDFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700C4CE29E3AB1606BBAE33F8CBD9523 /* SecureDFUPacket.swift */; };
+		0629BBFEB3EEAA725282D80D6AC1C1E0 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818164589182D376542B9FAE528029A /* Data+Compression.swift */; };
+		0828CEA059209806154D0335A75759DA /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7744FFF2BC9765BC7143F482E7EC029 /* FileManager+ZIP.swift */; };
+		08F1C0F5463649DA5FD49708E367F2D1 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D107FA040C2BC40B63FBEF813EE54E /* Data+Serialization.swift */; };
+		09D9A85F559785A0C1495DA99356EB5E /* DFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B92B0ECD8A922900F27766FC3BC2FA /* DFUService.swift */; };
+		0A55BBCA180092230099CE37E105EDFA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1670B37237BDF720D0A5FA2134F8E41D /* Cocoa.framework */; };
+		0BBADA887CFDFF6BB3468F239251A33F /* DFUServiceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E83545204BD7E9E277E638FE536CA2 /* DFUServiceSelector.swift */; };
+		0D2EA1147C6157B055E8212B29E07574 /* DFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DD45EC1FEA7199337778BA49F569D5 /* DFUServiceController.swift */; };
+		0DC180F2491ADA25A3911143CCD6145E /* DFUCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD75123ED72886786DBDE3C4C17304 /* DFUCharacteristic.swift */; };
+		0E436FEA01F2186D4198F112A5B18C77 /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17D6730CC7C0FC633DA92B097FD0F62 /* SoftdeviceBootloaderInfo.swift */; };
+		0FFC5B6E9374E9DB95892CA037B83D6B /* DFUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91E40580DA6FCD23BB791315B0F58D /* DFUController.swift */; };
+		104C532D7ADB942AE308C1CB57E8CE09 /* LegacyDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01609AE8109D2B43C8B1082F46520A6D /* LegacyDFUPeripheral.swift */; };
+		115B037623D98EF1FEB88EFBEF43F61E /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326C29D5103B305794C2BB7CB3B9C5 /* Double.swift */; };
+		11D6154D5C9C47B6D3456CCB090C261D /* DFUStreamZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A7889F4F46B0E1F7DEA8D319EF323 /* DFUStreamZip.swift */; };
+		1260F141BB00E086AD00807753CFDD11 /* DFUUuidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551109ADE4258DAAFCF41E25BC5EF82F /* DFUUuidHelper.swift */; };
+		133727080C53B7F826A9E4D4AF42BD0C /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9013B51321FB35D805C005B85365A28F /* LoggerDelegate.swift */; };
+		16A39B9F746FE76E5523C986D3DDF9B4 /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771E93A64505F109FAA8BF7183BA28A /* Archive+Writing.swift */; };
+		1773850FBE6D7C88AA9EBB8B0885DE1E /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837F55AF8EE6D7B2F0F90B6F0EB09FF1 /* Archive+Reading.swift */; };
+		187450DD823987D2C00BF5B39DFE072A /* DFUServiceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E83545204BD7E9E277E638FE536CA2 /* DFUServiceSelector.swift */; };
+		19C0DBC6514A71C1A299CF9BB4D3A27F /* DFUStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFB9E92B94ED1B544BA9F280975644 /* DFUStream.swift */; };
+		1ECAD584CEA0DC9AAC3B2D6D1EEB7C4F /* DFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE80C453E6D58C8A6C8F0CBA3B3A548F /* DFUPeripheralDelegate.swift */; };
+		22100D15262D841CE2B5FB00199446D8 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A2339D64F3C759C321D6005B7752B /* Archive.swift */; };
+		2228FDEEE65F026E16A54250AA63E2B7 /* DFUStarterPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E39EBBA6244AD4BEFEBD84BA1CEC4D /* DFUStarterPeripheral.swift */; };
+		2416DB1A856D53801DDF59A97013B322 /* DFUVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7366D7312BCBC4DC7799DAFBFC3A95 /* DFUVersion.swift */; };
+		25415F42B8F6898AF233B646A392FE57 /* crc32.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8988B345B713B7D45B9A79C7F2F34E /* crc32.swift */; };
+		28E370F002C62D12DAE25E83126C6F91 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA19F648ED6055B57B33C6854B773DA /* ZIPFoundation.framework */; };
+		2A07B68E40D38D32160631879B85D0EE /* DFUStreamHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A5B32AAFC70D9FE4087D75012D1E58 /* DFUStreamHex.swift */; };
+		2B531270BEECCEED891F78F3350A29E1 /* DFUStreamBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9C3370D2E9C9D0703519DF50EDA808 /* DFUStreamBin.swift */; };
+		2E36A2D96C2F2A77C6F9074EC3B0B009 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1670B37237BDF720D0A5FA2134F8E41D /* Cocoa.framework */; };
+		30AEB1B82EE4906EEFB26AD2FAF54759 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55E580DF3F8D9DF5F308F1F39B605A9 /* Entry.swift */; };
+		3142FED37A16FC54BA3BBC4B9F2D8DC4 /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23294EC123EBEB11663D12E9FA3A1449 /* SecureDFUPeripheralDelegate.swift */; };
+		324771A855C1E930B09F2F8B535407B4 /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837F55AF8EE6D7B2F0F90B6F0EB09FF1 /* Archive+Reading.swift */; };
+		363015F124C0804FD492A8C1BF01C8AC /* iOSDFULibrary-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D41480012AD48712A8C7C9AA28C15F3 /* iOSDFULibrary-iOS-dummy.m */; };
+		38F8CB48F41D4333A04B711A326251D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF8016E2D8226E80BF23A77F53FFA99B /* Foundation.framework */; };
+		40670811CE388E377CF2CFF863F95810 /* DFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E47FD2A2ACE7D7A6F82BC6C8EDD50C /* DFUServiceDelegate.swift */; };
+		413F24514C05648D7F4768048A6C2DF6 /* IntelHex2BinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E7DEBBA1F0BA8AEE222E528ABF6F8 /* IntelHex2BinConverter.m */; };
+		42A4FBE5EF268FA7574C1E6BE1BE152E /* DFUVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7366D7312BCBC4DC7799DAFBFC3A95 /* DFUVersion.swift */; };
+		4414C9EFB27191EE75E30D8DB2BE0C01 /* DFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99DDE3C7CF0D8607A81B0FE748ACAF0 /* DFUServiceInitiator.swift */; };
+		4B7CC3633CCC46C8703D5076EC513412 /* LegacyDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01609AE8109D2B43C8B1082F46520A6D /* LegacyDFUPeripheral.swift */; };
+		4B81FCE837E910BDE2923B5550EBC397 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D107FA040C2BC40B63FBEF813EE54E /* Data+Serialization.swift */; };
+		4E620C8074E1F681890599E11E39500A /* Pods-iOSDFULibrary_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CFC421A1A470F2CC951B9918A2F6667 /* Pods-iOSDFULibrary_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F54C2E25EA8D486908FB499942C82BE /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569A612C3E3FBAC3AD05DA11D2B640E3 /* DFUPeripheralSelector.swift */; };
+		506A9191A7DF6F120251972BFB124650 /* DFUStarterPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E39EBBA6244AD4BEFEBD84BA1CEC4D /* DFUStarterPeripheral.swift */; };
+		54ACA5D872EB02D63CF9A33CADFFA71F /* LegacyDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E7EFA15C3B1569FF3A8962045E391A /* LegacyDFUService.swift */; };
+		5797404E409CD56F6C5371FB621330B9 /* iOSDFULibrary-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A46A7A96EB561AFF8B9A6679E5BB67 /* iOSDFULibrary-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58D8B73316783343D1F539AD489BC899 /* DFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159DAE8DAF782AF8FC5168A18FD1F1D4 /* DFUExecutor.swift */; };
+		59B0D3AB5350A725DE75AFAD933CDDFA /* DFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF166DFA86D8743C629EFAD2E6BEFB8 /* DFUPacket.swift */; };
+		5B4DF92904C7736BC575FEC622A5B2B4 /* LegacyDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BD2B9DFFC7D8B33DEE9AEEAAC8E731 /* LegacyDFUServiceInitiator.swift */; };
+		5C029814D3941FA7624999F2F455CF0F /* DFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24EA8D59BA97941287ABFA340D72E0 /* DFUPeripheral.swift */; };
+		5EB653C534368886E14597A34D084ABF /* iOSDFULibrary-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 961DD5FFF0E7F1071EA90B9F8B79DC9C /* iOSDFULibrary-macOS-dummy.m */; };
+		5FAE6904FA7D6E38D5D8F57F062B8B47 /* Pods-iOSDFULibrary_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AD81CC38AD9E17564E46ABB01E637EA /* Pods-iOSDFULibrary_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6218E7FB15C07F60431D105E8D681B0B /* ButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161936DA6FF9B819509B7A97A6B4BE23 /* ButtonlessDFU.swift */; };
+		64C6A19639E11C8A47C4BBCF04CB8F02 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7744FFF2BC9765BC7143F482E7EC029 /* FileManager+ZIP.swift */; };
+		68386E31C510E91352C737AA4DB44B7A /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7D1CC0276FEBEAFBE88B75602661E /* ManifestFirmwareInfo.swift */; };
+		6899B048FD8E2C88D05161256C93EAC2 /* ZIPFoundation-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 600BEE9B9450656347A85D9D1899A94F /* ZIPFoundation-iOS-dummy.m */; };
+		6B9F345F0D621C7FF2025A376CD9878F /* Pods-macOSDFULibrary_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC78DF457B9347774036145D85956DB /* Pods-macOSDFULibrary_Example-dummy.m */; };
+		6D51A2B71069B2962811652B83F7AD97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF8016E2D8226E80BF23A77F53FFA99B /* Foundation.framework */; };
+		6D60090A4E73EABA801102CE3D3A8051 /* SecureDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4CEA11FD45CC3DAB54ED847F998BB8 /* SecureDFUExecutor.swift */; };
+		6E2D095F97E246E05F4BBD0D8861FF39 /* LegacyDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E7EFA15C3B1569FF3A8962045E391A /* LegacyDFUService.swift */; };
+		73BBEAF9B50BA1470CE3948F6541097B /* DFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24EA8D59BA97941287ABFA340D72E0 /* DFUPeripheral.swift */; };
+		76462C51E154D358B05296328E841FB4 /* IntelHex2BinConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = AAD7107A9712C56826AB1EE59070FE9F /* IntelHex2BinConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77824A3EE19691BA5F8A38B1BAA4C73D /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A040260AE775DF8E5D6E0D67652C63C7 /* Manifest.swift */; };
+		79BF3C4AA68E6A0B1B8DFA91DCBC80DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF8016E2D8226E80BF23A77F53FFA99B /* Foundation.framework */; };
+		7C37F1749DADC240EA800CA315513198 /* IntelHex2BinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E7DEBBA1F0BA8AEE222E528ABF6F8 /* IntelHex2BinConverter.m */; };
+		80992B60D3946A7D8E1F768719615679 /* ButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161936DA6FF9B819509B7A97A6B4BE23 /* ButtonlessDFU.swift */; };
+		837EFF7215B6537F13B5C64747D0B47D /* DFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE80C453E6D58C8A6C8F0CBA3B3A548F /* DFUPeripheralDelegate.swift */; };
+		83BE8D952FBDDDAE313E8836BFA0A8B6 /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9013B51321FB35D805C005B85365A28F /* LoggerDelegate.swift */; };
+		856CD1FA8F628AF05CA63ACEA79DD16D /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AF9CB548AD7E816FBC7567A4E30CEE /* LegacyDFUPeripheralDelegate.swift */; };
+		8714276D2D3EFAA124EFD6DE019AE051 /* SecureDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4CEA11FD45CC3DAB54ED847F998BB8 /* SecureDFUExecutor.swift */; };
+		872ABD900BFE4739EABF77B45F5F2D6C /* ZIPFoundation-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4A6DBD424D0E5E4E98CBF026EF41BF /* ZIPFoundation-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		880623146AC9DA59EDC3281148E9EED8 /* DFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF166DFA86D8743C629EFAD2E6BEFB8 /* DFUPacket.swift */; };
+		89B64E833121C7F80ADA22CCE20F6D7C /* DFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E47FD2A2ACE7D7A6F82BC6C8EDD50C /* DFUServiceDelegate.swift */; };
+		8A6DC21BC0819E531827D9770514FAA9 /* Pods-iOSDFULibrary_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8F5587A24941C91702E23924DCF99D /* Pods-iOSDFULibrary_Tests-dummy.m */; };
+		8A8CD56F2E6FE8327F5A2997D3AB3EBB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF8016E2D8226E80BF23A77F53FFA99B /* Foundation.framework */; };
+		8E183500C91943CB39E00B7EF41E2401 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396CF6A0F66F87A432A2321F98D0ED5E /* Data.swift */; };
+		8EAD46F70E9A2D9EE31015843939877C /* iOSDFULibrary-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 17086AD8E1FC90F48072896CC8842CCE /* iOSDFULibrary-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90ACFC96014830233D1A1E75E43B9B34 /* SecureDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117AC5DEA6D484D48AF624803DB12F10 /* SecureDFUPeripheral.swift */; };
+		95B032BA96FC3604DA702899ED110FC1 /* Pods-iOSDFULibrary_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F4D7ACE3099260BD7914C0F7AA450A /* Pods-iOSDFULibrary_Example-dummy.m */; };
+		97F5BDEF41559739BDDF9F590CDF5259 /* DFUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91E40580DA6FCD23BB791315B0F58D /* DFUController.swift */; };
+		992F2A165E2DE0145EBA32BC5C6D48D4 /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE14D2465CF18B42A3C43BE9BCD380D8 /* SecureDFUServiceInitiator.swift */; };
+		9D2474EF6792D65FE8C52EDE3AEAC338 /* SecureDFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317452302C76EF0480ABD86D9731D824 /* SecureDFUControlPoint.swift */; };
+		9EB0F657E905C0730D5BFEB8CAD69BCF /* SecureDFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317452302C76EF0480ABD86D9731D824 /* SecureDFUControlPoint.swift */; };
+		9FCB1D646EBC2533B8F05D7AC6AF2577 /* DFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99DDE3C7CF0D8607A81B0FE748ACAF0 /* DFUServiceInitiator.swift */; };
+		A0AC52C96C1F1CC04373DD1E1CC438D7 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF466610C5C9F3229659AFFCB04B96AB /* LoggerHelper.swift */; };
+		A19DA639C605D9D74F1A588FB7E7B042 /* DFUFirmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F209B66AF11F97CE91CDE27FB147 /* DFUFirmware.swift */; };
+		A1A3CD0B56860A0943573B4031C50B95 /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A040260AE775DF8E5D6E0D67652C63C7 /* Manifest.swift */; };
+		A3A78023BF870E5A4EC0E5FAAE3B3663 /* SecureDFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700C4CE29E3AB1606BBAE33F8CBD9523 /* SecureDFUPacket.swift */; };
+		A4DAEC6A900485B4D39BDDF14E51BC30 /* ZIPFoundation-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D78A1581AAE0E93BF3EAB34B6A353890 /* ZIPFoundation-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A55842A898A19F703B48584B515B2E27 /* DFUStreamHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A5B32AAFC70D9FE4087D75012D1E58 /* DFUStreamHex.swift */; };
+		A588D881DC5AAF2E1CC158BDE909C8A9 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA19F648ED6055B57B33C6854B773DA /* ZIPFoundation.framework */; };
+		A85413555E0B57496F009F811F56F8CF /* crc32.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8988B345B713B7D45B9A79C7F2F34E /* crc32.swift */; };
+		AB32BFB80C7C8BDC763FEFB8964BF690 /* SecureDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1571DFD4F3BCBBF39F733110BF41B /* SecureDFUService.swift */; };
+		ABCF34F2708569D8CDD58D1C078FA577 /* Pods-macOSDFULibrary_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E800E67CF9CCC18A18002A7575780EA /* Pods-macOSDFULibrary_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0C7E4DE242CD1AF132DFA9B725166CE /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC140C8FE02890FEAC68A0D6F7C9ECC9 /* DFUPeripheralSelectorDelegate.swift */; };
+		B0D530D0F0ED0EB09C51861A278FEFD4 /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE483A235EDDD815F06A47021CA452A0 /* ZipArchive.swift */; };
+		B27446FEA877F4796162FEF477EB4DA1 /* DFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DD45EC1FEA7199337778BA49F569D5 /* DFUServiceController.swift */; };
+		B416C5F90506E3050B94B269C906F245 /* LegacyDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29528811E070C271EFE8FD18ED00950 /* LegacyDFUExecutor.swift */; };
+		B52EB42AE2DD04E3371319497CF5C674 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A2339D64F3C759C321D6005B7752B /* Archive.swift */; };
+		B8C6E7A3D1C2CCCDEE3A48B90A7969E6 /* DFUStreamBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9C3370D2E9C9D0703519DF50EDA808 /* DFUStreamBin.swift */; };
+		BB21304B5E1B3FCFE428F0222427E2D1 /* LegacyDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BD2B9DFFC7D8B33DEE9AEEAAC8E731 /* LegacyDFUServiceInitiator.swift */; };
+		BCEFD269F38E71564F15D698AB9F9EB7 /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE483A235EDDD815F06A47021CA452A0 /* ZipArchive.swift */; };
+		BDBF11AA028BF6110503C6011F404D96 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55E580DF3F8D9DF5F308F1F39B605A9 /* Entry.swift */; };
+		BDE6CD3C28494EF91AB06460E054022F /* DFUStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFB9E92B94ED1B544BA9F280975644 /* DFUStream.swift */; };
+		BE123371202F34DBA07B1FF2C2C8E23E /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326C29D5103B305794C2BB7CB3B9C5 /* Double.swift */; };
+		BF05036600918DD5C1D5D87B663744B6 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818164589182D376542B9FAE528029A /* Data+Compression.swift */; };
+		BFFC277185CD01748D3D77FE03B59A4F /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771E93A64505F109FAA8BF7183BA28A /* Archive+Writing.swift */; };
+		C2878E277471796FEB425E19E65BB3E1 /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF466610C5C9F3229659AFFCB04B96AB /* LoggerHelper.swift */; };
+		CA31242F08BE3634D7DB45906399228D /* SecureDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1571DFD4F3BCBBF39F733110BF41B /* SecureDFUService.swift */; };
+		CBAE4184B1CAA06875C5A2E5AA6221CC /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7D1CC0276FEBEAFBE88B75602661E /* ManifestFirmwareInfo.swift */; };
+		CD4F89078CD47B689AAAE2FC2C55EE87 /* SecureDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117AC5DEA6D484D48AF624803DB12F10 /* SecureDFUPeripheral.swift */; };
+		CE5F0A3E7D136462482133C445711BC2 /* DFUFirmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F209B66AF11F97CE91CDE27FB147 /* DFUFirmware.swift */; };
+		CE66E8DE6EA50FD4F3AC1D7828A986EE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1670B37237BDF720D0A5FA2134F8E41D /* Cocoa.framework */; };
+		D037FA85689B5956A3EF34F6695C432C /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17D6730CC7C0FC633DA92B097FD0F62 /* SoftdeviceBootloaderInfo.swift */; };
+		D05D04720749203AB899B5C8E6C974BF /* ZIPFoundation-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8068C6C3C98F55AC8E9A409C8E425F29 /* ZIPFoundation-macOS-dummy.m */; };
+		D0DD2676B088F10295A644571571BD67 /* DFUCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD75123ED72886786DBDE3C4C17304 /* DFUCharacteristic.swift */; };
+		D560EA71C630C9ADFBCC8FEAAB45DC72 /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE14D2465CF18B42A3C43BE9BCD380D8 /* SecureDFUServiceInitiator.swift */; };
+		DB9285A6962CB873DDC2087B232B618B /* LegacyDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29528811E070C271EFE8FD18ED00950 /* LegacyDFUExecutor.swift */; };
+		E507C165E430D8B0E2AFF8C10DA4DC65 /* DFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B92B0ECD8A922900F27766FC3BC2FA /* DFUService.swift */; };
+		E716CE98563E543E9343756E0336F6AC /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC140C8FE02890FEAC68A0D6F7C9ECC9 /* DFUPeripheralSelectorDelegate.swift */; };
+		E8062E74C7CA38AFB8EB160E8EAFB185 /* IntelHex2BinConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = AAD7107A9712C56826AB1EE59070FE9F /* IntelHex2BinConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EB83854177CFA823051ACBD033BD70C9 /* DFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7B5AAF9CED8C1937EA2055BCA5D871 /* DFUControlPoint.swift */; };
+		F1130DAC3606419A3D9CE12AE9B6EE6C /* DFUUuidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551109ADE4258DAAFCF41E25BC5EF82F /* DFUUuidHelper.swift */; };
+		F2301E0EE5EDEE3EDE77B2F1A3AAEE99 /* DFUStreamZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A7889F4F46B0E1F7DEA8D319EF323 /* DFUStreamZip.swift */; };
+		F5442366B42927564B9BFEA66D96C715 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396CF6A0F66F87A432A2321F98D0ED5E /* Data.swift */; };
+		FCF679D542C0610B6E4152C35D551566 /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23294EC123EBEB11663D12E9FA3A1449 /* SecureDFUPeripheralDelegate.swift */; };
+		FF8E2C0E3D42D88DEF81E69873834B8E /* DFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159DAE8DAF782AF8FC5168A18FD1F1D4 /* DFUExecutor.swift */; };
+		FFF71143EBA990CB1CF925FAC59ECFC5 /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AF9CB548AD7E816FBC7567A4E30CEE /* LegacyDFUPeripheralDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,179 +143,179 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A56AE7DF7F9273197162713508BF2965;
+			remoteGlobalIDString = 9AF8AE8821E967844EEF26BBB341564D;
 			remoteInfo = "ZIPFoundation-iOS";
 		};
 		5110A694A203559F8BF21E3C8A60DA0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B80353FE3CEF70529DB8DB81E67C1C39;
+			remoteGlobalIDString = 79F9638EA00F4594D84B597FE45CD2DC;
 			remoteInfo = "iOSDFULibrary-macOS";
 		};
 		62C6933676FA0A5AADA6D194E2678EC8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A56AE7DF7F9273197162713508BF2965;
+			remoteGlobalIDString = 9AF8AE8821E967844EEF26BBB341564D;
 			remoteInfo = "ZIPFoundation-iOS";
 		};
 		66CC6CCF14E3784B68E6413CFE1B5653 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 115022AFE63491B19BFC17266DDE56E7;
+			remoteGlobalIDString = 8B5BB2050078EFCACBEDC5B4195B80CD;
 			remoteInfo = "ZIPFoundation-macOS";
 		};
 		7B0812AF7085CDD107CBEC30A42E41B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6C62C12CF3E12DC4C73C47D64E9A13BA;
+			remoteGlobalIDString = D5D94E351BD6926C6DC33FBD834E16AC;
 			remoteInfo = "iOSDFULibrary-iOS";
 		};
 		909B4D2356034596169CB1117C7CB67E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 115022AFE63491B19BFC17266DDE56E7;
+			remoteGlobalIDString = 8B5BB2050078EFCACBEDC5B4195B80CD;
 			remoteInfo = "ZIPFoundation-macOS";
 		};
 		ADD130D602839CA69815381A89F6362A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6C62C12CF3E12DC4C73C47D64E9A13BA;
+			remoteGlobalIDString = D5D94E351BD6926C6DC33FBD834E16AC;
 			remoteInfo = "iOSDFULibrary-iOS";
 		};
 		F23F4AE4F510AD5C18E431D782FFDCA5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A56AE7DF7F9273197162713508BF2965;
+			remoteGlobalIDString = 9AF8AE8821E967844EEF26BBB341564D;
 			remoteInfo = "ZIPFoundation-iOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		006C175A846ADD321D67BFDB5F485F07 /* Pods-macOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-macOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
-		042090AEB5CAAA5FE3B8BB632792990F /* Double.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
-		064CE67018E528E3A3CFBB99B14DECD0 /* Data+Serialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Serialization.swift"; path = "Sources/ZIPFoundation/Data+Serialization.swift"; sourceTree = "<group>"; };
-		064D28B9D2F4526C8F1CF9A234F277FF /* ManifestFirmwareInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ManifestFirmwareInfo.swift; sourceTree = "<group>"; };
-		095AC6BF187E20EED6A17A478598DAB0 /* iOSDFULibrary-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "iOSDFULibrary-iOS-Info.plist"; sourceTree = "<group>"; };
-		0A5095D474F36188D276AA7596D793DC /* ZIPFoundation-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ZIPFoundation-macOS-dummy.m"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-dummy.m"; sourceTree = "<group>"; };
-		0AF0A63AD704D0318BFDF08EA978F851 /* SoftdeviceBootloaderInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoftdeviceBootloaderInfo.swift; sourceTree = "<group>"; };
-		0E7B3AA1299302EE7A8F92B6FF70B783 /* Pods-macOSDFULibrary_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-macOSDFULibrary_Example-dummy.m"; sourceTree = "<group>"; };
-		104DC712E1915E649C44A77455F28675 /* LoggerHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
-		1C86ADC378FB3CC2ACA42437EFB8F8D6 /* DFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUService.swift; sourceTree = "<group>"; };
-		1DD2BFB4370B7AE1AB5DCD8BC8DD8269 /* Pods-iOSDFULibrary_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Tests-dummy.m"; sourceTree = "<group>"; };
-		2524ACC4453CFB8533CD5240ED63BB53 /* LoggerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
-		264C3CEB3F6BA9CA24152F7C288D615E /* DFUController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUController.swift; sourceTree = "<group>"; };
-		27812917C906C5F8491303C1C66AC49E /* Pods-iOSDFULibrary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		28F65BE59E26ECEA13CC72521A2CEF56 /* DFUStreamZip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamZip.swift; sourceTree = "<group>"; };
-		2B39FEC9E1266DCB822E5E01D7789C5F /* iOSDFULibrary-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iOSDFULibrary-iOS-prefix.pch"; sourceTree = "<group>"; };
-		2B9BFC8971BC22EA84953041ECC7A5C3 /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		2FA1665E736A97E22901B3016172A5C1 /* ZIPFoundation-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "ZIPFoundation-macOS.modulemap"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS.modulemap"; sourceTree = "<group>"; };
-		32A04CD95D6544552276B34474985F64 /* ZIPFoundation-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-prefix.pch"; sourceTree = "<group>"; };
-		343EE05858E7DE29D67EDA40090DDE82 /* Pods-macOSDFULibrary_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-macOSDFULibrary_Example-Info.plist"; sourceTree = "<group>"; };
-		37BB7A3D1E5F3744A5B113FF6B93AF9C /* DFUVersion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUVersion.swift; sourceTree = "<group>"; };
-		397DFB47818B39E08039A44CEF7EB4DD /* LegacyDFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUService.swift; sourceTree = "<group>"; };
-		39F5433B6C6A61DE63E8448FD57D0809 /* DFUServiceDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceDelegate.swift; sourceTree = "<group>"; };
-		3AB623CFC62A96D2B50FE7BB0177C06B /* DFUCharacteristic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUCharacteristic.swift; sourceTree = "<group>"; };
-		3B1552FF760D0065A1C9571004C7F3A5 /* DFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheral.swift; sourceTree = "<group>"; };
-		3C06971EBE450497834D75891395EDD1 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DE5C6E82ABDE843742A47C11BA0B933 /* DFUPeripheralSelectorDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelectorDelegate.swift; sourceTree = "<group>"; };
-		43A37BF9B54ADABFBC03BE67C6D3E01B /* SecureDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheral.swift; sourceTree = "<group>"; };
-		43C9272A2CAA71AB8CB7C69363D4DAF3 /* iOSDFULibrary-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "iOSDFULibrary-macOS.modulemap"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS.modulemap"; sourceTree = "<group>"; };
-		48484DA35B63745FBC23B2544EBB4FAE /* Data+Compression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Compression.swift"; path = "Sources/ZIPFoundation/Data+Compression.swift"; sourceTree = "<group>"; };
-		485C0FC0D96369E05CF0A439AE037794 /* Pods-iOSDFULibrary_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iOSDFULibrary_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		4A556F51D5E19926B6D5884ED84B77DB /* DFUStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStream.swift; sourceTree = "<group>"; };
-		4F338A7C6251B2835736DF0E062E4590 /* Pods-macOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
-		5447A932871C3238E152AF0F184DA1F1 /* iOSDFULibrary-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iOSDFULibrary-iOS-dummy.m"; sourceTree = "<group>"; };
-		56208EA4E4281D064F4507F2D1B4CF63 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5700EEA297642C08DD780724B5ABADC0 /* DFUUuidHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUUuidHelper.swift; sourceTree = "<group>"; };
-		5B9F1378A6CF9836BA13DA156658EB5B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		5E01390BC6D46D90878FFACC31F924A0 /* Pods-iOSDFULibrary_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Tests.modulemap"; sourceTree = "<group>"; };
-		5EF0200EEB0B443629873CB67370569E /* ZipArchive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
-		613C0DA4EC75FB32AF32852BA97832A0 /* Pods-macOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-macOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
-		63F0EEF0BB4BEC4C564EBC446F26D3D7 /* ZIPFoundation-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-umbrella.h"; sourceTree = "<group>"; };
-		6619F10E2B1228156F7C55C11B0151DA /* ZIPFoundation-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "ZIPFoundation-macOS-Info.plist"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-Info.plist"; sourceTree = "<group>"; };
-		6690F5589DFF2F9D2365E52C89F9B140 /* IntelHex2BinConverter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IntelHex2BinConverter.m; sourceTree = "<group>"; };
-		670C59D1154DCDF079413042D22D70AE /* LegacyDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
-		68F4D9CE6747562A1BCD5E87D0342546 /* iOSDFULibrary-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "iOSDFULibrary-macOS-prefix.pch"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-prefix.pch"; sourceTree = "<group>"; };
-		6F69D43E7CBEFCD410DBA5F3B43A7B07 /* ZIPFoundation-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ZIPFoundation-macOS.xcconfig"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS.xcconfig"; sourceTree = "<group>"; };
-		7232B7B5EBE868E53251FEFD2A909326 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		727FC7F9CAE972B59A001666073E97A5 /* DFUServiceSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceSelector.swift; sourceTree = "<group>"; };
-		72D985DAA7E97E4E4654567F634C2AC2 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		77846807B2FC37A74356AB7EC4B4A02E /* ZIPFoundation-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZIPFoundation-iOS-Info.plist"; sourceTree = "<group>"; };
-		7B94C90582F9B6816C3AF1B9C8AC4251 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7D51F24076A01A13C42E731EC81CCA3A /* Entry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Sources/ZIPFoundation/Entry.swift; sourceTree = "<group>"; };
-		7F196AE2901BACE34162DC9266E2DC41 /* DFUFirmware.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUFirmware.swift; sourceTree = "<group>"; };
-		8010C930E2C00031A793CBB98E350326 /* Pods-macOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-macOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
-		8183CABF2C2CA09947A34BDFBF84D2F2 /* DFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceInitiator.swift; sourceTree = "<group>"; };
-		824298E05059464A81BD7D8812A0ADFB /* DFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPacket.swift; sourceTree = "<group>"; };
-		83B835408A31F08967117B6E3D69FE91 /* Pods_iOSDFULibrary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C81008407A99B3A9042500B57462EF2 /* Archive+Writing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Writing.swift"; path = "Sources/ZIPFoundation/Archive+Writing.swift"; sourceTree = "<group>"; };
-		8D477E8EEF809104530523147E634AC3 /* Pods_macOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FA7FE2139CE3C9F80A8B42F3AD9399F /* SecureDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUServiceInitiator.swift; sourceTree = "<group>"; };
-		90686C915F6F8FF6AC4D0E6CA4D173D2 /* LegacyDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUServiceInitiator.swift; sourceTree = "<group>"; };
-		909CFCD1B9180DBE63F00C86A437134F /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = iOSDFULibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9441904651576A11868BCE6CB187CEF5 /* iOSDFULibrary-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iOSDFULibrary-iOS-umbrella.h"; sourceTree = "<group>"; };
-		955D8483E191CF27AC2C20AA279ACB87 /* DFUPeripheralSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelector.swift; sourceTree = "<group>"; };
-		98629E3497FD9617AFCBF40D9DE1A8CB /* ZIPFoundation-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZIPFoundation-iOS-dummy.m"; sourceTree = "<group>"; };
-		9A332E3FE5FDB03CB8D683170A632647 /* DFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUExecutor.swift; sourceTree = "<group>"; };
+		01609AE8109D2B43C8B1082F46520A6D /* LegacyDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheral.swift; sourceTree = "<group>"; };
+		02AF9CB548AD7E816FBC7567A4E30CEE /* LegacyDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
+		09BD2B9DFFC7D8B33DEE9AEEAAC8E731 /* LegacyDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUServiceInitiator.swift; sourceTree = "<group>"; };
+		0B9C3370D2E9C9D0703519DF50EDA808 /* DFUStreamBin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamBin.swift; sourceTree = "<group>"; };
+		10DBFEAC3D3772A915F2AED7AFFD9FD2 /* ZIPFoundation-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "ZIPFoundation-macOS-Info.plist"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-Info.plist"; sourceTree = "<group>"; };
+		117AC5DEA6D484D48AF624803DB12F10 /* SecureDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheral.swift; sourceTree = "<group>"; };
+		12E7D0C470DCD64672CB802EBC429345 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14D107FA040C2BC40B63FBEF813EE54E /* Data+Serialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Serialization.swift"; path = "Sources/ZIPFoundation/Data+Serialization.swift"; sourceTree = "<group>"; };
+		159DAE8DAF782AF8FC5168A18FD1F1D4 /* DFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUExecutor.swift; sourceTree = "<group>"; };
+		161936DA6FF9B819509B7A97A6B4BE23 /* ButtonlessDFU.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ButtonlessDFU.swift; sourceTree = "<group>"; };
+		1670B37237BDF720D0A5FA2134F8E41D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		17086AD8E1FC90F48072896CC8842CCE /* iOSDFULibrary-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iOSDFULibrary-iOS-umbrella.h"; sourceTree = "<group>"; };
+		17E83545204BD7E9E277E638FE536CA2 /* DFUServiceSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceSelector.swift; sourceTree = "<group>"; };
+		1CEDC829123A34BCE6C3D67E48764691 /* Pods-macOSDFULibrary_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-macOSDFULibrary_Example-Info.plist"; sourceTree = "<group>"; };
+		1E2335550212434C74916BA184556D75 /* iOSDFULibrary-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "iOSDFULibrary-iOS.modulemap"; sourceTree = "<group>"; };
+		20E39EBBA6244AD4BEFEBD84BA1CEC4D /* DFUStarterPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStarterPeripheral.swift; sourceTree = "<group>"; };
+		23294EC123EBEB11663D12E9FA3A1449 /* SecureDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
+		2771E93A64505F109FAA8BF7183BA28A /* Archive+Writing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Writing.swift"; path = "Sources/ZIPFoundation/Archive+Writing.swift"; sourceTree = "<group>"; };
+		2C723040DECD495E1AAC81F5AA497C97 /* Pods-macOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
+		2FBD48170A8A8C26F713A56ED6C50B5D /* iOSDFULibrary-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "iOSDFULibrary-macOS-Info.plist"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-Info.plist"; sourceTree = "<group>"; };
+		310EE1B12F82762A921623C2BD88203D /* iOSDFULibrary-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iOSDFULibrary-iOS-prefix.pch"; sourceTree = "<group>"; };
+		317452302C76EF0480ABD86D9731D824 /* SecureDFUControlPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUControlPoint.swift; sourceTree = "<group>"; };
+		34E47FD2A2ACE7D7A6F82BC6C8EDD50C /* DFUServiceDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceDelegate.swift; sourceTree = "<group>"; };
+		3656D17D56719D3D89E73E75DD474A38 /* Pods-iOSDFULibrary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		396CF6A0F66F87A432A2321F98D0ED5E /* Data.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		3A91E40580DA6FCD23BB791315B0F58D /* DFUController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUController.swift; sourceTree = "<group>"; };
+		3B11BB88263C24AFF408B8309AEC65D0 /* ZIPFoundation-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "ZIPFoundation-macOS.modulemap"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS.modulemap"; sourceTree = "<group>"; };
+		3B9891CFF74D9867172ED9A03A55D111 /* Pods-iOSDFULibrary_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		3BF389648B099E33FC32DDEF0AE0C8F3 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E02EF985E8A422FBD4D4BF6F04F658E /* ZIPFoundation-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZIPFoundation-macOS-prefix.pch"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-prefix.pch"; sourceTree = "<group>"; };
+		4019B6902B502099B17C0B8ED2B7B0DB /* Pods-iOSDFULibrary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iOSDFULibrary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		44C80322FD2FD584FE3026B2958F84A3 /* Pods-iOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
+		45F2F5F5DC06A6B6DFD8B1817A6175A0 /* Pods_iOSDFULibrary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D41480012AD48712A8C7C9AA28C15F3 /* iOSDFULibrary-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iOSDFULibrary-iOS-dummy.m"; sourceTree = "<group>"; };
+		551109ADE4258DAAFCF41E25BC5EF82F /* DFUUuidHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUUuidHelper.swift; sourceTree = "<group>"; };
+		569A612C3E3FBAC3AD05DA11D2B640E3 /* DFUPeripheralSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelector.swift; sourceTree = "<group>"; };
+		59F7D6CA361F44101B9A79318C1B29CF /* Pods-iOSDFULibrary_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Tests-Info.plist"; sourceTree = "<group>"; };
+		5B24EA8D59BA97941287ABFA340D72E0 /* DFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheral.swift; sourceTree = "<group>"; };
+		5F8F3E6677A422DD4F0FC1931ED134A8 /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = iOSDFULibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		600BEE9B9450656347A85D9D1899A94F /* ZIPFoundation-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZIPFoundation-iOS-dummy.m"; sourceTree = "<group>"; };
+		6085DCA4586255401B60695D5927050D /* Pods-iOSDFULibrary_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iOSDFULibrary_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		633E7DEBBA1F0BA8AEE222E528ABF6F8 /* IntelHex2BinConverter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IntelHex2BinConverter.m; sourceTree = "<group>"; };
+		638A2339D64F3C759C321D6005B7752B /* Archive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Archive.swift; path = Sources/ZIPFoundation/Archive.swift; sourceTree = "<group>"; };
+		6A0E83EF70F76F5CC7183F56A08D9A13 /* Pods-iOSDFULibrary_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-Info.plist"; sourceTree = "<group>"; };
+		6BCF3687206C7A813844FB4A7665BACC /* iOSDFULibrary-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "iOSDFULibrary-macOS-prefix.pch"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-prefix.pch"; sourceTree = "<group>"; };
+		6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "iOSDFULibrary-macOS.xcconfig"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS.xcconfig"; sourceTree = "<group>"; };
+		6CFC421A1A470F2CC951B9918A2F6667 /* Pods-iOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
+		6D4A6DBD424D0E5E4E98CBF026EF41BF /* ZIPFoundation-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZIPFoundation-macOS-umbrella.h"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-umbrella.h"; sourceTree = "<group>"; };
+		6FAC228069346CE04FF74C0A61AB5CBD /* Pods-macOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-macOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
+		700C4CE29E3AB1606BBAE33F8CBD9523 /* SecureDFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPacket.swift; sourceTree = "<group>"; };
+		7027E4499584774A22528F4A1C96159E /* ZIPFoundation-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-prefix.pch"; sourceTree = "<group>"; };
+		76A1B296EF2916D8FE63F97238F2FC3D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7996F3AB192EF9745CBACBAB1E956DFA /* Pods-macOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-macOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
+		7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ZIPFoundation-macOS.xcconfig"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS.xcconfig"; sourceTree = "<group>"; };
+		7FBFCEBF062E65595AD4F1DC8AA4A0DA /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		8068C6C3C98F55AC8E9A409C8E425F29 /* ZIPFoundation-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ZIPFoundation-macOS-dummy.m"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-dummy.m"; sourceTree = "<group>"; };
+		80DD45EC1FEA7199337778BA49F569D5 /* DFUServiceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceController.swift; sourceTree = "<group>"; };
+		837F55AF8EE6D7B2F0F90B6F0EB09FF1 /* Archive+Reading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Reading.swift"; path = "Sources/ZIPFoundation/Archive+Reading.swift"; sourceTree = "<group>"; };
+		838AAC762FC0B840E9E66E0E20122EAC /* ZIPFoundation-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZIPFoundation-iOS-Info.plist"; sourceTree = "<group>"; };
+		83F29CAB0E62668F1C2B1DE821F8B19D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		890A09B61D0F51EA84B75D5E02FE58D2 /* Pods-macOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		8AD81CC38AD9E17564E46ABB01E637EA /* Pods-iOSDFULibrary_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Tests-umbrella.h"; sourceTree = "<group>"; };
+		8E800E67CF9CCC18A18002A7575780EA /* Pods-macOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-macOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
+		9013B51321FB35D805C005B85365A28F /* LoggerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
+		961DD5FFF0E7F1071EA90B9F8B79DC9C /* iOSDFULibrary-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "iOSDFULibrary-macOS-dummy.m"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-dummy.m"; sourceTree = "<group>"; };
+		968545B42CEF5D12AED9C9BB731FF5EA /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9F1A8670DA84132625ACC6A6F093F1B1 /* iOSDFULibrary-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "iOSDFULibrary-macOS-umbrella.h"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-umbrella.h"; sourceTree = "<group>"; };
-		9F537CD59BBF3295E955838158D8EAB0 /* DFUStreamBin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamBin.swift; sourceTree = "<group>"; };
-		9F8874492DC8DFF0987C005702DECC55 /* Pods-iOSDFULibrary_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		A0984654F246346A94CA53B36957DD74 /* iOSDFULibrary-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "iOSDFULibrary-macOS.xcconfig"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS.xcconfig"; sourceTree = "<group>"; };
-		A16245687AC872CABA07E2F4BA0676E9 /* DFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralDelegate.swift; sourceTree = "<group>"; };
-		A3B8A4145C723C2056DB98628370DBCE /* iOSDFULibrary-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "iOSDFULibrary-iOS.xcconfig"; sourceTree = "<group>"; };
-		A9973AD842D80984D175EE0891BC5876 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		A9FE184612697B6877B21D31634DA410 /* ZIPFoundation-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZIPFoundation-macOS-umbrella.h"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-umbrella.h"; sourceTree = "<group>"; };
-		AADE5D738CDED659A8CD3CD38F1207E4 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		ACF6FC15DE225DFE90ACD5CF028ABC19 /* SecureDFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUExecutor.swift; sourceTree = "<group>"; };
-		AE960F3552D4565209BCC74E092F7926 /* Pods-iOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
-		B1C1BE947FECF2D51E79589079B61FA8 /* ButtonlessDFU.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ButtonlessDFU.swift; sourceTree = "<group>"; };
-		B25287E6A04C7DFEA0DF0B6DAFE228F0 /* SecureDFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUService.swift; sourceTree = "<group>"; };
-		B48582BC04EC5C089F7CB594846A647D /* Pods-iOSDFULibrary_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Tests-Info.plist"; sourceTree = "<group>"; };
-		B52CFDE58A23E5395AB259D04794D4C6 /* DFUStreamHex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamHex.swift; sourceTree = "<group>"; };
-		B837A4E7414EED2A46942766F3DB5D41 /* LegacyDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheral.swift; sourceTree = "<group>"; };
-		B865B09C9725904093C4E9BF6CB314B7 /* Pods-iOSDFULibrary_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iOSDFULibrary_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		B8B8AB9CDA3886C41B7ED0C65B616399 /* LegacyDFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUExecutor.swift; sourceTree = "<group>"; };
-		BAC7E84709CF34193AB665F174FE269E /* Pods-iOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
-		BB30CF240D59E065EC92DB41FB0594FE /* Pods-iOSDFULibrary_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Tests-umbrella.h"; sourceTree = "<group>"; };
-		BCCA1DF6F948A70D0E9959E2BE6377A6 /* Pods-iOSDFULibrary_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-Info.plist"; sourceTree = "<group>"; };
-		BE244E0755B9982EACC134E971D46135 /* iOSDFULibrary-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "iOSDFULibrary-macOS-Info.plist"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-Info.plist"; sourceTree = "<group>"; };
-		BEB56BA93627965F5E0A299D67108DE6 /* Pods-iOSDFULibrary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iOSDFULibrary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		C534DBB2B24C85EF8898D2A31B8E1B6F /* ZIPFoundation-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZIPFoundation-macOS-prefix.pch"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-prefix.pch"; sourceTree = "<group>"; };
-		CA9C76F7BA5320A4AA0DAFE945F5840A /* ZIPFoundation-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ZIPFoundation-iOS.modulemap"; sourceTree = "<group>"; };
-		CCAF5E1526B47DBB7A08ED02EDD71152 /* Manifest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
-		CEFA5AB1F675BBE39B21F4DDA6ED661A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		D104F7E286A9FD32E9F1ED9F9ABE15AB /* DFUControlPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUControlPoint.swift; sourceTree = "<group>"; };
-		D3D63B83A6245A965960BCD44ACF5936 /* Pods-macOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-macOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		DAFBE61E0E61A85FE4DB7D5B1C82D0AA /* iOSDFULibrary-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "iOSDFULibrary-macOS-dummy.m"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-dummy.m"; sourceTree = "<group>"; };
-		DD0784D5D2200DFB629CA9829D836FB2 /* crc32.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = crc32.swift; sourceTree = "<group>"; };
-		DD1C5EB29ABC575CF6D38138BB008F35 /* Pods-iOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
-		DEC74FF1D14BCC85D06A1A33D3B370AC /* iOSDFULibrary-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "iOSDFULibrary-iOS.modulemap"; sourceTree = "<group>"; };
-		DFC3F3C018F808E68DCE1D7B79339904 /* IntelHex2BinConverter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IntelHex2BinConverter.h; sourceTree = "<group>"; };
-		E00C9B99A719AA1AA8A493BB4E776E7C /* Pods-iOSDFULibrary_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Example-dummy.m"; sourceTree = "<group>"; };
-		E045E794648F7F12DE7FB81C107E27A8 /* Archive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Archive.swift; path = Sources/ZIPFoundation/Archive.swift; sourceTree = "<group>"; };
-		E576598385F3649B20F50D07816A0298 /* SecureDFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPacket.swift; sourceTree = "<group>"; };
-		E758F806A9BD5AF9E21585B7948F84F0 /* SecureDFUControlPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUControlPoint.swift; sourceTree = "<group>"; };
-		EB090FD3F4F23B877035C60F4CAB4590 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FileManager+ZIP.swift"; path = "Sources/ZIPFoundation/FileManager+ZIP.swift"; sourceTree = "<group>"; };
-		EBB3665C83C7BF9882825803FE5A225B /* SecureDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
-		EBEBEE68867E8543448B193D786B520D /* DFUServiceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceController.swift; sourceTree = "<group>"; };
-		ED0BBC4B3EAD39527574554D290AED69 /* ZIPFoundation-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ZIPFoundation-iOS.xcconfig"; sourceTree = "<group>"; };
-		ED3A4B81043280B11F064191BC79FDD6 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDF690070CE031DDF233B6CF676EFA9C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		F08F8C11BED1C416AB415BD7377A8EB7 /* DFUStarterPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStarterPeripheral.swift; sourceTree = "<group>"; };
-		F4705D7BBD6CE01019EEF66A1644340B /* Pods-iOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
-		F4E1DFA2BE0A683D83A5B4C647F8D0F2 /* Archive+Reading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Reading.swift"; path = "Sources/ZIPFoundation/Archive+Reading.swift"; sourceTree = "<group>"; };
-		F634C2A0578B56D74085D561EB8F5F05 /* Data.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		F73ACA72E9BDDF136F14D9C102DF17CF /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA7448FB47544DA96875CEBCEC4ABD9B /* Pods-macOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		FAED589889C0403B7EFEC24A84248048 /* Pods-macOSDFULibrary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-macOSDFULibrary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9DE3F8186A2C9281B708844560549F05 /* Pods-iOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
+		A040260AE775DF8E5D6E0D67652C63C7 /* Manifest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
+		A19A7889F4F46B0E1F7DEA8D319EF323 /* DFUStreamZip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamZip.swift; sourceTree = "<group>"; };
+		A29528811E070C271EFE8FD18ED00950 /* LegacyDFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUExecutor.swift; sourceTree = "<group>"; };
+		A2E0981396C735698AE4DD0ACB86878D /* iOSDFULibrary-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "iOSDFULibrary-iOS-Info.plist"; sourceTree = "<group>"; };
+		A4326C29D5103B305794C2BB7CB3B9C5 /* Double.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		A6E138BB3A41D07C1E032EB63765A762 /* ZIPFoundation-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ZIPFoundation-iOS.modulemap"; sourceTree = "<group>"; };
+		AAC7D1CC0276FEBEAFBE88B75602661E /* ManifestFirmwareInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ManifestFirmwareInfo.swift; sourceTree = "<group>"; };
+		AAD7107A9712C56826AB1EE59070FE9F /* IntelHex2BinConverter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IntelHex2BinConverter.h; sourceTree = "<group>"; };
+		AE14D2465CF18B42A3C43BE9BCD380D8 /* SecureDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUServiceInitiator.swift; sourceTree = "<group>"; };
+		AED6F209B66AF11F97CE91CDE27FB147 /* DFUFirmware.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUFirmware.swift; sourceTree = "<group>"; };
+		AF466610C5C9F3229659AFFCB04B96AB /* LoggerHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
+		B0F4D7ACE3099260BD7914C0F7AA450A /* Pods-iOSDFULibrary_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Example-dummy.m"; sourceTree = "<group>"; };
+		B818164589182D376542B9FAE528029A /* Data+Compression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Compression.swift"; path = "Sources/ZIPFoundation/Data+Compression.swift"; sourceTree = "<group>"; };
+		BAC78DF457B9347774036145D85956DB /* Pods-macOSDFULibrary_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-macOSDFULibrary_Example-dummy.m"; sourceTree = "<group>"; };
+		BC140C8FE02890FEAC68A0D6F7C9ECC9 /* DFUPeripheralSelectorDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelectorDelegate.swift; sourceTree = "<group>"; };
+		BCAD99F6B5251B4C831205E2F5BA4D1A /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE7FB463F59F58E6243BC4A78E37F885 /* Pods-iOSDFULibrary_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iOSDFULibrary_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		BE80C453E6D58C8A6C8F0CBA3B3A548F /* DFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralDelegate.swift; sourceTree = "<group>"; };
+		BF7B5AAF9CED8C1937EA2055BCA5D871 /* DFUControlPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUControlPoint.swift; sourceTree = "<group>"; };
+		C5A46A7A96EB561AFF8B9A6679E5BB67 /* iOSDFULibrary-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "iOSDFULibrary-macOS-umbrella.h"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-umbrella.h"; sourceTree = "<group>"; };
+		C60B0C0FED99F226A8F8C7AECFAB4697 /* Pods_macOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6E7EFA15C3B1569FF3A8962045E391A /* LegacyDFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUService.swift; sourceTree = "<group>"; };
+		C8F0E25E9B9DB2291DA2E27A380D5F5F /* Pods-macOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-macOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		C9B0965483EC88C5782218837B760223 /* Pods-iOSDFULibrary_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Tests.modulemap"; sourceTree = "<group>"; };
+		CBF166DFA86D8743C629EFAD2E6BEFB8 /* DFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPacket.swift; sourceTree = "<group>"; };
+		CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "iOSDFULibrary-iOS.xcconfig"; sourceTree = "<group>"; };
+		CD261474D662E14B2BDDBA61BA9DD534 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		D0A71FFD9A5BA73B76F619D28303E257 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D17D6730CC7C0FC633DA92B097FD0F62 /* SoftdeviceBootloaderInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SoftdeviceBootloaderInfo.swift; sourceTree = "<group>"; };
+		D333E1089BA812D39E708A23176F0AC9 /* ZIPFoundation-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ZIPFoundation-iOS.xcconfig"; sourceTree = "<group>"; };
+		D55E580DF3F8D9DF5F308F1F39B605A9 /* Entry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Sources/ZIPFoundation/Entry.swift; sourceTree = "<group>"; };
+		D7744FFF2BC9765BC7143F482E7EC029 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FileManager+ZIP.swift"; path = "Sources/ZIPFoundation/FileManager+ZIP.swift"; sourceTree = "<group>"; };
+		D78A1581AAE0E93BF3EAB34B6A353890 /* ZIPFoundation-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-umbrella.h"; sourceTree = "<group>"; };
+		D7A1571DFD4F3BCBBF39F733110BF41B /* SecureDFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUService.swift; sourceTree = "<group>"; };
+		D8F7D48DA3B1C7E5ACC67DFD589DCC78 /* iOSDFULibrary-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "iOSDFULibrary-macOS.modulemap"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS.modulemap"; sourceTree = "<group>"; };
+		D99DDE3C7CF0D8607A81B0FE748ACAF0 /* DFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceInitiator.swift; sourceTree = "<group>"; };
+		DB4CEA11FD45CC3DAB54ED847F998BB8 /* SecureDFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUExecutor.swift; sourceTree = "<group>"; };
+		DF8016E2D8226E80BF23A77F53FFA99B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E5AD75123ED72886786DBDE3C4C17304 /* DFUCharacteristic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUCharacteristic.swift; sourceTree = "<group>"; };
+		E7716456B67A56A1A837F639BDC9B732 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		E8DFB9E92B94ED1B544BA9F280975644 /* DFUStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStream.swift; sourceTree = "<group>"; };
+		EAAAE6FF3B53F0BBAE2BC3D68A2BB8E1 /* Pods-macOSDFULibrary_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-macOSDFULibrary_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		EB8F5587A24941C91702E23924DCF99D /* Pods-iOSDFULibrary_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Tests-dummy.m"; sourceTree = "<group>"; };
+		ED7366D7312BCBC4DC7799DAFBFC3A95 /* DFUVersion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUVersion.swift; sourceTree = "<group>"; };
+		EE8988B345B713B7D45B9A79C7F2F34E /* crc32.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = crc32.swift; sourceTree = "<group>"; };
+		F1A5B32AAFC70D9FE4087D75012D1E58 /* DFUStreamHex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamHex.swift; sourceTree = "<group>"; };
+		F5B92B0ECD8A922900F27766FC3BC2FA /* DFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUService.swift; sourceTree = "<group>"; };
+		FAA19F648ED6055B57B33C6854B773DA /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCA5E6342E9C992B4D24E36BB2EC3D20 /* Pods-iOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
+		FE483A235EDDD815F06A47021CA452A0 /* ZipArchive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,22 +344,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		827AFE4B9C3AF7ED8487A31135DD9B51 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				32919C8D3985F165244B5079AF4D81AF /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		86073042B19DAD33FDD5ADA5761B0BD8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9486ED18EA0FDF6FF49359466EE1CFEA /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		86C74E74701FF0097718560DFAF110CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,326 +361,362 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDC585C0CCC77A0743E57DC0AF612FDA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79BF3C4AA68E6A0B1B8DFA91DCBC80DF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2227766BEE88949332DCF8B0CB3E210 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE66E8DE6EA50FD4F3AC1D7828A986EE /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0BD33F1689F82B4C4E05C64D43D4066E /* iOS */ = {
+		0C0B74C4928AF3654F0B537A3B180F0E /* Characteristics */ = {
 			isa = PBXGroup;
 			children = (
-				EDF690070CE031DDF233B6CF676EFA9C /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		1BBD63260BB5F1D9AFB2DD76A93EBACE /* Characteristics */ = {
-			isa = PBXGroup;
-			children = (
-				D104F7E286A9FD32E9F1ED9F9ABE15AB /* DFUControlPoint.swift */,
-				824298E05059464A81BD7D8812A0ADFB /* DFUPacket.swift */,
-				37BB7A3D1E5F3744A5B113FF6B93AF9C /* DFUVersion.swift */,
+				161936DA6FF9B819509B7A97A6B4BE23 /* ButtonlessDFU.swift */,
+				317452302C76EF0480ABD86D9731D824 /* SecureDFUControlPoint.swift */,
+				700C4CE29E3AB1606BBAE33F8CBD9523 /* SecureDFUPacket.swift */,
 			);
 			path = Characteristics;
 			sourceTree = "<group>";
 		};
-		1F31989213E5567F42CCDD4EBE46350A /* GenericDFU */ = {
+		32AA605B90ED7371FD738D9FD65F75C0 /* Manifest */ = {
 			isa = PBXGroup;
 			children = (
-				3AB623CFC62A96D2B50FE7BB0177C06B /* DFUCharacteristic.swift */,
-				264C3CEB3F6BA9CA24152F7C288D615E /* DFUController.swift */,
-				9A332E3FE5FDB03CB8D683170A632647 /* DFUExecutor.swift */,
-				3B1552FF760D0065A1C9571004C7F3A5 /* DFUPeripheral.swift */,
-				A16245687AC872CABA07E2F4BA0676E9 /* DFUPeripheralDelegate.swift */,
-				1C86ADC378FB3CC2ACA42437EFB8F8D6 /* DFUService.swift */,
-			);
-			path = GenericDFU;
-			sourceTree = "<group>";
-		};
-		36574F0B588844CD2803ECF8E7A8232F /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				909CFCD1B9180DBE63F00C86A437134F /* iOSDFULibrary.podspec */,
-				5B9F1378A6CF9836BA13DA156658EB5B /* LICENSE */,
-				A9973AD842D80984D175EE0891BC5876 /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		39A35439F24BBA16192B15A356CCDE23 /* HexToBinConverter */ = {
-			isa = PBXGroup;
-			children = (
-				DFC3F3C018F808E68DCE1D7B79339904 /* IntelHex2BinConverter.h */,
-				6690F5589DFF2F9D2365E52C89F9B140 /* IntelHex2BinConverter.m */,
-			);
-			path = HexToBinConverter;
-			sourceTree = "<group>";
-		};
-		466392619C29956EB2AFD391D928E385 /* ZIPFoundation */ = {
-			isa = PBXGroup;
-			children = (
-				E045E794648F7F12DE7FB81C107E27A8 /* Archive.swift */,
-				F4E1DFA2BE0A683D83A5B4C647F8D0F2 /* Archive+Reading.swift */,
-				8C81008407A99B3A9042500B57462EF2 /* Archive+Writing.swift */,
-				48484DA35B63745FBC23B2544EBB4FAE /* Data+Compression.swift */,
-				064CE67018E528E3A3CFBB99B14DECD0 /* Data+Serialization.swift */,
-				7D51F24076A01A13C42E731EC81CCA3A /* Entry.swift */,
-				EB090FD3F4F23B877035C60F4CAB4590 /* FileManager+ZIP.swift */,
-				4E06EADA3B25B6D344338AF0F1C34589 /* Support Files */,
-			);
-			path = ZIPFoundation;
-			sourceTree = "<group>";
-		};
-		481C378A54CB181BFDD3DFD0FE2CB7D5 /* Manifest */ = {
-			isa = PBXGroup;
-			children = (
-				CCAF5E1526B47DBB7A08ED02EDD71152 /* Manifest.swift */,
-				064D28B9D2F4526C8F1CF9A234F277FF /* ManifestFirmwareInfo.swift */,
-				0AF0A63AD704D0318BFDF08EA978F851 /* SoftdeviceBootloaderInfo.swift */,
+				A040260AE775DF8E5D6E0D67652C63C7 /* Manifest.swift */,
+				AAC7D1CC0276FEBEAFBE88B75602661E /* ManifestFirmwareInfo.swift */,
+				D17D6730CC7C0FC633DA92B097FD0F62 /* SoftdeviceBootloaderInfo.swift */,
 			);
 			path = Manifest;
 			sourceTree = "<group>";
 		};
-		484832DAAFE44F0F30B3B81E07C52571 /* Characteristics */ = {
+		3F03086463C2353535BBCEEA752E281F /* DFUSelector */ = {
 			isa = PBXGroup;
 			children = (
-				B1C1BE947FECF2D51E79589079B61FA8 /* ButtonlessDFU.swift */,
-				E758F806A9BD5AF9E21585B7948F84F0 /* SecureDFUControlPoint.swift */,
-				E576598385F3649B20F50D07816A0298 /* SecureDFUPacket.swift */,
+				17E83545204BD7E9E277E638FE536CA2 /* DFUServiceSelector.swift */,
+				20E39EBBA6244AD4BEFEBD84BA1CEC4D /* DFUStarterPeripheral.swift */,
 			);
-			path = Characteristics;
+			path = DFUSelector;
 			sourceTree = "<group>";
 		};
-		4E06EADA3B25B6D344338AF0F1C34589 /* Support Files */ = {
+		41F4093EA54166ED71EA11903FE83303 /* Peripheral */ = {
 			isa = PBXGroup;
 			children = (
-				CA9C76F7BA5320A4AA0DAFE945F5840A /* ZIPFoundation-iOS.modulemap */,
-				ED0BBC4B3EAD39527574554D290AED69 /* ZIPFoundation-iOS.xcconfig */,
-				98629E3497FD9617AFCBF40D9DE1A8CB /* ZIPFoundation-iOS-dummy.m */,
-				77846807B2FC37A74356AB7EC4B4A02E /* ZIPFoundation-iOS-Info.plist */,
-				32A04CD95D6544552276B34474985F64 /* ZIPFoundation-iOS-prefix.pch */,
-				63F0EEF0BB4BEC4C564EBC446F26D3D7 /* ZIPFoundation-iOS-umbrella.h */,
-				2FA1665E736A97E22901B3016172A5C1 /* ZIPFoundation-macOS.modulemap */,
-				6F69D43E7CBEFCD410DBA5F3B43A7B07 /* ZIPFoundation-macOS.xcconfig */,
-				0A5095D474F36188D276AA7596D793DC /* ZIPFoundation-macOS-dummy.m */,
-				6619F10E2B1228156F7C55C11B0151DA /* ZIPFoundation-macOS-Info.plist */,
-				C534DBB2B24C85EF8898D2A31B8E1B6F /* ZIPFoundation-macOS-prefix.pch */,
-				A9FE184612697B6877B21D31634DA410 /* ZIPFoundation-macOS-umbrella.h */,
+				117AC5DEA6D484D48AF624803DB12F10 /* SecureDFUPeripheral.swift */,
+				23294EC123EBEB11663D12E9FA3A1449 /* SecureDFUPeripheralDelegate.swift */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/ZIPFoundation-iOS";
+			path = Peripheral;
 			sourceTree = "<group>";
 		};
-		4E5029F89F538C27EECC10B0B65FA924 /* Peripherals */ = {
+		44AC9E05A3803DC057A00EA2B54AA0E7 /* GenericDFU */ = {
 			isa = PBXGroup;
 			children = (
-				B837A4E7414EED2A46942766F3DB5D41 /* LegacyDFUPeripheral.swift */,
-				670C59D1154DCDF079413042D22D70AE /* LegacyDFUPeripheralDelegate.swift */,
+				E5AD75123ED72886786DBDE3C4C17304 /* DFUCharacteristic.swift */,
+				3A91E40580DA6FCD23BB791315B0F58D /* DFUController.swift */,
+				159DAE8DAF782AF8FC5168A18FD1F1D4 /* DFUExecutor.swift */,
+				5B24EA8D59BA97941287ABFA340D72E0 /* DFUPeripheral.swift */,
+				BE80C453E6D58C8A6C8F0CBA3B3A548F /* DFUPeripheralDelegate.swift */,
+				F5B92B0ECD8A922900F27766FC3BC2FA /* DFUService.swift */,
 			);
-			path = Peripherals;
+			path = GenericDFU;
 			sourceTree = "<group>";
 		};
-		5BF234009A4137F39A224F18C4E25730 /* Firmware */ = {
+		461740279FAE5AB169D3F80794C2979F /* Firmware */ = {
 			isa = PBXGroup;
 			children = (
-				7F196AE2901BACE34162DC9266E2DC41 /* DFUFirmware.swift */,
+				AED6F209B66AF11F97CE91CDE27FB147 /* DFUFirmware.swift */,
 			);
 			path = Firmware;
 			sourceTree = "<group>";
 		};
-		5D5CC5207566339A7AC75D1CD4816F5C /* DFU */ = {
+		598F85EF51B357CE1A30F867C9C15645 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
-				ACF6FC15DE225DFE90ACD5CF028ABC19 /* SecureDFUExecutor.swift */,
-				8FA7FE2139CE3C9F80A8B42F3AD9399F /* SecureDFUServiceInitiator.swift */,
+				9013B51321FB35D805C005B85365A28F /* LoggerDelegate.swift */,
+				AF466610C5C9F3229659AFFCB04B96AB /* LoggerHelper.swift */,
 			);
-			path = DFU;
+			path = Logging;
 			sourceTree = "<group>";
 		};
-		60893822D4A001C02BC805136CA1799A /* LegacyDFU */ = {
+		61A58AD06060C703593249ACAA7D4592 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1BBD63260BB5F1D9AFB2DD76A93EBACE /* Characteristics */,
-				D96AFE51E913BA1FC02105B233510532 /* DFU */,
-				4E5029F89F538C27EECC10B0B65FA924 /* Peripherals */,
-				819AF78DBC5B90CCC9A5A5BD8482491E /* Services */,
-			);
-			path = LegacyDFU;
-			sourceTree = "<group>";
-		};
-		64412CA11133B3CEB8EE384FB9F396CD /* Pods-iOSDFULibrary_Example */ = {
-			isa = PBXGroup;
-			children = (
-				F4705D7BBD6CE01019EEF66A1644340B /* Pods-iOSDFULibrary_Example.modulemap */,
-				BEB56BA93627965F5E0A299D67108DE6 /* Pods-iOSDFULibrary_Example-acknowledgements.markdown */,
-				72D985DAA7E97E4E4654567F634C2AC2 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */,
-				E00C9B99A719AA1AA8A493BB4E776E7C /* Pods-iOSDFULibrary_Example-dummy.m */,
-				AE960F3552D4565209BCC74E092F7926 /* Pods-iOSDFULibrary_Example-frameworks.sh */,
-				BCCA1DF6F948A70D0E9959E2BE6377A6 /* Pods-iOSDFULibrary_Example-Info.plist */,
-				DD1C5EB29ABC575CF6D38138BB008F35 /* Pods-iOSDFULibrary_Example-umbrella.h */,
-				2B9BFC8971BC22EA84953041ECC7A5C3 /* Pods-iOSDFULibrary_Example.debug.xcconfig */,
-				BAC7E84709CF34193AB665F174FE269E /* Pods-iOSDFULibrary_Example.release.xcconfig */,
-			);
-			name = "Pods-iOSDFULibrary_Example";
-			path = "Target Support Files/Pods-iOSDFULibrary_Example";
-			sourceTree = "<group>";
-		};
-		663A7704815D2A1DAE734BF8C9AA3660 /* Implementation */ = {
-			isa = PBXGroup;
-			children = (
-				955D8483E191CF27AC2C20AA279ACB87 /* DFUPeripheralSelector.swift */,
-				3DE5C6E82ABDE843742A47C11BA0B933 /* DFUPeripheralSelectorDelegate.swift */,
-				EBEBEE68867E8543448B193D786B520D /* DFUServiceController.swift */,
-				39F5433B6C6A61DE63E8448FD57D0809 /* DFUServiceDelegate.swift */,
-				8183CABF2C2CA09947A34BDFBF84D2F2 /* DFUServiceInitiator.swift */,
-				5700EEA297642C08DD780724B5ABADC0 /* DFUUuidHelper.swift */,
-				E7DDA3A2B9133D701CC34B8748CBF906 /* DFUSelector */,
-				5BF234009A4137F39A224F18C4E25730 /* Firmware */,
-				1F31989213E5567F42CCDD4EBE46350A /* GenericDFU */,
-				60893822D4A001C02BC805136CA1799A /* LegacyDFU */,
-				8854B9CD6F969996C7FAF7C37F2B9047 /* SecureDFU */,
-			);
-			name = Implementation;
-			path = iOSDFULibrary/Classes/Implementation;
-			sourceTree = "<group>";
-		};
-		6A1A514DE4BD3B0B38F0F275967C1C7F /* Pods-macOSDFULibrary_Example */ = {
-			isa = PBXGroup;
-			children = (
-				613C0DA4EC75FB32AF32852BA97832A0 /* Pods-macOSDFULibrary_Example.modulemap */,
-				FAED589889C0403B7EFEC24A84248048 /* Pods-macOSDFULibrary_Example-acknowledgements.markdown */,
-				D3D63B83A6245A965960BCD44ACF5936 /* Pods-macOSDFULibrary_Example-acknowledgements.plist */,
-				0E7B3AA1299302EE7A8F92B6FF70B783 /* Pods-macOSDFULibrary_Example-dummy.m */,
-				8010C930E2C00031A793CBB98E350326 /* Pods-macOSDFULibrary_Example-frameworks.sh */,
-				343EE05858E7DE29D67EDA40090DDE82 /* Pods-macOSDFULibrary_Example-Info.plist */,
-				006C175A846ADD321D67BFDB5F485F07 /* Pods-macOSDFULibrary_Example-umbrella.h */,
-				FA7448FB47544DA96875CEBCEC4ABD9B /* Pods-macOSDFULibrary_Example.debug.xcconfig */,
-				4F338A7C6251B2835736DF0E062E4590 /* Pods-macOSDFULibrary_Example.release.xcconfig */,
-			);
-			name = "Pods-macOSDFULibrary_Example";
-			path = "Target Support Files/Pods-macOSDFULibrary_Example";
-			sourceTree = "<group>";
-		};
-		6A5FFC9964BA40484AB2D7753E65A156 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7232B7B5EBE868E53251FEFD2A909326 /* ZIPFoundation.framework */,
-				0BD33F1689F82B4C4E05C64D43D4066E /* iOS */,
-				842E57C8B5B4D79240C9FEE2C30B086F /* OS X */,
+				FAA19F648ED6055B57B33C6854B773DA /* ZIPFoundation.framework */,
+				B6772F663A52640581856C8603D28D64 /* iOS */,
+				AC3F5295F7B9F5C892F4C9FCCED8F5D9 /* OS X */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6FAA6AD3E79BFAA8E0D0C6750C9AE93D /* Pods */ = {
+		649112C84FAA68B1E8C3C38AC4446BF2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				466392619C29956EB2AFD391D928E385 /* ZIPFoundation */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		7955B83E09541765683951EB93451CC4 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				DD0784D5D2200DFB629CA9829D836FB2 /* crc32.swift */,
-				F634C2A0578B56D74085D561EB8F5F05 /* Data.swift */,
-				042090AEB5CAAA5FE3B8BB632792990F /* Double.swift */,
-				5EF0200EEB0B443629873CB67370569E /* ZipArchive.swift */,
-				F3BCDE141105862D877C0E0374008DE7 /* DFUPackage */,
-				39A35439F24BBA16192B15A356CCDE23 /* HexToBinConverter */,
-				ABA7D860F5E7AA9C56B5CB3DC1807A5C /* Logging */,
-				7CF80E060E48721128CFA6DDA9572B00 /* Streams */,
+				EE8988B345B713B7D45B9A79C7F2F34E /* crc32.swift */,
+				396CF6A0F66F87A432A2321F98D0ED5E /* Data.swift */,
+				A4326C29D5103B305794C2BB7CB3B9C5 /* Double.swift */,
+				FE483A235EDDD815F06A47021CA452A0 /* ZipArchive.swift */,
+				B3169553565C66D348252814680A6DA4 /* DFUPackage */,
+				C04EE7AEFE8A28C03C965E0919F953FC /* HexToBinConverter */,
+				598F85EF51B357CE1A30F867C9C15645 /* Logging */,
+				ECEA9C6648C29CF4E7ACF8A950CB0F08 /* Streams */,
 			);
 			name = Utilities;
 			path = iOSDFULibrary/Classes/Utilities;
 			sourceTree = "<group>";
 		};
-		7CF80E060E48721128CFA6DDA9572B00 /* Streams */ = {
+		660D18D9AB7C2CCF11CDB3B7D7908EA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4A556F51D5E19926B6D5884ED84B77DB /* DFUStream.swift */,
-				9F537CD59BBF3295E955838158D8EAB0 /* DFUStreamBin.swift */,
-				B52CFDE58A23E5395AB259D04794D4C6 /* DFUStreamHex.swift */,
-				28F65BE59E26ECEA13CC72521A2CEF56 /* DFUStreamZip.swift */,
-			);
-			path = Streams;
-			sourceTree = "<group>";
-		};
-		819AF78DBC5B90CCC9A5A5BD8482491E /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				397DFB47818B39E08039A44CEF7EB4DD /* LegacyDFUService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		842E57C8B5B4D79240C9FEE2C30B086F /* OS X */ = {
-			isa = PBXGroup;
-			children = (
-				CEFA5AB1F675BBE39B21F4DDA6ED661A /* Cocoa.framework */,
-			);
-			name = "OS X";
-			sourceTree = "<group>";
-		};
-		86428376C523108A38A5656C6BF552D8 /* iOSDFULibrary */ = {
-			isa = PBXGroup;
-			children = (
-				663A7704815D2A1DAE734BF8C9AA3660 /* Implementation */,
-				36574F0B588844CD2803ECF8E7A8232F /* Pod */,
-				ED27C3945B7CACC54C9A5CD44370030E /* Support Files */,
-				7955B83E09541765683951EB93451CC4 /* Utilities */,
-			);
-			name = iOSDFULibrary;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		8854B9CD6F969996C7FAF7C37F2B9047 /* SecureDFU */ = {
-			isa = PBXGroup;
-			children = (
-				484832DAAFE44F0F30B3B81E07C52571 /* Characteristics */,
-				5D5CC5207566339A7AC75D1CD4816F5C /* DFU */,
-				8FB324B22947F9F886102144E86F59B6 /* Peripheral */,
-				E04C8229B9DDAEDBAD1D02826C62C2F2 /* Services */,
-			);
-			path = SecureDFU;
-			sourceTree = "<group>";
-		};
-		8FB324B22947F9F886102144E86F59B6 /* Peripheral */ = {
-			isa = PBXGroup;
-			children = (
-				43A37BF9B54ADABFBC03BE67C6D3E01B /* SecureDFUPeripheral.swift */,
-				EBB3665C83C7BF9882825803FE5A225B /* SecureDFUPeripheralDelegate.swift */,
-			);
-			path = Peripheral;
-			sourceTree = "<group>";
-		};
-		AB91E6916ECF5D9D7B20643537AFD14C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3C06971EBE450497834D75891395EDD1 /* iOSDFULibrary.framework */,
-				7B94C90582F9B6816C3AF1B9C8AC4251 /* iOSDFULibrary.framework */,
-				56208EA4E4281D064F4507F2D1B4CF63 /* Pods_iOSDFULibrary_Example.framework */,
-				83B835408A31F08967117B6E3D69FE91 /* Pods_iOSDFULibrary_Tests.framework */,
-				8D477E8EEF809104530523147E634AC3 /* Pods_macOSDFULibrary_Example.framework */,
-				ED3A4B81043280B11F064191BC79FDD6 /* ZIPFoundation.framework */,
-				F73ACA72E9BDDF136F14D9C102DF17CF /* ZIPFoundation.framework */,
+				D0A71FFD9A5BA73B76F619D28303E257 /* iOSDFULibrary.framework */,
+				968545B42CEF5D12AED9C9BB731FF5EA /* iOSDFULibrary.framework */,
+				BCAD99F6B5251B4C831205E2F5BA4D1A /* Pods_iOSDFULibrary_Example.framework */,
+				45F2F5F5DC06A6B6DFD8B1817A6175A0 /* Pods_iOSDFULibrary_Tests.framework */,
+				C60B0C0FED99F226A8F8C7AECFAB4697 /* Pods_macOSDFULibrary_Example.framework */,
+				3BF389648B099E33FC32DDEF0AE0C8F3 /* ZIPFoundation.framework */,
+				12E7D0C470DCD64672CB802EBC429345 /* ZIPFoundation.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ABA7D860F5E7AA9C56B5CB3DC1807A5C /* Logging */ = {
+		6FAA6AD3E79BFAA8E0D0C6750C9AE93D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2524ACC4453CFB8533CD5240ED63BB53 /* LoggerDelegate.swift */,
-				104DC712E1915E649C44A77455F28675 /* LoggerHelper.swift */,
+				A988352981EF258D92A6FB70762D9842 /* ZIPFoundation */,
 			);
-			path = Logging;
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		775D5E97F4FE7306D817ECEFFD25AB00 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A6E138BB3A41D07C1E032EB63765A762 /* ZIPFoundation-iOS.modulemap */,
+				D333E1089BA812D39E708A23176F0AC9 /* ZIPFoundation-iOS.xcconfig */,
+				600BEE9B9450656347A85D9D1899A94F /* ZIPFoundation-iOS-dummy.m */,
+				838AAC762FC0B840E9E66E0E20122EAC /* ZIPFoundation-iOS-Info.plist */,
+				7027E4499584774A22528F4A1C96159E /* ZIPFoundation-iOS-prefix.pch */,
+				D78A1581AAE0E93BF3EAB34B6A353890 /* ZIPFoundation-iOS-umbrella.h */,
+				3B11BB88263C24AFF408B8309AEC65D0 /* ZIPFoundation-macOS.modulemap */,
+				7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */,
+				8068C6C3C98F55AC8E9A409C8E425F29 /* ZIPFoundation-macOS-dummy.m */,
+				10DBFEAC3D3772A915F2AED7AFFD9FD2 /* ZIPFoundation-macOS-Info.plist */,
+				3E02EF985E8A422FBD4D4BF6F04F658E /* ZIPFoundation-macOS-prefix.pch */,
+				6D4A6DBD424D0E5E4E98CBF026EF41BF /* ZIPFoundation-macOS-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ZIPFoundation-iOS";
+			sourceTree = "<group>";
+		};
+		784CDC9C746121708D0412BF1392DCA3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C6E7EFA15C3B1569FF3A8962045E391A /* LegacyDFUService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7B7E041ABF131A9C05660EA1556FD6D1 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				5F8F3E6677A422DD4F0FC1931ED134A8 /* iOSDFULibrary.podspec */,
+				83F29CAB0E62668F1C2B1DE821F8B19D /* LICENSE */,
+				76A1B296EF2916D8FE63F97238F2FC3D /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		8709A17FC512CA7031440AF8980EEB3D /* SecureDFU */ = {
+			isa = PBXGroup;
+			children = (
+				0C0B74C4928AF3654F0B537A3B180F0E /* Characteristics */,
+				8B846CC662C468238AF8BABF32318614 /* DFU */,
+				41F4093EA54166ED71EA11903FE83303 /* Peripheral */,
+				C49253C4707404ED6D7B896CDA077F42 /* Services */,
+			);
+			path = SecureDFU;
+			sourceTree = "<group>";
+		};
+		8A62994A58AFE34522A8011ABFF4BECE /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1E2335550212434C74916BA184556D75 /* iOSDFULibrary-iOS.modulemap */,
+				CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */,
+				4D41480012AD48712A8C7C9AA28C15F3 /* iOSDFULibrary-iOS-dummy.m */,
+				A2E0981396C735698AE4DD0ACB86878D /* iOSDFULibrary-iOS-Info.plist */,
+				310EE1B12F82762A921623C2BD88203D /* iOSDFULibrary-iOS-prefix.pch */,
+				17086AD8E1FC90F48072896CC8842CCE /* iOSDFULibrary-iOS-umbrella.h */,
+				D8F7D48DA3B1C7E5ACC67DFD589DCC78 /* iOSDFULibrary-macOS.modulemap */,
+				6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */,
+				961DD5FFF0E7F1071EA90B9F8B79DC9C /* iOSDFULibrary-macOS-dummy.m */,
+				2FBD48170A8A8C26F713A56ED6C50B5D /* iOSDFULibrary-macOS-Info.plist */,
+				6BCF3687206C7A813844FB4A7665BACC /* iOSDFULibrary-macOS-prefix.pch */,
+				C5A46A7A96EB561AFF8B9A6679E5BB67 /* iOSDFULibrary-macOS-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/iOSDFULibrary-iOS";
+			sourceTree = "<group>";
+		};
+		8B846CC662C468238AF8BABF32318614 /* DFU */ = {
+			isa = PBXGroup;
+			children = (
+				DB4CEA11FD45CC3DAB54ED847F998BB8 /* SecureDFUExecutor.swift */,
+				AE14D2465CF18B42A3C43BE9BCD380D8 /* SecureDFUServiceInitiator.swift */,
+			);
+			path = DFU;
+			sourceTree = "<group>";
+		};
+		987EAC4495C1D137386D5A1660B26A44 /* Pods-iOSDFULibrary_Example */ = {
+			isa = PBXGroup;
+			children = (
+				9DE3F8186A2C9281B708844560549F05 /* Pods-iOSDFULibrary_Example.modulemap */,
+				4019B6902B502099B17C0B8ED2B7B0DB /* Pods-iOSDFULibrary_Example-acknowledgements.markdown */,
+				CD261474D662E14B2BDDBA61BA9DD534 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */,
+				B0F4D7ACE3099260BD7914C0F7AA450A /* Pods-iOSDFULibrary_Example-dummy.m */,
+				44C80322FD2FD584FE3026B2958F84A3 /* Pods-iOSDFULibrary_Example-frameworks.sh */,
+				6A0E83EF70F76F5CC7183F56A08D9A13 /* Pods-iOSDFULibrary_Example-Info.plist */,
+				6CFC421A1A470F2CC951B9918A2F6667 /* Pods-iOSDFULibrary_Example-umbrella.h */,
+				7FBFCEBF062E65595AD4F1DC8AA4A0DA /* Pods-iOSDFULibrary_Example.debug.xcconfig */,
+				FCA5E6342E9C992B4D24E36BB2EC3D20 /* Pods-iOSDFULibrary_Example.release.xcconfig */,
+			);
+			name = "Pods-iOSDFULibrary_Example";
+			path = "Target Support Files/Pods-iOSDFULibrary_Example";
+			sourceTree = "<group>";
+		};
+		A3516E268B666435C025453CD9735A6D /* Pods-iOSDFULibrary_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C9B0965483EC88C5782218837B760223 /* Pods-iOSDFULibrary_Tests.modulemap */,
+				6085DCA4586255401B60695D5927050D /* Pods-iOSDFULibrary_Tests-acknowledgements.markdown */,
+				3B9891CFF74D9867172ED9A03A55D111 /* Pods-iOSDFULibrary_Tests-acknowledgements.plist */,
+				EB8F5587A24941C91702E23924DCF99D /* Pods-iOSDFULibrary_Tests-dummy.m */,
+				BE7FB463F59F58E6243BC4A78E37F885 /* Pods-iOSDFULibrary_Tests-frameworks.sh */,
+				59F7D6CA361F44101B9A79318C1B29CF /* Pods-iOSDFULibrary_Tests-Info.plist */,
+				8AD81CC38AD9E17564E46ABB01E637EA /* Pods-iOSDFULibrary_Tests-umbrella.h */,
+				E7716456B67A56A1A837F639BDC9B732 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */,
+				3656D17D56719D3D89E73E75DD474A38 /* Pods-iOSDFULibrary_Tests.release.xcconfig */,
+			);
+			name = "Pods-iOSDFULibrary_Tests";
+			path = "Target Support Files/Pods-iOSDFULibrary_Tests";
+			sourceTree = "<group>";
+		};
+		A988352981EF258D92A6FB70762D9842 /* ZIPFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				638A2339D64F3C759C321D6005B7752B /* Archive.swift */,
+				837F55AF8EE6D7B2F0F90B6F0EB09FF1 /* Archive+Reading.swift */,
+				2771E93A64505F109FAA8BF7183BA28A /* Archive+Writing.swift */,
+				B818164589182D376542B9FAE528029A /* Data+Compression.swift */,
+				14D107FA040C2BC40B63FBEF813EE54E /* Data+Serialization.swift */,
+				D55E580DF3F8D9DF5F308F1F39B605A9 /* Entry.swift */,
+				D7744FFF2BC9765BC7143F482E7EC029 /* FileManager+ZIP.swift */,
+				775D5E97F4FE7306D817ECEFFD25AB00 /* Support Files */,
+			);
+			path = ZIPFoundation;
+			sourceTree = "<group>";
+		};
+		AA96B99A60C13CB0CB89CA77D66B9FA6 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				569A612C3E3FBAC3AD05DA11D2B640E3 /* DFUPeripheralSelector.swift */,
+				BC140C8FE02890FEAC68A0D6F7C9ECC9 /* DFUPeripheralSelectorDelegate.swift */,
+				80DD45EC1FEA7199337778BA49F569D5 /* DFUServiceController.swift */,
+				34E47FD2A2ACE7D7A6F82BC6C8EDD50C /* DFUServiceDelegate.swift */,
+				D99DDE3C7CF0D8607A81B0FE748ACAF0 /* DFUServiceInitiator.swift */,
+				551109ADE4258DAAFCF41E25BC5EF82F /* DFUUuidHelper.swift */,
+				3F03086463C2353535BBCEEA752E281F /* DFUSelector */,
+				461740279FAE5AB169D3F80794C2979F /* Firmware */,
+				44AC9E05A3803DC057A00EA2B54AA0E7 /* GenericDFU */,
+				C45EBBDB2D7E5557A020F411EE132BFE /* LegacyDFU */,
+				8709A17FC512CA7031440AF8980EEB3D /* SecureDFU */,
+			);
+			name = Implementation;
+			path = iOSDFULibrary/Classes/Implementation;
+			sourceTree = "<group>";
+		};
+		AAF843ECCD55EE76CB615800AEC4FE84 /* Pods-macOSDFULibrary_Example */ = {
+			isa = PBXGroup;
+			children = (
+				7996F3AB192EF9745CBACBAB1E956DFA /* Pods-macOSDFULibrary_Example.modulemap */,
+				EAAAE6FF3B53F0BBAE2BC3D68A2BB8E1 /* Pods-macOSDFULibrary_Example-acknowledgements.markdown */,
+				C8F0E25E9B9DB2291DA2E27A380D5F5F /* Pods-macOSDFULibrary_Example-acknowledgements.plist */,
+				BAC78DF457B9347774036145D85956DB /* Pods-macOSDFULibrary_Example-dummy.m */,
+				6FAC228069346CE04FF74C0A61AB5CBD /* Pods-macOSDFULibrary_Example-frameworks.sh */,
+				1CEDC829123A34BCE6C3D67E48764691 /* Pods-macOSDFULibrary_Example-Info.plist */,
+				8E800E67CF9CCC18A18002A7575780EA /* Pods-macOSDFULibrary_Example-umbrella.h */,
+				890A09B61D0F51EA84B75D5E02FE58D2 /* Pods-macOSDFULibrary_Example.debug.xcconfig */,
+				2C723040DECD495E1AAC81F5AA497C97 /* Pods-macOSDFULibrary_Example.release.xcconfig */,
+			);
+			name = "Pods-macOSDFULibrary_Example";
+			path = "Target Support Files/Pods-macOSDFULibrary_Example";
+			sourceTree = "<group>";
+		};
+		AC3F5295F7B9F5C892F4C9FCCED8F5D9 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				1670B37237BDF720D0A5FA2134F8E41D /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		B3169553565C66D348252814680A6DA4 /* DFUPackage */ = {
+			isa = PBXGroup;
+			children = (
+				32AA605B90ED7371FD738D9FD65F75C0 /* Manifest */,
+			);
+			path = DFUPackage;
+			sourceTree = "<group>";
+		};
+		B6772F663A52640581856C8603D28D64 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				DF8016E2D8226E80BF23A77F53FFA99B /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		BC6DFEEEBB5F61E261144F5E5C36BBDF /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				86428376C523108A38A5656C6BF552D8 /* iOSDFULibrary */,
+				DF48B30D2889F77D19FA3E07711A6D3C /* iOSDFULibrary */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		C04EE7AEFE8A28C03C965E0919F953FC /* HexToBinConverter */ = {
+			isa = PBXGroup;
+			children = (
+				AAD7107A9712C56826AB1EE59070FE9F /* IntelHex2BinConverter.h */,
+				633E7DEBBA1F0BA8AEE222E528ABF6F8 /* IntelHex2BinConverter.m */,
+			);
+			path = HexToBinConverter;
+			sourceTree = "<group>";
+		};
+		C45EBBDB2D7E5557A020F411EE132BFE /* LegacyDFU */ = {
+			isa = PBXGroup;
+			children = (
+				E3DC1C32A8B2F24ADC428D63F7F6961C /* Characteristics */,
+				FFA76963E6BB4E93C96B1DA3DEBF0E83 /* DFU */,
+				DE375571DA7EC1BFF895678431374300 /* Peripherals */,
+				784CDC9C746121708D0412BF1392DCA3 /* Services */,
+			);
+			path = LegacyDFU;
+			sourceTree = "<group>";
+		};
+		C49253C4707404ED6D7B896CDA077F42 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D7A1571DFD4F3BCBBF39F733110BF41B /* SecureDFUService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -704,92 +724,72 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				BC6DFEEEBB5F61E261144F5E5C36BBDF /* Development Pods */,
-				6A5FFC9964BA40484AB2D7753E65A156 /* Frameworks */,
+				61A58AD06060C703593249ACAA7D4592 /* Frameworks */,
 				6FAA6AD3E79BFAA8E0D0C6750C9AE93D /* Pods */,
-				AB91E6916ECF5D9D7B20643537AFD14C /* Products */,
+				660D18D9AB7C2CCF11CDB3B7D7908EA8 /* Products */,
 				EE7AB1721F94C9E869D92B088F7DECBE /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D96AFE51E913BA1FC02105B233510532 /* DFU */ = {
+		DE375571DA7EC1BFF895678431374300 /* Peripherals */ = {
 			isa = PBXGroup;
 			children = (
-				B8B8AB9CDA3886C41B7ED0C65B616399 /* LegacyDFUExecutor.swift */,
-				90686C915F6F8FF6AC4D0E6CA4D173D2 /* LegacyDFUServiceInitiator.swift */,
+				01609AE8109D2B43C8B1082F46520A6D /* LegacyDFUPeripheral.swift */,
+				02AF9CB548AD7E816FBC7567A4E30CEE /* LegacyDFUPeripheralDelegate.swift */,
 			);
-			path = DFU;
+			path = Peripherals;
 			sourceTree = "<group>";
 		};
-		E04C8229B9DDAEDBAD1D02826C62C2F2 /* Services */ = {
+		DF48B30D2889F77D19FA3E07711A6D3C /* iOSDFULibrary */ = {
 			isa = PBXGroup;
 			children = (
-				B25287E6A04C7DFEA0DF0B6DAFE228F0 /* SecureDFUService.swift */,
+				AA96B99A60C13CB0CB89CA77D66B9FA6 /* Implementation */,
+				7B7E041ABF131A9C05660EA1556FD6D1 /* Pod */,
+				8A62994A58AFE34522A8011ABFF4BECE /* Support Files */,
+				649112C84FAA68B1E8C3C38AC4446BF2 /* Utilities */,
 			);
-			path = Services;
+			name = iOSDFULibrary;
+			path = ../..;
 			sourceTree = "<group>";
 		};
-		E20CF0493C4E23F446C17CB059F1A9E3 /* Pods-iOSDFULibrary_Tests */ = {
+		E3DC1C32A8B2F24ADC428D63F7F6961C /* Characteristics */ = {
 			isa = PBXGroup;
 			children = (
-				5E01390BC6D46D90878FFACC31F924A0 /* Pods-iOSDFULibrary_Tests.modulemap */,
-				B865B09C9725904093C4E9BF6CB314B7 /* Pods-iOSDFULibrary_Tests-acknowledgements.markdown */,
-				9F8874492DC8DFF0987C005702DECC55 /* Pods-iOSDFULibrary_Tests-acknowledgements.plist */,
-				1DD2BFB4370B7AE1AB5DCD8BC8DD8269 /* Pods-iOSDFULibrary_Tests-dummy.m */,
-				485C0FC0D96369E05CF0A439AE037794 /* Pods-iOSDFULibrary_Tests-frameworks.sh */,
-				B48582BC04EC5C089F7CB594846A647D /* Pods-iOSDFULibrary_Tests-Info.plist */,
-				BB30CF240D59E065EC92DB41FB0594FE /* Pods-iOSDFULibrary_Tests-umbrella.h */,
-				AADE5D738CDED659A8CD3CD38F1207E4 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */,
-				27812917C906C5F8491303C1C66AC49E /* Pods-iOSDFULibrary_Tests.release.xcconfig */,
+				BF7B5AAF9CED8C1937EA2055BCA5D871 /* DFUControlPoint.swift */,
+				CBF166DFA86D8743C629EFAD2E6BEFB8 /* DFUPacket.swift */,
+				ED7366D7312BCBC4DC7799DAFBFC3A95 /* DFUVersion.swift */,
 			);
-			name = "Pods-iOSDFULibrary_Tests";
-			path = "Target Support Files/Pods-iOSDFULibrary_Tests";
+			path = Characteristics;
 			sourceTree = "<group>";
 		};
-		E7DDA3A2B9133D701CC34B8748CBF906 /* DFUSelector */ = {
+		ECEA9C6648C29CF4E7ACF8A950CB0F08 /* Streams */ = {
 			isa = PBXGroup;
 			children = (
-				727FC7F9CAE972B59A001666073E97A5 /* DFUServiceSelector.swift */,
-				F08F8C11BED1C416AB415BD7377A8EB7 /* DFUStarterPeripheral.swift */,
+				E8DFB9E92B94ED1B544BA9F280975644 /* DFUStream.swift */,
+				0B9C3370D2E9C9D0703519DF50EDA808 /* DFUStreamBin.swift */,
+				F1A5B32AAFC70D9FE4087D75012D1E58 /* DFUStreamHex.swift */,
+				A19A7889F4F46B0E1F7DEA8D319EF323 /* DFUStreamZip.swift */,
 			);
-			path = DFUSelector;
-			sourceTree = "<group>";
-		};
-		ED27C3945B7CACC54C9A5CD44370030E /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				DEC74FF1D14BCC85D06A1A33D3B370AC /* iOSDFULibrary-iOS.modulemap */,
-				A3B8A4145C723C2056DB98628370DBCE /* iOSDFULibrary-iOS.xcconfig */,
-				5447A932871C3238E152AF0F184DA1F1 /* iOSDFULibrary-iOS-dummy.m */,
-				095AC6BF187E20EED6A17A478598DAB0 /* iOSDFULibrary-iOS-Info.plist */,
-				2B39FEC9E1266DCB822E5E01D7789C5F /* iOSDFULibrary-iOS-prefix.pch */,
-				9441904651576A11868BCE6CB187CEF5 /* iOSDFULibrary-iOS-umbrella.h */,
-				43C9272A2CAA71AB8CB7C69363D4DAF3 /* iOSDFULibrary-macOS.modulemap */,
-				A0984654F246346A94CA53B36957DD74 /* iOSDFULibrary-macOS.xcconfig */,
-				DAFBE61E0E61A85FE4DB7D5B1C82D0AA /* iOSDFULibrary-macOS-dummy.m */,
-				BE244E0755B9982EACC134E971D46135 /* iOSDFULibrary-macOS-Info.plist */,
-				68F4D9CE6747562A1BCD5E87D0342546 /* iOSDFULibrary-macOS-prefix.pch */,
-				9F1A8670DA84132625ACC6A6F093F1B1 /* iOSDFULibrary-macOS-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/iOSDFULibrary-iOS";
+			path = Streams;
 			sourceTree = "<group>";
 		};
 		EE7AB1721F94C9E869D92B088F7DECBE /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				64412CA11133B3CEB8EE384FB9F396CD /* Pods-iOSDFULibrary_Example */,
-				E20CF0493C4E23F446C17CB059F1A9E3 /* Pods-iOSDFULibrary_Tests */,
-				6A1A514DE4BD3B0B38F0F275967C1C7F /* Pods-macOSDFULibrary_Example */,
+				987EAC4495C1D137386D5A1660B26A44 /* Pods-iOSDFULibrary_Example */,
+				A3516E268B666435C025453CD9735A6D /* Pods-iOSDFULibrary_Tests */,
+				AAF843ECCD55EE76CB615800AEC4FE84 /* Pods-macOSDFULibrary_Example */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		F3BCDE141105862D877C0E0374008DE7 /* DFUPackage */ = {
+		FFA76963E6BB4E93C96B1DA3DEBF0E83 /* DFU */ = {
 			isa = PBXGroup;
 			children = (
-				481C378A54CB181BFDD3DFD0FE2CB7D5 /* Manifest */,
+				A29528811E070C271EFE8FD18ED00950 /* LegacyDFUExecutor.swift */,
+				09BD2B9DFFC7D8B33DEE9AEEAAC8E731 /* LegacyDFUServiceInitiator.swift */,
 			);
-			path = DFUPackage;
+			path = DFU;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -812,11 +812,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		990D4B5106635B0893B23DECC0236F09 /* Headers */ = {
+		571AB78AD2FAA1291CF202B3EB6CA810 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6A40F11576080722E7F5483D8D03A87 /* ZIPFoundation-macOS-umbrella.h in Headers */,
+				A4DAEC6A900485B4D39BDDF14E51BC30 /* ZIPFoundation-iOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +837,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAB062096A667D8B80BA65B90FDD963D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				872ABD900BFE4739EABF77B45F5F2D6C /* ZIPFoundation-macOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E81FBB4D35368B9A57F74846CCFAF109 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -845,36 +853,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E8FB5C85B39690CDDBB3D9C295D5ABD7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A26CBB406D7E61F87286C08D7EF78D5 /* ZIPFoundation-iOS-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		115022AFE63491B19BFC17266DDE56E7 /* ZIPFoundation-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C67CFC47D898C7D00DA3AA0BA044852 /* Build configuration list for PBXNativeTarget "ZIPFoundation-macOS" */;
-			buildPhases = (
-				990D4B5106635B0893B23DECC0236F09 /* Headers */,
-				F72A9489906201A99EDCDA5DB8F74814 /* Sources */,
-				827AFE4B9C3AF7ED8487A31135DD9B51 /* Frameworks */,
-				0AF882FF36AF4283005972460B88426E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "ZIPFoundation-macOS";
-			productName = "ZIPFoundation-macOS";
-			productReference = F73ACA72E9BDDF136F14D9C102DF17CF /* ZIPFoundation.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		5CB4C4D79CAF9738FCFB25F23667EA83 /* Pods-iOSDFULibrary_Example */ = {
+		2EBCF86E3422D6775B7F8C8B4C7BD34F /* Pods-iOSDFULibrary_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 40FC3AACFE5204E4E30FF68C3CACAD3C /* Build configuration list for PBXNativeTarget "Pods-iOSDFULibrary_Example" */;
 			buildPhases = (
@@ -891,29 +873,10 @@
 			);
 			name = "Pods-iOSDFULibrary_Example";
 			productName = "Pods-iOSDFULibrary_Example";
-			productReference = 56208EA4E4281D064F4507F2D1B4CF63 /* Pods_iOSDFULibrary_Example.framework */;
+			productReference = BCAD99F6B5251B4C831205E2F5BA4D1A /* Pods_iOSDFULibrary_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6C62C12CF3E12DC4C73C47D64E9A13BA /* iOSDFULibrary-iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C73A168C39163274F68BB4E8BA8BDB2 /* Build configuration list for PBXNativeTarget "iOSDFULibrary-iOS" */;
-			buildPhases = (
-				B2F674D0A080459F528C677C4352F44D /* Headers */,
-				5CB7150D5531F73DB9959C39A17D5753 /* Sources */,
-				2DBF118E713B18072F0BEEC2E2256A32 /* Frameworks */,
-				40A3865C9A1D338B6886384ACF9544E0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EB0A8826E4EE05723E5D30D75E0EF353 /* PBXTargetDependency */,
-			);
-			name = "iOSDFULibrary-iOS";
-			productName = "iOSDFULibrary-iOS";
-			productReference = 3C06971EBE450497834D75891395EDD1 /* iOSDFULibrary.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		789DB02357FCF46559EB6C9C0E2A2975 /* Pods-macOSDFULibrary_Example */ = {
+		471C93E4EEAEC10EC8E6084F710A31EE /* Pods-macOSDFULibrary_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1571FEA3F7DF60ACFC3ACCC83FCA7F9 /* Build configuration list for PBXNativeTarget "Pods-macOSDFULibrary_Example" */;
 			buildPhases = (
@@ -930,33 +893,15 @@
 			);
 			name = "Pods-macOSDFULibrary_Example";
 			productName = "Pods-macOSDFULibrary_Example";
-			productReference = 8D477E8EEF809104530523147E634AC3 /* Pods_macOSDFULibrary_Example.framework */;
+			productReference = C60B0C0FED99F226A8F8C7AECFAB4697 /* Pods_macOSDFULibrary_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A56AE7DF7F9273197162713508BF2965 /* ZIPFoundation-iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A52D91C4CA8F1F6546159BDC092FA9DC /* Build configuration list for PBXNativeTarget "ZIPFoundation-iOS" */;
-			buildPhases = (
-				E8FB5C85B39690CDDBB3D9C295D5ABD7 /* Headers */,
-				B83B243F8BED7A2191C0191DB7539906 /* Sources */,
-				86073042B19DAD33FDD5ADA5761B0BD8 /* Frameworks */,
-				F3050C058852CB7AF685E1123848482D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "ZIPFoundation-iOS";
-			productName = "ZIPFoundation-iOS";
-			productReference = ED3A4B81043280B11F064191BC79FDD6 /* ZIPFoundation.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		B80353FE3CEF70529DB8DB81E67C1C39 /* iOSDFULibrary-macOS */ = {
+		79F9638EA00F4594D84B597FE45CD2DC /* iOSDFULibrary-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DDB81E925367CCA10A93EC977D504F2 /* Build configuration list for PBXNativeTarget "iOSDFULibrary-macOS" */;
 			buildPhases = (
 				4533E4066F57762793DDBBD64BB56D54 /* Headers */,
-				7C0884F2A81F32358224CE15F7E1F9F8 /* Sources */,
+				47FC6C8FE523D058A36CCEBF2418DA87 /* Sources */,
 				86C74E74701FF0097718560DFAF110CC /* Frameworks */,
 				7C5215856B4FDD49AF8E354EA361EC83 /* Resources */,
 			);
@@ -967,10 +912,65 @@
 			);
 			name = "iOSDFULibrary-macOS";
 			productName = "iOSDFULibrary-macOS";
-			productReference = 7B94C90582F9B6816C3AF1B9C8AC4251 /* iOSDFULibrary.framework */;
+			productReference = 968545B42CEF5D12AED9C9BB731FF5EA /* iOSDFULibrary.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C3D1C4662370F9582427ED282967247E /* Pods-iOSDFULibrary_Tests */ = {
+		8B5BB2050078EFCACBEDC5B4195B80CD /* ZIPFoundation-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A41E4E3CBCD4BEE61CEE0561A85FEEA3 /* Build configuration list for PBXNativeTarget "ZIPFoundation-macOS" */;
+			buildPhases = (
+				DAB062096A667D8B80BA65B90FDD963D /* Headers */,
+				95D15F09473C1BAED2EA90BF7394FF18 /* Sources */,
+				E2227766BEE88949332DCF8B0CB3E210 /* Frameworks */,
+				8E0CDEB41FD4E260C703A57E0FE60151 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZIPFoundation-macOS";
+			productName = "ZIPFoundation-macOS";
+			productReference = 12E7D0C470DCD64672CB802EBC429345 /* ZIPFoundation.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9AF8AE8821E967844EEF26BBB341564D /* ZIPFoundation-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43ACDBC3E7DCD9A848B3CE95768D696B /* Build configuration list for PBXNativeTarget "ZIPFoundation-iOS" */;
+			buildPhases = (
+				571AB78AD2FAA1291CF202B3EB6CA810 /* Headers */,
+				20C1F4BBA1942AF04F3609C9150D2715 /* Sources */,
+				BDC585C0CCC77A0743E57DC0AF612FDA /* Frameworks */,
+				33DBF8F72404A91DFA7CF3C663124EB0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZIPFoundation-iOS";
+			productName = "ZIPFoundation-iOS";
+			productReference = 3BF389648B099E33FC32DDEF0AE0C8F3 /* ZIPFoundation.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D5D94E351BD6926C6DC33FBD834E16AC /* iOSDFULibrary-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C73A168C39163274F68BB4E8BA8BDB2 /* Build configuration list for PBXNativeTarget "iOSDFULibrary-iOS" */;
+			buildPhases = (
+				B2F674D0A080459F528C677C4352F44D /* Headers */,
+				6B1C574F4359FE794C5D2F0540509802 /* Sources */,
+				2DBF118E713B18072F0BEEC2E2256A32 /* Frameworks */,
+				40A3865C9A1D338B6886384ACF9544E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EB0A8826E4EE05723E5D30D75E0EF353 /* PBXTargetDependency */,
+			);
+			name = "iOSDFULibrary-iOS";
+			productName = "iOSDFULibrary-iOS";
+			productReference = D0A71FFD9A5BA73B76F619D28303E257 /* iOSDFULibrary.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EC63048CADC9486EAD32A6C4D9474823 /* Pods-iOSDFULibrary_Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49D7B5BB4424A8FFB0A64665D863A378 /* Build configuration list for PBXNativeTarget "Pods-iOSDFULibrary_Tests" */;
 			buildPhases = (
@@ -987,7 +987,7 @@
 			);
 			name = "Pods-iOSDFULibrary_Tests";
 			productName = "Pods-iOSDFULibrary_Tests";
-			productReference = 83B835408A31F08967117B6E3D69FE91 /* Pods_iOSDFULibrary_Tests.framework */;
+			productReference = 45F2F5F5DC06A6B6DFD8B1817A6175A0 /* Pods_iOSDFULibrary_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -997,12 +997,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 1020;
-				TargetAttributes = {
-					6C62C12CF3E12DC4C73C47D64E9A13BA = {
-						LastSwiftMigration = 1020;
-					};
-				};
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1013,23 +1008,23 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = AB91E6916ECF5D9D7B20643537AFD14C /* Products */;
+			productRefGroup = 660D18D9AB7C2CCF11CDB3B7D7908EA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6C62C12CF3E12DC4C73C47D64E9A13BA /* iOSDFULibrary-iOS */,
-				B80353FE3CEF70529DB8DB81E67C1C39 /* iOSDFULibrary-macOS */,
-				5CB4C4D79CAF9738FCFB25F23667EA83 /* Pods-iOSDFULibrary_Example */,
-				C3D1C4662370F9582427ED282967247E /* Pods-iOSDFULibrary_Tests */,
-				789DB02357FCF46559EB6C9C0E2A2975 /* Pods-macOSDFULibrary_Example */,
-				A56AE7DF7F9273197162713508BF2965 /* ZIPFoundation-iOS */,
-				115022AFE63491B19BFC17266DDE56E7 /* ZIPFoundation-macOS */,
+				D5D94E351BD6926C6DC33FBD834E16AC /* iOSDFULibrary-iOS */,
+				79F9638EA00F4594D84B597FE45CD2DC /* iOSDFULibrary-macOS */,
+				2EBCF86E3422D6775B7F8C8B4C7BD34F /* Pods-iOSDFULibrary_Example */,
+				EC63048CADC9486EAD32A6C4D9474823 /* Pods-iOSDFULibrary_Tests */,
+				471C93E4EEAEC10EC8E6084F710A31EE /* Pods-macOSDFULibrary_Example */,
+				9AF8AE8821E967844EEF26BBB341564D /* ZIPFoundation-iOS */,
+				8B5BB2050078EFCACBEDC5B4195B80CD /* ZIPFoundation-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0AF882FF36AF4283005972460B88426E /* Resources */ = {
+		33DBF8F72404A91DFA7CF3C663124EB0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1057,6 +1052,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8E0CDEB41FD4E260C703A57E0FE60151 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5EAF4E93D9C21905A627DE45AF87AB7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1065,13 +1067,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D8E1D1E3239FE2B8BAD29FA7BEAF2377 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3050C058852CB7AF685E1123848482D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1089,56 +1084,124 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5CB7150D5531F73DB9959C39A17D5753 /* Sources */ = {
+		20C1F4BBA1942AF04F3609C9150D2715 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FDCA59176DD3CEBF098EDF38B1E9161 /* ButtonlessDFU.swift in Sources */,
-				FAAFDACE39EE35184BBE90C8B464F3D6 /* crc32.swift in Sources */,
-				4E787A8E77F696F450434D318B28FBB3 /* Data.swift in Sources */,
-				FDA7AC97E8413258D6F2CECEDCED3B29 /* DFUCharacteristic.swift in Sources */,
-				B7ACD5823ED2891093B4BF946BB628AF /* DFUController.swift in Sources */,
-				20D1443FC6D5D7A644A71AFE0585E2E5 /* DFUControlPoint.swift in Sources */,
-				B7F85F76A980F1BCAEF7CFD61C03CF1C /* DFUExecutor.swift in Sources */,
-				678ADD7BFDD9C1FBC3FE79D19A9E8A5E /* DFUFirmware.swift in Sources */,
-				6E610DA7B91C227BA8FCBB5A928DA073 /* DFUPacket.swift in Sources */,
-				4CDF16DA9C21A28C0F2C0B011425521A /* DFUPeripheral.swift in Sources */,
-				33C312FF88754C27A82A1675A3264381 /* DFUPeripheralDelegate.swift in Sources */,
-				A0280A5F505C7740A824E5FA34EDDD73 /* DFUPeripheralSelector.swift in Sources */,
-				C7F43639C7135AEE80DA3E673EF79612 /* DFUPeripheralSelectorDelegate.swift in Sources */,
-				650653697B8910990174C7FB6990FC9A /* DFUService.swift in Sources */,
-				1BD4953A2B9A2EE4A16E8EA45179BCB8 /* DFUServiceController.swift in Sources */,
-				300537EE4BB76474ACBDF93343B22952 /* DFUServiceDelegate.swift in Sources */,
-				AF94715E54790B08C8DDA76BF7B73439 /* DFUServiceInitiator.swift in Sources */,
-				C1DF4625FA02CDD177FB718F86EDC900 /* DFUServiceSelector.swift in Sources */,
-				A67DBA153FBE29AF43DBEE2E07A6A1F1 /* DFUStarterPeripheral.swift in Sources */,
-				EC69DBDF6754162834858BB125BC39CA /* DFUStream.swift in Sources */,
-				8B58E15D2CD8FA71FDB11AED08F041B0 /* DFUStreamBin.swift in Sources */,
-				10EBEF9A22AD3CCA8576CC7A6C537E88 /* DFUStreamHex.swift in Sources */,
-				B90A6FE4C45B4623D259544C9B2E57BF /* DFUStreamZip.swift in Sources */,
-				91DE91CC6137330E497AE0C58A1677C5 /* DFUUuidHelper.swift in Sources */,
-				577473878E558FA8425F40A1E468F84C /* DFUVersion.swift in Sources */,
-				E10BBB8899855166E8A6CCC69C547F5E /* Double.swift in Sources */,
-				48329DE14A40C5FEB11BE44428E714D8 /* IntelHex2BinConverter.m in Sources */,
-				674F84E5BC9DEB2877F14E3134FF7BCA /* iOSDFULibrary-iOS-dummy.m in Sources */,
-				678A4205CB492C4FA886BE81D074FB08 /* LegacyDFUExecutor.swift in Sources */,
-				6D820945DD482243FB3EA854E1B348DE /* LegacyDFUPeripheral.swift in Sources */,
-				70849F9E97E26DD027615C87A5CF0E5D /* LegacyDFUPeripheralDelegate.swift in Sources */,
-				05CCFD12B02F365D848D6AC31308271B /* LegacyDFUService.swift in Sources */,
-				BAA4EF38209BC88E88027BC7D3041A64 /* LegacyDFUServiceInitiator.swift in Sources */,
-				D8C217D0B6A9A1031001CB161EC58DD2 /* LoggerDelegate.swift in Sources */,
-				19A966617AD75B7EE6B8F54392897CD9 /* LoggerHelper.swift in Sources */,
-				220C261A51702B38DCF0F122A1547FA6 /* Manifest.swift in Sources */,
-				631F525F6DE994F60A9604ED2EAA661C /* ManifestFirmwareInfo.swift in Sources */,
-				001DBB32CF4F8E74DAE8DD8ABA6A8C68 /* SecureDFUControlPoint.swift in Sources */,
-				A90F9796AB6F9BD09F358C8E4AB34A13 /* SecureDFUExecutor.swift in Sources */,
-				9E448FA6AD50381F9F7DA0590592F774 /* SecureDFUPacket.swift in Sources */,
-				0F2B32CE7B842F955E369267FB347608 /* SecureDFUPeripheral.swift in Sources */,
-				A035F689F66F68D870EB805D0F91BA12 /* SecureDFUPeripheralDelegate.swift in Sources */,
-				8B49EBD77137AF44376B1D39BF6E4456 /* SecureDFUService.swift in Sources */,
-				BA3DDA4030C084D0BD67E44890D56F3D /* SecureDFUServiceInitiator.swift in Sources */,
-				515AAE24C5ECB8338667B6C8C6D4DD58 /* SoftdeviceBootloaderInfo.swift in Sources */,
-				FAF9A2A565A6688A035434DC14DB675E /* ZipArchive.swift in Sources */,
+				324771A855C1E930B09F2F8B535407B4 /* Archive+Reading.swift in Sources */,
+				BFFC277185CD01748D3D77FE03B59A4F /* Archive+Writing.swift in Sources */,
+				B52EB42AE2DD04E3371319497CF5C674 /* Archive.swift in Sources */,
+				BF05036600918DD5C1D5D87B663744B6 /* Data+Compression.swift in Sources */,
+				4B81FCE837E910BDE2923B5550EBC397 /* Data+Serialization.swift in Sources */,
+				BDBF11AA028BF6110503C6011F404D96 /* Entry.swift in Sources */,
+				64C6A19639E11C8A47C4BBCF04CB8F02 /* FileManager+ZIP.swift in Sources */,
+				6899B048FD8E2C88D05161256C93EAC2 /* ZIPFoundation-iOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47FC6C8FE523D058A36CCEBF2418DA87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80992B60D3946A7D8E1F768719615679 /* ButtonlessDFU.swift in Sources */,
+				A85413555E0B57496F009F811F56F8CF /* crc32.swift in Sources */,
+				8E183500C91943CB39E00B7EF41E2401 /* Data.swift in Sources */,
+				0DC180F2491ADA25A3911143CCD6145E /* DFUCharacteristic.swift in Sources */,
+				97F5BDEF41559739BDDF9F590CDF5259 /* DFUController.swift in Sources */,
+				032251AB7989B0BD53FDB3E40D18AE08 /* DFUControlPoint.swift in Sources */,
+				58D8B73316783343D1F539AD489BC899 /* DFUExecutor.swift in Sources */,
+				A19DA639C605D9D74F1A588FB7E7B042 /* DFUFirmware.swift in Sources */,
+				59B0D3AB5350A725DE75AFAD933CDDFA /* DFUPacket.swift in Sources */,
+				73BBEAF9B50BA1470CE3948F6541097B /* DFUPeripheral.swift in Sources */,
+				1ECAD584CEA0DC9AAC3B2D6D1EEB7C4F /* DFUPeripheralDelegate.swift in Sources */,
+				00F788081542B3DB06E7E9D4A57C5D54 /* DFUPeripheralSelector.swift in Sources */,
+				E716CE98563E543E9343756E0336F6AC /* DFUPeripheralSelectorDelegate.swift in Sources */,
+				E507C165E430D8B0E2AFF8C10DA4DC65 /* DFUService.swift in Sources */,
+				B27446FEA877F4796162FEF477EB4DA1 /* DFUServiceController.swift in Sources */,
+				89B64E833121C7F80ADA22CCE20F6D7C /* DFUServiceDelegate.swift in Sources */,
+				4414C9EFB27191EE75E30D8DB2BE0C01 /* DFUServiceInitiator.swift in Sources */,
+				0BBADA887CFDFF6BB3468F239251A33F /* DFUServiceSelector.swift in Sources */,
+				506A9191A7DF6F120251972BFB124650 /* DFUStarterPeripheral.swift in Sources */,
+				BDE6CD3C28494EF91AB06460E054022F /* DFUStream.swift in Sources */,
+				2B531270BEECCEED891F78F3350A29E1 /* DFUStreamBin.swift in Sources */,
+				2A07B68E40D38D32160631879B85D0EE /* DFUStreamHex.swift in Sources */,
+				F2301E0EE5EDEE3EDE77B2F1A3AAEE99 /* DFUStreamZip.swift in Sources */,
+				1260F141BB00E086AD00807753CFDD11 /* DFUUuidHelper.swift in Sources */,
+				2416DB1A856D53801DDF59A97013B322 /* DFUVersion.swift in Sources */,
+				BE123371202F34DBA07B1FF2C2C8E23E /* Double.swift in Sources */,
+				413F24514C05648D7F4768048A6C2DF6 /* IntelHex2BinConverter.m in Sources */,
+				5EB653C534368886E14597A34D084ABF /* iOSDFULibrary-macOS-dummy.m in Sources */,
+				DB9285A6962CB873DDC2087B232B618B /* LegacyDFUExecutor.swift in Sources */,
+				4B7CC3633CCC46C8703D5076EC513412 /* LegacyDFUPeripheral.swift in Sources */,
+				856CD1FA8F628AF05CA63ACEA79DD16D /* LegacyDFUPeripheralDelegate.swift in Sources */,
+				6E2D095F97E246E05F4BBD0D8861FF39 /* LegacyDFUService.swift in Sources */,
+				5B4DF92904C7736BC575FEC622A5B2B4 /* LegacyDFUServiceInitiator.swift in Sources */,
+				133727080C53B7F826A9E4D4AF42BD0C /* LoggerDelegate.swift in Sources */,
+				C2878E277471796FEB425E19E65BB3E1 /* LoggerHelper.swift in Sources */,
+				A1A3CD0B56860A0943573B4031C50B95 /* Manifest.swift in Sources */,
+				68386E31C510E91352C737AA4DB44B7A /* ManifestFirmwareInfo.swift in Sources */,
+				9EB0F657E905C0730D5BFEB8CAD69BCF /* SecureDFUControlPoint.swift in Sources */,
+				8714276D2D3EFAA124EFD6DE019AE051 /* SecureDFUExecutor.swift in Sources */,
+				A3A78023BF870E5A4EC0E5FAAE3B3663 /* SecureDFUPacket.swift in Sources */,
+				CD4F89078CD47B689AAAE2FC2C55EE87 /* SecureDFUPeripheral.swift in Sources */,
+				3142FED37A16FC54BA3BBC4B9F2D8DC4 /* SecureDFUPeripheralDelegate.swift in Sources */,
+				AB32BFB80C7C8BDC763FEFB8964BF690 /* SecureDFUService.swift in Sources */,
+				992F2A165E2DE0145EBA32BC5C6D48D4 /* SecureDFUServiceInitiator.swift in Sources */,
+				D037FA85689B5956A3EF34F6695C432C /* SoftdeviceBootloaderInfo.swift in Sources */,
+				BCEFD269F38E71564F15D698AB9F9EB7 /* ZipArchive.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B1C574F4359FE794C5D2F0540509802 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6218E7FB15C07F60431D105E8D681B0B /* ButtonlessDFU.swift in Sources */,
+				25415F42B8F6898AF233B646A392FE57 /* crc32.swift in Sources */,
+				F5442366B42927564B9BFEA66D96C715 /* Data.swift in Sources */,
+				D0DD2676B088F10295A644571571BD67 /* DFUCharacteristic.swift in Sources */,
+				0FFC5B6E9374E9DB95892CA037B83D6B /* DFUController.swift in Sources */,
+				EB83854177CFA823051ACBD033BD70C9 /* DFUControlPoint.swift in Sources */,
+				FF8E2C0E3D42D88DEF81E69873834B8E /* DFUExecutor.swift in Sources */,
+				CE5F0A3E7D136462482133C445711BC2 /* DFUFirmware.swift in Sources */,
+				880623146AC9DA59EDC3281148E9EED8 /* DFUPacket.swift in Sources */,
+				5C029814D3941FA7624999F2F455CF0F /* DFUPeripheral.swift in Sources */,
+				837EFF7215B6537F13B5C64747D0B47D /* DFUPeripheralDelegate.swift in Sources */,
+				4F54C2E25EA8D486908FB499942C82BE /* DFUPeripheralSelector.swift in Sources */,
+				B0C7E4DE242CD1AF132DFA9B725166CE /* DFUPeripheralSelectorDelegate.swift in Sources */,
+				09D9A85F559785A0C1495DA99356EB5E /* DFUService.swift in Sources */,
+				0D2EA1147C6157B055E8212B29E07574 /* DFUServiceController.swift in Sources */,
+				40670811CE388E377CF2CFF863F95810 /* DFUServiceDelegate.swift in Sources */,
+				9FCB1D646EBC2533B8F05D7AC6AF2577 /* DFUServiceInitiator.swift in Sources */,
+				187450DD823987D2C00BF5B39DFE072A /* DFUServiceSelector.swift in Sources */,
+				2228FDEEE65F026E16A54250AA63E2B7 /* DFUStarterPeripheral.swift in Sources */,
+				19C0DBC6514A71C1A299CF9BB4D3A27F /* DFUStream.swift in Sources */,
+				B8C6E7A3D1C2CCCDEE3A48B90A7969E6 /* DFUStreamBin.swift in Sources */,
+				A55842A898A19F703B48584B515B2E27 /* DFUStreamHex.swift in Sources */,
+				11D6154D5C9C47B6D3456CCB090C261D /* DFUStreamZip.swift in Sources */,
+				F1130DAC3606419A3D9CE12AE9B6EE6C /* DFUUuidHelper.swift in Sources */,
+				42A4FBE5EF268FA7574C1E6BE1BE152E /* DFUVersion.swift in Sources */,
+				115B037623D98EF1FEB88EFBEF43F61E /* Double.swift in Sources */,
+				7C37F1749DADC240EA800CA315513198 /* IntelHex2BinConverter.m in Sources */,
+				363015F124C0804FD492A8C1BF01C8AC /* iOSDFULibrary-iOS-dummy.m in Sources */,
+				B416C5F90506E3050B94B269C906F245 /* LegacyDFUExecutor.swift in Sources */,
+				104C532D7ADB942AE308C1CB57E8CE09 /* LegacyDFUPeripheral.swift in Sources */,
+				FFF71143EBA990CB1CF925FAC59ECFC5 /* LegacyDFUPeripheralDelegate.swift in Sources */,
+				54ACA5D872EB02D63CF9A33CADFFA71F /* LegacyDFUService.swift in Sources */,
+				BB21304B5E1B3FCFE428F0222427E2D1 /* LegacyDFUServiceInitiator.swift in Sources */,
+				83BE8D952FBDDDAE313E8836BFA0A8B6 /* LoggerDelegate.swift in Sources */,
+				A0AC52C96C1F1CC04373DD1E1CC438D7 /* LoggerHelper.swift in Sources */,
+				77824A3EE19691BA5F8A38B1BAA4C73D /* Manifest.swift in Sources */,
+				CBAE4184B1CAA06875C5A2E5AA6221CC /* ManifestFirmwareInfo.swift in Sources */,
+				9D2474EF6792D65FE8C52EDE3AEAC338 /* SecureDFUControlPoint.swift in Sources */,
+				6D60090A4E73EABA801102CE3D3A8051 /* SecureDFUExecutor.swift in Sources */,
+				05F1175CEE5261226A48597C887FCB59 /* SecureDFUPacket.swift in Sources */,
+				90ACFC96014830233D1A1E75E43B9B34 /* SecureDFUPeripheral.swift in Sources */,
+				FCF679D542C0610B6E4152C35D551566 /* SecureDFUPeripheralDelegate.swift in Sources */,
+				CA31242F08BE3634D7DB45906399228D /* SecureDFUService.swift in Sources */,
+				D560EA71C630C9ADFBCC8FEAAB45DC72 /* SecureDFUServiceInitiator.swift in Sources */,
+				0E436FEA01F2186D4198F112A5B18C77 /* SoftdeviceBootloaderInfo.swift in Sources */,
+				B0D530D0F0ED0EB09C51861A278FEFD4 /* ZipArchive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,71 +1213,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C0884F2A81F32358224CE15F7E1F9F8 /* Sources */ = {
+		95D15F09473C1BAED2EA90BF7394FF18 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A8E47A7B620F3DD5F9539F36B3DAC31 /* ButtonlessDFU.swift in Sources */,
-				C4457100C893FF68080713A876FB2BE2 /* crc32.swift in Sources */,
-				BDD44749B549CF86107F84C36D757FC2 /* Data.swift in Sources */,
-				31C305D20E51FE47D992D84074A6D28A /* DFUCharacteristic.swift in Sources */,
-				3F24A23BB0323E3A9A8BB5E571DC3FCE /* DFUController.swift in Sources */,
-				30EA5098422E108198EA4D82F9F735B5 /* DFUControlPoint.swift in Sources */,
-				89644CCD5A9A5D4230B0427707FA5D50 /* DFUExecutor.swift in Sources */,
-				A33F3F887672BB4F72327BBE2A2BF556 /* DFUFirmware.swift in Sources */,
-				CE973E0792A05AE2B088677605583B89 /* DFUPacket.swift in Sources */,
-				35271D57EDF56B93C4F4053819F4BCF4 /* DFUPeripheral.swift in Sources */,
-				DE6C5F18D00EF33F02DB7070A450F0FF /* DFUPeripheralDelegate.swift in Sources */,
-				DD01C993702493BCD4A112009A18FC6D /* DFUPeripheralSelector.swift in Sources */,
-				CF468BC2016203AF646F112F0D415A05 /* DFUPeripheralSelectorDelegate.swift in Sources */,
-				E1BF18FAC2448FED5C51692084128B08 /* DFUService.swift in Sources */,
-				1E37A5EBFBBB1B9CA10A00F89FA2EAFC /* DFUServiceController.swift in Sources */,
-				13567FA15722529B798F09DBA281D673 /* DFUServiceDelegate.swift in Sources */,
-				B77DFA58DD6C33C423E69BD9CBB2E63D /* DFUServiceInitiator.swift in Sources */,
-				E4663ACFC3FDCAAF6BA04E91880BBF86 /* DFUServiceSelector.swift in Sources */,
-				4B97CB87625E4C6EB21CDDAB7C2A7D02 /* DFUStarterPeripheral.swift in Sources */,
-				4CE33E0651182F036DC1D0515C2B6A2E /* DFUStream.swift in Sources */,
-				B0AFA945B65B52DFE905E634D15A39F7 /* DFUStreamBin.swift in Sources */,
-				7D821BE1B89337F1B42BA90BC3A385E8 /* DFUStreamHex.swift in Sources */,
-				5F0A3676AB0E773F1756A3B8F0EC6D0E /* DFUStreamZip.swift in Sources */,
-				DE98CF86C12D2D99F6677C5D6E7B0B1D /* DFUUuidHelper.swift in Sources */,
-				AF6DEA627FCE59ADF663E848C33A0A32 /* DFUVersion.swift in Sources */,
-				D59F67504D1F075A05103F1CF25CC2C9 /* Double.swift in Sources */,
-				ECCED6AB43D3A0C8A86F395ACEC712E1 /* IntelHex2BinConverter.m in Sources */,
-				317F315BA3FB20845BDCB30DA621BE66 /* iOSDFULibrary-macOS-dummy.m in Sources */,
-				40EC8798BFB41C68A947CD7BCA9464A9 /* LegacyDFUExecutor.swift in Sources */,
-				13DD77E2628B7284E0A6E09D384F7279 /* LegacyDFUPeripheral.swift in Sources */,
-				89403A6B6B2EDC858ED72206057940E2 /* LegacyDFUPeripheralDelegate.swift in Sources */,
-				1C916AACC1DB66512B66AD3E5C0CA06B /* LegacyDFUService.swift in Sources */,
-				7F30148B7A87CABA0AFE34F498B24478 /* LegacyDFUServiceInitiator.swift in Sources */,
-				5E7237C921D7E1CFA22615C002AF4C0E /* LoggerDelegate.swift in Sources */,
-				48EE247CC13B31812412041006251C25 /* LoggerHelper.swift in Sources */,
-				F72459A5795E4465C37B1CB3CF00176B /* Manifest.swift in Sources */,
-				D52D1A4556DC36FC35B2D4E62C4BCFEB /* ManifestFirmwareInfo.swift in Sources */,
-				0111A7A0D19716A17678F3EF8100D3AB /* SecureDFUControlPoint.swift in Sources */,
-				4C3E6E6B93521C335FACD09A2644D7A4 /* SecureDFUExecutor.swift in Sources */,
-				D5F045793FBC426A245D05769355C13F /* SecureDFUPacket.swift in Sources */,
-				4FEEFFEB55A582FC2E683FD86FF1DD9C /* SecureDFUPeripheral.swift in Sources */,
-				4791F101CD0C47CE5056C88F42E64BCE /* SecureDFUPeripheralDelegate.swift in Sources */,
-				192F5A5AE81C8D6D0B63A8EBDBAEEE70 /* SecureDFUService.swift in Sources */,
-				A0ABB8C87D5F2908ACAD70751C29D803 /* SecureDFUServiceInitiator.swift in Sources */,
-				4BD800A50460EF32B48A279025FE285E /* SoftdeviceBootloaderInfo.swift in Sources */,
-				3D55346D5A56AF5B6EF37F2097D17D18 /* ZipArchive.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B83B243F8BED7A2191C0191DB7539906 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E20BBC1B1F396DED9E9A16F67EA7556A /* Archive+Reading.swift in Sources */,
-				507EA7BF03A17B2881C6ADF974BF7D6F /* Archive+Writing.swift in Sources */,
-				23A4665086FDCC98A9DBBA906151B4C0 /* Archive.swift in Sources */,
-				A35A1D01BE74DE4B519F23E04FA3E711 /* Data+Compression.swift in Sources */,
-				D50F7721E57B6F682C23D0CCF1E3B6C2 /* Data+Serialization.swift in Sources */,
-				CB9E658B3CCD06EDB3056DBDB63E72CC /* Entry.swift in Sources */,
-				D357DABFE2A476E46F794EA8C0666271 /* FileManager+ZIP.swift in Sources */,
-				242ACA6D98C6EA8034C73A0D0A83E7BA /* ZIPFoundation-iOS-dummy.m in Sources */,
+				1773850FBE6D7C88AA9EBB8B0885DE1E /* Archive+Reading.swift in Sources */,
+				16A39B9F746FE76E5523C986D3DDF9B4 /* Archive+Writing.swift in Sources */,
+				22100D15262D841CE2B5FB00199446D8 /* Archive.swift in Sources */,
+				0629BBFEB3EEAA725282D80D6AC1C1E0 /* Data+Compression.swift in Sources */,
+				08F1C0F5463649DA5FD49708E367F2D1 /* Data+Serialization.swift in Sources */,
+				30AEB1B82EE4906EEFB26AD2FAF54759 /* Entry.swift in Sources */,
+				0828CEA059209806154D0335A75759DA /* FileManager+ZIP.swift in Sources */,
+				D05D04720749203AB899B5C8E6C974BF /* ZIPFoundation-macOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1226,79 +1236,65 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F72A9489906201A99EDCDA5DB8F74814 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B1345607E82B0A9A730F98DC81F88128 /* Archive+Reading.swift in Sources */,
-				06C3BE6F8823F8BB8E27C14C90D6E914 /* Archive+Writing.swift in Sources */,
-				F3E010153D3B30DA11084883FB6F17E2 /* Archive.swift in Sources */,
-				5AC2DAC2E91670C3033EB04B8126C3F3 /* Data+Compression.swift in Sources */,
-				7765618370AAB333F54886D1E81F27E7 /* Data+Serialization.swift in Sources */,
-				40B2875E9BA7100F8D8CB66994161B13 /* Entry.swift in Sources */,
-				10D476AC10D7516842E90D4FDCE7F524 /* FileManager+ZIP.swift in Sources */,
-				4C4D4302206B3EBDC9A254FEF27202E6 /* ZIPFoundation-macOS-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		0DF752E3D6FB0DE27074A1576596316F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "ZIPFoundation-macOS";
-			target = 115022AFE63491B19BFC17266DDE56E7 /* ZIPFoundation-macOS */;
+			target = 8B5BB2050078EFCACBEDC5B4195B80CD /* ZIPFoundation-macOS */;
 			targetProxy = 909B4D2356034596169CB1117C7CB67E /* PBXContainerItemProxy */;
 		};
 		4C9C07D66B00D6BA378A0401B336FD97 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "ZIPFoundation-iOS";
-			target = A56AE7DF7F9273197162713508BF2965 /* ZIPFoundation-iOS */;
+			target = 9AF8AE8821E967844EEF26BBB341564D /* ZIPFoundation-iOS */;
 			targetProxy = 62C6933676FA0A5AADA6D194E2678EC8 /* PBXContainerItemProxy */;
 		};
 		549E96513348A08C2BB9C7DB025B51CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "ZIPFoundation-iOS";
-			target = A56AE7DF7F9273197162713508BF2965 /* ZIPFoundation-iOS */;
+			target = 9AF8AE8821E967844EEF26BBB341564D /* ZIPFoundation-iOS */;
 			targetProxy = 067DB8FC2A862901180E9BDDDCCB5E94 /* PBXContainerItemProxy */;
 		};
 		6FA4354505F3F2453AD66CDC57579A1F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "iOSDFULibrary-iOS";
-			target = 6C62C12CF3E12DC4C73C47D64E9A13BA /* iOSDFULibrary-iOS */;
+			target = D5D94E351BD6926C6DC33FBD834E16AC /* iOSDFULibrary-iOS */;
 			targetProxy = 7B0812AF7085CDD107CBEC30A42E41B4 /* PBXContainerItemProxy */;
 		};
 		BC91579A3893DFE692CD4FB50A60AAD8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "iOSDFULibrary-iOS";
-			target = 6C62C12CF3E12DC4C73C47D64E9A13BA /* iOSDFULibrary-iOS */;
+			target = D5D94E351BD6926C6DC33FBD834E16AC /* iOSDFULibrary-iOS */;
 			targetProxy = ADD130D602839CA69815381A89F6362A /* PBXContainerItemProxy */;
 		};
 		BF3FAAF209993A9B258A9203CB582106 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "ZIPFoundation-macOS";
-			target = 115022AFE63491B19BFC17266DDE56E7 /* ZIPFoundation-macOS */;
+			target = 8B5BB2050078EFCACBEDC5B4195B80CD /* ZIPFoundation-macOS */;
 			targetProxy = 66CC6CCF14E3784B68E6413CFE1B5653 /* PBXContainerItemProxy */;
 		};
 		C265BA267962387A8C7911B7FB377DC3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "iOSDFULibrary-macOS";
-			target = B80353FE3CEF70529DB8DB81E67C1C39 /* iOSDFULibrary-macOS */;
+			target = 79F9638EA00F4594D84B597FE45CD2DC /* iOSDFULibrary-macOS */;
 			targetProxy = 5110A694A203559F8BF21E3C8A60DA0B /* PBXContainerItemProxy */;
 		};
 		EB0A8826E4EE05723E5D30D75E0EF353 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "ZIPFoundation-iOS";
-			target = A56AE7DF7F9273197162713508BF2965 /* ZIPFoundation-iOS */;
+			target = 9AF8AE8821E967844EEF26BBB341564D /* ZIPFoundation-iOS */;
 			targetProxy = F23F4AE4F510AD5C18E431D782FFDCA5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1FD21E0AD227AE9AC03762C322CEB1BD /* Debug */ = {
+		104D13CAEB15B54C1C1D858E11932880 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0984654F246346A94CA53B36957DD74 /* iOSDFULibrary-macOS.xcconfig */;
+			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1322,80 +1318,84 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		28CF09954108169650F98053F655D440 /* Release */ = {
+		36F22A46BC282478445A984351D7A2D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED0BBC4B3EAD39527574554D290AED69 /* ZIPFoundation-iOS.xcconfig */;
+			baseConfigurationReference = 7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-Info.plist";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS.modulemap";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS.modulemap";
 				PRODUCT_MODULE_NAME = ZIPFoundation;
 				PRODUCT_NAME = ZIPFoundation;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		40EE915EB1903B33EDF5C7ABDCD378DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS.modulemap";
+				PRODUCT_MODULE_NAME = ZIPFoundation;
+				PRODUCT_NAME = ZIPFoundation;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		54602F19BE91B44609B97827FCCFE031 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED0BBC4B3EAD39527574554D290AED69 /* ZIPFoundation-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS.modulemap";
-				PRODUCT_MODULE_NAME = ZIPFoundation;
-				PRODUCT_NAME = ZIPFoundation;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		58A740A6FE7BEBED4AAA87596BF6DD24 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1457,9 +1457,41 @@
 			};
 			name = Debug;
 		};
-		8F8EE699CBE6937BF10A2008CEF8ED64 /* Release */ = {
+		5A988E999F49BC4E10074D58A7731E3E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3B8A4145C723C2056DB98628370DBCE /* iOSDFULibrary-iOS.xcconfig */;
+			baseConfigurationReference = D333E1089BA812D39E708A23176F0AC9 /* ZIPFoundation-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS.modulemap";
+				PRODUCT_MODULE_NAME = ZIPFoundation;
+				PRODUCT_NAME = ZIPFoundation;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9579FCD7EF9CE1880B61B7523135C363 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1491,7 +1523,7 @@
 		};
 		95A99D8F409F43604651BD52B92214BF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AADE5D738CDED659A8CD3CD38F1207E4 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */;
+			baseConfigurationReference = E7716456B67A56A1A837F639BDC9B732 /* Pods-iOSDFULibrary_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1524,9 +1556,10 @@
 		};
 		9D605FD70E3C228591A040016B90605B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA7448FB47544DA96875CEBCEC4ABD9B /* Pods-macOSDFULibrary_Example.debug.xcconfig */;
+			baseConfigurationReference = 890A09B61D0F51EA84B75D5E02FE58D2 /* Pods-macOSDFULibrary_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1559,7 +1592,7 @@
 		};
 		A2FE3C4EE8EA9DFB9CD321C0EA0C1423 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27812917C906C5F8491303C1C66AC49E /* Pods-iOSDFULibrary_Tests.release.xcconfig */;
+			baseConfigurationReference = 3656D17D56719D3D89E73E75DD474A38 /* Pods-iOSDFULibrary_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1591,75 +1624,9 @@
 			};
 			name = Release;
 		};
-		A7A6152DE9752A65012F4BF47B7A9BA9 /* Debug */ = {
+		A82DF109B67B266E8FDC88BF51D45650 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F69D43E7CBEFCD410DBA5F3B43A7B07 /* ZIPFoundation-macOS.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS.modulemap";
-				PRODUCT_MODULE_NAME = ZIPFoundation;
-				PRODUCT_NAME = ZIPFoundation;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		BA00D1A425E26FEF0E99E5FAE8FCB3C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F69D43E7CBEFCD410DBA5F3B43A7B07 /* ZIPFoundation-macOS.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-macOS/ZIPFoundation-macOS.modulemap";
-				PRODUCT_MODULE_NAME = ZIPFoundation;
-				PRODUCT_NAME = ZIPFoundation;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		C6A4CAFFD3A2EBB7FD38A7A95BA62A63 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3B8A4145C723C2056DB98628370DBCE /* iOSDFULibrary-iOS.xcconfig */;
+			baseConfigurationReference = CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1688,9 +1655,40 @@
 			};
 			name = Debug;
 		};
+		CE4799AF5E0044C1E39880A89CBBD522 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D333E1089BA812D39E708A23176F0AC9 /* ZIPFoundation-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZIPFoundation-iOS/ZIPFoundation-iOS.modulemap";
+				PRODUCT_MODULE_NAME = ZIPFoundation;
+				PRODUCT_NAME = ZIPFoundation;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		D56BC4E264A4519B3E1D0AB044A1B376 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B9BFC8971BC22EA84953041ECC7A5C3 /* Pods-iOSDFULibrary_Example.debug.xcconfig */;
+			baseConfigurationReference = 7FBFCEBF062E65595AD4F1DC8AA4A0DA /* Pods-iOSDFULibrary_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1723,7 +1721,7 @@
 		};
 		DF28C1F9180A9D2827C3C234AC49DEC7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAC7E84709CF34193AB665F174FE269E /* Pods-iOSDFULibrary_Example.release.xcconfig */;
+			baseConfigurationReference = FCA5E6342E9C992B4D24E36BB2EC3D20 /* Pods-iOSDFULibrary_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1755,10 +1753,11 @@
 			};
 			name = Release;
 		};
-		F2432FD8545E7655832142182A228C18 /* Release */ = {
+		E675EFFBD808EEF5A9A9A78EF88AB842 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0984654F246346A94CA53B36957DD74 /* iOSDFULibrary-macOS.xcconfig */;
+			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1782,7 +1781,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1790,9 +1789,10 @@
 		};
 		F3BD1B997BBF114C768E8566894137F9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F338A7C6251B2835736DF0E062E4590 /* Pods-macOSDFULibrary_Example.release.xcconfig */;
+			baseConfigurationReference = 2C723040DECD495E1AAC81F5AA497C97 /* Pods-macOSDFULibrary_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1827,7 +1827,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1887,20 +1886,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1C67CFC47D898C7D00DA3AA0BA044852 /* Build configuration list for PBXNativeTarget "ZIPFoundation-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A7A6152DE9752A65012F4BF47B7A9BA9 /* Debug */,
-				BA00D1A425E26FEF0E99E5FAE8FCB3C9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1C73A168C39163274F68BB4E8BA8BDB2 /* Build configuration list for PBXNativeTarget "iOSDFULibrary-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C6A4CAFFD3A2EBB7FD38A7A95BA62A63 /* Debug */,
-				8F8EE699CBE6937BF10A2008CEF8ED64 /* Release */,
+				A82DF109B67B266E8FDC88BF51D45650 /* Debug */,
+				9579FCD7EF9CE1880B61B7523135C363 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1910,6 +1900,15 @@
 			buildConfigurations = (
 				D56BC4E264A4519B3E1D0AB044A1B376 /* Debug */,
 				DF28C1F9180A9D2827C3C234AC49DEC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43ACDBC3E7DCD9A848B3CE95768D696B /* Build configuration list for PBXNativeTarget "ZIPFoundation-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE4799AF5E0044C1E39880A89CBBD522 /* Debug */,
+				5A988E999F49BC4E10074D58A7731E3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1935,8 +1934,8 @@
 		8DDB81E925367CCA10A93EC977D504F2 /* Build configuration list for PBXNativeTarget "iOSDFULibrary-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1FD21E0AD227AE9AC03762C322CEB1BD /* Debug */,
-				F2432FD8545E7655832142182A228C18 /* Release */,
+				104D13CAEB15B54C1C1D858E11932880 /* Debug */,
+				E675EFFBD808EEF5A9A9A78EF88AB842 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1950,11 +1949,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A52D91C4CA8F1F6546159BDC092FA9DC /* Build configuration list for PBXNativeTarget "ZIPFoundation-iOS" */ = {
+		A41E4E3CBCD4BEE61CEE0561A85FEEA3 /* Build configuration list for PBXNativeTarget "ZIPFoundation-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				54602F19BE91B44609B97827FCCFE031 /* Debug */,
-				28CF09954108169650F98053F655D440 /* Release */,
+				36F22A46BC282478445A984351D7A2D9 /* Debug */,
+				40EE915EB1903B33EDF5C7ABDCD378DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
