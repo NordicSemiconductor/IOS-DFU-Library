@@ -169,8 +169,8 @@ internal struct PacketReceiptNotification {
         // in SDK 5.2.0.39364 the bytesReveived value in a PRN packet is 16-bit long, instad of 32-bit.
         // However, the packet is still 5 bytes long and the two last bytes are 0x00-00.
         // This has to be taken under consideration when comparing number of bytes sent and received as
-        // the latter counter may rewind if fw size is > 0xFFFF bytes (LegacyDFUService:L372).
-        let bytesReceived: UInt32 = data.subdata(in: 1 ..< 4).asValue()
+        // the latter counter may rewind if fw size is > 0xFFFF bytes (LegacyDFUService:L446).
+        let bytesReceived: UInt32 = data.asValue(offset: 1)
         self.bytesReceived = bytesReceived
     }
 }
