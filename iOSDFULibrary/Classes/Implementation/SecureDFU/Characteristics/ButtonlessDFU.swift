@@ -23,8 +23,11 @@
 import CoreBluetooth
 
 internal enum ButtonlessDFUOpCode : UInt8 {
+    /// Jump from the main application to Secure DFU bootloader (DFU mode).
     case enterBootloader = 0x01
+    /// Set a new advertisement name when jumping to Secure DFU bootloader (DFU mode).
     case setName         = 0x02
+    /// The response code.
     case responseCode    = 0x20
     
     var code: UInt8 {
@@ -34,15 +37,27 @@ internal enum ButtonlessDFUOpCode : UInt8 {
 
 
 internal enum ButtonlessDFUResultCode : UInt8 {
+    /// The operation completed successfully.
     case success            = 0x01
+    /// The provided opcode was invalid.
     case opCodeNotSupported = 0x02
+    /// The operation failed.
     case operationFailed    = 0x04
+    /// The requested advertisement name was invalid (empty or too long). Only available without bond support.
+    case invalidAdvName     = 0x05
+    /// The request was rejected due to an ongoing asynchronous operation.
+    case busy               = 0x06
+    /// The request was rejected because no bond was created.
+    case notBonded          = 0x07
     
     var description: String {
         switch self {
         case .success:            return "Success"
         case .opCodeNotSupported: return "Operation not supported"
         case .operationFailed:    return "Operation failed"
+        case .invalidAdvName:     return "Invalid advertisment name"
+        case .busy:               return "Busy"
+        case .notBonded:          return "Device not bonded"
         }
     }
     
