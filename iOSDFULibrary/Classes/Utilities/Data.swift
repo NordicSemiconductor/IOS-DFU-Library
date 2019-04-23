@@ -32,9 +32,12 @@ extension Data {
     /// - returns: The value of type of the return type.
     func asValue<R>(offset: Int = 0) -> R {
         let length = MemoryLayout<R>.size
-        return subdata(in: offset ..< offset + length).withUnsafeBytes {
-            $0.baseAddress!.bindMemory(to: R.self, capacity: 1).pointee
-        }
+        
+        #if swift(>=5.0)
+        return subdata(in: offset ..< offset + length).withUnsafeBytes { $0.load(as: R.self) }
+        #else
+        return subdata(in: offset ..< offset + length).withUnsafeBytes { $0.pointee }
+        #endif
     }
     
 }
@@ -46,13 +49,21 @@ extension Data {
     /// Returns the Data as hexadecimal string.
     var hexString: String {
         var array: [UInt8] = []
-        self.withUnsafeBytes {
-            array.append(contentsOf: $0)
-        }
+        
+        #if swift(>=5.0)
+        withUnsafeBytes { array.append(contentsOf: $0) }
+        #else
+        withUnsafeBytes { array.append(contentsOf: getByteArray($0)) }
+        #endif
         
         return array.reduce("") { (result, byte) -> String in
             result + String(format: "%02x", byte)
         }
+    }
+
+    private func getByteArray(_ pointer: UnsafePointer<UInt8>) -> [UInt8] {
+        let buffer = UnsafeBufferPointer<UInt8>(start: pointer, count: count)
+        return [UInt8](buffer)
     }
     
 }
