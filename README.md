@@ -139,6 +139,11 @@ Check platform folders for mode details about compatibility for each library.
 
 An unofficial library for both iOS and Android that is based on this library is available for React Native: [react-native-nordic-dfu](https://github.com/Pilloxa/react-native-nordic-dfu)
 
+### Flutter
+
+A library for both iOS and Android that is based on this library is available for Flutter: 
+[flutter-nordic-dfu](https://github.com/fengqiangboy/flutter-nordic-dfu) 
+
 ---
 
 ### Resources
