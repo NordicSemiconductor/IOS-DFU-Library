@@ -18,5 +18,5 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
 
   s.source_files = 'iOSDFULibrary/Classes/**/*'
 
-  s.dependency 'ZIPFoundation', '== 0.9.9'
+  s.dependency 'ZIPFoundation', '= 0.9.9'
 end
