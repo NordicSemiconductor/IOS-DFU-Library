@@ -255,7 +255,7 @@ import CoreBluetooth
      Creates the DFUServiceInitializer that will allow to send an update to peripherals.
      
      - parameter queue: The dispatch queue to run BLE operations on.
-     - parameter callbackQueue: The dispatch queue to invoke all delegate callbacks on.
+     - parameter delegateQueue: The dispatch queue to invoke all delegate callbacks on.
      - parameter progressQueue: The dispatch queue to invoke all progress delegate callbacks on.
      - parameter loggerQueue: The dispatch queue to invoke all logger events on.
      
