@@ -119,11 +119,11 @@ To start the DFU process you have to do 2 things:
     ```swift
     let initiator = DFUServiceInitiator(centralManager: centralManager, target: peripheral).with(firmware: selectedFirmware)
     // Optional:
-    // initiator.forceDfu = true/false; // default false
-    // initiator.packetReceiptNotificationParameter = N; // default is 12
-    initiator.logger = self; // - to get log info
-    initiator.delegate = self; // - to be informed about current state and errors 
-    initiator.progressDelegate = self; // - to show progress bar
+    // initiator.forceDfu = true/false // default false
+    // initiator.packetReceiptNotificationParameter = N // default is 12
+    initiator.logger = self // - to get log info
+    initiator.delegate = self // - to be informed about current state and errors 
+    initiator.progressDelegate = self // - to show progress bar
     // initiator.peripheralSelector = ... // the default selector is used
 
     let controller = initiator.start()
