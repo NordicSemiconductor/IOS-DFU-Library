@@ -9,7 +9,9 @@ let package = Package(
   name: "DFULibrary",
   platforms: [
     .macOS(.v10_14),
-    .iOS(.v9)
+    .iOS(.v9),
+    .watchOS(.v4),
+    .tvOS(.v11)
   ],
   products: [
     .library(name: "DFULibrary", targets: ["DFULibrary"]),
