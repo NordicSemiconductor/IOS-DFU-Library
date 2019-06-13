@@ -52,6 +52,7 @@
 		4E620C8074E1F681890599E11E39500A /* Pods-iOSDFULibrary_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CFC421A1A470F2CC951B9918A2F6667 /* Pods-iOSDFULibrary_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F54C2E25EA8D486908FB499942C82BE /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569A612C3E3FBAC3AD05DA11D2B640E3 /* DFUPeripheralSelector.swift */; };
 		506A9191A7DF6F120251972BFB124650 /* DFUStarterPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E39EBBA6244AD4BEFEBD84BA1CEC4D /* DFUStarterPeripheral.swift */; };
+		52F6AD6422B25F5F00F0D7DF /* IntelHex2BinConverter2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F6AD6322B25F5F00F0D7DF /* IntelHex2BinConverter2.swift */; };
 		54ACA5D872EB02D63CF9A33CADFFA71F /* LegacyDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E7EFA15C3B1569FF3A8962045E391A /* LegacyDFUService.swift */; };
 		5797404E409CD56F6C5371FB621330B9 /* iOSDFULibrary-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A46A7A96EB561AFF8B9A6679E5BB67 /* iOSDFULibrary-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58D8B73316783343D1F539AD489BC899 /* DFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159DAE8DAF782AF8FC5168A18FD1F1D4 /* DFUExecutor.swift */; };
@@ -232,6 +233,7 @@
 		44C80322FD2FD584FE3026B2958F84A3 /* Pods-iOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
 		45F2F5F5DC06A6B6DFD8B1817A6175A0 /* Pods_iOSDFULibrary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D41480012AD48712A8C7C9AA28C15F3 /* iOSDFULibrary-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iOSDFULibrary-iOS-dummy.m"; sourceTree = "<group>"; };
+		52F6AD6322B25F5F00F0D7DF /* IntelHex2BinConverter2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelHex2BinConverter2.swift; sourceTree = "<group>"; };
 		551109ADE4258DAAFCF41E25BC5EF82F /* DFUUuidHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUUuidHelper.swift; sourceTree = "<group>"; };
 		569A612C3E3FBAC3AD05DA11D2B640E3 /* DFUPeripheralSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelector.swift; sourceTree = "<group>"; };
 		59F7D6CA361F44101B9A79318C1B29CF /* Pods-iOSDFULibrary_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Tests-Info.plist"; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 			children = (
 				AAD7107A9712C56826AB1EE59070FE9F /* IntelHex2BinConverter.h */,
 				633E7DEBBA1F0BA8AEE222E528ABF6F8 /* IntelHex2BinConverter.m */,
+				52F6AD6322B25F5F00F0D7DF /* IntelHex2BinConverter2.swift */,
 			);
 			path = HexToBinConverter;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				9FCB1D646EBC2533B8F05D7AC6AF2577 /* DFUServiceInitiator.swift in Sources */,
 				187450DD823987D2C00BF5B39DFE072A /* DFUServiceSelector.swift in Sources */,
 				2228FDEEE65F026E16A54250AA63E2B7 /* DFUStarterPeripheral.swift in Sources */,
+				52F6AD6422B25F5F00F0D7DF /* IntelHex2BinConverter2.swift in Sources */,
 				19C0DBC6514A71C1A299CF9BB4D3A27F /* DFUStream.swift in Sources */,
 				B8C6E7A3D1C2CCCDEE3A48B90A7969E6 /* DFUStreamBin.swift in Sources */,
 				A55842A898A19F703B48584B515B2E27 /* DFUStreamHex.swift in Sources */,
