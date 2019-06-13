@@ -27,5 +27,5 @@
 /*!
  * Converts the Intel HEX data to a bin format by subtracting only the data part from it.
  */
-+ (NSData*)convert:(NSData*)hex;
++ (NSData*) convert: (NSData*) hex;
 @end

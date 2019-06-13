@@ -24,7 +24,7 @@
 
 @implementation IntelHex2BinConverter
 
-+(const Byte)ascii2char:(const Byte*)ascii
++(const Byte) ascii2char: (const Byte*) ascii
 {
     if (*ascii >= 'A')
         return *ascii - 0x37;
@@ -34,15 +34,15 @@
     return -1;
 }
 
-+(const Byte)readByte:(const Byte*)pointer
++(const Byte) readByte: (const Byte*) pointer
 {
-    Byte first = [IntelHex2BinConverter ascii2char:pointer];
+    Byte first  = [IntelHex2BinConverter ascii2char:pointer];
     Byte second = [IntelHex2BinConverter ascii2char:pointer + 1];
     
     return (first << 4) | second;
 }
 
-+(const UInt16)readAddress:(const Byte*)pointer
++(const UInt16) readAddress: (const Byte*) pointer
 {
     Byte msb = [IntelHex2BinConverter readByte:pointer];
     Byte lsb = [IntelHex2BinConverter readByte:pointer + 2];
@@ -50,7 +50,7 @@
     return (msb << 8) | lsb;
 }
 
-+(NSUInteger)calculateBinLength:(NSData*)hex
++(NSUInteger) calculateBinLength: (NSData*) hex
 {
     if (hex == nil || hex.length == 0)
     {
@@ -72,14 +72,14 @@
             return 0;
         }
         
-        const UInt8 reclen = [IntelHex2BinConverter readByte:pointer]; pointer += 2;
-        const UInt16 offset = [IntelHex2BinConverter readAddress:pointer]; pointer += 4;
-        const UInt8 rectype = [IntelHex2BinConverter readByte:pointer]; pointer += 2;
+        const UInt8 reclen  = [IntelHex2BinConverter readByte: pointer];    pointer += 2;
+        const UInt16 offset = [IntelHex2BinConverter readAddress: pointer]; pointer += 4;
+        const UInt8 rectype = [IntelHex2BinConverter readByte: pointer];    pointer += 2;
         
         switch (rectype) {
             case 0x04: {
                 // Only consistent hex files are supported. If there is a jump to non-following ULBA address skip the rest of the file
-                const UInt32 newULBA = [IntelHex2BinConverter readAddress:pointer];
+                const UInt32 newULBA = [IntelHex2BinConverter readAddress: pointer];
                 if (binLength > 0 && newULBA != (lastBaseAddress >> 16) + 1)
                     return binLength;
                 lastBaseAddress = newULBA << 16;
@@ -87,7 +87,7 @@
             }
             case 0x02: {
                 // The same with Extended Segment Address. The calculated ULBA must not be greater than the last one + 1
-                const UInt32 newSBA = [IntelHex2BinConverter readAddress:pointer] << 4;
+                const UInt32 newSBA = [IntelHex2BinConverter readAddress: pointer] << 4;
                 if (binLength > 0 && (newSBA >> 16) != (lastBaseAddress >> 16) + 1)
                     return binLength;
                 lastBaseAddress = newSBA;
@@ -111,9 +111,9 @@
     return binLength;
 }
 
-+(NSData *)convert:(NSData *)hex
++(NSData *) convert: (NSData *) hex
 {
-    const NSUInteger binLength = [IntelHex2BinConverter calculateBinLength:hex];
+    const NSUInteger binLength = [IntelHex2BinConverter calculateBinLength: hex];
     const NSUInteger hexLength = hex.length;
     const Byte* pointer = (const Byte*)hex.bytes;
     NSUInteger bytesCopied = 0;
@@ -133,22 +133,22 @@
             return nil;
         }
         
-        const UInt8 reclen = [IntelHex2BinConverter readByte:pointer]; pointer += 2;
-        const UInt16 offset = [IntelHex2BinConverter readAddress:pointer]; pointer += 4;
-        const UInt8 rectype = [IntelHex2BinConverter readByte:pointer]; pointer += 2;
+        const UInt8 reclen  = [IntelHex2BinConverter readByte: pointer];    pointer += 2;
+        const UInt16 offset = [IntelHex2BinConverter readAddress: pointer]; pointer += 4;
+        const UInt8 rectype = [IntelHex2BinConverter readByte: pointer];    pointer += 2;
         
         switch (rectype) {
             case 0x04: {
-                const UInt32 newULBA = [IntelHex2BinConverter readAddress:pointer]; pointer += 4;
+                const UInt32 newULBA = [IntelHex2BinConverter readAddress: pointer]; pointer += 4;
                 if (bytesCopied > 0 && newULBA != (lastBaseAddress >> 16) + 1)
-                    return [NSData dataWithBytesNoCopy:bytes length:bytesCopied];
+                    return [NSData dataWithBytesNoCopy: bytes length: bytesCopied];
                 lastBaseAddress = newULBA << 16;
                 break;
             }
             case 0x02: {
-                const UInt32 newSBA = [IntelHex2BinConverter readAddress:pointer] << 4; pointer += 4;
+                const UInt32 newSBA = [IntelHex2BinConverter readAddress: pointer] << 4; pointer += 4;
                 if (bytesCopied > 0 && (newSBA >> 16) != (lastBaseAddress >> 16) + 1)
-                    return [NSData dataWithBytesNoCopy:bytes length:bytesCopied];
+                    return [NSData dataWithBytesNoCopy: bytes length: bytesCopied];
                 lastBaseAddress = newSBA;
                 break;
             }
@@ -159,7 +159,7 @@
                 {
                     for (int i = 0; i < reclen; i++)
                     {
-                        *output++ = [IntelHex2BinConverter readByte:pointer]; pointer += 2;
+                        *output++ = [IntelHex2BinConverter readByte: pointer]; pointer += 2;
                         bytesCopied++;
                     }
                 }
@@ -179,7 +179,7 @@
         if (*pointer == '\n') pointer++;
     } while (pointer != hex.bytes + hexLength);
     
-    return [NSData dataWithBytesNoCopy:bytes length:bytesCopied];
+    return [NSData dataWithBytesNoCopy: bytes length: bytesCopied];
 }
 
 @end
