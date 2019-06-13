@@ -41,7 +41,7 @@ class Hex2BinConverterTests: XCTestCase {
         XCTAssertNoThrow(testData = try Data(contentsOf: testUrl!))
         XCTAssertNotNil(testData)
         
-        let bin = IntelHex2BinConverter2.convert(data)
+        let bin = IntelHex2BinConverter.convert(data)
         XCTAssertNotNil(bin)
         
         XCTAssertEqual(bin, testData)

@@ -22,7 +22,7 @@ import Foundation
 ///
 /// The converter does not support gaps in the firmware. The returned
 /// BIN contains data until the first gap.
-public class IntelHex2BinConverter2: NSObject {
+public class IntelHex2BinConverter: NSObject {
     
     /// Converts the Intel HEX data to a bin format by subtracting
     /// only the data part from it.
@@ -116,7 +116,7 @@ public class IntelHex2BinConverter2: NSObject {
     
 }
 
-private extension IntelHex2BinConverter2 {
+private extension IntelHex2BinConverter {
     
     /// Converts the byte written in ASCII to hexadecimal value.
     ///
