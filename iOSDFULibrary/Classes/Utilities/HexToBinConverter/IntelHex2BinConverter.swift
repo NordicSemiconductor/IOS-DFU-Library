@@ -34,7 +34,7 @@ public class IntelHex2BinConverter: NSObject {
     ///
     /// - parameter hex: Intel HEX fine as `Data`.
     /// - parameter mbrSize: The MBR size. MBR starts at address 0.
-    ///                      MBR is ignored during convertion.
+    ///                      MBR is ignored during conversion.
     /// - returns: The binary part cut from the given file.
     public static func convert(_ hex: Data, mbrSize: UInt32 = 0) -> Data? {
         guard hex.count > 0 else {
@@ -43,7 +43,7 @@ public class IntelHex2BinConverter: NSObject {
         
         var bin = Data()
         var offset = 0
-        var currentAddress = 0
+        var currentAddress = Int64(0)
         
         while offset < hex.count {
             // Each line must start with ':'.
@@ -75,7 +75,7 @@ public class IntelHex2BinConverter: NSObject {
                     // Gaps in addresses are not supported.
                     return bin
                 }
-                currentAddress = ulba
+                currentAddress = Int64(ulba)
                 // Skip checksum.
                 offset += 2
                 
@@ -85,7 +85,7 @@ public class IntelHex2BinConverter: NSObject {
                     // Gaps in addresses are not supported.
                     return bin
                 }
-                currentAddress = sba
+                currentAddress = Int64(sba)
                 // Skip checksum.
                 offset += 2
                 
@@ -93,20 +93,20 @@ public class IntelHex2BinConverter: NSObject {
                 return bin
                 
             case 0x00: // Data Record.
-                guard bin.count == 0 || currentAddress == (currentAddress & 0xFFFF0000) + recordOffset else {
-                    // A gap detacted.
+                guard bin.count == 0 || currentAddress == (currentAddress & 0xFFFF0000) + Int64(recordOffset) else {
+                    // A gap detected.
                     return bin
                 }
                 // Add record length if the address is higher than MBR size.
                 for i in 0..<recordLength {
-                    if (currentAddress & 0xFFFF0000) + recordOffset + i >= mbrSize {
+                    if (currentAddress & 0xFFFF0000) + Int64(recordOffset + i) >= mbrSize {
                         bin.append(readByte(from: hex, at: &offset))
                     } else {
                         // Skip MBR byte.
                         offset += 2
                     }
                 }
-                currentAddress = (currentAddress & 0xFFFF0000) + recordOffset + recordLength
+                currentAddress = (currentAddress & 0xFFFF0000) + Int64(recordOffset + recordLength)
                 // Skip checksum.
                 offset += 2
                 
