@@ -59,7 +59,7 @@ let package = Package(
       .upToNextMajor(from: "4.4.2")
     )
   ],
-  targets: [.target(name: "<Your Target Name>", dependencies: ["DFULibrary"])]
+  targets: [.target(name: "<Your Target Name>", dependencies: ["NordicDFU"])]
 )
 ```
 
