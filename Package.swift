@@ -6,7 +6,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "DFULibrary",
+  name: "NordicDFU",
   platforms: [
     .macOS(.v10_14),
     .iOS(.v9),
@@ -14,8 +14,7 @@ let package = Package(
     .tvOS(.v11)
   ],
   products: [
-    .library(name: "DFULibrary", targets: ["DFULibrary"]),
-    .library(name: "Hex2BinConverter", targets: ["Hex2BinConverter"])
+    .library(name: "NordicDFU", targets: ["NordicDFU"])
   ],
   dependencies: [
     .package(
@@ -25,14 +24,16 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "Hex2BinConverter",
-      path: "iOSDFULibrary/Classes/Utilities/HexToBinConverter/"
+      name: "NordicDFU",
+      dependencies: ["ZIPFoundation"],
+      path: "iOSDFULibrary/Classes/"
     ),
-    .target(
-      name: "DFULibrary",
-      dependencies: ["Hex2BinConverter", "ZIPFoundation"],
-      path: "iOSDFULibrary/Classes/",
-      exclude: ["Utilities/HexToBinConverter/"]
+    // FIXME: Exclude this target for `watchOS` Simulator, because it fails to
+    // compile in Xcode.
+    .testTarget(
+      name: "Hex2BinConverterTests",
+      dependencies: ["NordicDFU"],
+      path: "Example/Tests/"
     )
   ],
   swiftLanguageVersions: [.v5]
