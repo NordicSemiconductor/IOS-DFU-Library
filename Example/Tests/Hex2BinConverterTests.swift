@@ -1,6 +1,13 @@
-import UIKit
+// `XCTest` is not supported for watchOS Simulator.
+#if !os(watchOS)
+import Foundation
 import XCTest
+
+#if canImport(iOSDFULibrary)
 @testable import iOSDFULibrary
+#elseif canImport(NordicDFU)
+@testable import NordicDFU
+#endif
 
 class Hex2BinConverterTests: XCTestCase {
     
@@ -170,17 +177,21 @@ class Hex2BinConverterTests: XCTestCase {
     // MARK: - Helper methods
     
     private func performTest(for name: String, withMbrSize mbrSize: UInt32 = 0) {
-        let url = Bundle.main.url(forResource: name, withExtension: "hex", subdirectory: "TestFirmwares")
+        var baseURL = URL(fileURLWithPath: #file)
+        baseURL.deleteLastPathComponent()
+        baseURL.appendPathComponent("TestFirmwares")
+      
+        let url = baseURL.appendingPathComponent(name + ".hex")
         XCTAssertNotNil(url)
         
-        let testUrl = Bundle.main.url(forResource: name, withExtension: "bin", subdirectory: "TestFirmwares")
+        let testUrl = baseURL.appendingPathComponent(name + ".bin")
         XCTAssertNotNil(testUrl)
         
         var data: Data!
-        XCTAssertNoThrow(data = try Data(contentsOf: url!))
+        XCTAssertNoThrow(data = try Data(contentsOf: url))
         XCTAssertNotNil(data)
         var testData: Data!
-        XCTAssertNoThrow(testData = try Data(contentsOf: testUrl!))
+        XCTAssertNoThrow(testData = try Data(contentsOf: testUrl))
         XCTAssertNotNil(testData)
         
         let bin = IntelHex2BinConverter.convert(data, mbrSize: mbrSize)
@@ -188,5 +199,5 @@ class Hex2BinConverterTests: XCTestCase {
         
         XCTAssertEqual(bin, testData)
     }
-    
 }
+#endif
