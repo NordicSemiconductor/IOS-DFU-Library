@@ -8,20 +8,21 @@
 import Foundation
 
 /// This converter converts Intel HEX file to BIN.
-/// It is based on this specification: http://www.interlog.com/~speff/usefulinfo/Hexfrmt.pdf
+/// It is based on this specification:
+/// http://www.interlog.com/~speff/usefulinfo/Hexfrmt.pdf
 ///
 /// Not all Intel HEX features are supported!
+/// The converter does not support gaps in the firmware. The returned
+/// BIN contains data until the first found gap.
 ///
 /// Supported Record Types:
 /// * 0x04 - Extended Linear Address Record
 /// * 0x02 - Extended Segment Address Record
+/// * 0x01 - End of File
 /// * 0x00 - Data Record
 ///
 /// If MBR size is provided, the values from addresses 0..<MBR Size will
 /// be ignored.
-///
-/// The converter does not support gaps in the firmware. The returned
-/// BIN contains data until the first gap.
 public class IntelHex2BinConverter: NSObject {
     
     /// Converts the Intel HEX data to a bin format by subtracting
@@ -35,7 +36,7 @@ public class IntelHex2BinConverter: NSObject {
     /// - parameter mbrSize: The MBR size. MBR starts at address 0.
     ///                      MBR is ignored during convertion.
     /// - returns: The binary part cut from the given file.
-    public static func convert(_ hex: Data, mbrSize: UInt32 = 0x1000) -> Data? {
+    public static func convert(_ hex: Data, mbrSize: UInt32 = 0) -> Data? {
         guard hex.count > 0 else {
             return nil
         }
@@ -46,7 +47,7 @@ public class IntelHex2BinConverter: NSObject {
         
         while offset < hex.count {
             // Each line must start with ':'.
-            guard hex[offset] == 0x3A else { // :
+            guard hex[offset] == 0x3A else {
                 // Not a valid Intel HEX file.
                 return nil
             }
@@ -62,11 +63,12 @@ public class IntelHex2BinConverter: NSObject {
             let recordType   = readByte(from: hex, at: &offset)
             
             // Each line must contain given number bytes (encoded as 2 ASCII characters) and a checksum (2 characters).
-            guard hex.count > offset + recordLength * 2 + 2 else {
+            guard hex.count >= offset + recordLength * 2 + 2 else {
                 return nil
             }
             
             switch recordType {
+                
             case 0x04: // Extended Linear Address Record.
                 let ulba = readAddress(form: hex, at: &offset) << 16 // bits 16-31
                 guard bin.count == 0 || ulba == currentAddress else {
@@ -76,6 +78,7 @@ public class IntelHex2BinConverter: NSObject {
                 currentAddress = ulba
                 // Skip checksum.
                 offset += 2
+                
             case 0x02: // Extended Segment Address Record.
                 let sba = readAddress(form: hex, at: &offset) << 4 // bits 4-19
                 guard bin.count == 0 || sba == currentAddress else {
@@ -85,24 +88,28 @@ public class IntelHex2BinConverter: NSObject {
                 currentAddress = sba
                 // Skip checksum.
                 offset += 2
+                
+            case 0x01: // End of file.
+                return bin
+                
             case 0x00: // Data Record.
                 guard bin.count == 0 || currentAddress == (currentAddress & 0xFFFF0000) + recordOffset else {
                     // A gap detacted.
                     return bin
                 }
                 // Add record length if the address is higher than MBR size.
-                if (currentAddress & 0xFFFF0000) + recordOffset >= mbrSize {
-                    let o = offset
-                    for _ in o..<o + recordLength {
+                for i in 0..<recordLength {
+                    if (currentAddress & 0xFFFF0000) + recordOffset + i >= mbrSize {
                         bin.append(readByte(from: hex, at: &offset))
+                    } else {
+                        // Skip MBR byte.
+                        offset += 2
                     }
-                } else {
-                    // Skip MBR bytes.
-                    offset += recordLength * 2
                 }
                 currentAddress = (currentAddress & 0xFFFF0000) + recordOffset + recordLength
                 // Skip checksum.
                 offset += 2
+                
             default:
                 // Skip data and checksum.
                 offset += recordLength * 2 + 2

@@ -51,7 +51,7 @@ internal class DFUStreamHex : DFUStream {
     
     init?(urlToHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
         let hexData = try! Data(contentsOf: urlToHexFile)
-        guard let bin = IntelHex2BinConverter.convert(hexData) else {
+        guard let bin = IntelHex2BinConverter.convert(hexData, mbrSize: 0x1000) else {
             return nil
         }
         binaries = bin
@@ -65,7 +65,7 @@ internal class DFUStreamHex : DFUStream {
     }
     
     init?(hexFile: Data, datFile: Data?, type: DFUFirmwareType) {
-        guard let bin = IntelHex2BinConverter.convert(hexFile) else {
+        guard let bin = IntelHex2BinConverter.convert(hexFile, mbrSize: 0x1000) else {
             return nil
         }
         binaries = bin
