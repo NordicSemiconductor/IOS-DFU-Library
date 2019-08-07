@@ -1,12 +1,16 @@
 ### Changelog
+- **4.5.0**
+    - Improvement: Hex2Bin converter rewritten to Swift 5.
+    - Library released in Swift Package Manager (SPM).
+
 - **4.4.2**
-    - Bugfix: Missing buttonless service statuses added (#297)
-    - Improvement: Added support for older Swift versions (#295)
+    - Bugfix: Missing buttonless service statuses added (#297).
+    - Improvement: Added support for older Swift versions (#295).
     - Improvement: ZIPFoundation dependency bound to 0.9.9.
 
 - **4.4.1**
     - Bugfix: Fixed calculatign number of bytes received from PRN (#288).
-    - Improvement: ZIPFoundation dependency upgraded to 0.9.9. (#281)
+    - Improvement: ZIPFoundation dependency upgraded to 0.9.9 (#281).
 
 - **4.4.0**
     - Improvement: Swift 5.0 migration.

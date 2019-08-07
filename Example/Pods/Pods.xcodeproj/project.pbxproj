@@ -290,7 +290,6 @@
 		C8F0E25E9B9DB2291DA2E27A380D5F5F /* Pods-macOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-macOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		C967F2D2E93EEA3EBCA1A1449E168A3F /* Manifest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
 		C9B0965483EC88C5782218837B760223 /* Pods-iOSDFULibrary_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Tests.modulemap"; sourceTree = "<group>"; };
-		CAEA472722B0F7BA00DDC89F /* IntelHex2BinConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntelHex2BinConverter.h; sourceTree = "<group>"; };
 		CBF166DFA86D8743C629EFAD2E6BEFB8 /* DFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPacket.swift; sourceTree = "<group>"; };
 		CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "iOSDFULibrary-iOS.xcconfig"; sourceTree = "<group>"; };
 		CD261474D662E14B2BDDBA61BA9DD534 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
