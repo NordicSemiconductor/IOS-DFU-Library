@@ -1,4 +1,7 @@
 ### Changelog
+- **4.5.1**
+    - Bugfix: Fixed an issue where DFU could not be started on iOS 13 (#322). 
+    
 - **4.5.0**
     - Improvement: Hex2Bin converter rewritten to Swift 5.
     - Library released in Swift Package Manager (SPM).

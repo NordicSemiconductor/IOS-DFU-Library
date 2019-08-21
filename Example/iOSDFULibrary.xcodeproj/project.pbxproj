@@ -20,6 +20,8 @@
 		52237250202B117700068EE4 /* CustomTestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223724F202B117700068EE4 /* CustomTestSet.swift */; };
 		5223729B202B275F00068EE4 /* Firmwares in Resources */ = {isa = PBXBuildFile; fileRef = 5223729A202B275F00068EE4 /* Firmwares */; };
 		5223729D2036DDFC00068EE4 /* nRF52840TestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223729C2036DDFC00068EE4 /* nRF52840TestSet.swift */; };
+		52A9C167230D633A0036792A /* changelog.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A9C166230D633A0036792A /* changelog.md */; };
+		52A9C169230D63410036792A /* documentation.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A9C168230D63410036792A /* documentation.md */; };
 		52F6AD6222B2429300F0D7DF /* TestFirmwares in Resources */ = {isa = PBXBuildFile; fileRef = 52F6AD6122B2429300F0D7DF /* TestFirmwares */; };
 		52FB0B022220168D00B1E575 /* PeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB0B012220168D00B1E575 /* PeripheralCell.swift */; };
 		52FB0B04222019C700B1E575 /* MainNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */; };
@@ -62,6 +64,8 @@
 		5223724F202B117700068EE4 /* CustomTestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTestSet.swift; sourceTree = "<group>"; };
 		5223729A202B275F00068EE4 /* Firmwares */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firmwares; sourceTree = "<group>"; };
 		5223729C2036DDFC00068EE4 /* nRF52840TestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF52840TestSet.swift; sourceTree = "<group>"; };
+		52A9C166230D633A0036792A /* changelog.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = changelog.md; path = ../changelog.md; sourceTree = "<group>"; };
+		52A9C168230D63410036792A /* documentation.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = documentation.md; path = ../documentation.md; sourceTree = "<group>"; };
 		52F6AD6122B2429300F0D7DF /* TestFirmwares */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFirmwares; sourceTree = "<group>"; };
 		52FB0B012220168D00B1E575 /* PeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCell.swift; sourceTree = "<group>"; };
 		52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 			children = (
 				3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */,
 				8EE39CA79039E8FFBDA0C9D3 /* README.md */,
+				52A9C166230D633A0036792A /* changelog.md */,
+				52A9C168230D63410036792A /* documentation.md */,
 				DAEFE092DC94AFC6C8316559 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
@@ -389,8 +395,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				52F6AD6222B2429300F0D7DF /* TestFirmwares in Resources */,
+				52A9C169230D63410036792A /* documentation.md in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				52FB0B0622201A4A00B1E575 /* LaunchScreen.storyboard in Resources */,
+				52A9C167230D633A0036792A /* changelog.md in Resources */,
 				5223729B202B275F00068EE4 /* Firmwares in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);

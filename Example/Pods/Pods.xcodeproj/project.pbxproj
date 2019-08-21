@@ -991,7 +991,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1030;
 				TargetAttributes = {
 					9AF8AE8821E967844EEF26BBB341564D = {
 						LastSwiftMigration = 1020;
@@ -1327,7 +1327,6 @@
 			baseConfigurationReference = 2C723040DECD495E1AAC81F5AA497C97 /* Pods-macOSDFULibrary_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1362,7 +1361,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1429,7 +1427,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1464,7 +1461,6 @@
 			baseConfigurationReference = 890A09B61D0F51EA84B75D5E02FE58D2 /* Pods-macOSDFULibrary_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1499,7 +1495,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1752,7 +1747,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
