@@ -24,18 +24,23 @@ import CoreBluetooth
 
 @objc public class SecureDFUServiceInitiator : DFUServiceInitiator {
     
-    public override func start() -> DFUServiceController? {
-        // The firmware file must be specified before calling `start()`
-        if file == nil {
-            delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firmware not specified")
+    public override func start(targetWithIdentifier uuid: UUID) -> DFUServiceController? {
+        // The firmware file must be specified before calling `start(...)`.
+        guard let _ = file else {
+            delegateQueue.async {
+                self.delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firmware not specified")
+            }
             return nil
         }
+        
+        targetIdentifier = uuid
         
         let logger     = LoggerHelper(self.logger, loggerQueue)
         let executor   = SecureDFUExecutor(self, logger)
         let controller = DFUServiceController()
         controller.executor = executor
         executor.start()
+        
         return controller
     }
 }
