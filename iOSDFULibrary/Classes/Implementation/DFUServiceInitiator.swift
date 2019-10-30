@@ -322,24 +322,15 @@ import CoreBluetooth
      */
     @available(*, deprecated, message: "Use start(target: CBPeripheral) instead.")
     @objc public func start() -> DFUServiceController? {
-        // The firmware file must be specified before calling `start()`.
-        if file == nil {
-            delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firmware not specified")
-            return nil
-        }
-        
         // Make sure the target was set by the deprecated init.
-        guard let _ = targetIdentifier else {
-            delegate?.dfuError(.failedToConnect, didOccurWithMessage: "Target not specified: use start(target) instead")
+        guard let uuid = targetIdentifier else {
+            delegateQueue.async {
+                self.delegate?.dfuError(.failedToConnect, didOccurWithMessage: "Target not specified: use start(target) instead")
+            }
             return nil
         }
         
-        let controller = DFUServiceController()
-        let selector   = DFUServiceSelector(initiator: self, controller: controller)
-        controller.executor = selector
-        selector.start()
-        
-        return controller
+        return start(targetWithIdentifier: uuid)
     }
     
     /**
@@ -395,7 +386,9 @@ import CoreBluetooth
     @objc public func start(targetWithIdentifier uuid: UUID) -> DFUServiceController? {
         // The firmware file must be specified before calling `start(...)`.
         guard let _ = file else {
-            delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firmware not specified")
+            delegateQueue.async {
+                self.delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firmware not specified")
+            }
             return nil
         }
         
