@@ -33,6 +33,11 @@ internal protocol BaseDFUPeripheralAPI : class, DFUController {
     func start()
     
     /**
+     This method reconnects to the same peripheral after it has disconnected.
+     */
+    func reconnect()
+    
+    /**
      Disconnects the target device.
      */
     func disconnect()
@@ -98,6 +103,9 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
 
     /// A flag set when upload has been aborted.
     fileprivate var aborted: Bool = false
+    /// Connection timer cancels connection attempt if the device doesn't
+    /// connect within 10 seconds.
+    private var connectionTimer: DispatchSourceTimer?
     
     init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.centralManager = initiator.centralManager
@@ -148,6 +156,11 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
                 peripheralDidDiscoverDfuService(dfuService!)
             }
         }
+    }
+    
+    func reconnect() {
+        guard let peripheral = peripheral, peripheral.state != .connected else { return }
+        connect()
     }
     
     func disconnect() {
@@ -262,16 +275,20 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
             return
         }
         
-        cleanUp()
+        let wasConnected = connectionTimer == nil
+        cleanUp() // This clears the connectionTimer.
         
-        // We may expect an error with 
-        // code = 7: "The specified device has disconnected from us." (graceful disconnect),
-        // or
-        // code = 6: "The connection has timed out unexpectedly." (in case it disconnected
-        //           before sending the ACK).
-        if let error = error {
-            let cbError = error as! CBError
-            if cbError.code == CBError.connectionTimeout ||
+        if !wasConnected {
+            logger.e("[Callback] Central Manager failed to connect to peripheral (timeout)")
+            delegate?.peripheralDidFailToConnect()
+        } else if let error = error {
+            // We may expect an error with
+            // code = 7: "The specified device has disconnected from us." (graceful disconnect),
+            // or
+            // code = 6: "The connection has timed out unexpectedly." (in case it disconnected
+            //           before sending the ACK).
+            if let cbError = error as? CBError,
+               cbError.code == CBError.connectionTimeout ||
                cbError.code == CBError.peripheralDisconnected {
                 logger.d("[Callback] Central Manager did disconnect peripheral")
                 logger.i("Disconnected by the remote device")
@@ -440,12 +457,24 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     fileprivate func connect() {
         let name = peripheral!.name ?? "Unknown device"
         logger.v("Connecting to \(name)...")
+        // Set a connection timer.
+        connectionTimer = DispatchSource.makeTimerSource()
+        connectionTimer?.setEventHandler {
+            if let peripheral = self.peripheral {
+                self.connectionTimer?.cancel()
+                self.logger.d("centralManager.cancelPeripheralConnection(peripheral)")
+                self.centralManager.cancelPeripheralConnection(peripheral)
+            }
+        }
+        connectionTimer?.schedule(deadline: .now() + 10.0)
+        connectionTimer?.resume()
         logger.d("centralManager.connect(peripheral, options: nil)")
         centralManager.connect(peripheral!, options: nil)
     }
     
     fileprivate func cleanUp() {
-        // do nothing
+        connectionTimer?.cancel()
+        connectionTimer = nil
     }
 }
 
@@ -687,6 +716,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     // MARK: - Private methods
     
     fileprivate override func cleanUp() {
+        super.cleanUp()
         dfuService?.destroy()
         dfuService = nil
     }
