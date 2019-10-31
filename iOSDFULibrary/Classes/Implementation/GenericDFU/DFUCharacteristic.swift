@@ -30,7 +30,8 @@ internal protocol DFUCharacteristic {
     var characteristic: CBCharacteristic { get }
 
     /// Logger helper.
-    /// The logger inside may be nil, but the helper may not.
+    ///
+    /// The logger inside may be `nil`, but the helper may not.
     var logger: LoggerHelper { get }
 
     init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper)

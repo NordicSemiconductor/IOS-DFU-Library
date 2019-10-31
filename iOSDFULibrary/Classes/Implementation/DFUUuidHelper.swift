@@ -67,7 +67,7 @@ import CoreBluetooth
     }
 }
 
-/// UUID Helper for DFU Process
+/// UUID Helper for DFU Process.
 ///
 /// The UUID can be modified for each of the DFU types supported by
 /// the Nordic devices.
@@ -135,7 +135,7 @@ import CoreBluetooth
     /**
      Create the DFU UUID Helper with Custom UUIDs.
  
-     - parameter uuids: Array of Custom UUIDs
+     - parameter uuids: Array of Custom UUIDs.
     */
     @objc public convenience init(customUuids uuids: [DFUUuid]) {
         self.init()
@@ -172,11 +172,12 @@ import CoreBluetooth
 internal extension DFUUuidHelper {
 
     /**
-     Checks if the Characteristic matches the Buttonless Characteristics.
+     Checks if the characteristic matches the Buttonless Characteristics.
  
      - parameter characteristic: Characteristic to check for match.
      
-     - returns: Bool Value.
+     - returns: `True` if the given characteristic matches the Buttonless
+                Characteristic, `false` otherwise.
     */
     func matchesButtonless(_ characteristic: CBCharacteristic) -> Bool {
         return characteristic.uuid.isEqual(buttonlessWithBonds)
@@ -188,11 +189,11 @@ internal extension DFUUuidHelper {
 internal extension CBCharacteristic {
     
     /**
-     Checks if the Characteristic has the given UUID.
+     Checks if the characteristic has the given UUID.
  
      - parameter uuid: DFU UUID.
      
-     - returns: True, if the charactersistic's UUID is equal to the given one.
+     - returns: `True`, if the charactersistic's UUID is equal to the given one.
     */
     func matches(uuid: CBUUID) -> Bool {
         return self.uuid.isEqual(uuid)
@@ -202,11 +203,11 @@ internal extension CBCharacteristic {
 internal extension CBService {
 
     /**
-     Checks if the Service has the given UUID.
+     Checks if the service has the given UUID.
      
      - parameter uuid: DFU UUID.
      
-     - returns: True, if the service's UUID is equal to the given one.
+     - returns: `True`, if the service's UUID is equal to the given one.
      */
     func matches(uuid: CBUUID) -> Bool {
         return self.uuid.isEqual(uuid)

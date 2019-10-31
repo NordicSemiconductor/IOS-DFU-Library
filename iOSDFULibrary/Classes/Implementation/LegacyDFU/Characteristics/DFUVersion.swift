@@ -53,14 +53,14 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
      - parameter report:  Method called on error of if version is not supported.
      */
     func readVersion(onSuccess success: VersionCallback?, onError report: ErrorCallback?) {
-        // Save callbacks
+        // Save callbacks.
         self.success = success
         self.report = report
         
-        // Get the peripheral object
+        // Get the peripheral object.
         let peripheral = characteristic.service.peripheral
         
-        // Set the peripheral delegate to self
+        // Set the peripheral delegate to self.
         peripheral.delegate = self
         
         logger.v("Reading DFU Version number...")
@@ -70,8 +70,10 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     
     // MARK: - Peripheral Delegate callbacks
     
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        // Ignore updates received for other characteristics
+    func peripheral(_ peripheral: CBPeripheral,
+                    didUpdateValueFor characteristic: CBCharacteristic,
+                    error: Error?) {
+        // Ignore updates received for other characteristics.
         guard self.characteristic.isEqual(characteristic) else {
             return
         }

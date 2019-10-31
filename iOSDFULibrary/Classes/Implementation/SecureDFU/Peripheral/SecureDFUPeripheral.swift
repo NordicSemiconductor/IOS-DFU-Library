@@ -24,10 +24,12 @@ import CoreBluetooth
 
 internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, SecureDFUService> {
     
-    /// A flag indicating whether setting alternative advertising name is enabled (SDK 14+) (true by default)
+    /// A flag indicating whether setting alternative advertising name is
+    /// enabled (SDK 14+) (`true` by default).
     let alternativeAdvertisingNameEnabled: Bool
 
-    /// The alternative advertising name to use specified by the user, if nil then use a randomly generated name.
+    /// The alternative advertising name to use specified by the user, if
+    /// `nil` then use a randomly generated name.
     var alternativeAdvertisingName: String? = nil
     
     // MARK: - Peripheral API
@@ -37,7 +39,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     override func isInitPacketRequired() -> Bool {
-        // Init packet is obligatory in Secure DFU
+        // Init packet is obligatory in Secure DFU.
         return true
     }
     
@@ -71,8 +73,10 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
 
     /**
      Switches target device to the DFU Bootloader mode using either the 
-     experimental or final Buttonless DFU feature. The experimental buttonless DFU from SDK 12 must be
-     enabled explicitly in DFUServiceInitiator.
+     experimental or final Buttonless DFU feature.
+     
+     The experimental buttonless DFU from SDK 12 must be enabled explicitly
+     in `DFUServiceInitiator`.
      */
     func jumpToBootloader() {
         jumpingToBootloader = true
@@ -90,7 +94,8 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         }
 
         dfuService!.jumpToBootloaderMode(withAlternativeAdvertisingName: name,
-            // onSuccess the device gets disconnected and centralManager(_:didDisconnectPeripheral:error) will be called
+            // On success the device gets disconnected and
+            // `centralManager(_:didDisconnectPeripheral:error)` will be called.
             onError: { (error, message) in
                 self.jumpingToBootloader = false
                 self.delegate?.error(error, didOccurWithMessage: message)
@@ -99,24 +104,30 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Reads Data Object Info in order to obtain current status and the maximum object size.
+     Reads Data Object Info in order to obtain current status and the maximum
+     object size.
      */
     func readDataObjectInfo() {
         dfuService!.readDataObjectInfo(
             onReponse: { (response) in
-                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: response!.maxSize!, offset: response!.offset!, crc: response!.crc!)
+                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: response!.maxSize!,
+                                                               offset: response!.offset!,
+                                                               crc: response!.crc!)
             },
             onError: defaultErrorCallback
         )
     }
     
     /**
-     Reads Command Object Info in order to obtain current status and the maximum object size.
+     Reads Command Object Info in order to obtain current status and the maximum
+     object size.
      */
     func readCommandObjectInfo() {
         dfuService!.readCommandObjectInfo(
             onReponse: { (response) in
-                self.delegate?.peripheralDidSendCommandObjectInfo(maxLen: response!.maxSize!, offset: response!.offset!, crc: response!.crc!)
+                self.delegate?.peripheralDidSendCommandObjectInfo(maxLen: response!.maxSize!,
+                                                                  offset: response!.offset!,
+                                                                  crc: response!.crc!)
             },
             onError: defaultErrorCallback
         )
@@ -155,7 +166,8 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      - parameter queue:    The queue to dispatch progress events on.
      */
     func sendNextObject(from range: Range<Int>, of firmware: DFUFirmware,
-                        andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
+                        andReportProgressTo progress: DFUProgressDelegate?,
+                        on queue: DispatchQueue) {
         dfuService!.sendNextObject(from: range, of: firmware,
             andReportProgressTo: progress, on: queue,
             onSuccess: { self.delegate?.peripheralDidReceiveObject() },
@@ -165,8 +177,11 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     
     /**
      Sets the Packet Receipt Notification value. 0 disables the PRN procedure.
-     On older version of iOS the value may not be greater than ~20 or equal to 0, otherwise a buffer overflow error may occur.
-     This library sends the Init packet without PRNs, but that's only because of the Init packet is small enough.
+     On older version of iOS the value may not be greater than ~20 or equal to 0,
+     otherwise a buffer overflow error may occur.
+     
+     This library sends the Init packet without PRNs, but that's only because of
+     the Init packet is small enough.
      
      - parameter newValue: Packet Receipt Notification value (0 to disable PRNs).
      */
@@ -186,7 +201,8 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     func sendInitPacket(_ packetData: Data){
         // This method is synchronuous.
         // It sends all bytes of init packet in up-to-20-byte packets.
-        // The init packet may not be too long as sending > ~15 packets without PRNs may lead to buffer overflow.
+        // The init packet may not be too long as sending > ~15 packets without
+        // PRNs may lead to buffer overflow.
         dfuService!.sendInitPacket(withdata: packetData)
         self.delegate?.peripheralDidReceiveInitPacket()
     }
@@ -196,7 +212,10 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func sendCalculateChecksumCommand() {
         dfuService!.calculateChecksumCommand(
-            onSuccess: { (response) in self.delegate?.peripheralDidSendChecksum(offset: response!.offset!, crc: response!.crc!) },
+            onSuccess: { (response) in
+                self.delegate?.peripheralDidSendChecksum(offset: response!.offset!,
+                                                         crc: response!.crc!)
+            },
             onError: defaultErrorCallback
         )
     }
@@ -204,12 +223,16 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     /**
      Sends Execute command.
      
-     - parameter isCommandObject: True, when it is the Command Object executed, false if a Data Object.
-     - parameter activating: If the parameter is set to true the service will assume that the whole firmware was sent
-     and the device will disconnect on its own on Execute command. Delegate's onTransferComplete event will be called when
-     the disconnect event is receviced.
+     - parameter isCommandObject: `True`, when it is the Command Object executed,
+                                  `false` if a Data Object.
+     - parameter activating: If the parameter is set to `true` the service will
+                             assume that the whole firmware was sent and the device
+                             will disconnect on its own on Execute command.
+                             Delegate's `onTransferComplete` event will be called when
+                             the disconnect event is receviced.
      */
-    func sendExecuteCommand(forCommandObject isCommandObject: Bool = false, andActivateIf complete: Bool = false) {
+    func sendExecuteCommand(forCommandObject isCommandObject: Bool = false,
+                            andActivateIf complete: Bool = false) {
         activating = complete
         dfuService!.executeCommand(
             onSuccess: { self.delegate?.peripheralDidExecuteObject() },

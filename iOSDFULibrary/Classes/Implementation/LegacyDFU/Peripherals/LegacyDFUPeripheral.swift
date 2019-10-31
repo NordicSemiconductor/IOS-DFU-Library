@@ -74,7 +74,8 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         jumpingToBootloader = true
         newAddressExpected = dfuService!.newAddressExpected
         dfuService!.jumpToBootloaderMode(
-            // onSuccess the device gets disconnected and centralManager(_:didDisconnectPeripheral:error) will be called
+            // On success, the device gets disconnected and
+            // `centralManager(_:didDisconnectPeripheral:error)` will be called.
             onError: { (error, message) in
                 self.jumpingToBootloader = false
                 self.delegate?.error(error, didOccurWithMessage: message)
@@ -83,12 +84,14 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
     
     /**
-     Sends the DFU Start command with the specified firmware type to the DFU Control Point characteristic
-     followed by firmware sizes (in bytes) to the DFU Packet characteristic. Then it waits for a response
-     notification from the device. In case of a Success, it calls `delegate.peripheralDidStartDfu()`.
-     If the response has an error code NotSupported it means, that the target device does not support 
-     updating Softdevice or Bootloader and the old Start DFU command needs to be used. The old command
-     (without a type) allowed to send only an application firmware.
+     Sends the DFU Start command with the specified firmware type to the
+     DFU Control Point characteristic followed by firmware sizes (in bytes) to
+     the DFU Packet characteristic. Then it waits for a response notification
+     from the device. In case of a Success, it calls `delegate.peripheralDidStartDfu()`.
+     If the response has an error code NotSupported it means, that the target
+     device does not support updating Softdevice or Bootloader and the old Start DFU
+     command needs to be used. The old command (without a type) allowed to send only
+     an application firmware.
      
      - parameter type: The firmware type bitfield. See FIRMWARE_TYPE_* constants.
      - parameter size: The size of all parts of the firmware.
@@ -108,17 +111,20 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
     
     /**
-     Sends the old Start DFU command, where there was no type byte. The old format allowed to send
-     the application update only. Try this method if `sendStartDfuWithFirmwareType(_:andSize:)` 
+     Sends the old Start DFU command, where there was no type byte. The old format
+     allowed to send the application update only. Try this method if
+     `sendStartDfuWithFirmwareType(_:andSize:)`
      returned NotSupported and the firmware contains only the application.
      
-     - parameter size: The size of all parts of the firmware, where size of softdevice and bootloader are 0.
+     - parameter size: The size of all parts of the firmware, where size of
+                       Softdevice and Bootloader are 0.
      */
     func sendStartDfu(withFirmwareSize size: DFUFirmwareSize) {
         logger.v("Switching to DFU v.1")
         
-        // Flash operation in DFU Bootloaders from SDK 6.0 and older were too slow for modern iDevices, so PRNs
-        // must be enabled to slow the transfer down. Also, a 1000ms delay is required before starting sending data.
+        // Flash operation in DFU Bootloaders from SDK 6.0 and older were too slow
+        // for modern iDevices, so PRNs must be enabled to slow the transfer down.
+        // Also, a 1000ms delay is required before starting sending data.
         slowDfuMode = true
         
         dfuService!.sendStartDfu(withFirmwareSize: size,
@@ -128,8 +134,8 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
 
     /**
-     Sends the Init Packet with firmware metadata. When complete, the `delegate.peripheralDidReceiveInitPacket()`
-     callback is called.
+     Sends the Init Packet with firmware metadata. When complete, the
+     `delegate.peripheralDidReceiveInitPacket()` callback is called.
      
      - parameter data: Init Packet data.
      */
@@ -141,13 +147,15 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
     
     /**
-     Sends the firmware to the DFU target device. Before that, it will send the desired number of
-     packets to be received before sending a new Packet Receipt Notification.
-     When the whole firmware is transferred the `delegate.peripheralDidReceiveFirmware()` callback is invoked.
+     Sends the firmware to the DFU target device. Before that, it will send the
+     desired number of packets to be received before sending a new Packet Receipt
+     Notification. When the whole firmware is transferred the
+     `delegate.peripheralDidReceiveFirmware()` callback is invoked.
      
      - parameter firmware: The firmware to be sent.
-     - parameter prnValue: Number of packets of firmware data to be received by the DFU target
-     before sending a new Packet Receipt Notification. Set 0 to disable PRNs (not recommended).
+     - parameter prnValue: Number of packets of firmware data to be received by the
+                           DFU target before sending a new Packet Receipt Notification.
+                           Set 0 to disable PRNs.
      - parameter progress: The deleagate that will be informed about progress changes.
      - parameter queue:    The queue to dispatch progress delegate events.
      */
@@ -159,7 +167,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         }
         dfuService!.sendPacketReceiptNotificationRequest(prn,
             onSuccess: {
-                // Now the service is ready to send the firmware
+                // Now the service is ready to send the firmware.
                 self.dfuService!.sendFirmware(firmware, withDelay: self.slowDfuMode,
                     andReportProgressTo: progress, on: queue,
                     onSuccess: { self.delegate?.peripheralDidReceiveFirmware() },
@@ -193,7 +201,8 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         newAddressExpected = true
         
         dfuService!.sendActivateAndResetRequest(
-            // onSuccess the device gets disconnected and centralManager(_:didDisconnectPeripheral:error) will be called
+            // On success, the device gets disconnected and
+            // `centralManager(_:didDisconnectPeripheral:error)` will be called.
             onError: { (error, message) in
                 self.activating = false
                 self.delegate?.error(error, didOccurWithMessage: message)
