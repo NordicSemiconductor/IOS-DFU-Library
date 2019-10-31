@@ -73,14 +73,18 @@ extension BaseDFUExecutor {
     }
     
     func peripheralDidDisconnect() {
-        // The device is now disconnected.
+        // If the disconnection happend for no reason, we can retry to connect to the
+        // same peripheral and continue uploading.
+        guard let error = error else {
+            delegate {
+                $0.dfuStateDidChange(to: .connecting)
+            }
+            peripheral.reconnect()
+            return
+        }
         // Check if there was an error that needs to be reported now.
         delegate {
-            if let error = self.error {
-                $0.dfuError(error.error, didOccurWithMessage: error.message)
-            } else {
-                $0.dfuError(.deviceDisconnected, didOccurWithMessage: "Device disconnected unexpectedly")
-            }
+            $0.dfuError(error.error, didOccurWithMessage: error.message)
         }
         // Release the cyclic reference.
         peripheral.destroy()
