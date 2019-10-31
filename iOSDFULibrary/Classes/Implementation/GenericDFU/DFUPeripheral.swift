@@ -26,7 +26,7 @@ internal protocol BaseDFUPeripheralAPI : class, DFUController {
     
     /**
      This method starts DFU process for given peripheral. If the peripheral is
-     not connected it will call the connect() method, if it is connected, but
+     not connected it will call the `connect()` method, if it is connected, but
      services were not discovered before, it will try to discover services instead.
      If services were already discovered the DFU process will be started.
      */

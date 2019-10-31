@@ -88,7 +88,8 @@ extension BaseDFUExecutor {
     
     func peripheralDidDisconnect(withError error: Error) {
         delegate {
-            $0.dfuError(.deviceDisconnected, didOccurWithMessage: "\(error.localizedDescription) (code: \((error as NSError).code))")
+            $0.dfuError(.deviceDisconnected, didOccurWithMessage:
+                "\(error.localizedDescription) (code: \((error as NSError).code))")
         }
         // Release the cyclic reference.
         peripheral.destroy()
@@ -130,7 +131,8 @@ internal protocol DFUExecutorAPI : BaseExecutorAPI {
     init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper)
 }
 
-internal protocol DFUExecutor : DFUExecutorAPI, BaseDFUExecutor, DFUPeripheralDelegate where DFUPeripheralType: DFUPeripheralAPI {
+internal protocol DFUExecutor : DFUExecutorAPI, BaseDFUExecutor, DFUPeripheralDelegate
+                                where DFUPeripheralType: DFUPeripheralAPI {
     
     /// The firmware to be sent over-the-air.
     var firmware: DFUFirmware { get }
