@@ -30,7 +30,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
 
     /// The alternative advertising name to use specified by the user, if
     /// `nil` then use a randomly generated name.
-    var alternativeAdvertisingName: String? = nil
+    let alternativeAdvertisingName: String?
     
     // MARK: - Peripheral API
     
