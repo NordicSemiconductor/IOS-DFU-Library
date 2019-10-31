@@ -24,35 +24,37 @@ internal protocol LegacyDFUPeripheralDelegate : DFUPeripheralDelegate {
     
     /**
      Callback called when DFU Control Point notifications were enabled successfully.
-     The delegate should now decide whether to jump to the DFU Bootloader mode or to proceed with DFU operation.
+     The delegate should now decide whether to jump to the DFU Bootloader mode or to
+     proceed with DFU operation.
      */
     func peripheralDidEnableControlPoint()
     
     /**
-     Callback called when the target DFU device returned Not Supported after sending Start DFU command
-     with a firmware type. It means, that an older version of DFU Bootloader is running on the device, 
-     which allows only the Application to be updated.
-     If the firmware contains only an application, the service may use the DFU v.1 protocol.
-     Otherwise, the DFU can't be continued and the device will be disconnected.
+     Callback called when the target DFU device returned Not Supported after sending
+     Start DFU command with a firmware type. It means, that an older version of
+     DFU Bootloader is running on the device, which allows only the Application to
+     be updated. If the firmware contains only an application, the service may use
+     the DFU v.1 protocol. Otherwise, the DFU can't be continued and the device will
+     be disconnected.
      */
     func peripheralDidFailToStartDfuWithType()
     
     /**
-     Callback called after the Start DFU command (v.2 or v.1) has been successfully sent and a Success
-     response was received. The delegate should now initialize sending the Init Packet (if provided),
-     or start sending firmware (in other case).
+     Callback called after the Start DFU command (v.2 or v.1) has been successfully
+     sent and a Success response was received. The delegate should now initialize
+     sending the Init Packet (if provided), or start sending firmware (in other case).
      */
     func peripheralDidStartDfu()
     
     /**
-     Callback called after the Init Packet has been sent and Success response was received.
-     The delegate is allowed to start sending the firmware now.
+     Callback called after the Init Packet has been sent and Success response was
+     received. The delegate is allowed to start sending the firmware now.
      */
     func peripheralDidReceiveInitPacket()
     
     /**
-     Callback called after the current part of the firmware was successfully sent to the DFU target device.
-     THe delegate should send Validate Firmware command.
+     Callback called after the current part of the firmware was successfully sent
+     to the DFU target device. The delegate should send Validate Firmware command.
      */
     func peripheralDidReceiveFirmware()
     
@@ -64,11 +66,13 @@ internal protocol LegacyDFUPeripheralDelegate : DFUPeripheralDelegate {
     func peripheralDidVerifyFirmware()
     
     /**
-     Callback called when the target DFU device returned Invalid state after sending Start DFU command
-     this usually means that the device has been interrupted while uploading the firmware and needs to
-     start from scratch, in theory this should be able to just resume, but in practice there are some
-     issues that arise, like not being able to verify if the same firmware file is being sent, etc..
-     it is better to simply send a reset command and start from scratch on invalid state cases.
+     Callback called when the target DFU device returned Invalid state after sending
+     Start DFU command this usually means that the device has been interrupted while
+     uploading the firmware and needs to start from scratch, in theory this should be
+     able to just resume, but in practice there are some issues that arise, like not
+     being able to verify if the same firmware file is being sent, etc.
+     It is better to simply send a reset command and start from scratch on invalid
+     state cases.
      */
     func peripheralDidReportInvalidState()
 }

@@ -56,7 +56,8 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
     
     func peripheralDidBecomeReady() {
         if firmware.initPacket == nil && peripheral.isInitPacketRequired() {
-            error(.extendedInitPacketRequired, didOccurWithMessage: "The init packet is required by the target device")
+            error(.extendedInitPacketRequired, didOccurWithMessage:
+                "The init packet is required by the target device")
             return
         }
         delegate {
@@ -66,33 +67,35 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
     }
     
     func peripheralDidEnableControlPoint() {
-        // Check whether the target is in application or bootloader mode
+        // Check whether the target is in application or bootloader mode.
         if peripheral.isInApplicationMode(initiator.forceDfu) {
             delegate {
                 $0.dfuStateDidChange(to: .enablingDfuMode)
             }
             peripheral.jumpToBootloader()
         } else {
-            // The device is ready to proceed with DFU
-            peripheral.sendStartDfu(withFirmwareType: firmware.currentPartType, andSize: firmware.currentPartSize)
+            // The device is ready to proceed with DFU.
+            peripheral.sendStartDfu(withFirmwareType: firmware.currentPartType,
+                                    andSize: firmware.currentPartSize)
         }
     }
     
     func peripheralDidFailToStartDfuWithType() {
-        // The DFU target has an old implementation of DFU Bootloader, that allows only the application
-        // to be updated.
+        // The DFU target has an old implementation of DFU Bootloader, that allows
+        // only the application to be updated.
         
         if firmware.currentPartType == FIRMWARE_TYPE_APPLICATION {
-            // Try using the old DFU Start command, without type
+            // Try using the old DFU Start command, without the type.
             peripheral.sendStartDfu(withFirmwareSize: firmware.currentPartSize)
         } else {
-            // Operation can not be continued
-            error(.remoteLegacyDFUNotSupported, didOccurWithMessage: "Updating Softdevice or Bootloader is not supported")
+            // Operation can not be continued.
+            error(.remoteLegacyDFUNotSupported, didOccurWithMessage:
+                "Updating Softdevice or Bootloader is not supported")
         }
     }
 
     func peripheralDidStartDfu() {
-        // Check if the init packet is present for this part
+        // Check if the init packet is present for this part.
         if let initPacket = firmware.initPacket {
             peripheral.sendInitPacket(initPacket)
             return
@@ -125,7 +128,8 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
             invalidStateRetryCount -= 1
             peripheral.start()
         } else {
-            error(.remoteLegacyDFUInvalidState, didOccurWithMessage: "Peripheral is in an invalid state, please try to reset and start over again.")
+            error(.remoteLegacyDFUInvalidState, didOccurWithMessage:
+                "Peripheral is in an invalid state, please try to reset and start over again.")
         }
     }
     
@@ -138,11 +142,12 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
         delegate {
             $0.dfuStateDidChange(to: .uploading)
         }
-        // First the service will send the number of packets of firmware data to be received
-        // by the DFU target before sending a new Packet Receipt Notification.
+        // First the service will send the number of packets of firmware data to be
+        // received by the DFU target before sending a new Packet Receipt Notification.
         // After receiving status Success it will send the firmware.
         peripheral.sendFirmware(firmware,
                                 withPacketReceiptNotificationNumber: initiator.packetReceiptNotificationParameter,
-                                andReportProgressTo: initiator.progressDelegate, on: initiator.progressDelegateQueue)
+                                andReportProgressTo: initiator.progressDelegate,
+                                on: initiator.progressDelegateQueue)
     }
 }

@@ -22,12 +22,18 @@
 
 import CoreBluetooth
 
-/// The default selector. Selects the first device with Legacy or Secure DFU Service UUID in the advertising packet.
+/// The default selector.
+///
+/// Selects the first device with Legacy or Secure DFU Service UUID in the advertising packet.
 @objc open class DFUPeripheralSelector : NSObject, DFUPeripheralSelectorDelegate {
     
-    open func select(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber, hint name: String? = nil) -> Bool {
+    open func select(_ peripheral: CBPeripheral,
+                     advertisementData: [String : AnyObject],
+                     RSSI: NSNumber,
+                     hint name: String? = nil) -> Bool {
         // peripheral.name may be cached, use the name from advertising data
-        if let name = name, let localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
+        if let name = name,
+           let localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
             return localName == name
         }
         return true

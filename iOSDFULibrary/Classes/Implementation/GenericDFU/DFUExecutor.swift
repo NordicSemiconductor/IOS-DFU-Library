@@ -41,7 +41,8 @@ internal protocol BaseDFUExecutor : BaseExecutorAPI, BasePeripheralDelegate {
     var initiator: DFUServiceInitiator { get }
     /// The optional logger delegate.
     var logger: LoggerHelper { get }
-    /// If an error occurred it is set as this variable. It will be reported to the user when the device gets disconnected.
+    /// If an error occurred it is set as this variable.
+    /// It will be reported to the user when the device gets disconnected.
     var error: (error: DFUError, message: String)? { set get }
 }
 
@@ -72,7 +73,8 @@ extension BaseDFUExecutor {
     }
     
     func peripheralDidDisconnect() {
-        // The device is now disconnected. Check if there was an error that needs to be reported now
+        // The device is now disconnected.
+        // Check if there was an error that needs to be reported now.
         delegate {
             if let error = self.error {
                 $0.dfuError(error.error, didOccurWithMessage: error.message)
@@ -80,7 +82,7 @@ extension BaseDFUExecutor {
                 $0.dfuError(.deviceDisconnected, didOccurWithMessage: "Device disconnected unexpectedly")
             }
         }
-        // Release the cyclic reference
+        // Release the cyclic reference.
         peripheral.destroy()
     }
     
@@ -88,7 +90,7 @@ extension BaseDFUExecutor {
         delegate {
             $0.dfuError(.deviceDisconnected, didOccurWithMessage: "\(error.localizedDescription) (code: \((error as NSError).code))")
         }
-        // Release the cyclic reference
+        // Release the cyclic reference.
         peripheral.destroy()
     }
     
@@ -96,12 +98,12 @@ extension BaseDFUExecutor {
         delegate {
             $0.dfuStateDidChange(to: .aborted)
         }
-        // Release the cyclic reference
+        // Release the cyclic reference.
         peripheral.destroy()
     }
     
     func error(_ error: DFUError, didOccurWithMessage message: String) {
-        // Save the error. It will be reported when the device disconnects
+        // Save the error. It will be reported when the device disconnects.
         if self.error == nil {
             self.error = (error, message)
             peripheral.resetDevice()
@@ -139,7 +141,7 @@ extension DFUExecutor {
     // MARK: - DFUPeripheralDelegate API
     
     func peripheralDidDisconnectAfterFirmwarePartSent() -> Bool {
-        // Check if there is another part of the firmware that has to be sent
+        // Check if there is another part of the firmware that has to be sent.
         if firmware.hasNextPart() {
             firmware.switchToNextPart()
             delegate {
@@ -152,7 +154,7 @@ extension DFUExecutor {
             $0.dfuStateDidChange(to: .completed)
         }
             
-        // Release the cyclic reference
+        // Release the cyclic reference.
         peripheral.destroy()
         return false
     }

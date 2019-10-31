@@ -40,15 +40,19 @@ internal protocol DFUService : DFUController {
     /**
      Required constructor of a service.
      */
-    init(_ service: CBService, _ logger: LoggerHelper, _ dfuHelper: DFUUuidHelper, _ queue: DispatchQueue)
+    init(_ service: CBService, _ logger: LoggerHelper,
+         _ dfuHelper: DFUUuidHelper, _ queue: DispatchQueue)
     
     /**
-     Discovers characteristics in the DFU Service. This method also reads the DFU Version characteristic if such found.
+     Discovers characteristics in the DFU Service. This method also reads the
+     DFU Version characteristic if such found.
      */
-    func discoverCharacteristics(onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback)
+    func discoverCharacteristics(onSuccess success: @escaping Callback,
+                                 onError report: @escaping ErrorCallback)
     
     /**
-     This method makes sure all the references are released so that ARC can remove the objects.
+     This method makes sure all the references are released so that ARC can
+     remove the objects.
      */
     func destroy()
 }
