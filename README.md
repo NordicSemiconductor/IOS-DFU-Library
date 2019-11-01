@@ -5,7 +5,7 @@
 
 ## Installation
 
-**For Cocoapods(Swift):** ***Using Obj-C?*** [Use these instructions instead](README_OBJC.md)
+**For Cocoapods:**
 
 - Create/Update your **Podfile** with the following contents
 
@@ -48,7 +48,7 @@ if you need to resymbolicate crash logs. you may want to keep those files bundle
 **For Swift Package Manager:**
 
 ```swift
-// swift-tools-version:5.0
+// swift-tools-version:5.1
 import PackageDescription
 
 let package = Package(
@@ -56,7 +56,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/", 
-      .upToNextMajor(from: "4.5.1")
+      .upToNextMajor(from: "4.6.0")
     )
   ],
   targets: [.target(name: "<Your Target Name>", dependencies: ["NordicDFU"])]

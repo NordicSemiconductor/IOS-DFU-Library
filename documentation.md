@@ -1,6 +1,6 @@
 # DFU Library - iOS
 
-The DFU Library for iOS 8+ adds the DFU feature to the iOS project. It is written in Swift 3.0.1 but is compatible with Objective-C.
+The DFU Library for iOS 8+ adds the DFU feature to the iOS project. It is written in Swift 5.1 but is compatible with Objective-C.
 
 ### Features:
 
@@ -21,7 +21,7 @@ In case of any communication error the peripheral device will never be bricked. 
 
 ### Requirements
 
-* **An iPhone 4S or newer with iOS 8+**
+* **An iPhone 4S or iPad 2 or newer with iOS 9+**
 
     Support for the Bluetooth 4.0 technology is required.
 * **nRF5x device for testing.**
@@ -102,7 +102,7 @@ To start the DFU process you have to do 2 things:
 
     Objective-C:
     ```objective-c
-    DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] initWithCentralManager: centralManager target:selectedPeripheral];
+    DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] init];
     [initiator withFirmware:selectedFirmware];
     // Optional:
     // initiator.forceDfu = YES/NO; // default NO
@@ -112,12 +112,12 @@ To start the DFU process you have to do 2 things:
     initiator.progressDelegate = self; // - to show progress bar
     // initiator.peripheralSelector = ... // the default selector is used
    
-    DFUServiceController *controller = [initiator start];
+    DFUServiceController *controller = [initiator startWithTarget: peripheral];
     ...
     ```
     Swift:
     ```swift
-    let initiator = DFUServiceInitiator(centralManager: centralManager, target: peripheral).with(firmware: selectedFirmware)
+    let initiator = DFUServiceInitiator().with(firmware: selectedFirmware)
     // Optional:
     // initiator.forceDfu = true/false // default false
     // initiator.packetReceiptNotificationParameter = N // default is 12
@@ -126,27 +126,14 @@ To start the DFU process you have to do 2 things:
     initiator.progressDelegate = self // - to show progress bar
     // initiator.peripheralSelector = ... // the default selector is used
 
-    let controller = initiator.start()
+    let controller = initiator.start(target: peripheral)
     ...
     ```
 4. Using the DFUServiceController you may pause, resume or abort the DFU operation.
 
-5. In version 3 the API has slightly changed to better match the Swift 3 naming guidlines: 
-
-- The initiator's delegate and progressDelegate methods got renamed
-- The **SecureDFUError**, **SecureDFUProgressDelegate** and **SecureDFUServiceDelegate** have been removed (it was not accesible). Callbacks for Secure DFU are now reported by **DFUProgressDelegate** and **DFUServiceDelegate**. **DFUError** contains all secure DFU errors.
-- ```withFirmwareFile(_)``` method in **DFUServiceInitiator** has been renamed to ```with(firmware:)```
-
-Other changes in version 3:
-
-- Complete refactoring of the code
-- Support for connected devices (even if DFU Service has not been discovered when DFU started)
-- DFU now works on iOS 8 (bug fixed)
-- Other bugs fixed
-
 ### Example
 
-Check the nRF Toolbox project ([here](https://github.com/NordicSemiconductor/IOS-nRF-Toolbox "nRF Toolbox")) for usage example (Objective-C).
+Check the nRF Toolbox project ([here](https://github.com/NordicSemiconductor/IOS-nRF-Toolbox "nRF Toolbox")).
 
 ### Issues
 
