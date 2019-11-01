@@ -162,8 +162,10 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     func sendFirmware(_ firmware: DFUFirmware, withPacketReceiptNotificationNumber prnValue: UInt16,
                       andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
         var prn = prnValue
-        if slowDfuMode && (prn == 0 || prn > 2) {
-            prn = 2
+        if slowDfuMode {
+            // Force PRN set to 1 on older devices.
+            // Otherwise, the device could send error 6: Operation failed.
+            prn = 1
         }
         dfuService!.sendPacketReceiptNotificationRequest(prn,
             onSuccess: {
