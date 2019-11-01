@@ -55,7 +55,7 @@ class nRF51TestSet: DFUTestSet {
             (DFUFirmware.from(zip: "nrf51422_sdk_6.1_all_in_one",   locatedIn:  "Firmwares/nRF51"), nil, nil, "Downgrading to SDK 6.1",          FilterBy.name("DFU1A061")),
             (DFUFirmware.from(zip: "nrf51422_sdk_6.1_app",          locatedIn:  "Firmwares/nRF51"), nil, nil, "Updating app from SDK 6.1",       FilterBy.name("DFU1A061")),
             // For the 2nd part of the following update PRNs will be enabled and set to 1.
-            // Additionally, a 1000 ms delay before sending the firmware is added.
+            // Additionally, a 2000 ms delay before sending the firmware is added.
             // Flash operation in DFU bootloader was too slow to support full upload speed.
             (DFUFirmware.from(zip: "nrf51422_sdk_6.0_all_in_one",   locatedIn:  "Firmwares/nRF51"), nil, nil, "Downgrading to SDK 6",            nil)
             // App from SDK 6.0 does not have Buttonless jump service. No further update is possible.
