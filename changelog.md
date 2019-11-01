@@ -1,4 +1,10 @@
 ### Changelog
+- **4.6.0**
+    - Feature: Automatic retrying DFU on disconnection during update. 
+    - Bugfix: Some delegates were called on a wrong queue (#339).
+    - Bugfix: DFU from SDK 6.0 fixed. PRN is forced set to 1. 
+    - Improvement: The sample app has been modified to work on iOS 13.
+    
 - **4.5.1**
     - Bugfix: Fixed an issue where DFU could not be started on iOS 13 (#322). 
     
@@ -12,7 +18,7 @@
     - Improvement: ZIPFoundation dependency bound to 0.9.9.
 
 - **4.4.1**
-    - Bugfix: Fixed calculatign number of bytes received from PRN (#288).
+    - Bugfix: Fixed calculating number of bytes received from PRN (#288).
     - Improvement: ZIPFoundation dependency upgraded to 0.9.9 (#281).
 
 - **4.4.0**
