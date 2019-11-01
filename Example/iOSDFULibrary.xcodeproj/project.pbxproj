@@ -21,6 +21,7 @@
 		5223729B202B275F00068EE4 /* Firmwares in Resources */ = {isa = PBXBuildFile; fileRef = 5223729A202B275F00068EE4 /* Firmwares */; };
 		5223729D2036DDFC00068EE4 /* nRF52840TestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223729C2036DDFC00068EE4 /* nRF52840TestSet.swift */; };
 		5288C1DE236AE4E200321ED3 /* UIColor+Nordic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5288C1DD236AE4E200321ED3 /* UIColor+Nordic.swift */; };
+		5288C1E2236C3C7400321ED3 /* README_OBJC.md in Resources */ = {isa = PBXBuildFile; fileRef = 5288C1E1236C3C7400321ED3 /* README_OBJC.md */; };
 		52A9C167230D633A0036792A /* changelog.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A9C166230D633A0036792A /* changelog.md */; };
 		52A9C169230D63410036792A /* documentation.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A9C168230D63410036792A /* documentation.md */; };
 		52F6AD6222B2429300F0D7DF /* TestFirmwares in Resources */ = {isa = PBXBuildFile; fileRef = 52F6AD6122B2429300F0D7DF /* TestFirmwares */; };
@@ -66,6 +67,7 @@
 		5223729A202B275F00068EE4 /* Firmwares */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firmwares; sourceTree = "<group>"; };
 		5223729C2036DDFC00068EE4 /* nRF52840TestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF52840TestSet.swift; sourceTree = "<group>"; };
 		5288C1DD236AE4E200321ED3 /* UIColor+Nordic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Nordic.swift"; sourceTree = "<group>"; };
+		5288C1E1236C3C7400321ED3 /* README_OBJC.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README_OBJC.md; path = ../README_OBJC.md; sourceTree = "<group>"; };
 		52A9C166230D633A0036792A /* changelog.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = changelog.md; path = ../changelog.md; sourceTree = "<group>"; };
 		52A9C168230D63410036792A /* documentation.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = documentation.md; path = ../documentation.md; sourceTree = "<group>"; };
 		52F6AD6122B2429300F0D7DF /* TestFirmwares */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFirmwares; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			children = (
 				3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */,
 				8EE39CA79039E8FFBDA0C9D3 /* README.md */,
+				5288C1E1236C3C7400321ED3 /* README_OBJC.md */,
 				52A9C166230D633A0036792A /* changelog.md */,
 				52A9C168230D63410036792A /* documentation.md */,
 				DAEFE092DC94AFC6C8316559 /* LICENSE */,
@@ -404,6 +407,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5288C1E2236C3C7400321ED3 /* README_OBJC.md in Resources */,
 				52F6AD6222B2429300F0D7DF /* TestFirmwares in Resources */,
 				52A9C169230D63410036792A /* documentation.md in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
