@@ -31,7 +31,7 @@
 import Foundation
 
 @objc public enum DFUError : Int {
-    // Legacy DFU errors
+    // Legacy DFU errors.
     case remoteLegacyDFUSuccess               = 1
     case remoteLegacyDFUInvalidState          = 2
     case remoteLegacyDFUNotSupported          = 3
@@ -39,7 +39,7 @@ import Foundation
     case remoteLegacyDFUCrcError              = 5
     case remoteLegacyDFUOperationFailed       = 6
     
-    // Secure DFU errors (received value + 10 as they overlap legacy errors)
+    // Secure DFU errors (received value + 10 as they overlap legacy errors).
     case remoteSecureDFUSuccess               = 11 // 10 + 1
     case remoteSecureDFUOpCodeNotSupported    = 12 // 10 + 2
     case remoteSecureDFUInvalidParameter      = 13 // 10 + 3
@@ -50,9 +50,9 @@ import Foundation
     case remoteSecureDFUOperationNotPermitted = 18 // 10 + 8
     case remoteSecureDFUOperationFailed       = 20 // 10 + 10
     
-    // This error will no longer be reported
+    // This error will no longer be reported.
     case remoteSecureDFUExtendedError         = 21 // 10 + 11
-    // Instead, one of the extended errors below will used
+    // Instead, one of the extended errors below will used.
     case remoteExtendedErrorWrongCommandFormat   = 22 // 20 + 0x02
     case remoteExtendedErrorUnknownCommand       = 23 // 20 + 0x03
     case remoteExtendedErrorInitCommandInvalid   = 24 // 20 + 0x04
@@ -67,13 +67,13 @@ import Foundation
     case remoteExtendedErrorInsufficientSpace    = 33 // 20 + 0x0D
     
     // Experimental Buttonless DFU errors (received value + 9000 as they
-    // overlap legacy and secure DFU errors)
+    // overlap legacy and secure DFU errors).
     case remoteExperimentalButtonlessDFUSuccess               = 9001 // 9000 + 1
     case remoteExperimentalButtonlessDFUOpCodeNotSupported    = 9002 // 9000 + 2
     case remoteExperimentalButtonlessDFUOperationFailed       = 9004 // 9000 + 4
     
     // Buttonless DFU errors (received value + 90 as they overlap legacy
-    // and secure DFU errors)
+    // and secure DFU errors).
     case remoteButtonlessDFUSuccess            = 91 // 90 + 1
     case remoteButtonlessDFUOpCodeNotSupported = 92 // 90 + 2
     case remoteButtonlessDFUOperationFailed    = 94 // 90 + 4
@@ -145,7 +145,7 @@ import Foundation
         case .starting:        return "Starting"
         case .enablingDfuMode: return "Enabling DFU Mode"
         case .uploading:       return "Uploading"
-        case .validating:      return "Validating"  // this state occurs only in Legacy DFU
+        case .validating:      return "Validating"  // This state occurs only in Legacy DFU.
         case .disconnecting:   return "Disconnecting"
         case .completed:       return "Completed"
         case .aborted:         return "Aborted"
@@ -155,7 +155,7 @@ import Foundation
 
 /**
  *  The progress delegates may be used to notify user about progress updates.
- *  The only method of the delegate is only called when the  service is in the
+ *  The only method of the delegate is only called when the service is in the
  *  Uploading state.
  */
 @objc public protocol DFUProgressDelegate {
