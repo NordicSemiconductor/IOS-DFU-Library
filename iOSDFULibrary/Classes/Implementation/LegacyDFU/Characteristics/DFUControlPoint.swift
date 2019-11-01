@@ -331,7 +331,7 @@ internal struct PacketReceiptNotification {
 
         if error != nil {
             if !resetSent {
-                logger.e("Writing to characteristic failed. Check if Service Changed service is enabled.")
+                logger.e("Writing to characteristic failed. Check if Service Changed characteristic is enabled.")
                 logger.e(error!)
                 // Note:
                 // Error 3: Writing is not permitted
