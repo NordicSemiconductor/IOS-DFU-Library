@@ -543,8 +543,8 @@ import CoreBluetooth
                     // On devices running SDK 6.0 or older a delay is required before the device is ready
                     // to receive data.
                     if delay {
-                        self.logger.d("wait(1000)")
-                        queue.asyncAfter(deadline: .now() + .milliseconds(1000), execute: start)
+                        self.logger.d("wait(2000)")
+                        queue.asyncAfter(deadline: .now() + .milliseconds(2000), execute: start)
                     } else {
                         start()
                     }
