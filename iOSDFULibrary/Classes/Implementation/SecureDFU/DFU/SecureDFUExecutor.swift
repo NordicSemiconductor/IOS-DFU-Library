@@ -315,7 +315,16 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     func peripheralDidCreateDataObject() {
         logger.i("Data object \(currentRangeIdx + 1)/\(firmwareRanges!.count) created")
-        sendDataObject(currentRangeIdx) // -> peripheralDidReceiveObject() will be called.
+        // For SDK 15.x and 16 the bootloader needs some time before it's ready to receive data.
+        // Otherwise, some packets may be discarded and the received checksum will not match.
+        if currentRangeIdx == 0 {
+            logger.d("wait(400)")
+            initiator.queue.asyncAfter(deadline: .now() + .milliseconds(400)) {
+                self.sendDataObject(self.currentRangeIdx) // -> peripheralDidReceiveObject() will be called.
+            }
+        } else {
+            sendDataObject(currentRangeIdx) // -> peripheralDidReceiveObject() will be called.
+        }
     }
     
     func peripheralDidReceiveObject() {
