@@ -46,9 +46,13 @@ import CoreBluetooth
     internal var targetIdentifier : UUID!
     internal var file             : DFUFirmware?
     
+    /// The dispatch queue to run BLE operations on.
     internal var queue                 : DispatchQueue
+    /// The dispatch queue to invoke all delegate callbacks on.
     internal var delegateQueue         : DispatchQueue
+    /// The dispatch queue to invoke all progress delegate callbacks on.
     internal var progressDelegateQueue : DispatchQueue
+    /// The dispatch queue to invoke all logger events on.
     internal var loggerQueue           : DispatchQueue
     
     //MARK: - Public variables
