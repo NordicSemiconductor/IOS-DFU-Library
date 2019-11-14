@@ -544,7 +544,7 @@ import CoreBluetooth
                     // to receive data.
                     if delay {
                         self.logger.d("wait(2000)")
-                        queue.asyncAfter(deadline: .now() + .milliseconds(2000), execute: start)
+                        self.queue.asyncAfter(deadline: .now() + .milliseconds(2000), execute: start)
                     } else {
                         start()
                     }
