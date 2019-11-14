@@ -152,7 +152,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     }
     
     private func stopTimer() {
-        timer.invalidate()
+        timer?.invalidate()
     }
     
     //MARK: - DFU Methods

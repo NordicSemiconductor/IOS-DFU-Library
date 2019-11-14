@@ -1,4 +1,9 @@
 ### Changelog
+- **4.6.1**
+   - Bugfix: DFU stability improved for DFU from SDK 15 and newer.
+   - Improvement: DFU tests for SDK 15.3 and 16 added.
+   - Bugfix: MInor issue fixed in the sample app.
+   
 - **4.6.0**
     - Feature: Automatic retrying DFU on disconnection during update. 
     - Bugfix: Some delegates were called on a wrong queue (#339).

@@ -33,16 +33,15 @@ import iOSDFULibrary
 
 class nRF52840TestSet: DFUTestSet {
     
-    // Firmwares used for testing DFU on nRF52840 DK
+    // Firmwares used for testing DFU on nRF52840 DK.
     var steps: [(firmware: DFUFirmware, options: ServiceModifier?, expectedError: DFUError?, description: String, next: Filter?)]? {
         return try? [
             // The MBR in nrf52840_sdk_13_all_in_one.hex has been replaced with 2.3.0 version (MBR from SD s140 6.0.0).
             // The original one (2.1.0) had a bug preventing writing in Bootloader space, so the Bootloader was not updatable.
             // This is not something a customer would do, but with this trick it is possible to test DFU on older SDKs.
             
-            // Files with 'bl' must be uploaded in the correct order, as each next version mu must have bl_version greater then the last one.
-            
-            (DFUFirmware.from(zip: "nrf52840_sdk_13_app"               , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating app from SDK 13", FilterBy.name("DFU3A13")),
+            // Files with 'bl' must be uploaded in the correct order, as each next version must have bl_version greater then the last one.
+            (DFUFirmware.from(zip: "nrf52840_sdk_13_app"               , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating app",          FilterBy.name("DFU3A13")),
             // The following steps may be removed without any harm if more SDKs are added.
             (DFUFirmware.from(zip: "nrf52840_sdk_13_sd"                , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A13")),
             (DFUFirmware.from(zip: "nrf52840_sdk_13_sd_bl_1"           , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A13")),
@@ -83,7 +82,25 @@ class nRF52840TestSet: DFUTestSet {
             (DFUFirmware.from(zip: "nrf52840_sdk_15.2_sd"              , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A152")),
             (DFUFirmware.from(zip: "nrf52840_sdk_15.2_sd_bl_1"         , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A152")),
             (DFUFirmware.from(zip: "nrf52840_sdk_15.2_bl_2"            , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating BL only",      FilterBy.name("DFU3A152")),
-            (DFUFirmware.from(zip: "nrf52840_sdk_15.2_sd_bl_app_3"     , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    nil),
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.2_sd_bl_app_3"     , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    FilterBy.name("DFU3A152")),
+            
+            // Updating to SDK 15.3.
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.2_to_15.3_all_in_one",locatedIn: "Firmwares/nRF52840"), nil, nil, "Upgrading to SDK 15.3", FilterBy.name("DFU3A153")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.3_app"             , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating app",          FilterBy.name("DFU3A153")),
+            // The following steps may be removed without any harm if more SDKs are added.
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.3_sd"              , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A153")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.3_sd_bl_1"         , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A153")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.3_bl_2"            , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating BL only",      FilterBy.name("DFU3A153")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.3_sd_bl_app_3"     , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    FilterBy.name("DFU3A153")),
+            
+            // Updating to SDK 16.
+            (DFUFirmware.from(zip: "nrf52840_sdk_15.3_to_16_all_in_one", locatedIn:  "Firmwares/nRF52840"), nil, nil, "Upgrading to SDK 16",   FilterBy.name("DFU3A16")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_16_app"               , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating app",          FilterBy.name("DFU3A16")),
+            // The following steps may be removed without any harm if more SDKs are added.
+            (DFUFirmware.from(zip: "nrf52840_sdk_16_sd"                , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A16")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_16_sd_bl_1"           , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A16")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_16_bl_2"              , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating BL only",      FilterBy.name("DFU3A16")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_16_sd_bl_app_3"       , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    nil),
             
         ]
     }

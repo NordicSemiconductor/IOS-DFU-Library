@@ -207,7 +207,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
                     // The whole object has been sent but the DFU target will
                     // send a PRN notification as expected.
                     // The sendData method will be called again
-                    // with packetsLeft = 0 (see line 113).
+                    // with packetsLeft = 0 (see line 132).
                     
                     // Do nothing.
                 }
