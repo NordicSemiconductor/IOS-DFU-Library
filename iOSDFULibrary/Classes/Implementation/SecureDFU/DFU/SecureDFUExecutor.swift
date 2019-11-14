@@ -358,22 +358,25 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      In Secure DFU the firmware is sent as separate 'objects', where each object is at most
      'maxLen' long. This method creates a list of ranges that will be used to send data to the
      peripheral, for example: 0 ..< 4096, 4096 ..< 5000 in case the firmware was 5000 bytes long.
+     
+     - parameter maxLen: The maximum length of an object.
+     
+     - returns: The array of ranges.
      */
     private func calculateFirmwareRanges(_ maxLen: Int) -> [Range<Int>] {
         var totalLength = firmware.data.count
-        var ranges = [Range<Int>]()
+        var ranges: [Range<Int>] = []
+        ranges.reserveCapacity((totalLength + maxLen - 1) / maxLen)
         
         var partIdx = 0
-        while (totalLength > 0) {
-            var range : Range<Int>
+        while totalLength > 0 {
             if totalLength > maxLen {
+                ranges.append(partIdx * maxLen..<partIdx * maxLen + maxLen)
                 totalLength -= maxLen
-                range = (partIdx * maxLen) ..< maxLen + (partIdx * maxLen)
             } else {
-                range = (partIdx * maxLen) ..< totalLength + (partIdx * maxLen)
+                ranges.append(partIdx * maxLen..<partIdx * maxLen + totalLength)
                 totalLength = 0
             }
-            ranges.append(range)
             partIdx += 1
         }
         
