@@ -198,7 +198,7 @@
 /* Begin PBXFileReference section */
 		01609AE8109D2B43C8B1082F46520A6D /* LegacyDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheral.swift; sourceTree = "<group>"; };
 		02AF9CB548AD7E816FBC7567A4E30CEE /* LegacyDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
-		030814F4129F5F1A94699B3DBF13B002 /* Pods_macOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		030814F4129F5F1A94699B3DBF13B002 /* Pods_macOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_macOSDFULibrary_Example.framework; path = "Pods-macOSDFULibrary_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09BD2B9DFFC7D8B33DEE9AEEAAC8E731 /* LegacyDFUServiceInitiator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUServiceInitiator.swift; sourceTree = "<group>"; };
 		10DBFEAC3D3772A915F2AED7AFFD9FD2 /* ZIPFoundation-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "ZIPFoundation-macOS-Info.plist"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS-Info.plist"; sourceTree = "<group>"; };
 		117AC5DEA6D484D48AF624803DB12F10 /* SecureDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheral.swift; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 		23294EC123EBEB11663D12E9FA3A1449 /* SecureDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
 		2771E93A64505F109FAA8BF7183BA28A /* Archive+Writing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Writing.swift"; path = "Sources/ZIPFoundation/Archive+Writing.swift"; sourceTree = "<group>"; };
 		27965421840427EB21E40B459C7BECA2 /* ManifestFirmwareInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ManifestFirmwareInfo.swift; sourceTree = "<group>"; };
-		293E8767C7348B54C3BD3B8DF431B7A5 /* Pods_iOSDFULibrary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		293E8767C7348B54C3BD3B8DF431B7A5 /* Pods_iOSDFULibrary_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iOSDFULibrary_Tests.framework; path = "Pods-iOSDFULibrary_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2963FB6FAE627782FA6B58623ACCA3F2 /* LoggerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
 		2C723040DECD495E1AAC81F5AA497C97 /* Pods-macOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
 		2FBD48170A8A8C26F713A56ED6C50B5D /* iOSDFULibrary-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "iOSDFULibrary-macOS-Info.plist"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-Info.plist"; sourceTree = "<group>"; };
@@ -237,8 +237,8 @@
 		59F7D6CA361F44101B9A79318C1B29CF /* Pods-iOSDFULibrary_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Tests-Info.plist"; sourceTree = "<group>"; };
 		5A3D0BA02A19325BB0E23A48A430691C /* DFUStreamZip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUStreamZip.swift; sourceTree = "<group>"; };
 		5B24EA8D59BA97941287ABFA340D72E0 /* DFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUPeripheral.swift; sourceTree = "<group>"; };
-		5F511BDF6BAF5FE9F5935ACD2B1870F0 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSDFULibrary_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F8F3E6677A422DD4F0FC1931ED134A8 /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = iOSDFULibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5F511BDF6BAF5FE9F5935ACD2B1870F0 /* Pods_iOSDFULibrary_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iOSDFULibrary_Example.framework; path = "Pods-iOSDFULibrary_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F8F3E6677A422DD4F0FC1931ED134A8 /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = iOSDFULibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		600BEE9B9450656347A85D9D1899A94F /* ZIPFoundation-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZIPFoundation-iOS-dummy.m"; sourceTree = "<group>"; };
 		6085DCA4586255401B60695D5927050D /* Pods-iOSDFULibrary_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iOSDFULibrary_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		638A2339D64F3C759C321D6005B7752B /* Archive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Archive.swift; path = Sources/ZIPFoundation/Archive.swift; sourceTree = "<group>"; };
@@ -252,9 +252,9 @@
 		6FAC228069346CE04FF74C0A61AB5CBD /* Pods-macOSDFULibrary_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-macOSDFULibrary_Example-frameworks.sh"; sourceTree = "<group>"; };
 		700C4CE29E3AB1606BBAE33F8CBD9523 /* SecureDFUPacket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPacket.swift; sourceTree = "<group>"; };
 		7027E4499584774A22528F4A1C96159E /* ZIPFoundation-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-prefix.pch"; sourceTree = "<group>"; };
-		7186CA92E6615BDC8A925FE560577AFA /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7186CA92E6615BDC8A925FE560577AFA /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = iOSDFULibrary.framework; path = "iOSDFULibrary-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7641217686CB4C68750F73D56C0384D0 /* ZipArchive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
-		76A1B296EF2916D8FE63F97238F2FC3D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		76A1B296EF2916D8FE63F97238F2FC3D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		7996F3AB192EF9745CBACBAB1E956DFA /* Pods-macOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-macOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
 		7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ZIPFoundation-macOS.xcconfig"; path = "../ZIPFoundation-macOS/ZIPFoundation-macOS.xcconfig"; sourceTree = "<group>"; };
 		7FBFCEBF062E65595AD4F1DC8AA4A0DA /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -262,15 +262,15 @@
 		80DD45EC1FEA7199337778BA49F569D5 /* DFUServiceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DFUServiceController.swift; sourceTree = "<group>"; };
 		837F55AF8EE6D7B2F0F90B6F0EB09FF1 /* Archive+Reading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Archive+Reading.swift"; path = "Sources/ZIPFoundation/Archive+Reading.swift"; sourceTree = "<group>"; };
 		838AAC762FC0B840E9E66E0E20122EAC /* ZIPFoundation-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZIPFoundation-iOS-Info.plist"; sourceTree = "<group>"; };
-		83F29CAB0E62668F1C2B1DE821F8B19D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		83F29CAB0E62668F1C2B1DE821F8B19D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		890A09B61D0F51EA84B75D5E02FE58D2 /* Pods-macOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-macOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8AD81CC38AD9E17564E46ABB01E637EA /* Pods-iOSDFULibrary_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iOSDFULibrary_Tests-umbrella.h"; sourceTree = "<group>"; };
 		8E800E67CF9CCC18A18002A7575780EA /* Pods-macOSDFULibrary_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-macOSDFULibrary_Example-umbrella.h"; sourceTree = "<group>"; };
 		961DD5FFF0E7F1071EA90B9F8B79DC9C /* iOSDFULibrary-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "iOSDFULibrary-macOS-dummy.m"; path = "../iOSDFULibrary-macOS/iOSDFULibrary-macOS-dummy.m"; sourceTree = "<group>"; };
-		9BC1F246F7EF310C62A17B761E63BACE /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9BC1F246F7EF310C62A17B761E63BACE /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZIPFoundation.framework; path = "ZIPFoundation-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DE3F8186A2C9281B708844560549F05 /* Pods-iOSDFULibrary_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iOSDFULibrary_Example.modulemap"; sourceTree = "<group>"; };
-		9EF83BCCEFAE08B31095A9B245E76A58 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EF83BCCEFAE08B31095A9B245E76A58 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZIPFoundation.framework; path = "ZIPFoundation-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A29528811E070C271EFE8FD18ED00950 /* LegacyDFUExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDFUExecutor.swift; sourceTree = "<group>"; };
 		A2E0981396C735698AE4DD0ACB86878D /* iOSDFULibrary-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "iOSDFULibrary-iOS-Info.plist"; sourceTree = "<group>"; };
 		A6E138BB3A41D07C1E032EB63765A762 /* ZIPFoundation-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ZIPFoundation-iOS.modulemap"; sourceTree = "<group>"; };
@@ -295,7 +295,7 @@
 		CD261474D662E14B2BDDBA61BA9DD534 /* Pods-iOSDFULibrary_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iOSDFULibrary_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		D333E1089BA812D39E708A23176F0AC9 /* ZIPFoundation-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ZIPFoundation-iOS.xcconfig"; sourceTree = "<group>"; };
 		D55E580DF3F8D9DF5F308F1F39B605A9 /* Entry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Sources/ZIPFoundation/Entry.swift; sourceTree = "<group>"; };
-		D5E133000ABA8F10FA6F13CB0871577E /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSDFULibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5E133000ABA8F10FA6F13CB0871577E /* iOSDFULibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = iOSDFULibrary.framework; path = "iOSDFULibrary-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7744FFF2BC9765BC7143F482E7EC029 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FileManager+ZIP.swift"; path = "Sources/ZIPFoundation/FileManager+ZIP.swift"; sourceTree = "<group>"; };
 		D78A1581AAE0E93BF3EAB34B6A353890 /* ZIPFoundation-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-umbrella.h"; sourceTree = "<group>"; };
 		D7A1571DFD4F3BCBBF39F733110BF41B /* SecureDFUService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUService.swift; sourceTree = "<group>"; };
@@ -384,6 +384,7 @@
 				317452302C76EF0480ABD86D9731D824 /* SecureDFUControlPoint.swift */,
 				700C4CE29E3AB1606BBAE33F8CBD9523 /* SecureDFUPacket.swift */,
 			);
+			name = Characteristics;
 			path = Characteristics;
 			sourceTree = "<group>";
 		};
@@ -393,6 +394,7 @@
 				2963FB6FAE627782FA6B58623ACCA3F2 /* LoggerDelegate.swift */,
 				194A4A5A9C90E41E15CEC8A6CCFC69ED /* LoggerHelper.swift */,
 			);
+			name = Logging;
 			path = Logging;
 			sourceTree = "<group>";
 		};
@@ -402,6 +404,7 @@
 				17E83545204BD7E9E277E638FE536CA2 /* DFUServiceSelector.swift */,
 				20E39EBBA6244AD4BEFEBD84BA1CEC4D /* DFUStarterPeripheral.swift */,
 			);
+			name = DFUSelector;
 			path = DFUSelector;
 			sourceTree = "<group>";
 		};
@@ -411,6 +414,7 @@
 				117AC5DEA6D484D48AF624803DB12F10 /* SecureDFUPeripheral.swift */,
 				23294EC123EBEB11663D12E9FA3A1449 /* SecureDFUPeripheralDelegate.swift */,
 			);
+			name = Peripheral;
 			path = Peripheral;
 			sourceTree = "<group>";
 		};
@@ -424,6 +428,7 @@
 				BE80C453E6D58C8A6C8F0CBA3B3A548F /* DFUPeripheralDelegate.swift */,
 				F5B92B0ECD8A922900F27766FC3BC2FA /* DFUService.swift */,
 			);
+			name = GenericDFU;
 			path = GenericDFU;
 			sourceTree = "<group>";
 		};
@@ -432,6 +437,7 @@
 			children = (
 				AED6F209B66AF11F97CE91CDE27FB147 /* DFUFirmware.swift */,
 			);
+			name = Firmware;
 			path = Firmware;
 			sourceTree = "<group>";
 		};
@@ -500,6 +506,7 @@
 			children = (
 				C6E7EFA15C3B1569FF3A8962045E391A /* LegacyDFUService.swift */,
 			);
+			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -521,6 +528,7 @@
 				41F4093EA54166ED71EA11903FE83303 /* Peripheral */,
 				C49253C4707404ED6D7B896CDA077F42 /* Services */,
 			);
+			name = SecureDFU;
 			path = SecureDFU;
 			sourceTree = "<group>";
 		};
@@ -550,6 +558,7 @@
 				DB4CEA11FD45CC3DAB54ED847F998BB8 /* SecureDFUExecutor.swift */,
 				AE14D2465CF18B42A3C43BE9BCD380D8 /* SecureDFUServiceInitiator.swift */,
 			);
+			name = DFU;
 			path = DFU;
 			sourceTree = "<group>";
 		};
@@ -599,6 +608,7 @@
 				D7744FFF2BC9765BC7143F482E7EC029 /* FileManager+ZIP.swift */,
 				775D5E97F4FE7306D817ECEFFD25AB00 /* Support Files */,
 			);
+			name = ZIPFoundation;
 			path = ZIPFoundation;
 			sourceTree = "<group>";
 		};
@@ -646,6 +656,7 @@
 				F940E2AB22E5188192D9B8E257BEB5B6 /* DFUStreamHex.swift */,
 				5A3D0BA02A19325BB0E23A48A430691C /* DFUStreamZip.swift */,
 			);
+			name = Streams;
 			path = Streams;
 			sourceTree = "<group>";
 		};
@@ -673,6 +684,7 @@
 				DE375571DA7EC1BFF895678431374300 /* Peripherals */,
 				784CDC9C746121708D0412BF1392DCA3 /* Services */,
 			);
+			name = LegacyDFU;
 			path = LegacyDFU;
 			sourceTree = "<group>";
 		};
@@ -681,6 +693,7 @@
 			children = (
 				D7A1571DFD4F3BCBBF39F733110BF41B /* SecureDFUService.swift */,
 			);
+			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -691,6 +704,7 @@
 				27965421840427EB21E40B459C7BECA2 /* ManifestFirmwareInfo.swift */,
 				BD3303F744BA0345C5320B4CBC69F1A7 /* SoftdeviceBootloaderInfo.swift */,
 			);
+			name = Manifest;
 			path = Manifest;
 			sourceTree = "<group>";
 		};
@@ -727,6 +741,7 @@
 			children = (
 				21942C958728B34A093FA5429200584D /* IntelHex2BinConverter.swift */,
 			);
+			name = HexToBinConverter;
 			path = HexToBinConverter;
 			sourceTree = "<group>";
 		};
@@ -735,6 +750,7 @@
 			children = (
 				CA40A51C4A79D9B5E8A884EA2555A21F /* Manifest */,
 			);
+			name = DFUPackage;
 			path = DFUPackage;
 			sourceTree = "<group>";
 		};
@@ -744,6 +760,7 @@
 				01609AE8109D2B43C8B1082F46520A6D /* LegacyDFUPeripheral.swift */,
 				02AF9CB548AD7E816FBC7567A4E30CEE /* LegacyDFUPeripheralDelegate.swift */,
 			);
+			name = Peripherals;
 			path = Peripherals;
 			sourceTree = "<group>";
 		};
@@ -766,6 +783,7 @@
 				CBF166DFA86D8743C629EFAD2E6BEFB8 /* DFUPacket.swift */,
 				ED7366D7312BCBC4DC7799DAFBFC3A95 /* DFUVersion.swift */,
 			);
+			name = Characteristics;
 			path = Characteristics;
 			sourceTree = "<group>";
 		};
@@ -785,6 +803,7 @@
 				A29528811E070C271EFE8FD18ED00950 /* LegacyDFUExecutor.swift */,
 				09BD2B9DFFC7D8B33DEE9AEEAAC8E731 /* LegacyDFUServiceInitiator.swift */,
 			);
+			name = DFU;
 			path = DFU;
 			sourceTree = "<group>";
 		};
@@ -991,12 +1010,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1030;
-				TargetAttributes = {
-					9AF8AE8821E967844EEF26BBB341564D = {
-						LastSwiftMigration = 1020;
-					};
-				};
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1328,6 +1342,7 @@
 			baseConfigurationReference = 2C723040DECD495E1AAC81F5AA497C97 /* Pods-macOSDFULibrary_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1353,40 +1368,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		43B0E74842CA5D7BC87BB8F2BEA798DC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 4.6.1;
-				MODULEMAP_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS.modulemap";
-				PRODUCT_MODULE_NAME = iOSDFULibrary;
-				PRODUCT_NAME = iOSDFULibrary;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1425,10 +1406,45 @@
 			};
 			name = Debug;
 		};
+		8839BA5E2B4D7D2AA6BF34639A70B710 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MODULEMAP_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS.modulemap";
+				PRODUCT_MODULE_NAME = iOSDFULibrary;
+				PRODUCT_NAME = iOSDFULibrary;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		88AEE5C8CF0D2758FDA72DB55AC34439 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1458,11 +1474,44 @@
 			};
 			name = Release;
 		};
+		9591C5CF1BD8C6BD1D52CDD4424558C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/iOSDFULibrary-iOS/iOSDFULibrary-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/iOSDFULibrary-iOS/iOSDFULibrary-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/iOSDFULibrary-iOS/iOSDFULibrary-iOS.modulemap";
+				PRODUCT_MODULE_NAME = iOSDFULibrary;
+				PRODUCT_NAME = iOSDFULibrary;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		992A25E0A17F6F9313D83DAC3340263C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 890A09B61D0F51EA84B75D5E02FE58D2 /* Pods-macOSDFULibrary_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1492,73 +1541,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		A594161A70530689E8D1AB29B54124C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 4.6.1;
-				MODULEMAP_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS.modulemap";
-				PRODUCT_MODULE_NAME = iOSDFULibrary;
-				PRODUCT_NAME = iOSDFULibrary;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		A8852921F78D1323D1CE443AB401C955 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/iOSDFULibrary-iOS/iOSDFULibrary-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/iOSDFULibrary-iOS/iOSDFULibrary-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.6.1;
-				MODULEMAP_FILE = "Target Support Files/iOSDFULibrary-iOS/iOSDFULibrary-iOS.modulemap";
-				PRODUCT_MODULE_NAME = iOSDFULibrary;
-				PRODUCT_NAME = iOSDFULibrary;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		A9CC0975D3E39E65A132AA0F6BA66AC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1593,6 +1575,40 @@
 			};
 			name = Debug;
 		};
+		AED4D963890BAAA9B2F01B679C64216A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CCC32CD1F9DE588C70537578CFC9DB9 /* iOSDFULibrary-macOS.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MODULEMAP_FILE = "Target Support Files/iOSDFULibrary-macOS/iOSDFULibrary-macOS.modulemap";
+				PRODUCT_MODULE_NAME = iOSDFULibrary;
+				PRODUCT_NAME = iOSDFULibrary;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		BF0EFA1440DD8843826A0F0559CA813E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D333E1089BA812D39E708A23176F0AC9 /* ZIPFoundation-iOS.xcconfig */;
@@ -1624,7 +1640,7 @@
 			};
 			name = Debug;
 		};
-		D40AE366BF7F22E1BDB6EB7EB9CA9DEE /* Debug */ = {
+		C5146E044396F854CF88A29EF1115697 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC94EDA96C2D8CD05CAC59367BC43FA9 /* iOSDFULibrary-iOS.xcconfig */;
 			buildSettings = {
@@ -1642,14 +1658,13 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.6.1;
 				MODULEMAP_FILE = "Target Support Files/iOSDFULibrary-iOS/iOSDFULibrary-iOS.modulemap";
 				PRODUCT_MODULE_NAME = iOSDFULibrary;
 				PRODUCT_NAME = iOSDFULibrary;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1710,7 +1725,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -1752,6 +1768,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D90563942E115795A1F5E9E6C7A0D26 /* ZIPFoundation-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1931,8 +1948,8 @@
 		714DA0B95CDA846AE1BAA5130273B7A3 /* Build configuration list for PBXNativeTarget "iOSDFULibrary-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D40AE366BF7F22E1BDB6EB7EB9CA9DEE /* Debug */,
-				A8852921F78D1323D1CE443AB401C955 /* Release */,
+				C5146E044396F854CF88A29EF1115697 /* Debug */,
+				9591C5CF1BD8C6BD1D52CDD4424558C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1949,8 +1966,8 @@
 		76FA0CBD12596BC39DC0F823266597D7 /* Build configuration list for PBXNativeTarget "iOSDFULibrary-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A594161A70530689E8D1AB29B54124C1 /* Debug */,
-				43B0E74842CA5D7BC87BB8F2BEA798DC /* Release */,
+				8839BA5E2B4D7D2AA6BF34639A70B710 /* Debug */,
+				AED4D963890BAAA9B2F01B679C64216A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
