@@ -1,4 +1,7 @@
 ### Changelog
+- **4.7.0**
+   - Improvement: Migration to Swift 5.2.
+   
 - **4.6.1**
    - Bugfix: DFU stability improved for DFU from SDK 15 and newer.
    - Improvement: DFU tests for SDK 15.3 and 16 added.

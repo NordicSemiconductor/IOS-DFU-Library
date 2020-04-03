@@ -19,7 +19,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/weichsel/ZIPFoundation",
-      .exact("0.9.9")
+      .exact("0.9.11")
     )
   ],
   targets: [
