@@ -13,7 +13,12 @@
     "tag": "4.6.1"
   },
   "social_media_url": "https://twitter.com/nordictweets",
-  "swift_versions": "5.1",
+  "swift_versions": [
+    "4.2",
+    "5.0",
+    "5.1",
+    "5.2"
+  ],
   "platforms": {
     "ios": "9.0",
     "osx": "10.14"
@@ -21,8 +26,8 @@
   "source_files": "iOSDFULibrary/Classes/**/*",
   "dependencies": {
     "ZIPFoundation": [
-      "= 0.9.9"
+      "= 0.9.11"
     ]
   },
-  "swift_version": "5.1"
+  "swift_version": "5.2"
 }
