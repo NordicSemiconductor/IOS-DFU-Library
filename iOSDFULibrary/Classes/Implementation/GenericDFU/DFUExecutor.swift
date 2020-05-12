@@ -121,6 +121,10 @@ extension BaseDFUExecutor {
             self.error = (error, message)
             peripheral.resetDevice()
         }
+        
+        if error == .bluetoothDisabled {
+            delegate{ $0.dfuError(.bluetoothDisabled, didOccurWithMessage: message) }
+        }
     }
     
     // MARK: - Helper functions
