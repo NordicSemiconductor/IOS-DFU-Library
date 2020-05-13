@@ -1,4 +1,8 @@
 ### Changelog
+- **4.7.2**
+   - Improvement: Report error when bluetooth is turned off (#371).
+   - Bugfix: Fixed Carthage configuration (shared schemes) (#370).
+
 - **4.7.1**
    - Bug fixed: A log message was added to help solve #365 issue.
    - Bug fixed: DFU will not proceed when setting alternative advertising name caused disconnection (#367).
@@ -93,176 +97,178 @@
     - PRN will still be used as the default option.
 
 - **4.0.3**
-    - Improvement: Added option to disable peripheral rename feature in bootloader mode, This also fixes issue #159
+    - Improvement: Added option to disable peripheral rename feature in bootloader mode, This also fixes issue #159.
 
 - **4.0.2**
-    - Bugfix: Fix for issue#149 which was caused by a false return in the selector method
+    - Bugfix: Fix for issue#149 which was caused by a false return in the selector method.
 
 - **4.0.1**
     - Bugfix/Improvement: Added @objc tags for Xcode projects that are built with no Objc inference.
 
 - **4.0**:
-    - Feature: Migration to Swift 4
+    - Feature: Migration to Swift 4.
 
 - **3.2.1**:
-    - Feature: Convenience to start the DFU process with zip Data instead of Zip file URL
+    - Feature: Convenience to start the DFU process with zip Data instead of Zip file URL.
 
 - **3.2.0**:
-    - Feature: Support for higher MTUs added on capable iOS devices
-    - Feature: Setting bootloader name (SDK 14 feature)
-    - Deprecation: select(_ peripheral:, advertisementData:, RSSI:) is now deprecated in favor of: select(_ peripheral:, advertisementData:, RSSI:, hint:)
-    - Bugfix: Report proper size of SoftDevice and Bootloader when not given in manifest file (for secure DFU)
-    - Enhancement: Minor code refactor and minor updates to comments/documentation
-    - Enhancement: All orientations supported in the example application
-    - Enhancement: macOS API check for MTU
+    - Feature: Support for higher MTUs added on capable iOS devices.
+    - Feature: Setting bootloader name (SDK 14 feature).
+    - Deprecation: `select(_ peripheral:, advertisementData:, RSSI:)` is now deprecated in favor of: `select(_ peripheral:, advertisementData:, RSSI:, hint:)`.
+    - Bugfix: Report proper size of SoftDevice and Bootloader when not given in manifest file (for secure DFU).
+    - Enhancement: Minor code refactor and minor updates to comments/documentation.
+    - Enhancement: All orientations supported in the example application.
+    - Enhancement: macOS API check for MTU.
 
 - **3.1.0**:
-    - Workaround: minor fix to circumvent an issue with SDK 6.1 when the link is lost during firmware upload resulting in an operation failed error (Code 6)
-    - Enhancement: Minor code refactor for Data struct manipulation		
+    - Workaround: minor fix to circumvent an issue with SDK 6.1 when the link is lost during firmware upload resulting in an operation failed error (Code 6).
+    - Enhancement: Minor code refactor for Data struct manipulation.
 
 - **3.0.6**:
-    - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by carthage
+    - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by carthage.
 
 - **3.0.5**:
-    - Bugfix: Removed Cartfile since it caused conflicts for users building using Carthage, Zip is already bundled via Cocoapods and no further installation is necessary
+    - Bugfix: Removed Cartfile since it caused conflicts for users building using Carthage, Zip is already bundled via Cocoapods and no further installation is necessary.
 
 - **3.0.4**:
-    - Feature: restart() method restored in DFUServiceController
-    - Bugfix: Fixed error reporting when Buttonless jump fails
-    - Bugfix: Crash on aborting when peripheral is changing (#72)
-    - Enhancement: A lot of minor code improvements
+    - Feature: `restart()` method restored in `DFUServiceController`.
+    - Bugfix: Fixed error reporting when Buttonless jump fails.
+    - Bugfix: Crash on aborting when peripheral is changing (#72).
+    - Enhancement: A lot of minor code improvements.
 
 - **3.0.3**:
-    - Documentation warning fixed (#68)
-    - License changed to BSD 3-Clause in Podspec
+    - Documentation warning fixed (#68).
+    - License changed to BSD 3-Clause in Podspec.
 
 - **3.0.2**:
-    - Bugfix: Ignoring updates from non-DFU characteristics (#66)
-    - Enhancement: Log messages improved for connected devices
+    - Bugfix: Ignoring updates from non-DFU characteristics (#66).
+    - Enhancement: Log messages improved for connected devices.
 
 - **3.0.1**:
-    - Bugfix: Crash if DFU Characteristic isn't found (#64)
+    - Bugfix: Crash if DFU Characteristic isn't found (#64).
     - Bugfix: Discovering all services to determine mode for Legacy bootloaders without DFU Version char.
-    - Enhancement: License changed to BSD 3-Clause
+    - Enhancement: License changed to BSD 3-Clause.
 
 - **3.0.0**:
-    - Enhancement: A lot of code has been rewritten. API has slightly changed and now matches better Swift 3 requirements
-    - Feature: Better support for starting DFU on already connected devices
+    - Enhancement: A lot of code has been rewritten. API has slightly changed and now matches better Swift 3 requirements.
+    - Feature: Better support for starting DFU on already connected devices.
 
 - **2.1.6**:
-    - Bugfix: Peripherals that are already connected now will start the DFU Process right away instead of halting"
+    - Bugfix: Peripherals that are already connected now will start the DFU Process right away instead of halting.
 
 - **2.1.5**:
-    - Enhancement: Added @ObjC to `DFUPeripheralSelectorDelegate` to help with Obj-C Based project integration
+    - Enhancement: Added `@ObjC` to `DFUPeripheralSelectorDelegate` to help with Obj-C Based project integration.
     - Enhancement: Minor typo fix in peripheral State.
-    - Enhancement: Minor enhancement to the LoggerHelper Class
+    - Enhancement: Minor enhancement to the `LoggerHelper` class.
 
 - **2.1.4**:
     - Enhancement: Added Cartfile for denpendency libraries.
 
 - **2.1.3**:
-    - Bugfix: Fixed an issue with PRN value not being fully used throughout the DFU process and at some points reverted to the default value
+    - Bugfix: Fixed an issue with PRN value not being fully used throughout the DFU process and at some points reverted to the default value.
     - Bugfix: Fixed issue with specific packet sizes that caused the last packet not to be executed due to PRN being received earlier than expected.
     - Enhancement: Updated Readme to show SDK12's support.
 
 - **2.1.2**:
     - Feature: Added a failsafe solution for cases of an irrecoverable resume in the DFU process that simply starts the process from scratch ignoring it's state.
-    - Bugfix: Fixed issue causing the DFU process to constantly fail after peripheral is reset during the process
+    - Bugfix: Fixed issue causing the DFU process to constantly fail after peripheral is reset during the process.
     - Bugfix: Fixed issue #14 that caused a crash when the logger delegate wasn't being set.
 
 - **2.1.1**:
-    - Feature: Carthage is now fully supported
+    - Feature: Carthage is now fully supported.
 
 - **2.1**:
-    - Deprecation: Deprecated enums are now obsolete: `State` is now `DFUState`, `StatusCode` is now `DFUResultCode`, `OpCode` is now `DFUOPCode`
-    - Bugfix: Fixed issue in test target having a missing framework path
-    - Bugfix: Fixed return values of Pause, Resume and Abort DFU methods that were returning wrong values
+    - Deprecation: Deprecated enums are now obsolete: `State` is now `DFUState`, `StatusCode` is now `DFUResultCode`, `OpCode` is now `DFUOPCode`.
+    - Bugfix: Fixed issue in test target having a missing framework path.
+    - Bugfix: Fixed return values of Pause, Resume and Abort DFU methods that were returning wrong values.
 
 - **2.0.1**:
-    - Bugfix: Fixed accidentally removed files in v2.0
+    - Bugfix: Fixed accidentally removed files in v2.0.
 
 - **2.0**:
-    - Feature: Migrated to Swift 3.0 Xcode 8
-    - Bugfix: Issue where PRN `Packet Receipt Notification` values being overriden were ignored is now resolved
+    - Feature: Migrated to Swift 3.0 Xcode 8.
+    - Bugfix: Issue where PRN `Packet Receipt Notification` values being overriden were ignored is now resolved.
 
 - **1.0.12**:
-    - Enhancement: Refactored code to remove warnings about deprecation in Siwft3 and some other related warnings
+    - Enhancement: Refactored code to remove warnings about deprecation in Siwft3 and some other related warnings.
 
 - **1.0.11**:
-    - Feature: Added ability to pause and resume DFU uploads
-    - Feature: Added new status enum `Failed` to report general connection failures
-    - Bugfix: Fixed issue with connection interruption not being handled properly
-    - Bugfix: Fixed issue with Abort opertation not being completed
-    - Bugfix: Fixed issue with some states where `Aborted` was being used, replaced with `Failed`
+    - Feature: Added ability to pause and resume DFU uploads.
+    - Feature: Added new status enum `Failed` to report general connection failures.
+    - Bugfix: Fixed issue with connection interruption not being handled properly.
+    - Bugfix: Fixed issue with Abort opertation not being completed.
+    - Bugfix: Fixed issue with some states where `Aborted` was being used, replaced with `Failed`.
 
 - **1.0.10b**:
-    - Bugfix: Fixes overflow crash when the peripheral has received 100% of the firmware but couldn’t execute
+    - Bugfix: Fixes overflow crash when the peripheral has received 100% of the firmware but couldn’t execute.
 
 - **1.0.9b**:
-    - Feature: This version preps the Secure DFU feature for production, it is now a part of the development process
+    - Feature: This version preps the Secure DFU feature for production, it is now a part of the development process.
 
 - **1.0.8**:
-    - Enhancemen: iOSDFULib is now up to date with the standalone library stability wise, this means it's now been bumped up to version 1.0.8
-    - Feature: Implemented Extended error feature
-    - Feature: Reverted bugfix in **0.1.16** that disabled extended error feature
+    - Enhancemen: iOSDFULib is now up to date with the standalone library stability wise, this means it's now been bumped up to version 1.0.8.
+    - Feature: Implemented Extended error feature.
+    - Feature: Reverted bugfix in **0.1.16** that disabled extended error feature.
 
  - **0.1.18**: 
-    - Feature: Implemented new response code `operation_not_permitted`
+    - Feature: Implemented new response code `operation_not_permitted`.
  
  - **0.1.17**: 
-     - Bugfix: iOS10 bug fix that caused the dfu process not to initialize
+    - Bugfix: iOS10 bug fix that caused the dfu process not to initialize.
  
  - **0.1.16**: 
-     - Bugfix: Added earlier Secure DFU Signature mismatch handling without Extended error feature for backwards compatibility
+    - Bugfix: Added earlier Secure DFU Signature mismatch handling without Extended error feature for backwards compatibility.
  
  - **0.1.15**: 
-     - Enhancemen: Added more verbose logging for debug purposes
+    - Enhancemen: Added more verbose logging for debug purposes.
  
  - **0.1.14**:
-     - Feature: On DFU interruption, the next attempt always showed an peripheral in invalid state error, this is now bypassed by sending a reset command and reconnecting automaticaly, the handler will attempt to do that 3 times before throwing the appropriate error
+     - Feature: On DFU interruption, the next attempt always showed an peripheral in invalid state error, this is now bypassed by sending a reset 
+       command and reconnecting automaticaly, the handler will attempt to do that 3 times before throwing the appropriate error.
  
  - **0.1.13**:
-     - Bugfix: @objc attributes where missing from LogLevel Enum and LoggerDelegate protocol, making thenm unavailable to Obj-C code
+    - Bugfix: `@objc` attributes where missing from `LogLevel` enum and `LoggerDelegate` protocol, making thenm unavailable to Obj-C code.
 
  - **0.1.12**: 
-     - Bugfix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior
+    - Bugfix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior.
  
  - **0.1.11**:
-    - Bugfix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition
-    - Feature: Removed one of the dependencies (EVReflection) in an appempt to make the library self contained
+    - Bugfix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition.
+    - Feature: Removed one of the dependencies (EVReflection) in an appempt to make the library self contained.
 
 - **0.1.10**:
-    - Enhancement: Added Signature mismatch handling and better logging 
-    - Bugfix: iOS10 bug that caused dfu process not to start
+    - Enhancement: Added Signature mismatch handling and better logging. 
+    - Bugfix: iOS10 bug that caused dfu process not to start.
 
 - **0.1.9**:
-    - Feature: Added a reset feature to allow flashing after an interruption due to connection issues or user aborting the process, this used to throw an invalid state error, handler will now retry 3 times before failing.
-    - Feature: Added a fully working example app for users why `pod try` the library, this will attempt to flash the bundled firmware file `hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip`
-    - Feature: iOS target lowered to 8.0, Added OSX 10.10 Target
+    - Feature: Added a reset feature to allow flashing after an interruption due to connection issues or user aborting the process, 
+      this used to throw an invalid state error, handler will now retry 3 times before failing.
+    - Feature: Added a fully working example app for users why `pod try` the library, this will attempt to flash the bundled firmware file `hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip`.
+    - Feature: iOS target lowered to 8.0, Added OSX 10.10 Target.
 
 - **0.1.8**:
-    - Enhancement: Removed unnecessary requirement to include a .dat file while uploading a hex, which caused some issues
+    - Enhancement: Removed unnecessary requirement to include a .dat file while uploading a hex, which caused some issues.
 
 - **0.1.7**:
-    - Bugfix: Fixed all missing links
+    - Bugfix: Fixed all missing links.
 
 - **0.1.6**:
-    - Bugfix: Fixed broken link in documentation  
+    - Bugfix: Fixed broken link in documentation.  
 
 - **0.1.5**:
-    - Enhancement: Improved readme
+    - Enhancement: Improved readme.
 
 - **0.1.4**:
-    - Enhancement: Removed unnecessary public headears from PodSpec
+    - Enhancement: Removed unnecessary public headears from PodSpec.
 
 - **0.1.3**:
-    - Enhancement: Removed extraneous IntelHextBin module as it's no longer necessary
+    - Enhancement: Removed extraneous IntelHextBin module as it's no longer necessary.
 
 - **0.1.2**:
-    - Bugfix: Added Pod name that caused a missing reference issue and other minor bugfixes
+    - Bugfix: Added Pod name that caused a missing reference issue and other minor bugfixes.
 
 - **0.1.1**:
-    - Bugfix: Release/Debug configurations had a missing reference
+    - Bugfix: Release/Debug configurations had a missing reference.
 
 - **0.1.0**:
-    - Initial Pod implementation
+    - Initial Pod implementation.
