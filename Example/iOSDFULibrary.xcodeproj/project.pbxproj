@@ -274,7 +274,6 @@
 				7081272B72B4F72EEF9A37B8 /* Pods-macOSDFULibrary_Example.debug.xcconfig */,
 				544A6963A7F92DFFC0289358 /* Pods-macOSDFULibrary_Example.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
