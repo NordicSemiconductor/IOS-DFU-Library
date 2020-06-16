@@ -173,13 +173,20 @@ import CoreBluetooth
      buttonless service, advertises with the same Bluetooth address as the application
      using direct advertisement. This complies with the Bluetooth specification.
      However, starting from iOS 13.x, iPhones and iPads use random addresses on each
-     connection and the direct advertising misses, do not report direct advertisements
-     from non-bonded devices, making reconnection to the bootloader and proceeding
-     with DFU impossible.
-     A solution requires modifying the application not to share the peer data with bootloader,
-     in which case it will advertise undirectly using address +1, like it does when the switch
-     to bootloader mode is initiated with a button. After such modification, setting this
-     flag to true will make the library scan for the bootloader using `DFUPeripheralSelector`.
+     connection and do not expect direct advertising unless bonded. This causes thiose
+     packets being missed and not reported to the library, making reconnection to the
+     bootloader and proceeding with DFU impossible.
+     A solution requires modifying either the bootloader not to use the direct advertising,
+     or the application not to share the peer data with bootloader, in which case it will
+     advertise undirectly using address +1, like it does when the switch to bootloader mode
+     is initiated with a button. After such modification, setting this flag to true will make the
+     library scan for the bootloader using `DFUPeripheralSelector`.
+     
+     Setting this flag to true without modifying the booloader behavior will break the DFU,
+     as the direct advertising packets are empty and will not pass the default
+     `DFUPeripheralSelector`.
+     
+     - since: 4.8.0
      */
     @objc public var forceScanningForNewAddressInLegacyDfu = false
     
