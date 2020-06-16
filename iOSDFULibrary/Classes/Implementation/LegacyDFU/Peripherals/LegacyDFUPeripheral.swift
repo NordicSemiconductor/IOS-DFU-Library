@@ -77,10 +77,13 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     
     /**
      Switches target device to the DFU Bootloader mode.
+     
+     - parameter forceNewAddress: Set to true if the bootloader is expected to adveritse
+                                  with a different address than when in app mode.
      */
-    func jumpToBootloader() {
+    func jumpToBootloader(forceNewAddress: Bool) {
         jumpingToBootloader = true
-        newAddressExpected = dfuService!.newAddressExpected
+        newAddressExpected = dfuService!.newAddressExpected || forceNewAddress
         dfuService!.jumpToBootloaderMode(
             // On success, the device gets disconnected and
             // `centralManager(_:didDisconnectPeripheral:error)` will be called.

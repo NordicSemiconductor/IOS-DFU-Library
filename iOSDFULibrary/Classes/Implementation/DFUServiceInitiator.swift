@@ -169,6 +169,21 @@ import CoreBluetooth
     @objc public var forceDfu = false
     
     /**
+     By default, the Legacy DFU bootloader starting from SDK 7.1, when enabled using
+     buttonless service, advertises with the same Bluetooth address as the application
+     using direct advertisement. This complies with the Bluetooth specification.
+     However, starting from iOS 13.x, iPhones and iPads use random addresses on each
+     connection and the direct advertising misses, do not report direct advertisements
+     from non-bonded devices, making reconnection to the bootloader and proceeding
+     with DFU impossible.
+     A solution requires modifying the application not to share the peer data with bootloader,
+     in which case it will advertise undirectly using address +1, like it does when the switch
+     to bootloader mode is initiated with a button. After such modification, setting this
+     flag to true will make the library scan for the bootloader using `DFUPeripheralSelector`.
+     */
+    @objc public var forceScanningForNewAddressInLegacyDfu = false
+    
+    /**
      In SDK 14.0.0 a new feature was added to the Buttonless DFU for non-bonded
      devices which allows to send a unique name to the device before it is switched
      to bootloader mode. After jump, the bootloader will advertise with this name
