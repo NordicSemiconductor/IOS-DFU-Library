@@ -112,8 +112,11 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     /// A flag set when upload has been aborted.
     fileprivate var aborted: Bool = false
     /// Connection timer cancels connection attempt if the device doesn't
-    /// connect within 10 seconds.
+    /// connect before the time runs out.
     private var connectionTimer: DispatchSourceTimer?
+    /// Connection timeout.
+    /// - since: 4.8.0
+    private let connectionTimeout: TimeInterval
     
     init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.centralManager = initiator.centralManager
@@ -122,6 +125,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         self.logger = logger
         self.experimentalButtonlessServiceInSecureDfuEnabled = initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu
         self.uuidHelper = initiator.uuidHelper
+        self.connectionTimeout = initiator.connectionTimeout
 
         super.init()
     }
@@ -470,11 +474,12 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         connectionTimer?.setEventHandler {
             if let peripheral = self.peripheral {
                 self.connectionTimer?.cancel()
+                self.logger.w("Connection timeout!")
                 self.logger.d("centralManager.cancelPeripheralConnection(peripheral)")
                 self.centralManager.cancelPeripheralConnection(peripheral)
             }
         }
-        connectionTimer?.schedule(deadline: .now() + 10.0)
+        connectionTimer?.schedule(deadline: .now() + connectionTimeout)
         connectionTimer?.resume()
         logger.d("centralManager.connect(peripheral, options: nil)")
         centralManager.connect(peripheral!, options: nil)

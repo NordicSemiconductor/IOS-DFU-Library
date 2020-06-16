@@ -184,6 +184,16 @@ import CoreBluetooth
     @objc public var forceScanningForNewAddressInLegacyDfu = false
     
     /**
+     Connection timeout.
+     
+     When the DFU target does not connect before the time runs out, a timeout error
+     is reported.
+     
+     - since: 4.8.0
+     */
+    @objc public var connectionTimeout: TimeInterval = 10.0
+    
+    /**
      In SDK 14.0.0 a new feature was added to the Buttonless DFU for non-bonded
      devices which allows to send a unique name to the device before it is switched
      to bootloader mode. After jump, the bootloader will advertise with this name
