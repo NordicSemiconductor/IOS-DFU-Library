@@ -300,6 +300,8 @@ import CoreBluetooth
 
     /**
      Disable the ability for the DFU process to resume from where it was.
+     
+     - since: 4.3.0
     */
     @objc public var disableResume: Bool = false
 
