@@ -201,6 +201,31 @@ import CoreBluetooth
     @objc public var connectionTimeout: TimeInterval = 10.0
     
     /**
+     Duration of a delay, that the service will wait before sending each data object in
+     Secure DFU. The delay will be done after a data object is created, and before
+     any data byte is sent. The default value is 0, which disables this feature for the
+     second and following data objects, but the first one will be delayed by 0.4 sec.
+     
+     It has been found, that a delay of at least 0.3 sec reduces the risk of packet lose
+     (the bootloader needs some time to prepare flash memory) on DFU bootloader from
+     SDK 15, 16 and 17. The delay does not have to be longer than 0.4 sec, as according to
+     performed tests, such delay is sufficient.
+     
+     The longer the delay, the more time DFU will take to complete (delay will be repeated for
+     each data object (4096 bytes)). However, with too small delay a packet lose may occur,
+     causing the service to enable PRN and set them to 1 making DFU process very, very slow
+     (but reliable).
+     
+     The recommended delay is from 0.3 to 0.4 second if your DFU bootloader is from
+     SDK 15, 16 or 17. Older bootloaders do not need this delay.
+     
+     This variable is ignored in Legacy DFU.
+     
+     - since: 4.8.0
+     */
+    @objc public var dataObjectPreparationDelay: TimeInterval = 0.0
+    
+    /**
      In SDK 14.0.0 a new feature was added to the Buttonless DFU for non-bonded
      devices which allows to send a unique name to the device before it is switched
      to bootloader mode. After jump, the bootloader will advertise with this name
