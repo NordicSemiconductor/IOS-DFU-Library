@@ -81,7 +81,9 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
             delegate {
                 $0.dfuStateDidChange(to: .enablingDfuMode)
             }
-            peripheral.jumpToBootloader()
+            peripheral.jumpToBootloader(
+                forceNewAddress: initiator.forceScanningForNewAddressInLegacyDfu
+            )
         } else {
             // The device is ready to proceed with DFU.
             peripheral.sendStartDfu(withFirmwareType: firmware.currentPartType,
