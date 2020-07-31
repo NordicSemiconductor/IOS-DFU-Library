@@ -1,4 +1,9 @@
 ### Changelog
+- **4.8.0**
+   - Feature: Option to force scanning for Legacy DFU bootloader after jumping using Buttonless Service (#374).
+   - Feature: Option to set connection timeout (#369).
+   - Feature: Option to set data object preparation delay (#377).
+   
 - **4.7.2**
    - Improvement: Report error when bluetooth is turned off (#371).
    - Bugfix: Fixed Carthage configuration (shared schemes) (#370).
