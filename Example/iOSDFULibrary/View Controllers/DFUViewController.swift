@@ -125,7 +125,9 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             partLabel.text = "1 / \(firmware.parts)"
             
             startTime = Date()
-            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(DFUViewController.updateTimer), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
+                                         selector: #selector(DFUViewController.updateTimer),
+                                         userInfo: nil, repeats: true)
             updateTimer()
         } else {
             dfuStatusLabel.text = "Loading firmware..."
