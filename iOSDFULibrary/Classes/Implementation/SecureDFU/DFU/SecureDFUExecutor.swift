@@ -319,7 +319,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         // Otherwise, some packets may be discarded and the received checksum will not match.
         if currentRangeIdx == 0 || initiator.dataObjectPreparationDelay > 0 {
             let delay = initiator.dataObjectPreparationDelay > 0 ? initiator.dataObjectPreparationDelay : 0.4
-            logger.d("wait(\(Int(delay * 1000))")
+            logger.d("wait(\(Int(delay * 1000)))")
             initiator.queue.asyncAfter(deadline: .now() + delay) {
                 self.sendDataObject(self.currentRangeIdx) // -> peripheralDidReceiveObject() will be called.
             }
