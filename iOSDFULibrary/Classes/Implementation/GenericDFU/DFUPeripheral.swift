@@ -113,10 +113,14 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     fileprivate var aborted: Bool = false
     /// Connection timer cancels connection attempt if the device doesn't
     /// connect before the time runs out.
-    private var connectionTimer: DispatchSourceTimer?
+    fileprivate var connectionTimer: DispatchSourceTimer?
     /// Connection timeout.
     /// - since: 4.8.0
-    private let connectionTimeout: TimeInterval
+    fileprivate let connectionTimeout: TimeInterval
+    /// Whether new address is expected in Legacy DFU Bootloader.
+    /// - seeAlso: `DFUServiceInitiator.forceScanningForNewAddressInLegacyDfu`
+    /// - since: 4.9.0
+    fileprivate let forceScanningForNewAddressInLegacyDfu: Bool
     
     init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.centralManager = initiator.centralManager
@@ -126,6 +130,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         self.experimentalButtonlessServiceInSecureDfuEnabled = initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu
         self.uuidHelper = initiator.uuidHelper
         self.connectionTimeout = initiator.connectionTimeout
+        self.forceScanningForNewAddressInLegacyDfu = initiator.forceScanningForNewAddressInLegacyDfu
 
         super.init()
     }
@@ -467,22 +472,40 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
      Connects to the peripheral and performs service discovery.
      */
     fileprivate func connect() {
-        let name = peripheral!.name ?? "Unknown device"
+        connect(withTimeout: connectionTimeout)
+    }
+    
+    /**
+     Connects to the peripheral and performs service discovery.
+     
+     If the connection fails before the time runs out, the optional timeout
+     handler will be called.
+     
+     - parameters:
+       - timeout: The connection timeout.
+       - timeoutHandler: An optional callback, which will be executed on timeout.
+     */
+    fileprivate func connect(withTimeout timeout: TimeInterval, timeoutHandler: (() -> ())? = nil) {
+        guard let peripheral = peripheral else {
+            return
+        }
+        let name = peripheral.name ?? "Unknown device"
         logger.v("Connecting to \(name)...")
         // Set a connection timer.
         connectionTimer = DispatchSource.makeTimerSource()
-        connectionTimer?.setEventHandler {
-            if let peripheral = self.peripheral {
+        connectionTimer?.setEventHandler { [weak self] in
+            if let self = self, let peripheral = self.peripheral {
                 self.connectionTimer?.cancel()
                 self.logger.w("Connection timeout!")
                 self.logger.d("centralManager.cancelPeripheralConnection(peripheral)")
                 self.centralManager.cancelPeripheralConnection(peripheral)
+                timeoutHandler?()
             }
         }
-        connectionTimer?.schedule(deadline: .now() + connectionTimeout)
+        connectionTimer?.schedule(deadline: .now() + timeout)
         connectionTimer?.resume()
         logger.d("centralManager.connect(peripheral, options: nil)")
-        centralManager.connect(peripheral!, options: nil)
+        centralManager.connect(peripheral, options: nil)
     }
     
     fileprivate func cleanUp() {
@@ -573,6 +596,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     /// device address after it resets. The service will scan and use specified
     /// peripheral selector in order to connect to the new peripheral.
     internal var newAddressExpected  : Bool = false
+    /// Expected Bootloader advertised Local Name.
     internal var bootloaderName      : String?
     
     override init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
@@ -602,16 +626,25 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         if shouldReconnect {
             shouldReconnect = false
             // We need to reconnect to the device.
-            connect()
+            connect(withTimeout: 5.0)
         } else if jumpingToBootloader {
             jumpingToBootloader = false
             if newAddressExpected {
                 newAddressExpected = false
-                // Scan for a new device and connect to it.
-                switchToNewPeripheralAndConnect()
+                
+                // If in Legacy DFU, and `forceScanningForNewAddressInLegacyDfu`
+                // is set to true, try first connecting to the same peripheral.
+                // Perheps it has not been updated to use incremented address yet.
+                if forceScanningForNewAddressInLegacyDfu {
+                    // Despite the fact, that a new address is expected,
+                    // try to reconnect to the same device.
+                    connectOrSwitchToNewPeripheral(after: 2.0)
+                } else {
+                    switchToNewPeripheralAndConnect()
+                }
             } else {
                 // Connect again, hoping for DFU mode this time.
-                connect()
+                connect(withTimeout: 5.0)
             }
         } else if activating {
             activating = false
@@ -619,14 +652,9 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             
             // Check if there is another part to be sent.
             if (delegate?.peripheralDidDisconnectAfterFirmwarePartSent() ?? false) {
-                if newAddressExpected {
-                    newAddressExpected = false
-                    // Scan for a new device and connect to it.
-                    switchToNewPeripheralAndConnect()
-                } else {
-                    // The same device can be used.
-                    connect()
-                }
+                // As we are already in bootloader mode, the peripheral set
+                // may be reused for sending a second part.
+                connectOrSwitchToNewPeripheral(after: 3.0)
             } else {
                 // Upload is completed.
                 // Peripheral has been destroyed and state is now .completed.
@@ -656,8 +684,25 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         return false
     }
     
+    func connectOrSwitchToNewPeripheral(after timeout: TimeInterval) {
+        // In Legacy DFU the DFU bootloader by default advertises with the
+        // same MAC address as the application. However, recent changes in iOS
+        // (see: https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/368#issuecomment-619066196)
+        // made it necessary for the bootloader to change its address.
+        // This requires updating the bootloader or the app on the device, as
+        // explaind in the above-mentioned issue.
+        // Then, this flag needs to be set to true in the `DFUServiceInitiator`.
+        // With that flag equal to true, the library will try to connect to the
+        // same device (with a short timeout), and if that fails, will try to
+        // scan for a new address using `DFUPeripheralSelector`.
+        connect(withTimeout: timeout) { [unowned self] in
+            // Scan for a new device and connect to it.
+            self.switchToNewPeripheralAndConnect()
+        }
+    }
+    
     func switchToNewPeripheralAndConnect() {
-        // Release the previous peripheral
+        // Release the previous peripheral.
         peripheral!.delegate = nil
         peripheral = nil
         cleanUp()
@@ -667,8 +712,24 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             return
         }
         
+        // Set a scanner timer.
+        connectionTimer = DispatchSource.makeTimerSource()
+        connectionTimer?.setEventHandler { [weak self] in
+            if let self = self {
+                self.connectionTimer?.cancel()
+                self.logger.w("Scanning timed out returning no matching peripherals!")
+                self.logger.d("centralManager.stopScan()")
+                self.centralManager.stopScan()
+                self.delegate?.error(.failedToConnect, didOccurWithMessage: "No DFU device found.")
+            }
+        }
+        connectionTimer?.schedule(deadline: .now() + connectionTimeout)
+        connectionTimer?.resume()
+        
         logger.v("Scanning for the DFU Bootloader...")
-        centralManager.scanForPeripherals(withServices: peripheralSelector.filterBy(hint: DFUServiceType.serviceUuid(from: uuidHelper)))
+        let requiredServices = peripheralSelector.filterBy(hint: DFUServiceType.serviceUuid(from: uuidHelper))
+        logger.d("centralManager.scanForPeripherals(withServices, \(requiredServices?.description ?? "nil")")
+        centralManager.scanForPeripherals(withServices: requiredServices)
     }
     
     // MARK: - Peripheral Delegate methods
@@ -677,8 +738,11 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
                                  didDiscover peripheral: CBPeripheral,
                                  advertisementData: [String : Any], rssi RSSI: NSNumber) {
         // Is this a device we are looking for?
-        if peripheralSelector.select(peripheral, advertisementData: advertisementData as [String : AnyObject], RSSI: RSSI, hint: bootloaderName) {
+        if peripheralSelector.select(peripheral, advertisementData: advertisementData as [String : AnyObject],
+                                     RSSI: RSSI, hint: bootloaderName) {
             // Hurray!
+            connectionTimer?.cancel()
+            connectionTimer = nil
             central.stopScan()
             
             if let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
