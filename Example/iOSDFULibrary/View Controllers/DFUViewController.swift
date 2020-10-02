@@ -38,7 +38,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     private var peripheralName   : String?
     private var dfuController    : DFUServiceController!
     private var centralManager   : CBCentralManager!
-    private var firmwareProvider : DFUFirmwareProvider!
+    private var firmwareProvider : DFUFirmwareProvider?
     private var partsCompleted   : Int = 0
     private var currentFirmwarePartsCompleted : Int = 0
     private var firstPartRatio   : Float = 1.0
@@ -98,18 +98,29 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     func setTargetPeripheral(_ targetPeripheral: CBPeripheral, withName name: String?) {
         self.dfuPeripheral    = targetPeripheral
         self.peripheralName   = name
-        self.firmwareProvider = DFUFirmwareProvider.get(byName: name)
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+            self.firmwareProvider = DFUFirmwareProvider.get(byName: name)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                if self.isViewLoaded {
+                    self.initialize()
+                    self.startDFUProcess()
+                }
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialize()
-        startDFUProcess()
+        if let _ = firmwareProvider {
+            startDFUProcess()
+        }
     }
     
     private func initialize() {
-        if let firmware = firmwareProvider.firmware {
+        if let firmware = firmwareProvider?.firmware {
             dfuStatusLabel.text = ""
             partLabel.text = "1 / \(firmware.parts)"
             
@@ -117,7 +128,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(DFUViewController.updateTimer), userInfo: nil, repeats: true)
             updateTimer()
         } else {
-            dfuStatusLabel.text = "No firmware found"
+            dfuStatusLabel.text = "Loading firmware..."
             partLabel.text = "N/A"
         }
         totalProgressView.progress = 0.0
@@ -162,7 +173,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             print("No DFU peripheral was set")
             return
         }
-        guard let firmware = firmwareProvider.firmware else {
+        guard let firmwareProvider = firmwareProvider,
+              let firmware = firmwareProvider.firmware else {
             print("No firmware found. Check your Test Set")
             return
         }
@@ -238,9 +250,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         // TODO:
     }
     
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
+                        advertisementData: [String : Any], rssi RSSI: NSNumber) {
         // Using the step filter, look for next target
-        if firmwareProvider.filter!(advertisementData) {
+        if let firmwareProvider = firmwareProvider,
+           firmwareProvider.filter!(advertisementData) {
             // We found it!
             
             // Stop scanning
@@ -288,11 +302,11 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             
             addStepToCompleted(success: true)
             
-            if firmwareProvider.hasNext() {
-                if firmwareProvider.expectedError == nil {
+            if firmwareProvider!.hasNext() {
+                if firmwareProvider!.expectedError == nil {
                     prepareNextStep()
                 } else {
-                    stepDescriptionLabel.text = "Step completed but error \(firmwareProvider.expectedError!.rawValue) was expected"
+                    stepDescriptionLabel.text = "Step completed but error \(firmwareProvider!.expectedError!.rawValue) was expected"
                 }
             } else {
                 stopTimer()
@@ -311,18 +325,18 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
         dfuController = nil
         
         // If expected error was returned, continue with next test
-        if let expectedError = firmwareProvider.expectedError {
+        if let expectedError = firmwareProvider!.expectedError {
             if expectedError == error {
                 // Increment the parts counter
-                partsCompleted += firmwareProvider.firmware!.parts - currentFirmwarePartsCompleted
+                partsCompleted += firmwareProvider!.firmware!.parts - currentFirmwarePartsCompleted
                 
                 // Update the total progress view
-                let totalProgress = Float(partsCompleted) / Float(firmwareProvider.totalParts)
+                let totalProgress = Float(partsCompleted) / Float(firmwareProvider!.totalParts)
                 totalProgressView.setProgress(totalProgress, animated: true)
                 
                 addStepToCompleted(success: false)
                 
-                if firmwareProvider.hasNext() {
+                if firmwareProvider!.hasNext() {
                     prepareNextStep()
                 } else {
                     stopTimer()
@@ -330,7 +344,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
                 }
             } else {
                 stopTimer()
-                stepDescriptionLabel.text! += ": Failed with error \(error.rawValue) but \(firmwareProvider.expectedError!.rawValue) was expected"
+                stepDescriptionLabel.text! += ": Failed with error \(error.rawValue) but \(firmwareProvider!.expectedError!.rawValue) was expected"
                 stopProcessButton.setTitle("Restart", for: .normal)
             }
         } else {
@@ -342,7 +356,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     
     private func addStepToCompleted(success: Bool) {
         let mark = success ? "✓" : "✕"
-        completedStepsLabel.text = "\(mark) \(firmwareProvider.description!) (\(stepTimerLabel.text!))\n\(completedStepsLabel.text!)"
+        completedStepsLabel.text = "\(mark) \(firmwareProvider!.description!) (\(stepTimerLabel.text!))\n\(completedStepsLabel.text!)"
         stepTimerLabel.text = ""
         stepStartTime = nil
     }
@@ -351,7 +365,7 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
     
     func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
         // Update the total progress view
-        let totalProgress = (Float(partsCompleted) + (Float(progress) / 100.0)) / Float(firmwareProvider.totalParts)
+        let totalProgress = (Float(partsCompleted) + (Float(progress) / 100.0)) / Float(firmwareProvider!.totalParts)
         totalProgressView.setProgress(totalProgress, animated: true)
         
         // Update step progress view
