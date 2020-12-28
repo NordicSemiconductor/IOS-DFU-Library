@@ -51,13 +51,13 @@ internal protocol DFUStarterPeripheralDelegate : BasePeripheralDelegate {
 internal class DFUServiceSelector : BaseDFUExecutor, DFUStarterPeripheralDelegate {
     typealias DFUPeripheralType = DFUStarterPeripheral
     
-    internal let initiator:  DFUServiceInitiator
+    internal let initiator:  DFUServiceInitiatorBle
     internal let logger:     LoggerHelper
-    internal let controller: DFUServiceController
+    internal let controller: DFUServiceControllerBle
     internal let peripheral: DFUStarterPeripheral
     internal var error: (error: DFUError, message: String)?
     
-    init(initiator: DFUServiceInitiator, controller: DFUServiceController) {
+    init(initiator: DFUServiceInitiatorBle, controller: DFUServiceControllerBle) {
         self.initiator  = initiator
         self.logger     = LoggerHelper(initiator.logger, initiator.loggerQueue)
         self.controller = controller

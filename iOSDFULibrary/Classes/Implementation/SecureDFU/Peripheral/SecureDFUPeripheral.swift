@@ -63,7 +63,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     
     // MARK: - Implementation
     
-    override init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
+    override init(_ initiator: DFUServiceInitiatorBle, _ logger: LoggerHelper) {
         self.alternativeAdvertisingNameEnabled = initiator.alternativeAdvertisingNameEnabled
         self.alternativeAdvertisingName = initiator.alternativeAdvertisingName
         super.init(initiator, logger)
@@ -94,7 +94,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      experimental or final Buttonless DFU feature.
      
      The experimental buttonless DFU from SDK 12 must be enabled explicitly
-     in `DFUServiceInitiator`.
+     in `DFUServiceInitiatorBle`.
      */
     func jumpToBootloader() {
         newAddressExpected = dfuService!.newAddressExpected
@@ -207,7 +207,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      - parameter progress: An optional progress delegate.
      - parameter queue:    The queue to dispatch progress events on.
      */
-    func sendNextObject(from range: Range<Int>, of firmware: DFUFirmware,
+    func sendNextObject(from range: Range<Int>, of firmware: DFUFirmwareBle,
                         andReportProgressTo progress: DFUProgressDelegate?,
                         on queue: DispatchQueue) {
         dfuService!.sendNextObject(from: range, of: firmware,

@@ -107,7 +107,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      - parameter type: The firmware type bitfield. See FIRMWARE_TYPE_* constants.
      - parameter size: The size of all parts of the firmware.
      */
-    func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize) {
+    func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSizeBle) {
         dfuService!.sendDfuStart(withFirmwareType: type, andSize: size,
             onSuccess: { self.delegate?.peripheralDidStartDfu() },
             onError: { error, message in
@@ -130,7 +130,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      - parameter size: The size of all parts of the firmware, where size of
                        Softdevice and Bootloader are 0.
      */
-    func sendStartDfu(withFirmwareSize size: DFUFirmwareSize) {
+    func sendStartDfu(withFirmwareSize size: DFUFirmwareSizeBle) {
         logger.v("Switching to DFU v.1")
         
         // Flash operation in DFU Bootloaders from SDK 6.0 and older were too slow
@@ -170,7 +170,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      - parameter progress: The deleagate that will be informed about progress changes.
      - parameter queue:    The queue to dispatch progress delegate events.
      */
-    func sendFirmware(_ firmware: DFUFirmware, withPacketReceiptNotificationNumber prnValue: UInt16,
+    func sendFirmware(_ firmware: DFUFirmwareBle, withPacketReceiptNotificationNumber prnValue: UInt16,
                       andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
         var prn = prnValue
         if slowDfuMode {

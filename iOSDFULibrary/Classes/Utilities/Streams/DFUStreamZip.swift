@@ -76,29 +76,29 @@ internal class DFUStreamZip : DFUStream {
     private var bootloaderSize  : UInt32 = 0
     private var applicationSize : UInt32 = 0
     
-    var size: DFUFirmwareSize {
-        return DFUFirmwareSize(softdevice: softdeviceSize,
+    var size: DFUFirmwareSizeBle {
+        return DFUFirmwareSizeBle(softdevice: softdeviceSize,
                                bootloader: bootloaderSize,
                                application: applicationSize)
     }
     
-    var currentPartSize: DFUFirmwareSize {
+    var currentPartSize: DFUFirmwareSizeBle {
         // If the ZIP file will be transferred in one part, return all sizes.
         // Two of them will be 0.
         if parts == 1 {
-            return DFUFirmwareSize(softdevice: softdeviceSize,
+            return DFUFirmwareSizeBle(softdevice: softdeviceSize,
                                    bootloader: bootloaderSize,
                                    application: applicationSize)
         }
         // Else, return sizes based on the current part number.
         if currentPart == 1 {
             // First the SD and/or BL are uploaded...
-            return DFUFirmwareSize(softdevice: softdeviceSize,
+            return DFUFirmwareSizeBle(softdevice: softdeviceSize,
                                    bootloader: bootloaderSize,
                                    application: 0)
         } else {
             // ..and then the application.
-            return DFUFirmwareSize(softdevice: 0,
+            return DFUFirmwareSizeBle(softdevice: 0,
                                    bootloader: 0,
                                    application: applicationSize)
         }

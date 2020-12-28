@@ -2,6 +2,9 @@
 * Copyright (c) 2019, Nordic Semiconductor
 * All rights reserved.
 *
+*This project is based on https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library 
+*and was changed due to conflicts with the IDOBluetooth .framework in Technos projects.
+*
 * Redistribution and use in source and binary forms, with or without modification,
 * are permitted provided that the following conditions are met:
 *
@@ -31,20 +34,20 @@
 import CoreBluetooth
 
 /**
- The DFUServiceInitiator object should be used to send a firmware update to
+ The DFUServiceInitiatorBle object should be used to send a firmware update to
  a remote BLE target compatible with the Nordic Semiconductor's DFU (Device
  Firmware Update).
  
  A `delegate`, `progressDelegate` and `logger` may be specified in order to
  receive status information.
  */
-@objc public class DFUServiceInitiator : NSObject {
+@objc public class DFUServiceInitiatorBle : NSObject {
     
     //MARK: - Internal variables
     
     internal let centralManager   : CBCentralManager
     internal var targetIdentifier : UUID!
-    internal var file             : DFUFirmware?
+    internal var file             : DFUFirmwareBle?
     
     /// The dispatch queue to run BLE operations on.
     internal var queue                 : DispatchQueue
@@ -390,7 +393,7 @@ import CoreBluetooth
      
      - returns: The initiator instance to allow chain use.
      */
-    @objc public func with(firmware file: DFUFirmware) -> DFUServiceInitiator {
+    @objc public func with(firmware file: DFUFirmwareBle) -> DFUServiceInitiatorBle {
         self.file = file
         return self
     }
@@ -412,12 +415,12 @@ import CoreBluetooth
      
      - important: Use `start(target: CBPeripheral)` instead.
      
-     - returns: A DFUServiceController object that can be used to control the
+     - returns: A DFUServiceControllerBle object that can be used to control the
                 DFU operation, or `nil`, if the file was not set, or the target
                 peripheral was not set.
      */
     @available(*, deprecated, message: "Use start(target: CBPeripheral) instead.")
-    @objc public func start() -> DFUServiceController? {
+    @objc public func start() -> DFUServiceControllerBle? {
         // Make sure the target was set by the deprecated init.
         guard let uuid = targetIdentifier else {
             delegateQueue.async {
@@ -453,11 +456,11 @@ import CoreBluetooth
      
      - parameter target: The DFU target peripheral.
      
-     - returns: A `DFUServiceController` object that can be used to control the DFU
+     - returns: A `DFUServiceControllerBle` object that can be used to control the DFU
                 operation, or `nil`, if the file was not set, or the peripheral instance
                 could not be retrieved.
      */
-    @objc public func start(target: CBPeripheral) -> DFUServiceController? {
+    @objc public func start(target: CBPeripheral) -> DFUServiceControllerBle? {
         return start(targetWithIdentifier: target.identifier)
     }
     
@@ -484,11 +487,11 @@ import CoreBluetooth
      
      - parameter uuid: The UUID associated with the peer.
      
-     - returns: A DFUServiceController object that can be used to control the DFU
+     - returns: A DFUServiceControllerBle object that can be used to control the DFU
                 operation, or nil, if the file was not set, or the peripheral instance
                 could not be retrieved.
      */
-    @objc public func start(targetWithIdentifier uuid: UUID) -> DFUServiceController? {
+    @objc public func start(targetWithIdentifier uuid: UUID) -> DFUServiceControllerBle? {
         // The firmware file must be specified before calling `start(...)`.
         guard let _ = file else {
             delegateQueue.async {
@@ -499,7 +502,7 @@ import CoreBluetooth
         
         targetIdentifier = uuid
         
-        let controller = DFUServiceController()
+        let controller = DFUServiceControllerBle()
         let selector   = DFUServiceSelector(initiator: self, controller: controller)
         controller.executor = selector
         selector.start()

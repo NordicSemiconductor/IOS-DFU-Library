@@ -60,7 +60,7 @@ import CoreBluetooth
     private var progressQueue    : DispatchQueue?
     
     // -- Properties stored when upload started in order to resume it --
-    private var firmware: DFUFirmware?
+    private var firmware: DFUFirmwareBle?
     private var packetReceiptNotificationNumber: UInt16?
     private var range: Range<Int>?
     // -- End --
@@ -338,7 +338,7 @@ import CoreBluetooth
      - parameter success:          Method called when the object was sent.
      - parameter report:           Method called when an error occurred.
      */
-    func sendNextObject(from range: Range<Int>, of firmware: DFUFirmware,
+    func sendNextObject(from range: Range<Int>, of firmware: DFUFirmwareBle,
                         andReportProgressTo progressDelegate: DFUProgressDelegate?, on queue: DispatchQueue,
                         onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         guard !aborted else {

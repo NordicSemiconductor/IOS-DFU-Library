@@ -34,10 +34,10 @@ import Dispatch
 internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
     typealias DFUPeripheralType = LegacyDFUPeripheral
     
-    internal let initiator  : DFUServiceInitiator
+    internal let initiator  : DFUServiceInitiatorBle
     internal let logger     : LoggerHelper
     internal let peripheral : LegacyDFUPeripheral
-    internal var firmware   : DFUFirmware
+    internal var firmware   : DFUFirmwareBle
     internal var error      : (error: DFUError, message: String)?
     
     /// Retry counter for peripheral invalid state issue.
@@ -46,7 +46,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
     
     // MARK: - Initialization
     
-    required init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
+    required init(_ initiator: DFUServiceInitiatorBle, _ logger: LoggerHelper) {
         self.initiator  = initiator
         self.logger     = logger
         self.peripheral = LegacyDFUPeripheral(initiator, logger)

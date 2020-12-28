@@ -110,7 +110,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
        - queue:    The queue to dispatch progress events on.
        - complete: The completon callback.
      */
-    func sendNext(_ prnValue: UInt16, packetsFrom range: Range<Int>, of firmware: DFUFirmware,
+    func sendNext(_ prnValue: UInt16, packetsFrom range: Range<Int>, of firmware: DFUFirmwareBle,
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
                   andCompletionTo complete: @escaping Callback) {
         let peripheral          = characteristic.service.peripheral

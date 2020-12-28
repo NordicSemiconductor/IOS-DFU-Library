@@ -1,6 +1,10 @@
 /*
 * Copyright (c) 2019, Nordic Semiconductor
 * All rights reserved.
+Comments:
+*
+*This project is based on https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library 
+*and was changed due to conflicts with the IDOBluetooth .framework in Technos projects.
 *
 * Redistribution and use in source and binary forms, with or without modification,
 * are permitted provided that the following conditions are met:

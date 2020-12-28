@@ -42,19 +42,19 @@ internal class DFUStreamHex : DFUStream {
     
     private var firmwareSize: UInt32 = 0
     
-    var size: DFUFirmwareSize {
+    var size: DFUFirmwareSizeBle {
         switch currentPartType {
         case FIRMWARE_TYPE_SOFTDEVICE:
-            return DFUFirmwareSize(softdevice: firmwareSize, bootloader: 0, application: 0)
+            return DFUFirmwareSizeBle(softdevice: firmwareSize, bootloader: 0, application: 0)
         case FIRMWARE_TYPE_BOOTLOADER:
-            return DFUFirmwareSize(softdevice: 0, bootloader: firmwareSize, application: 0)
+            return DFUFirmwareSizeBle(softdevice: 0, bootloader: firmwareSize, application: 0)
      // case FIRMWARE_TYPE_APPLICATION:
         default:
-            return DFUFirmwareSize(softdevice: 0, bootloader: 0, application: firmwareSize)
+            return DFUFirmwareSizeBle(softdevice: 0, bootloader: 0, application: firmwareSize)
         }
     }
     
-    var currentPartSize: DFUFirmwareSize {
+    var currentPartSize: DFUFirmwareSizeBle {
         return size
     }
     

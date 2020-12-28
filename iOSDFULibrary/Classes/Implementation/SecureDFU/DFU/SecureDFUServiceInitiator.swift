@@ -30,9 +30,9 @@
 
 import CoreBluetooth
 
-@objc public class SecureDFUServiceInitiator : DFUServiceInitiator {
+@objc public class SecureDFUServiceInitiator : DFUServiceInitiatorBle {
     
-    public override func start(targetWithIdentifier uuid: UUID) -> DFUServiceController? {
+    public override func start(targetWithIdentifier uuid: UUID) -> DFUServiceControllerBle? {
         // The firmware file must be specified before calling `start(...)`.
         guard let _ = file else {
             delegateQueue.async {
@@ -46,7 +46,7 @@ import CoreBluetooth
         
         let logger     = LoggerHelper(self.logger, loggerQueue)
         let executor   = SecureDFUExecutor(self, logger)
-        let controller = DFUServiceController()
+        let controller = DFUServiceControllerBle()
         controller.executor = executor
         executor.start()
         

@@ -34,7 +34,7 @@ internal let FIRMWARE_TYPE_SOFTDEVICE  : UInt8 = 0x01
 internal let FIRMWARE_TYPE_BOOTLOADER  : UInt8 = 0x02
 internal let FIRMWARE_TYPE_APPLICATION : UInt8 = 0x04
 
-@objc open class DFUFirmwareSize : NSObject {
+@objc open class DFUFirmwareSizeBle : NSObject {
     /// Size of the softdevice in bytes.
     /// If not even, add it to the bootloader size to get size of
     /// softdevice_bootloader.bin.
@@ -62,9 +62,9 @@ internal protocol DFUStream {
     /// Number of parts to be sent.
     var parts: Int { get }
     /// The size of each component of the firmware.
-    var size: DFUFirmwareSize { get }
+    var size: DFUFirmwareSizeBle { get }
     /// The size of each component of the firmware from the current part.
-    var currentPartSize: DFUFirmwareSize { get }
+    var currentPartSize: DFUFirmwareSizeBle { get }
     /// The type of the current part. See FIRMWARE_TYPE_* constants.
     var currentPartType: UInt8 { get }
     

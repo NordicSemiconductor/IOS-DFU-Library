@@ -70,7 +70,7 @@ import CoreBluetooth
     private var progressQueue: DispatchQueue?
     
     // -- Properties stored when upload started in order to resume it --
-    private var firmware: DFUFirmware?
+    private var firmware: DFUFirmwareBle?
     private var packetReceiptNotificationNumber: UInt16 = 0
     // -- End --
     
@@ -177,7 +177,7 @@ import CoreBluetooth
         if let version = version {
             // The app with buttonless update always returns value 0x0100
             // (major: 0, minor: 1). Otherwise it's in DFU mode.
-            // See the documentation for `DFUServiceInitiator.forceDfu` for details
+            // See the documentation for `DFUServiceInitiatorBle.forceDfu` for details
             // about supported versions.
             return version.major == 0 && version.minor == 1
         }
@@ -256,7 +256,7 @@ import CoreBluetooth
      - parameter success: A callback called when a response with status Success is received.
      - parameter report:  A callback called when a response with an error status is received.
      */
-    func sendDfuStart(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize,
+    func sendDfuStart(withFirmwareType type: UInt8, andSize size: DFUFirmwareSizeBle,
                       onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         guard !aborted else {
             sendReset(onError: report)
@@ -311,7 +311,7 @@ import CoreBluetooth
      - parameter success: A callback called when a response with status Success is received.
      - parameter report:  A callback called when a response with an error status is received.
      */
-    func sendStartDfu(withFirmwareSize size: DFUFirmwareSize,
+    func sendStartDfu(withFirmwareSize size: DFUFirmwareSizeBle,
                       onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         guard !aborted else {
             sendReset(onError: report)
@@ -453,7 +453,7 @@ import CoreBluetooth
      - parameter success:  A callback called when a response with status Success is received.
      - parameter report:   A callback called when a response with an error status is received.
      */
-    func sendFirmware(_ firmware: DFUFirmware, withDelay delay: Bool,
+    func sendFirmware(_ firmware: DFUFirmwareBle, withDelay delay: Bool,
                       andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
                       onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
         guard !aborted else {

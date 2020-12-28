@@ -83,7 +83,7 @@ internal protocol DFUPeripheralDelegate : BasePeripheralDelegate {
      be sent or `false` if upload has been completed.
      When true is returned, the DFU service will reconnect to the same peripheral
      or scan for the bootloader using the DFUPeripheralSelector specified in the
-     DFUServiceInitiator and continue with second part. The `peripheralDidBecomeReady()`
+     DFUServiceInitiatorBle and continue with second part. The `peripheralDidBecomeReady()`
      callback will be called again when DFU service is be found in its database.
      
      - returns: `True` if there is another part to be sent, `false` otherwise.

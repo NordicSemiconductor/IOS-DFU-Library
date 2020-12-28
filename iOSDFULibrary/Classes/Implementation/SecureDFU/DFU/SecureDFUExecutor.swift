@@ -33,10 +33,10 @@ import Foundation
 internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     typealias DFUPeripheralType = SecureDFUPeripheral
     
-    internal let initiator  : DFUServiceInitiator
+    internal let initiator  : DFUServiceInitiatorBle
     internal let logger     : LoggerHelper
     internal let peripheral : SecureDFUPeripheral
-    internal var firmware   : DFUFirmware
+    internal var firmware   : DFUFirmwareBle
     internal var error      : (error: DFUError, message: String)?
     
     private var firmwareRanges  : [Range<Int>]?
@@ -55,7 +55,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     private var retryCount: Int
     
     // MARK: - Initialization
-    required init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
+    required init(_ initiator: DFUServiceInitiatorBle, _ logger: LoggerHelper) {
         self.initiator  = initiator
         self.logger     = logger
         self.firmware   = initiator.file!

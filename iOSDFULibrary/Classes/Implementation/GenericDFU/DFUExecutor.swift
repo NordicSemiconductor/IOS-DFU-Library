@@ -46,7 +46,7 @@ internal protocol BaseDFUExecutor : BaseExecutorAPI, BasePeripheralDelegate {
     /// Target peripheral object.
     var peripheral: DFUPeripheralType { get }
     /// The DFU Service Initiator instance that was used to start the service.
-    var initiator: DFUServiceInitiator { get }
+    var initiator: DFUServiceInitiatorBle { get }
     /// The optional logger delegate.
     var logger: LoggerHelper { get }
     /// If an error occurred it is set as this variable.
@@ -147,14 +147,14 @@ extension BaseDFUExecutor {
 internal protocol DFUExecutorAPI : BaseExecutorAPI {
     
     /// Required constructor.
-    init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper)
+    init(_ initiator: DFUServiceInitiatorBle, _ logger: LoggerHelper)
 }
 
 internal protocol DFUExecutor : DFUExecutorAPI, BaseDFUExecutor, DFUPeripheralDelegate
                                 where DFUPeripheralType: DFUPeripheralAPI {
     
     /// The firmware to be sent over-the-air.
-    var firmware: DFUFirmware { get }
+    var firmware: DFUFirmwareBle { get }
 }
 
 extension DFUExecutor {

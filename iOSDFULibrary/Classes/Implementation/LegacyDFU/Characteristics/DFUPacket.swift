@@ -65,7 +65,7 @@ internal class DFUPacket: DFUCharacteristic {
     
      - parameter size: Sizes of firmware in the current part.
      */
-    func sendFirmwareSize(_ size: DFUFirmwareSize) {
+    func sendFirmwareSize(_ size: DFUFirmwareSizeBle) {
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
         
@@ -87,7 +87,7 @@ internal class DFUPacket: DFUCharacteristic {
      - parameter size: Sizes of firmware in the current part.
                        Only the application size may be grater than 0.
      */
-    func sendFirmwareSize_v1(_ size: DFUFirmwareSize) {
+    func sendFirmwareSize_v1(_ size: DFUFirmwareSizeBle) {
         // Get the peripheral object.
         let peripheral = characteristic.service.peripheral
         
@@ -141,7 +141,7 @@ internal class DFUPacket: DFUCharacteristic {
      - parameter progress: An optional progress delegate.
      - parameter queue:    The queue to dispatch progress events on.
      */
-    func sendNext(_ prnValue: UInt16, packetsOf firmware: DFUFirmware,
+    func sendNext(_ prnValue: UInt16, packetsOf firmware: DFUFirmwareBle,
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
         // Get the peripheral object.
         let peripheral = characteristic.service.peripheral

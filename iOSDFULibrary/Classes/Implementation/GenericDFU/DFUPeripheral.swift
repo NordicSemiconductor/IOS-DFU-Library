@@ -118,11 +118,11 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     /// - since: 4.8.0
     fileprivate let connectionTimeout: TimeInterval
     /// Whether new address is expected in Legacy DFU Bootloader.
-    /// - seeAlso: `DFUServiceInitiator.forceScanningForNewAddressInLegacyDfu`
+    /// - seeAlso: `DFUServiceInitiatorBle.forceScanningForNewAddressInLegacyDfu`
     /// - since: 4.9.0
     fileprivate let forceScanningForNewAddressInLegacyDfu: Bool
     
-    init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
+    init(_ initiator: DFUServiceInitiatorBle, _ logger: LoggerHelper) {
         self.centralManager = initiator.centralManager
         self.targetIdentifier = initiator.targetIdentifier
         self.queue = initiator.queue
@@ -599,7 +599,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     /// Expected Bootloader advertised Local Name.
     internal var bootloaderName      : String?
     
-    override init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
+    override init(_ initiator: DFUServiceInitiatorBle, _ logger: LoggerHelper) {
         self.peripheralSelector = initiator.peripheralSelector
         super.init(initiator, logger)
     }
@@ -680,7 +680,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     
     func isInitPacketRequired() -> Bool {
         // This method should be overridden if the final implementation requires
-        // Init Packet in the DFUFirmware.
+        // Init Packet in the DFUFirmwareBle.
         return false
     }
     
@@ -691,7 +691,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         // made it necessary for the bootloader to change its address.
         // This requires updating the bootloader or the app on the device, as
         // explaind in the above-mentioned issue.
-        // Then, this flag needs to be set to true in the `DFUServiceInitiator`.
+        // Then, this flag needs to be set to true in the `DFUServiceInitiatorBle`.
         // With that flag equal to true, the library will try to connect to the
         // same device (with a short timeout), and if that fails, will try to
         // scan for a new address using `DFUPeripheralSelector`.
