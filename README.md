@@ -162,6 +162,11 @@ An unofficial library for both iOS and Android that is based on this library is 
 A library for both iOS and Android that is based on this library is available for Flutter: 
 [flutter-nordic-dfu](https://github.com/fengqiangboy/flutter-nordic-dfu) 
 
+### Xamarin
+
+Simple binding library for iOS is available on nuget:
+[xamarin.nordic.dfu.ios](https://www.nuget.org/packages/Xamarin.Nordic.DFU.iOS/)
+
 ---
 
 ### Resources
