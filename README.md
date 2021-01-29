@@ -9,18 +9,18 @@
 
 - Create/Update your **Podfile** with the following contents
 
-    ```
-    target 'YourAppTargetName' do
-        use_frameworks!
-        pod 'iOSDFULibrary'
-    end
-    ```
+```ruby
+target 'YourAppTargetName' do
+    use_frameworks!
+    pod 'iOSDFULibrary'
+end
+```
 
 - Install dependencies
 
-    ```
-    pod install
-    ```
+```ruby
+pod install
+```
 
 - Open the newly created `.xcworkspace`
 
@@ -31,15 +31,15 @@
 
 - Create a new **Cartfile** in your project's root with the following contents
 
-    ```
-    github "NordicSemiconductor/IOS-Pods-DFU-Library" ~> x.y //Replace x.y with your required version
-    ```
+```ogld
+github "NordicSemiconductor/IOS-Pods-DFU-Library" ~> x.y //Replace x.y with your required version
+```
 
 - Build with carthage
 
-    ```
-    carthage update --platform iOS //also OSX platform is available for macOS builds
-    ```
+```sh
+carthage update --platform iOS //also OSX platform is available for macOS builds
+```
 
 - Carthage will build the **iOSDFULibrary.framework** and **ZipFramework.framework** files in **Carthage/Build/**, 
 you may now copy all those files to your project and use the library, additionally, carthade also builds **\*.dsym** files 
