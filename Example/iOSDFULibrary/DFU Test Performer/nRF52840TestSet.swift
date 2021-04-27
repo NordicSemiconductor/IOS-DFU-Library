@@ -41,12 +41,12 @@ class nRF52840TestSet: DFUTestSet {
             // This is not something a customer would do, but with this trick it is possible to test DFU on older SDKs.
             
             // Files with 'bl' must be uploaded in the correct order, as each next version must have bl_version greater then the last one.
-  //          (DFUFirmware.from(zip: "nrf52840_sdk_13_app"               , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating app",          FilterBy.name("DFU3A13")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_13_app"               , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating app",          FilterBy.name("DFU3A13")),
             // The following steps may be removed without any harm if more SDKs are added.
-  //          (DFUFirmware.from(zip: "nrf52840_sdk_13_sd"                , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A13")),
-  //          (DFUFirmware.from(zip: "nrf52840_sdk_13_sd_bl_1"           , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A13")),
-  //          (DFUFirmware.from(zip: "nrf52840_sdk_13_bl_2"              , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating BL only",      FilterBy.name("DFU3A13")),
-  //          (DFUFirmware.from(zip: "nrf52840_sdk_13_sd_bl_app_3"       , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    FilterBy.name("DFU3A13")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_13_sd"                , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A13")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_13_sd_bl_1"           , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A13")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_13_bl_2"              , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating BL only",      FilterBy.name("DFU3A13")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_13_sd_bl_app_3"       , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    FilterBy.name("DFU3A13")),
             
             // Updating to SDK 14. SDK 14 uses the same SD s140 5.0.0-2.alpha
             (DFUFirmware.from(zip: "nrf52840_sdk_13_to_14_all_in_one"  , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Upgrading to SDK 14",   FilterBy.name("DFU3A14")),
