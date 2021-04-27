@@ -48,7 +48,7 @@ if you need to resymbolicate crash logs. you may want to keep those files bundle
 **For Swift Package Manager:**
 
 ```swift
-// swift-tools-version:5.1
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
