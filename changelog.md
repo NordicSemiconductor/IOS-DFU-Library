@@ -1,4 +1,10 @@
 ### Changelog
+- **4.9.0**
+   - ZIPFoundation version set to 0.9.11.
+   - Migration to Swift 5.3.
+   - Improvement: Reconnection timeout improvements (#386).
+   - Improvement: Asynchronous firmware provider in the sample app (#387).
+   
 - **4.8.0**
    - Feature: Option to force scanning for Legacy DFU bootloader after jumping using Buttonless Service (#374).
    - Feature: Option to set connection timeout (#369).
