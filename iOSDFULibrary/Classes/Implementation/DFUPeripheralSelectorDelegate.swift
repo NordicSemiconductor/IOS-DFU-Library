@@ -66,7 +66,7 @@ import CoreBluetooth
  
  More: http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html
  */
-@objc public protocol DFUPeripheralSelectorDelegate : class {
+@objc public protocol DFUPeripheralSelectorDelegate: AnyObject {
     
     /**
      Returns whether the given peripheral is a device in DFU Bootloader mode.

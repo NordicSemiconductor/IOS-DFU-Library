@@ -65,7 +65,7 @@ import Foundation
 /**
  *  The Logger delegate.
  */
-@objc public protocol LoggerDelegate : class {
+@objc public protocol LoggerDelegate: AnyObject {
     
     /**
      This method is called whenever a new log entry is to be saved. The logger

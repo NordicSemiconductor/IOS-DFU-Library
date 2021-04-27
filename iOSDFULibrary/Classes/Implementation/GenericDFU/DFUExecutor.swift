@@ -32,7 +32,7 @@ import CoreBluetooth
 
 typealias DelegateCallback = (DFUServiceDelegate) -> Void
 
-internal protocol BaseExecutorAPI : class, DFUController {
+internal protocol BaseExecutorAPI: AnyObject, DFUController {
     
     /**
      Starts the DFU operation.
