@@ -654,7 +654,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             if (delegate?.peripheralDidDisconnectAfterFirmwarePartSent() ?? false) {
                 // As we are already in bootloader mode, the peripheral set
                 // may be reused for sending a second part.
-                connectOrSwitchToNewPeripheral(after: 3.0)
+                connectOrSwitchToNewPeripheral(after: 15.0)
             } else {
                 // Upload is completed.
                 // Peripheral has been destroyed and state is now .completed.
