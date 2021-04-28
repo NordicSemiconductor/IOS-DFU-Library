@@ -161,16 +161,15 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
             let name = peripheral.name ?? "Unknown device"
             logger.i("Connected to \(name)")
             
-            let dfuService = findDfuService(in: peripheral.services)
-            if dfuService == nil {
+            if let dfuService = findDfuService(in: peripheral.services) {
+                // A DFU service was found, congratulations!
+                logger.i("Services discovered")
+                peripheralDidDiscoverDfuService(dfuService)
+            } else {
                 // DFU service has not been found, but it doesn't matter it's not
                 // there. Perhaps the user's application didn't discover it.
                 // Let's discover DFU services.
                 discoverServices()
-            } else {
-                // A DFU service was found, congratulations!
-                logger.i("Services discovered")
-                peripheralDidDiscoverDfuService(dfuService!)
             }
         }
     }
@@ -181,13 +180,14 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     }
     
     func disconnect() {
-        if peripheral!.state == .connected {
+        guard let peripheral = peripheral else { return }
+        if peripheral.state == .connected {
             logger.v("Disconnecting...")
         } else {
             logger.v("Cancelling connection...")
         }
         logger.d("centralManager.cancelPeripheralConnection(peripheral)")
-        centralManager.cancelPeripheralConnection(peripheral!)
+        centralManager.cancelPeripheralConnection(peripheral)
     }
     
     func destroy() {
@@ -703,7 +703,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     
     func switchToNewPeripheralAndConnect() {
         // Release the previous peripheral.
-        peripheral!.delegate = nil
+        peripheral?.delegate = nil
         peripheral = nil
         cleanUp()
         

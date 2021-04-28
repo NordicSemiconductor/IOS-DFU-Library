@@ -137,41 +137,43 @@ internal enum DFUResultCode : UInt8 {
 }
 
 internal struct Response {
-    let opCode        : DFUOpCode?
-    let requestOpCode : DFUOpCode?
-    let status        : DFUResultCode?
+    let opCode        : DFUOpCode
+    let requestOpCode : DFUOpCode
+    let status        : DFUResultCode
     
     init?(_ data: Data) {
-        let opCode        : UInt8 = data[0]
-        let requestOpCode : UInt8 = data[1]
-        let status        : UInt8 = data[2]
+        guard data.count == 3 else { return nil }
+        let opCode        = DFUOpCode(rawValue: data[0])
+        let requestOpCode = DFUOpCode(rawValue: data[1])
+        let status        = DFUResultCode(rawValue: data[2])
         
-        self.opCode        = DFUOpCode(rawValue: opCode)
-        self.requestOpCode = DFUOpCode(rawValue: requestOpCode)
-        self.status        = DFUResultCode(rawValue: status)
-        
-        if self.opCode != .responseCode || self.requestOpCode == nil || self.status == nil {
+        if opCode != .responseCode || requestOpCode == nil || status == nil {
             return nil
         }
+        
+        self.opCode        = opCode!
+        self.requestOpCode = requestOpCode!
+        self.status        = status!
     }
     
     var description: String {
-        return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue))"
+        return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue))"
     }
 }
 
 internal struct PacketReceiptNotification {
-    let opCode        : DFUOpCode?
+    let opCode        : DFUOpCode
     let bytesReceived : UInt32
     
     init?(_ data: Data) {
-        let opCode: UInt8 = data[0]
-        
-        self.opCode = DFUOpCode(rawValue: opCode)
-        
-        if self.opCode != .packetReceiptNotification {
+        guard data.count == 5 else { return nil }
+        let opCode = DFUOpCode(rawValue: data[0])
+
+        if opCode != .packetReceiptNotification {
             return nil
         }
+        
+        self.opCode = opCode!
         
         // According to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54
         // in SDK 5.2.0.39364 the `bytesReveived` value in a PRN packet is 16-bit long,
@@ -390,48 +392,51 @@ internal struct PacketReceiptNotification {
             return
         }
 
-        if error != nil {
+        if let error = error {
             // This characteristic is never read, the error may only pop up when
             // notification is received.
             logger.e("Receiving notification failed")
-            logger.e(error!)
+            logger.e(error)
             report?(.receivingNotificationFailed, "Receiving notification failed")
-        } else {
-            // During the upload we may get either a Packet Receipt Notification,
-            // or a Response with status code.
-            if proceed != nil {
-                if let prn = PacketReceiptNotification(characteristic.value!) {
-                    proceed!(prn.bytesReceived)
-                    return
-                }
+            return
+        }
+        
+        guard let characteristicValue = characteristic.value else { return }
+        
+        // During the upload we may get either a Packet Receipt Notification,
+        // or a Response with status code.
+        if proceed != nil {
+            if let prn = PacketReceiptNotification(characteristicValue) {
+                proceed!(prn.bytesReceived)
+                return
             }
-            // Otherwise...
-            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
+        }
+        // Otherwise...
+        logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristicValue.hexString)")
+        
+        // Parse response received.
+        let response = Response(characteristicValue)
+        if let response = response {
+            logger.a("\(response.description) received")
             
-            // Parse response received.
-            let response = Response(characteristic.value!)
-            if let response = response {
-                logger.a("\(response.description) received")
-                
-                if response.status == .success {
-                    switch response.requestOpCode! {
-                    case .initDfuParameters:
-                        logger.a("Initialize DFU Parameters completed")
-                    case .receiveFirmwareImage:
-                        let interval = CFAbsoluteTimeGetCurrent() - uploadStartTime! as CFTimeInterval
-                        logger.a("Upload completed in \(interval.format(".2")) seconds")
-                    default:
-                        break
-                    }
-                    success?()
-                } else {
-                    logger.e("Error \(response.status!.code): \(response.status!.description)")
-                    report?(DFUError(rawValue: Int(response.status!.rawValue))!, response.status!.description)
+            if response.status == .success {
+                switch response.requestOpCode {
+                case .initDfuParameters:
+                    logger.a("Initialize DFU Parameters completed")
+                case .receiveFirmwareImage:
+                    let interval = CFAbsoluteTimeGetCurrent() - uploadStartTime! as CFTimeInterval
+                    logger.a("Upload completed in \(interval.format(".2")) seconds")
+                default:
+                    break
                 }
+                success?()
             } else {
-                logger.e("Unknown response received: 0x\(characteristic.value!.hexString)")
-                report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristic.value!.hexString)")
+                logger.e("Error \(response.status.code): \(response.status.description)")
+                report?(DFUError(rawValue: Int(response.status.rawValue))!, response.status.description)
             }
+        } else {
+            logger.e("Unknown response received: 0x\(characteristicValue.hexString)")
+            report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristicValue.hexString)")
         }
     }
     

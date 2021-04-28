@@ -176,32 +176,32 @@ internal enum SecureDFUResultCode : UInt8 {
     }
 }
 
-internal typealias SecureDFUResponseCallback = (_ response : SecureDFUResponse?) -> Void
+internal typealias SecureDFUResponseCallback = (_ response : SecureDFUResponse) -> Void
 
 internal struct SecureDFUResponse {
-    let opCode        : SecureDFUOpCode?
-    let requestOpCode : SecureDFUOpCode?
-    let status        : SecureDFUResultCode?
+    let opCode        : SecureDFUOpCode
+    let requestOpCode : SecureDFUOpCode
+    let status        : SecureDFUResultCode
     let maxSize       : UInt32?
     let offset        : UInt32?
     let crc           : UInt32?
     let error         : SecureDFUExtendedErrorCode?
     
     init?(_ data: Data) {
-        let opCode        : UInt8 = data[0]
-        let requestOpCode : UInt8 = data[1]
-        let status        : UInt8 = data[2]
+        // The response has at least 3 bytes.
+        guard data.count >= 3 else { return nil }
+        let opCode        = SecureDFUOpCode(rawValue: data[0])
+        let requestOpCode = SecureDFUOpCode(rawValue: data[1])
+        let status        = SecureDFUResultCode(rawValue: data[2])
         
-        self.opCode        = SecureDFUOpCode(rawValue: opCode)
-        self.requestOpCode = SecureDFUOpCode(rawValue: requestOpCode)
-        self.status        = SecureDFUResultCode(rawValue: status)
-        
-        // Parse response data in case of a success
-        if self.status == .success {
-            switch self.requestOpCode {
-            case .some(.readObjectInfo):
+        switch status {
+        case .success:
+            // Parse response data in case of a success.
+            switch requestOpCode {
+            case .readObjectInfo:
                 // The correct reponse for Read Object Info has additional 12 bytes:
                 // Max Object Size, Offset and CRC.
+                guard data.count == 15 else { return nil }
                 let maxSize : UInt32 = data.asValue(offset: 3)
                 let offset  : UInt32 = data.asValue(offset: 7)
                 let crc     : UInt32 = data.asValue(offset: 11)
@@ -210,9 +210,10 @@ internal struct SecureDFUResponse {
                 self.offset  = offset
                 self.crc     = crc
                 self.error   = nil
-            case .some(.calculateChecksum):
+            case .calculateChecksum:
                 // The correct reponse for Calculate Checksum has additional 8 bytes:
                 // Offset and CRC.
+                guard data.count == 11 else { return nil }
                 let offset : UInt32 = data.asValue(offset: 3)
                 let crc    : UInt32 = data.asValue(offset: 7)
                 
@@ -221,83 +222,87 @@ internal struct SecureDFUResponse {
                 self.crc     = crc
                 self.error   = nil
             default:
-                self.maxSize = 0
-                self.offset  = 0
-                self.crc     = 0
+                self.maxSize = nil
+                self.offset  = nil
+                self.crc     = nil
                 self.error   = nil
             }
-        } else if self.status == .extendedError {
+        case .extendedError:
             // If extended error was received, parse the extended error code
             // The correct response for Read Error request has 4 bytes.
             // The 4th byte is the extended error code.
-            let error : UInt8 = data[3]
+            guard data.count == 4 else { return nil }
+            guard let error = SecureDFUExtendedErrorCode(rawValue: data[3]) else { return nil }
             
-            self.maxSize = 0
-            self.offset  = 0
-            self.crc     = 0
-            self.error   = SecureDFUExtendedErrorCode(rawValue: error)
-        } else {
-            self.maxSize = 0
-            self.offset  = 0
-            self.crc     = 0
+            self.maxSize = nil
+            self.offset  = nil
+            self.crc     = nil
+            self.error   = error
+        default:
+            self.maxSize = nil
+            self.offset  = nil
+            self.crc     = nil
             self.error   = nil
         }
     
-        if self.opCode != .responseCode || self.requestOpCode == nil || self.status == nil {
+        if opCode != .responseCode || requestOpCode == nil || status == nil {
             return nil
         }
+        
+        self.opCode        = opCode!
+        self.requestOpCode = requestOpCode!
+        self.status        = status!
     }
 
     var description: String {
-        if status == .success {
+        switch status {
+        case .extendedError:
+            if let error = error {
+                return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue), Extended Error \(error.rawValue) = \(error.description))"
+            } else {
+                return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue), Unsupported Extended Error value)"
+            }
+        case .success:
             switch requestOpCode {
-            case .some(.readObjectInfo):
+            case .readObjectInfo:
                 // Max size for a command object is usually around 256. Let's say 1024,
                 // just to be sure. This is only for logging, so may be wrong.
                 return String(format: "\(maxSize! > 1024 ? "Data" : "Command") object info (Max size = \(maxSize!), Offset = \(offset!), CRC = %08X)", crc!)
-            case .some(.calculateChecksum):
+            case .calculateChecksum:
                 return String(format: "Checksum (Offset = \(offset!), CRC = %08X)", crc!)
             default:
                 // Other responses are either not logged, or logged by service or executor,
                 // so this 'default' should never be called.
                 break
             }
-        } else if status == .extendedError {
-            if let error = error {
-                return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue), Extended Error \(error.rawValue) = \(error.description))"
-            } else {
-                return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue), Unsupported Extended Error value)"
-            }
+            fallthrough
+        default:
+            return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue))"
         }
-        return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue))"
     }
 }
 
 internal struct SecureDFUPacketReceiptNotification {
-    let opCode        : SecureDFUOpCode?
-    let requestOpCode : SecureDFUOpCode?
-    let resultCode    : SecureDFUResultCode?
+    let opCode        : SecureDFUOpCode
+    let requestOpCode : SecureDFUOpCode
+    let resultCode    : SecureDFUResultCode
     let offset        : UInt32
     let crc           : UInt32
 
     init?(_ data: Data) {
-        let opCode        : UInt8 = data[0]
-        let requestOpCode : UInt8 = data[1]
-        let resultCode    : UInt8 = data[2]
+        guard data.count == 11 else { return nil }
+        
+        let opCode        = SecureDFUOpCode(rawValue: data[0])
+        let requestOpCode = SecureDFUOpCode(rawValue: data[1])
+        let resultCode    = SecureDFUResultCode(rawValue: data[2])
 
-        self.opCode         = SecureDFUOpCode(rawValue: opCode)
-        self.requestOpCode  = SecureDFUOpCode(rawValue: requestOpCode)
-        self.resultCode     = SecureDFUResultCode(rawValue: resultCode)
-
-        if self.opCode != .responseCode {
-            return nil
-        }
-        if self.requestOpCode != .calculateChecksum {
-            return nil
-        }
-        if self.resultCode != .success {
-            return nil
-        }
+        guard opCode == .responseCode else { return nil }
+        guard requestOpCode == .calculateChecksum else { return nil }
+        guard resultCode == .success else { return nil }
+        
+        self.opCode         = opCode!
+        self.requestOpCode  = requestOpCode!
+        self.resultCode     = resultCode!
         
         let offset : UInt32 = data.asValue(offset: 3)
         let crc    : UInt32 = data.asValue(offset: 7)
@@ -497,53 +502,58 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
             return
         }
 
-        if error != nil {
+        if let error = error {
             // This characteristic is never read, the error may only pop up when notification
             // is received.
             logger.e("Receiving notification failed")
-            logger.e(error!)
+            logger.e(error)
             report?(.receivingNotificationFailed, "Receiving notification failed")
-        } else {
-            // During the upload we may get either a Packet Receipt Notification, or a Response
-            // with status code.
-            if proceed != nil {
-                if let prn = SecureDFUPacketReceiptNotification(characteristic.value!) {
-                    proceed!(prn.offset) // The CRC is not verified after receiving a PRN, only the offset is.
-                    return
-                }
+            return
+        }
+        
+        guard let characteristicValue = characteristic.value else { return }
+        
+        // During the upload we may get either a Packet Receipt Notification, or a Response
+        // with status code.
+        if proceed != nil {
+            if let prn = SecureDFUPacketReceiptNotification(characteristicValue) {
+                proceed!(prn.offset) // The CRC is not verified after receiving a PRN, only the offset is.
+                return
             }
-            // Otherwise...    
-            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
+        }
+        // Otherwise...
+        logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristicValue.hexString)")
 
-            // Parse response received.
-            let dfuResponse = SecureDFUResponse(characteristic.value!)
-            if let dfuResponse = dfuResponse {
-                if dfuResponse.status == .success {
-                    switch dfuResponse.requestOpCode! {
-                    case .readObjectInfo, .calculateChecksum:
-                        logger.a("\(dfuResponse.description) received")
-                        response?(dfuResponse)
-                    case .createObject, .setPRNValue, .execute:
-                        // Don't log, executor or service will do it for us.
-                        success?()
-                    default:
-                        logger.a("\(dfuResponse.description) received")
-                        success?()
-                    }
-                } else if dfuResponse.status == .extendedError {
-                    // An extended error was received.
-                    logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
-                    // The returned errod code is incremented by 20 to match Secure DFU remote codes.
-                    report?(DFUError(rawValue: Int(dfuResponse.error!.code) + 20)!, dfuResponse.error!.description)
-                } else {
-                    logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
-                    // The returned errod code is incremented by 10 to match Secure DFU remote codes.
-                    report?(DFUError(rawValue: Int(dfuResponse.status!.code) + 10)!, dfuResponse.status!.description)
-                }
-            } else {
-                logger.e("Unknown response received: 0x\(characteristic.value!.hexString)")
-                report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristic.value!.hexString)")
+        // Parse response received.
+        let dfuResponse = SecureDFUResponse(characteristicValue)
+        guard let dfuResponse = dfuResponse else {
+            logger.e("Unknown response received: 0x\(characteristicValue.hexString)")
+            report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristicValue.hexString)")
+            return
+        }
+        
+        switch dfuResponse.status {
+        case .success:
+            switch dfuResponse.requestOpCode {
+            case .readObjectInfo, .calculateChecksum:
+                logger.a("\(dfuResponse.description) received")
+                response?(dfuResponse)
+            case .createObject, .setPRNValue, .execute:
+                // Don't log, executor or service will do it for us.
+                success?()
+            default:
+                logger.a("\(dfuResponse.description) received")
+                success?()
             }
+        case .extendedError:
+            // An extended error was received.
+            logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
+            // The returned errod code is incremented by 20 to match Secure DFU remote codes.
+            report?(DFUError(rawValue: Int(dfuResponse.error!.code) + 20)!, dfuResponse.error!.description)
+        default:
+            logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
+            // The returned errod code is incremented by 10 to match Secure DFU remote codes.
+            report?(DFUError(rawValue: Int(dfuResponse.status.code) + 10)!, dfuResponse.status.description)
         }
     }
     

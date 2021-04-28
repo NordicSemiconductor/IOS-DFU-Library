@@ -93,28 +93,29 @@ internal enum ButtonlessDFURequest {
 }
 
 internal struct ButtonlessDFUResponse {
-    let opCode        : ButtonlessDFUOpCode?
-    let requestOpCode : ButtonlessDFUOpCode?
-    let status        : ButtonlessDFUResultCode?
+    let opCode        : ButtonlessDFUOpCode
+    let requestOpCode : ButtonlessDFUOpCode
+    let status        : ButtonlessDFUResultCode
 
     init?(_ data: Data) {
         // The correct response is always 3 bytes long: Response Op Code,
         // Request Op Code and Status.
-        let opCode        : UInt8 = data[0]
-        let requestOpCode : UInt8 = data[1]
-        let status        : UInt8 = data[2]
+        guard data.count == 3 else { return nil }
+        let opCode        = ButtonlessDFUOpCode(rawValue: data[0])
+        let requestOpCode = ButtonlessDFUOpCode(rawValue: data[1])
+        let status        = ButtonlessDFUResultCode(rawValue: data[2])
         
-        self.opCode        = ButtonlessDFUOpCode(rawValue: opCode)
-        self.requestOpCode = ButtonlessDFUOpCode(rawValue: requestOpCode)
-        self.status        = ButtonlessDFUResultCode(rawValue: status)
-        
-        if self.opCode != .responseCode || self.requestOpCode == nil || self.status == nil {
+        if opCode != .responseCode || requestOpCode == nil || status == nil {
             return nil
         }
+        
+        self.opCode        = opCode!
+        self.requestOpCode = requestOpCode!
+        self.status        = status!
     }
         
     var description: String {
-        return "Response (Op Code = \(requestOpCode!.rawValue), Status = \(status!.rawValue))"
+        return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue))"
     }
 }
 
@@ -224,38 +225,38 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateNotificationStateFor characteristic: CBCharacteristic,
                     error: Error?) {
-        if error != nil {
+        if let error = error {
             if characteristic.properties.contains(.indicate) {
                 logger.e("Enabling indications failed")
-                logger.e(error!)
+                logger.e(error)
                 report?(.enablingControlPointFailed, "Enabling indications failed")
             } else {
                 logger.e("Enabling notifications failed")
-                logger.e(error!)
+                logger.e(error)
                 report?(.enablingControlPointFailed, "Enabling notifications failed")
             }
-        } else {
-            if characteristic.properties.contains(.indicate) {
-                logger.v("Indications enabled for \(characteristic.uuid.uuidString)")
-                logger.a("Buttonless DFU indications enabled")
-            } else {
-                logger.v("Notifications enabled for \(characteristic.uuid.uuidString)")
-                logger.a("Buttonless DFU notifications enabled")
-            }
-            success?()
+            return
         }
+        if characteristic.properties.contains(.indicate) {
+            logger.v("Indications enabled for \(characteristic.uuid.uuidString)")
+            logger.a("Buttonless DFU indications enabled")
+        } else {
+            logger.v("Notifications enabled for \(characteristic.uuid.uuidString)")
+            logger.a("Buttonless DFU notifications enabled")
+        }
+        success?()
     }
     
     func peripheral(_ peripheral: CBPeripheral,
                     didWriteValueFor characteristic: CBCharacteristic,
                     error: Error?) {
-        if error != nil {
+        if let error = error {
             logger.e("Writing to characteristic failed")
-            logger.e(error!)
+            logger.e(error)
             report?(.writingCharacteristicFailed, "Writing to characteristic failed")
-        } else {
-            logger.i("Data written to \(characteristic.uuid.uuidString)")
+            return
         }
+        logger.i("Data written to \(characteristic.uuid.uuidString)")
     }
     
     func peripheral(_ peripheral: CBPeripheral,
@@ -266,37 +267,42 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
             return
         }
 
-        if error != nil {
+        if let error = error {
             // This characteristic is never read, the error may only pop up when notification/indication
             // is received.
             logger.e("Receiving response failed")
-            logger.e(error!)
+            logger.e(error)
             report?(.receivingNotificationFailed, "Receiving response failed")
-        } else {
-            if characteristic.properties.contains(.indicate) {
-                logger.i("Indication received from \(characteristic.uuid.uuidString), value (0x):\(characteristic.value!.hexString)")
-            } else {
-                logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x):\(characteristic.value!.hexString)")
-            }
-            
-            // Parse response received.
-            let dfuResponse = ButtonlessDFUResponse(characteristic.value!)
-            if let dfuResponse = dfuResponse {
-                if dfuResponse.status == .success {
-                    logger.a("\(dfuResponse.description) received")
-                    success?()
-                } else {
-                    logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
-                    // The returned errod code is incremented by 90 or 9000 to match Buttonless DFU or
-                    // Experimental Buttonless DFU remote codes.
-                    // See DFUServiceDelegate.swift -> DFUError.
-                    let offset = characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic) ? 9000 : 90
-                    report?(DFUError(rawValue: Int(dfuResponse.status!.code) + offset)!, dfuResponse.status!.description)
-                }
-            } else {
-                logger.e("Unknown response received: 0x\(characteristic.value!.hexString)")
-                report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristic.value!.hexString)")
-            }
+            return
         }
+        
+        guard let characteristicValue = characteristic.value else { return }
+        
+        if characteristic.properties.contains(.indicate) {
+            logger.i("Indication received from \(characteristic.uuid.uuidString), value (0x):\(characteristicValue.hexString)")
+        } else {
+            logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x):\(characteristicValue.hexString)")
+        }
+        
+        // Parse response received.
+        let dfuResponse = ButtonlessDFUResponse(characteristicValue)
+        guard let dfuResponse = dfuResponse else {
+            logger.e("Unknown response received: 0x\(characteristicValue.hexString)")
+            report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristicValue.hexString)")
+            return
+        }
+        
+        guard dfuResponse.status == .success else {
+            logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
+            // The returned errod code is incremented by 90 or 9000 to match Buttonless DFU or
+            // Experimental Buttonless DFU remote codes.
+            // See DFUServiceDelegate.swift -> DFUError.
+            let offset = characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic) ? 9000 : 90
+            report?(DFUError(rawValue: Int(dfuResponse.status.code) + offset)!, dfuResponse.status.description)
+            return
+        }
+        
+        logger.a("\(dfuResponse.description) received")
+        success?()
     }
 }
