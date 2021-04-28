@@ -142,18 +142,17 @@ internal struct Response {
     let status        : DFUResultCode
     
     init?(_ data: Data) {
-        guard data.count == 3 else { return nil }
-        let opCode        = DFUOpCode(rawValue: data[0])
-        let requestOpCode = DFUOpCode(rawValue: data[1])
-        let status        = DFUResultCode(rawValue: data[2])
-        
-        if opCode != .responseCode || requestOpCode == nil || status == nil {
+        guard data.count == 3,
+              let opCode = DFUOpCode(rawValue: data[0]),
+              let requestOpCode = DFUOpCode(rawValue: data[1]),
+              let status = DFUResultCode(rawValue: data[2]),
+              opCode == .responseCode else {
             return nil
         }
         
-        self.opCode        = opCode!
-        self.requestOpCode = requestOpCode!
-        self.status        = status!
+        self.opCode        = opCode
+        self.requestOpCode = requestOpCode
+        self.status        = status
     }
     
     var description: String {
@@ -166,14 +165,13 @@ internal struct PacketReceiptNotification {
     let bytesReceived : UInt32
     
     init?(_ data: Data) {
-        guard data.count == 5 else { return nil }
-        let opCode = DFUOpCode(rawValue: data[0])
-
-        if opCode != .packetReceiptNotification {
+        guard data.count == 5,
+              let opCode = DFUOpCode(rawValue: data[0]),
+              opCode == .packetReceiptNotification else {
             return nil
         }
         
-        self.opCode = opCode!
+        self.opCode = opCode
         
         // According to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54
         // in SDK 5.2.0.39364 the `bytesReveived` value in a PRN packet is 16-bit long,
@@ -181,8 +179,7 @@ internal struct PacketReceiptNotification {
         // bytes are 0x00-00. This has to be taken under consideration when comparing
         // number of bytes sent and received as the latter counter may rewind if fw size
         // is > 0xFFFF bytes (LegacyDFUService:L446).
-        let bytesReceived: UInt32 = data.asValue(offset: 1)
-        self.bytesReceived = bytesReceived
+        self.bytesReceived = data.asValue(offset: 1)
     }
 }
 
@@ -309,9 +306,9 @@ internal struct PacketReceiptNotification {
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateNotificationStateFor characteristic: CBCharacteristic,
                     error: Error?) {
-        if error != nil {
+        if let error = error {
             logger.e("Enabling notifications failed. Check if Service Changed service is enabled.")
-            logger.e(error!)
+            logger.e(error)
             // Note:
             // Error 253: Unknown ATT error.
             // This most proably is a caching issue. Check if your device had
@@ -319,11 +316,12 @@ internal struct PacketReceiptNotification {
             // app and bootloader modes. For bonded devices make sure it sends
             // the Service Changed indication after connecting.
             report?(.enablingControlPointFailed, "Enabling notifications failed")
-        } else {
-            logger.v("Notifications enabled for \(characteristic.uuid.uuidString)")
-            logger.a("DFU Control Point notifications enabled")
-            success?()
+            return
         }
+        
+        logger.v("Notifications enabled for \(characteristic.uuid.uuidString)")
+        logger.a("DFU Control Point notifications enabled")
+        success?()
     }
     
     func peripheral(_ peripheral: CBPeripheral,
@@ -338,11 +336,14 @@ internal struct PacketReceiptNotification {
         guard self.characteristic.isEqual(characteristic) else {
             return
         }
+        guard let request = request else {
+            return
+        }
 
-        if error != nil {
+        if let error = error {
             if !resetSent {
                 logger.e("Writing to characteristic failed. Check if Service Changed characteristic is enabled.")
-                logger.e(error!)
+                logger.e(error)
                 // Note:
                 // Error 3: Writing is not permitted
                 // This most proably is caching issue. Check if your device had
@@ -354,32 +355,33 @@ internal struct PacketReceiptNotification {
                 // When a 'JumpToBootloader', 'Activate and Reset' or 'Reset'
                 // command is sent the device may reset before sending the acknowledgement.
                 // This is not a blocker, as the device did disconnect and reset successfully.
-                logger.a("\(request!.description) request sent")
+                logger.a("\(request.description) request sent")
                 logger.w("Device disconnected before sending ACK")
-                logger.w(error!)
+                logger.w(error)
                 success?()
             }
-        } else {
-            logger.i("Data written to \(characteristic.uuid.uuidString)")
-            
-            switch request! {
-            case .startDfu(_), .startDfu_v1,  .validateFirmware:
-                logger.a("\(request!.description) request sent")
-                // do not call success until we get a notification
-            case .jumpToBootloader, .activateAndReset, .reset, .packetReceiptNotificationRequest(_):
-                logger.a("\(request!.description) request sent")
-                // there will be no notification send after these requests, call
-                // `success()` immediatelly (for `.receiveFirmwareImage` the notification
-                // will be sent after firmware upload is complete)
+            return
+        }
+        
+        logger.i("Data written to \(characteristic.uuid.uuidString)")
+        
+        switch request {
+        case .startDfu(_), .startDfu_v1,  .validateFirmware:
+            logger.a("\(request.description) request sent")
+            // do not call success until we get a notification
+        case .jumpToBootloader, .activateAndReset, .reset, .packetReceiptNotificationRequest(_):
+            logger.a("\(request.description) request sent")
+            // there will be no notification send after these requests, call
+            // `success()` immediatelly (for `.receiveFirmwareImage` the notification
+            // will be sent after firmware upload is complete)
+            success?()
+        case .initDfuParameters(_), .initDfuParameters_v1:
+            // Log was created before sending the Op Code.
+            // Do not call success until we get a notification.
+            break
+        case .receiveFirmwareImage:
+            if proceed == nil {
                 success?()
-            case .initDfuParameters(_), .initDfuParameters_v1:
-                // Log was created before sending the Op Code.
-                // Do not call success until we get a notification.
-                break
-            case .receiveFirmwareImage:
-                if proceed == nil {
-                    success?()
-                }
             }
         }
     }

@@ -100,18 +100,17 @@ internal struct ButtonlessDFUResponse {
     init?(_ data: Data) {
         // The correct response is always 3 bytes long: Response Op Code,
         // Request Op Code and Status.
-        guard data.count == 3 else { return nil }
-        let opCode        = ButtonlessDFUOpCode(rawValue: data[0])
-        let requestOpCode = ButtonlessDFUOpCode(rawValue: data[1])
-        let status        = ButtonlessDFUResultCode(rawValue: data[2])
-        
-        if opCode != .responseCode || requestOpCode == nil || status == nil {
+        guard data.count == 3,
+              let opCode = ButtonlessDFUOpCode(rawValue: data[0]),
+              let requestOpCode = ButtonlessDFUOpCode(rawValue: data[1]),
+              let status = ButtonlessDFUResultCode(rawValue: data[2]),
+              opCode == .responseCode else {
             return nil
         }
         
-        self.opCode        = opCode!
-        self.requestOpCode = requestOpCode!
-        self.status        = status!
+        self.opCode        = opCode
+        self.requestOpCode = requestOpCode
+        self.status        = status
     }
         
     var description: String {

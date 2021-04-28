@@ -120,7 +120,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                 // The device will now disconnect and
                 // `centralManager(_:didDisconnectPeripheral:error)` will be called.
             },
-            onError: { (error, message) in
+            onError: { error, message in
                 self.jumpingToBootloader = false
                 self.delegate?.error(error, didOccurWithMessage: message)
             }
@@ -279,7 +279,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         activating = complete
         dfuService?.executeCommand(
             onSuccess: { self.delegate?.peripheralDidExecuteObject() },
-            onError: { (error, message) in
+            onError: { error, message in
                 self.activating = false
                 
                 // In SDK 15.2 (and perhaps 15.x), the DFU target may reoprt only full pages

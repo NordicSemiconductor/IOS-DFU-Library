@@ -88,7 +88,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         dfuService.jumpToBootloaderMode(
             // On success, the device gets disconnected and
             // `centralManager(_:didDisconnectPeripheral:error)` will be called.
-            onError: { (error, message) in
+            onError: { error, message in
                 self.jumpingToBootloader = false
                 self.delegate?.error(error, didOccurWithMessage: message)
             }
@@ -219,7 +219,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         dfuService.sendActivateAndResetRequest(
             // On success, the device gets disconnected and
             // `centralManager(_:didDisconnectPeripheral:error)` will be called.
-            onError: { (error, message) in
+            onError: { error, message in
                 self.activating = false
                 self.delegate?.error(error, didOccurWithMessage: message)
             }

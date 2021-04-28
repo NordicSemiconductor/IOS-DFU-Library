@@ -173,8 +173,7 @@ import CoreBluetooth
                 return
             }
             // End
-            dfuControlPointCharacteristic?.enableNotifications(onSuccess: success,
-                                                               onError: report)
+            dfuControlPointCharacteristic?.enableNotifications(onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
         }
@@ -220,11 +219,12 @@ import CoreBluetooth
      - parameter report:  Method called when an error occurred.
      
      */
-    func createCommandObject(withLength length: UInt32, onSuccess success: @escaping Callback,
+    func createCommandObject(withLength length: UInt32,
+                             onSuccess success: @escaping Callback,
                              onError report: @escaping ErrorCallback) {
         if !aborted {
             dfuControlPointCharacteristic?.send(.createCommandObject(withSize: length),
-                                                onSuccess: success, onError:report)
+                                                onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
         }
@@ -237,7 +237,8 @@ import CoreBluetooth
      - parameter success: Method called when the object has been created.
      - parameter report:  Method called when an error occurred.
      */
-    func createDataObject(withLength length: UInt32, onSuccess success: @escaping Callback,
+    func createDataObject(withLength length: UInt32,
+                          onSuccess success: @escaping Callback,
                           onError report: @escaping ErrorCallback) {
         if !aborted {
             dfuControlPointCharacteristic?.send(.createDataObject(withSize: length),
@@ -263,7 +264,8 @@ import CoreBluetooth
         } else {
             packetReceiptNotificationNumber = newValue
             dfuControlPointCharacteristic?.send(.setPacketReceiptNotification(value: newValue),
-                onSuccess: {
+                onSuccess: { [weak self] in
+                    guard let self = self else { return }
                     if newValue > 0 {
                         self.logger.a("Packet Receipt Notif enabled (Op Code = 2, Value = \(newValue))")
                     } else {
@@ -356,7 +358,8 @@ import CoreBluetooth
         self.progressDelegate = progressDelegate
         self.progressQueue    = queue
         
-        let _report: ErrorCallback = { error, message in
+        let _report: ErrorCallback = { [weak self] error, message in
+            guard let self = self else { return }
             self.firmware = nil
             self.range    = nil
             self.success  = nil
@@ -365,7 +368,8 @@ import CoreBluetooth
             self.progressQueue = nil
             report(error, message)
         }
-        let _success: Callback = {
+        let _success: Callback = { [weak self] in
+            guard let self = self else { return }
             self.firmware = nil
             self.range    = nil
             self.success  = nil
@@ -570,9 +574,9 @@ import CoreBluetooth
     func jumpToBootloaderMode(withAlternativeAdvertisingName name: String?,
                               onSuccess success: @escaping Callback,
                               onError report: @escaping ErrorCallback) {
-        guard let buttonlessDfuCharacteristic = buttonlessDfuCharacteristic else { return }
         if !aborted {
             func enterBootloader() {
+                guard let buttonlessDfuCharacteristic = buttonlessDfuCharacteristic else { return }
                 // The method above may reset the device before it sents a response to
                 // the request. We will call the success callback right here.
                 success()
@@ -582,17 +586,21 @@ import CoreBluetooth
             
             // If the device may support setting alternative advertising name in the
             // bootloader mode, try it.
-            if let name = name, buttonlessDfuCharacteristic.maySupportSettingName {
+            if let name = name,
+               let buttonlessDfuCharacteristic = buttonlessDfuCharacteristic,
+               buttonlessDfuCharacteristic.maySupportSettingName {
                 logger.v("Trying setting bootloader name to \(name)")
                 buttonlessDfuCharacteristic.send(ButtonlessDFURequest.set(name: name),
-                    onSuccess: {
+                    onSuccess: { [weak self] in
+                        guard let self = self else { return }
                         // Success. The buttonless service is from SDK 14.0+.
                         // The bootloader, after jumping to it, will advertise with this name.
-                        self.targetPeripheral!.bootloaderName = name
+                        self.targetPeripheral?.bootloaderName = name
                         self.logger.a("Bootloader name changed successfully")
                         enterBootloader()
-                    }, onError: {
-                        error, message in
+                    },
+                    onError: { [weak self] error, message in
+                        guard let self = self else { return }
                         if error == .remoteButtonlessDFUOpCodeNotSupported {
                             // Setting name is not supported. Looks like it's buttonless service
                             // from SDK 13. We can't rely on bootloader's name.
