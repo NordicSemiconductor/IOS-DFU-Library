@@ -109,7 +109,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      - parameter size: The size of all parts of the firmware.
      */
     func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize) {
-        dfuService?.sendDfuStart(withFirmwareType: type, andSize: size,
+        dfuService?.sendStartDfu(withFirmwareType: type, andSize: size,
             onSuccess: { self.delegate?.peripheralDidStartDfu() },
             onError: { error, message in
                 if error == .remoteLegacyDFUNotSupported {

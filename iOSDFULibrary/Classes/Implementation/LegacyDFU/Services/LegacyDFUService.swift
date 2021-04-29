@@ -258,7 +258,7 @@ import CoreBluetooth
      - parameter success: A callback called when a response with status Success is received.
      - parameter report:  A callback called when a response with an error status is received.
      */
-    func sendDfuStart(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize,
+    func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize,
                       onSuccess success: @escaping Callback,
                       onError report: @escaping ErrorCallback) {
         guard !aborted else {
@@ -326,7 +326,7 @@ import CoreBluetooth
             return
         }
         
-        // See comment in sendDfuStart(withFirmwareType:andSize:onSuccess:onError) above
+        // See comment in sendStartDfu(withFirmwareType:andSize:onSuccess:onError) above
         logger.d("wait(1000)")
         queue.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
             guard let self = self else { return }
