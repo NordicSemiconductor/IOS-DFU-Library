@@ -33,7 +33,7 @@ In case of any communication error the peripheral device will never be bricked. 
     Support for the Bluetooth 4.0 technology is required.
 * **nRF5x device for testing.**
 
-   A nRF5x Series device is required to test the working solution. If your final product is not available, use the nRF51 DK, which you can find [here](http://www.nordicsemi.com/eng/Products/nRF51-DK "nRF51 DK") or [here](http://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF52-DK "nRF52 DK").
+   A nRF5x Series device is required to test the working solution. If your final product is not available, use the nRF5x DK, which you can find [here](http://www.nordicsemi.com/eng/Products/nRF51-DK "nRF51 DK") or [here](http://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF52-DK "nRF52 DK").
 
 ### Integration
 

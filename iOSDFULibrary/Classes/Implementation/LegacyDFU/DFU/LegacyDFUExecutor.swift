@@ -41,7 +41,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
     internal var error      : (error: DFUError, message: String)?
     
     /// Retry counter for peripheral invalid state issue.
-    private let MaxRetryCount = 1
+    private let maxRetryCount = 1
     private var invalidStateRetryCount: Int
     
     // MARK: - Initialization
@@ -52,7 +52,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
         self.peripheral = LegacyDFUPeripheral(initiator, logger)
         self.firmware   = initiator.file!
         
-        self.invalidStateRetryCount = MaxRetryCount
+        self.invalidStateRetryCount = maxRetryCount
     }
     
     func start() {

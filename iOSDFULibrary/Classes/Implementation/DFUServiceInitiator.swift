@@ -250,6 +250,9 @@ import CoreBluetooth
     /**
      If `alternativeAdvertisingNameEnabled` is `true` then this specifies the
      alternative name to use. If nil (default) then a random name is generated.
+     
+     The maximum length of the alertnative advertising name is 20 bytes.
+     Longer name will be trundated. UTF-8 characters can be cut in the middle.
      */
     @objc public var alternativeAdvertisingName: String? = nil
     
