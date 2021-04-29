@@ -65,7 +65,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     
     override init(_ initiator: DFUServiceInitiator, _ logger: LoggerHelper) {
         self.alternativeAdvertisingNameEnabled = initiator.alternativeAdvertisingNameEnabled
-        self.alternativeAdvertisingName = initiator.alternativeAdvertisingName
+        self.alternativeAdvertisingName = initiator.alternativeAdvertisingName.map { String($0.prefix(20)) }
         super.init(initiator, logger)
     }
     
