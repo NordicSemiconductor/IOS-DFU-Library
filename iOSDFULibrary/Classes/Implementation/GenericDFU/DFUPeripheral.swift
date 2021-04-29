@@ -30,7 +30,7 @@
 
 import CoreBluetooth
 
-internal protocol BaseDFUPeripheralAPI : class, DFUController {
+internal protocol BaseDFUPeripheralAPI : AnyObject, DFUController {
     
     /**
      This method starts DFU process for given peripheral. If the peripheral is
