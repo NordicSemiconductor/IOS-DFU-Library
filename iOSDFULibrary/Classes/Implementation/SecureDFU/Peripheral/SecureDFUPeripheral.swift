@@ -73,14 +73,14 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      Enables notifications on DFU Control Point characteristic.
      */
     func enableControlPoint() {
-        dfuService!.enableControlPoint(
+        dfuService?.enableControlPoint(
             onSuccess: { self.delegate?.peripheralDidEnableControlPoint() },
             onError: defaultErrorCallback
         )
     }
     
     override func isInApplicationMode(_ forceDfu: Bool) -> Bool {
-        let applicationMode = dfuService!.isInApplicationMode() ?? !forceDfu
+        let applicationMode = dfuService?.isInApplicationMode() ?? !forceDfu
         
         if applicationMode {
             logger.w("Application with buttonless update found")
@@ -97,15 +97,16 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      in `DFUServiceInitiator`.
      */
     func jumpToBootloader() {
-        newAddressExpected = dfuService!.newAddressExpected
+        guard let dfuService = dfuService else { return }
+        newAddressExpected = dfuService.newAddressExpected
 
         var name: String?
         if alternativeAdvertisingNameEnabled {
             if let userSuppliedName = alternativeAdvertisingName {
-                // Use the user supplied name
+                // Use the user supplied name.
                 name = userSuppliedName
             } else {
-                // Generate a random 8-character long name
+                // Generate a random 8-character long name.
                 name = String(format: "Dfu%05d", arc4random_uniform(100000))
             }
         }
@@ -113,13 +114,13 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         // See `peripheralDidDisconnect()` for details.
         possibleDisconnectionOnSettingAlternativeName = name != nil
         
-        dfuService!.jumpToBootloaderMode(withAlternativeAdvertisingName: name,
+        dfuService.jumpToBootloaderMode(withAlternativeAdvertisingName: name,
             onSuccess: {
                 self.jumpingToBootloader = true
                 // The device will now disconnect and
                 // `centralManager(_:didDisconnectPeripheral:error)` will be called.
             },
-            onError: { (error, message) in
+            onError: { error, message in
                 self.jumpingToBootloader = false
                 self.delegate?.error(error, didOccurWithMessage: message)
             }
@@ -150,11 +151,11 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      object size.
      */
     func readDataObjectInfo() {
-        dfuService!.readDataObjectInfo(
-            onReponse: { (response) in
-                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: response!.maxSize!,
-                                                               offset: response!.offset!,
-                                                               crc: response!.crc!)
+        dfuService?.readDataObjectInfo(
+            onReponse: { response in
+                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: response.maxSize!,
+                                                               offset: response.offset!,
+                                                               crc: response.crc!)
             },
             onError: defaultErrorCallback
         )
@@ -165,11 +166,11 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      object size.
      */
     func readCommandObjectInfo() {
-        dfuService!.readCommandObjectInfo(
-            onReponse: { (response) in
-                self.delegate?.peripheralDidSendCommandObjectInfo(maxLen: response!.maxSize!,
-                                                                  offset: response!.offset!,
-                                                                  crc: response!.crc!)
+        dfuService?.readCommandObjectInfo(
+            onReponse: { response in
+                self.delegate?.peripheralDidSendCommandObjectInfo(maxLen: response.maxSize!,
+                                                                  offset: response.offset!,
+                                                                  crc: response.crc!)
             },
             onError: defaultErrorCallback
         )
@@ -181,7 +182,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      - parameter length: Exact size of the object.
      */
     func createDataObject(withLength length: UInt32) {
-        dfuService!.createDataObject(withLength: length,
+        dfuService?.createDataObject(withLength: length,
              onSuccess: { self.delegate?.peripheralDidCreateDataObject() },
              onError: defaultErrorCallback
         )
@@ -193,7 +194,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      - parameter length: Exact size of the object.
      */
     func createCommandObject(withLength length: UInt32) {
-        dfuService!.createCommandObject(withLength: length,
+        dfuService?.createCommandObject(withLength: length,
             onSuccess: { self.delegate?.peripheralDidCreateCommandObject() },
             onError: defaultErrorCallback
         )
@@ -210,7 +211,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     func sendNextObject(from range: Range<Int>, of firmware: DFUFirmware,
                         andReportProgressTo progress: DFUProgressDelegate?,
                         on queue: DispatchQueue) {
-        dfuService!.sendNextObject(from: range, of: firmware,
+        dfuService?.sendNextObject(from: range, of: firmware,
             andReportProgressTo: progress, on: queue,
             onSuccess: { self.delegate?.peripheralDidReceiveObject() },
             onError: defaultErrorCallback
@@ -228,7 +229,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      - parameter newValue: Packet Receipt Notification value (0 to disable PRNs).
      */
     func setPRNValue(_ newValue: UInt16 = 0) {
-        dfuService!.setPacketReceiptNotificationValue(newValue,
+        dfuService?.setPacketReceiptNotificationValue(newValue,
             onSuccess: { self.delegate?.peripheralDidSetPRNValue() },
             onError: defaultErrorCallback
         )
@@ -245,7 +246,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         // It sends all bytes of init packet in up-to-20-byte packets.
         // The init packet may not be too long as sending > ~15 packets without
         // PRNs may lead to buffer overflow.
-        dfuService!.sendInitPacket(withdata: packetData)
+        dfuService?.sendInitPacket(withdata: packetData)
         self.delegate?.peripheralDidReceiveInitPacket()
     }
     
@@ -253,10 +254,10 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      Sends Calculate Checksum request.
      */
     func sendCalculateChecksumCommand() {
-        dfuService!.calculateChecksumCommand(
-            onSuccess: { (response) in
-                self.delegate?.peripheralDidSendChecksum(offset: response!.offset!,
-                                                         crc: response!.crc!)
+        dfuService?.calculateChecksumCommand(
+            onSuccess: { response in
+                self.delegate?.peripheralDidSendChecksum(offset: response.offset!,
+                                                         crc: response.crc!)
             },
             onError: defaultErrorCallback
         )
@@ -276,9 +277,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     func sendExecuteCommand(forCommandObject isCommandObject: Bool = false,
                             andActivateIf complete: Bool = false) {
         activating = complete
-        dfuService!.executeCommand(
+        dfuService?.executeCommand(
             onSuccess: { self.delegate?.peripheralDidExecuteObject() },
-            onError: { (error, message) in
+            onError: { error, message in
                 self.activating = false
                 
                 // In SDK 15.2 (and perhaps 15.x), the DFU target may reoprt only full pages

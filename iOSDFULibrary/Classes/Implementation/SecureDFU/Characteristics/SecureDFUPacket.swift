@@ -143,14 +143,15 @@ internal class SecureDFUPacket: DFUCharacteristic {
             totalBytesSentSinceProgessNotification = totalBytesSentWhenDfuStarted
             
             // Notify progress delegate that upload has started (0%).
-            queue.async(execute: {
+            queue.async {
                 progress?.dfuProgressDidChange(
                     for:   firmware.currentPart,
                     outOf: firmware.parts,
                     to:    0,
                     currentSpeedBytesPerSecond: 0.0,
-                    avgSpeedBytesPerSecond:     0.0)
-            })
+                    avgSpeedBytesPerSecond:     0.0
+                )
+            }
         }
         
         let originalPacketsToSendNow = packetsToSendNow
@@ -189,14 +190,15 @@ internal class SecureDFUPacket: DFUCharacteristic {
                 totalBytesSentSinceProgessNotification = totalBytesSent
                 
                 // Notify progress delegate of overall progress.
-                queue.async(execute: {
+                queue.async {
                     progress?.dfuProgressDidChange(
                         for:   firmware.currentPart,
                         outOf: firmware.parts,
                         to:    Int(currentProgress),
                         currentSpeedBytesPerSecond: currentSpeed,
-                        avgSpeedBytesPerSecond:     avgSpeed)
-                })
+                        avgSpeedBytesPerSecond:     avgSpeed
+                    )
+                }
                 progressReported = currentProgress
             }
             
