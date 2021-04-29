@@ -1,4 +1,15 @@
 ### Changelog
+- **4.10.0**
+   - Improvement: Guarantee word-aligned writes to the packet characteristic (#366).
+   - Improvement: Extended DFU Connection Timeout from 3 to 15 seconds (#411).
+   - Warning fix: Fixed 'deprecated class keyword for protocol objects' (#410).
+   - Migration to Xcode 12.5 and Swift 5.4.
+   - Support for Apple watchOS and tvOS on CocoaPods (#412).
+   - Bigfix: Unwrapping optionals fixed (#413).
+   - Bugfix: Truncating too long advertising names (#415).
+   - Improvement: Add links to Xamarin binding libraries (#389 and #401).
+   - Improvement: Add syntax highlighting to readme (#402).
+   
 - **4.9.0**
    - ZIPFoundation version set to 0.9.11.
    - Migration to Swift 5.3.
