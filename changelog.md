@@ -1,4 +1,7 @@
 ### Changelog
+- **4.10.1**
+   -Bugfix: A log message was incorrectly shown pointing to a solution to non-existing problem (#419). 
+   
 - **4.10.0**
    - Improvement: Guarantee word-aligned writes to the packet characteristic (#366).
    - Improvement: Extended DFU Connection Timeout from 3 to 15 seconds (#411).
