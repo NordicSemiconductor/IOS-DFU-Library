@@ -117,11 +117,13 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         dfuService.jumpToBootloaderMode(withAlternativeAdvertisingName: name,
             onSuccess: {
                 self.jumpingToBootloader = true
+                self.possibleDisconnectionOnSettingAlternativeName = false
                 // The device will now disconnect and
                 // `centralManager(_:didDisconnectPeripheral:error)` will be called.
             },
             onError: { error, message in
                 self.jumpingToBootloader = false
+                self.possibleDisconnectionOnSettingAlternativeName = false
                 self.delegate?.error(error, didOccurWithMessage: message)
             }
         )
@@ -142,6 +144,13 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         if possibleDisconnectionOnSettingAlternativeName {
             logger.e("Buttonless service not configured, see: https://devzone.nordicsemi.com/f/nordic-q-a/59881/advertising-rename-feature-not-working/243566#243566. To workaround, disable alternative advertising name.")
             possibleDisconnectionOnSettingAlternativeName = false
+            
+            // We could set the flag below to allow jumping to the bootloader mode
+            // without using alternative advertising name, but it's better to fail
+            // and make sure the user knows about the issue. It can be workarond
+            // by disabling alternative name in DFUServiceInitiator.
+            
+            // jumpingToBootloader = true
         }
         super.peripheralDidDisconnect()
     }
