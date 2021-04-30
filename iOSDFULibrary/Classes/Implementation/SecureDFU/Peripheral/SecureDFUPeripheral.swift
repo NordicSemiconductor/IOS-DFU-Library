@@ -123,6 +123,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             },
             onError: { error, message in
                 self.jumpingToBootloader = false
+                self.possibleDisconnectionOnSettingAlternativeName = false
                 self.delegate?.error(error, didOccurWithMessage: message)
             }
         )
