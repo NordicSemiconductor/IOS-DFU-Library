@@ -284,8 +284,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         }
         
         // Parse response received.
-        let dfuResponse = ButtonlessDFUResponse(characteristicValue)
-        guard let dfuResponse = dfuResponse else {
+        guard let dfuResponse = ButtonlessDFUResponse(characteristicValue) else {
             logger.e("Unknown response received: 0x\(characteristicValue.hexString)")
             report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristicValue.hexString)")
             return
