@@ -1,4 +1,7 @@
 ### Changelog
+- **4.10.3**
+   - Project compilation available for Arm Simulators (#423).
+   
 - **4.10.2**
    - Bugfix: Fixed compilation issue in Xcode 12.4 ([#417](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/417)).
    
