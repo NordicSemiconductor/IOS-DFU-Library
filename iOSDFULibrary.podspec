@@ -21,8 +21,5 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
   s.source_files = 'iOSDFULibrary/Classes/**/*'
 
   s.dependency 'ZIPFoundation', '= 0.9.11'
-  
-  # Regarding the lines below see: https://stackoverflow.com/a/63955114/2115352
-  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+
 end
