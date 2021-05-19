@@ -36,8 +36,7 @@ import CoreBluetooth
         // The firmware file must be specified before calling `start(...)`.
         guard let _ = file else {
             delegateQueue.async {
-                self.delegate?.dfuError(.fileNotSpecified, didOccurWithMessage:
-                    "Firmware not specified")
+                self.delegate?.dfuError(.fileNotSpecified, didOccurWithMessage: "Firmware not specified")
             }
             return nil
         }

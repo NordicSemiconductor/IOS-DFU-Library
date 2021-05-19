@@ -69,10 +69,10 @@ internal class DFUPacket: DFUCharacteristic {
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
         
-        var data = Data(capacity: 12)
-        data += size.softdevice.littleEndian
-        data += size.bootloader.littleEndian
-        data += size.application.littleEndian
+        let data = Data()
+            + size.softdevice.littleEndian
+            + size.bootloader.littleEndian
+            + size.application.littleEndian
 
         let packetUUID = characteristic.uuid.uuidString
         
@@ -91,9 +91,8 @@ internal class DFUPacket: DFUCharacteristic {
         // Get the peripheral object.
         let peripheral = characteristic.service.peripheral
         
-        var data = Data(capacity: 4)
-        data += size.application.littleEndian
-
+        let data = Data() + size.application.littleEndian
+        
         let packetUUID = characteristic.uuid.uuidString
 
         logger.v("Writing image size (\(size.application)b) to characteristic \(packetUUID)...")
@@ -167,14 +166,15 @@ internal class DFUPacket: DFUCharacteristic {
             lastTime = startTime
             
             // Notify progress delegate that upload has started (0%).
-            queue.async(execute: {
+            queue.async {
                 progress?.dfuProgressDidChange(
                     for:   firmware.currentPart,
                     outOf: firmware.parts,
                     to:    0,
                     currentSpeedBytesPerSecond: 0.0,
-                    avgSpeedBytesPerSecond:     0.0)
-            })
+                    avgSpeedBytesPerSecond:     0.0
+                )
+            }
         }
         
         while packetsToSendNow > 0 {
@@ -212,14 +212,15 @@ internal class DFUPacket: DFUCharacteristic {
                 lastTime = now
                 bytesSentSinceProgessNotification = bytesSent
                 
-                queue.async(execute: {
+                queue.async {
                     progress?.dfuProgressDidChange(
                         for:   firmware.currentPart,
                         outOf: firmware.parts,
                         to:    Int(currentProgress),
                         currentSpeedBytesPerSecond: currentSpeed,
-                        avgSpeedBytesPerSecond:     avgSpeed)
-                })
+                        avgSpeedBytesPerSecond:     avgSpeed
+                    )
+                }
                 progressReported = currentProgress
             }
         }

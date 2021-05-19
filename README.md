@@ -9,18 +9,18 @@
 
 - Create/Update your **Podfile** with the following contents
 
-    ```
-    target 'YourAppTargetName' do
-        use_frameworks!
-        pod 'iOSDFULibrary'
-    end
-    ```
+```ruby
+target 'YourAppTargetName' do
+    use_frameworks!
+    pod 'iOSDFULibrary'
+end
+```
 
 - Install dependencies
 
-    ```
-    pod install
-    ```
+```ruby
+pod install
+```
 
 - Open the newly created `.xcworkspace`
 
@@ -31,15 +31,15 @@
 
 - Create a new **Cartfile** in your project's root with the following contents
 
-    ```
-    github "NordicSemiconductor/IOS-Pods-DFU-Library" ~> x.y //Replace x.y with your required version
-    ```
+```ogld
+github "NordicSemiconductor/IOS-Pods-DFU-Library" ~> x.y //Replace x.y with your required version
+```
 
 - Build with carthage
 
-    ```
-    carthage update --platform iOS //also OSX platform is available for macOS builds
-    ```
+```sh
+carthage update --platform iOS //also OSX platform is available for macOS builds
+```
 
 - Carthage will build the **iOSDFULibrary.framework** and **ZipFramework.framework** files in **Carthage/Build/**, 
 you may now copy all those files to your project and use the library, additionally, carthade also builds **\*.dsym** files 
@@ -48,7 +48,7 @@ if you need to resymbolicate crash logs. you may want to keep those files bundle
 **For Swift Package Manager:**
 
 ```swift
-// swift-tools-version:5.1
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
@@ -56,7 +56,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library", 
-      .upToNextMajor(from: "<Desired Version, e.g. 4.9.0>")
+      .upToNextMajor(from: "<Desired Version, e.g. 4.10.2>")
     )
   ],
   targets: [.target(name: "<Your Target Name>", dependencies: ["NordicDFU"])]
@@ -161,6 +161,11 @@ An unofficial library for both iOS and Android that is based on this library is 
 
 A library for both iOS and Android that is based on this library is available for Flutter: 
 [flutter-nordic-dfu](https://github.com/fengqiangboy/flutter-nordic-dfu) 
+
+### Xamarin
+
+Simple binding library for iOS is available on nuget:
+[Laerdal.Xamarin.Dfu.iOS](https://www.nuget.org/packages/Laerdal.Xamarin.Dfu.iOS/)
 
 ---
 

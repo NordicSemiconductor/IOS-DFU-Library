@@ -105,16 +105,19 @@ import CoreBluetooth
     }
     
     func resume() -> Bool {
-        if !aborted && paused && firmware != nil {
+        guard let dfuPacketCharacteristic = dfuPacketCharacteristic,
+              let firmware = firmware,
+              let progressQueue = progressQueue,
+              !aborted && paused else {
             paused = false
-            // onSuccess and onError callbacks are still kept by dfuControlPointCharacteristic.
-            dfuPacketCharacteristic!.sendNext(packetReceiptNotificationNumber,
-                                              packetsOf: firmware!,
-                                              andReportProgressTo: progressDelegate,
-                                              on: progressQueue!)
             return paused
         }
         paused = false
+        // onSuccess and onError callbacks are still kept by dfuControlPointCharacteristic.
+        dfuPacketCharacteristic.sendNext(packetReceiptNotificationNumber,
+                                          packetsOf: firmware,
+                                          andReportProgressTo: progressDelegate,
+                                          on: progressQueue)
         return paused
     }
     
@@ -123,8 +126,7 @@ import CoreBluetooth
         // When upload has been started and paused, we have to send the Reset command
         // here as the device will not get a Packet Receipt Notification. If it hasn't
         // been paused, the Reset command will be sent after receiving it, on line 380.
-        if paused && firmware != nil {
-            let _report = report!
+        if let _report = report, paused && firmware != nil {
             firmware = nil
             success  = nil
             report   = nil
@@ -192,8 +194,8 @@ import CoreBluetooth
         // - we must be in the DFU mode already (otherwise the device would be useless...).
         // Note: On iOS the Generic Access and Generic Attribute services (nor HID Service)
         //       are not returned during service discovery.
-        let services = service.peripheral.services!
-        if services.count == 1 {
+        let services = service.peripheral.services
+        if services?.count == 1 {
             return false
         }
         // If there are more services than just DFU Service, the state is uncertain.
@@ -226,7 +228,7 @@ import CoreBluetooth
     func enableControlPoint(onSuccess success: @escaping Callback,
                             onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic!.enableNotifications(onSuccess: success, onError: report)
+            dfuControlPointCharacteristic?.enableNotifications(onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
         }
@@ -239,7 +241,7 @@ import CoreBluetooth
      */
     func jumpToBootloaderMode(onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic!.send(Request.jumpToBootloader,
+            dfuControlPointCharacteristic?.send(Request.jumpToBootloader,
                                                 onSuccess: nil, onError: report)
         } else {
             sendReset(onError: report)
@@ -248,16 +250,17 @@ import CoreBluetooth
     
     /**
      This methods sends the Start DFU command with the firmware type to the DFU Control
-     Point characterristic, followed by the sizes of each firware component
-     <softdevice, bootloader, application> (each as UInt32, Little Endian).
+     Point characterristic, followed by the sizes of each firware component:
+     softdevice, bootloader, application (each as UInt32, Little Endian).
      
      - parameter type:    The type of the current firmware part.
      - parameter size:    The sizes of firmware components in the current part.
      - parameter success: A callback called when a response with status Success is received.
      - parameter report:  A callback called when a response with an error status is received.
      */
-    func sendDfuStart(withFirmwareType type: UInt8, andSize size: DFUFirmwareSizeBle,
-                      onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
+    func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSizeBle,
+                      onSuccess success: @escaping Callback,
+                      onError report: @escaping ErrorCallback) {
         guard !aborted else {
             sendReset(onError: report)
             return
@@ -276,20 +279,25 @@ import CoreBluetooth
         //    it would receive a response with status = 6 (Operation failed) after sending
         //    some firmware packets. Delay 1 sec seems to work while 600 ms was too short.
         //    The time seems to be required to prepare flash(?).
-        let sendStartDfu = {
+        let sendStartDfu = { [weak self] in
+            guard let self = self else { return }
             // 1. Sends the Start DFU command with the firmware type to DFU Control Point
             //    characteristic.
             // 2. Sends firmware sizes to DFU Packet characteristic.
             // 3. Receives response notification and calls onSuccess or onError.
-            self.dfuControlPointCharacteristic!.send(Request.startDfu(type: type), onSuccess: success) { (error, aMessage) in
-                if error == .remoteLegacyDFUInvalidState {
-                    self.targetPeripheral!.shouldReconnect = true
-                    self.sendReset(onError: report)
-                    return
+            self.dfuControlPointCharacteristic?.send(Request.startDfu(type: type),
+                onSuccess: success,
+                onError: { [weak self] error, message in
+                    guard let self = self else { return }
+                    if error == .remoteLegacyDFUInvalidState {
+                        self.targetPeripheral?.shouldReconnect = true
+                        self.sendReset(onError: report)
+                        return
+                    }
+                    report(error, message)
                 }
-                report(error, aMessage)
-            }
-            self.dfuPacketCharacteristic!.sendFirmwareSize(size)
+            )
+            self.dfuPacketCharacteristic?.sendFirmwareSize(size)
         }
         if version != nil {
             // The legacy DFU bootloader from SDK 7.0+ does not require delay.
@@ -304,37 +312,40 @@ import CoreBluetooth
     
     /**
      This methods sends the old Start DFU command (without the firmware type) to the
-     DFU Control Point characterristic, followed by the application size
-     <application> (UInt32, Little Endian).
+     DFU Control Point characterristic, followed by the application size (UInt32, Little Endian).
      
      - parameter size:    The sizes of firmware components in the current part.
      - parameter success: A callback called when a response with status Success is received.
      - parameter report:  A callback called when a response with an error status is received.
      */
     func sendStartDfu(withFirmwareSize size: DFUFirmwareSizeBle,
-                      onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
+                      onSuccess success: @escaping Callback,
+                      onError report: @escaping ErrorCallback) {
         guard !aborted else {
             sendReset(onError: report)
             return
         }
         
-        // See comment in sendDfuStart(withFirmwareType:andSize:onSuccess:onError) above
+        // See comment in sendStartDfu(withFirmwareType:andSize:onSuccess:onError) above
         logger.d("wait(1000)")
-        queue.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+        queue.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
+            guard let self = self else { return }
             // 1. Sends the Start DFU command with the firmware type to the DFU Control Point
             //    characteristic.
             // 2. Sends firmware sizes to the DFU Packet characteristic.
             // 3. Receives response notification and calls onSuccess or onError.
-            self.dfuControlPointCharacteristic!.send(Request.startDfu_v1, onSuccess: success) {
-                (error, aMessage) in
-                if error == .remoteLegacyDFUInvalidState {
-                    self.targetPeripheral!.shouldReconnect = true
-                    self.sendReset(onError: report)
-                    return
-                }
-                report(error, aMessage)
-            }
-            self.dfuPacketCharacteristic!.sendFirmwareSize_v1(size)
+            self.dfuControlPointCharacteristic?.send(Request.startDfu_v1,
+                onSuccess: success,
+                onError: { [weak self] error, message in
+                    guard let self = self else { return }
+                    if error == .remoteLegacyDFUInvalidState {
+                        self.targetPeripheral!.shouldReconnect = true
+                        self.sendReset(onError: report)
+                        return
+                    }
+                    report(error, message)
+                })
+            self.dfuPacketCharacteristic?.sendFirmwareSize_v1(size)
         }
     }
     
@@ -352,7 +363,8 @@ import CoreBluetooth
      - parameter report:  A callback called when a response with an error status is received.
      */
     func sendInitPacket(_ data: Data,
-                        onSuccess success: @escaping Callback, onError report: @escaping ErrorCallback) {
+                        onSuccess success: @escaping Callback,
+                        onError report: @escaping ErrorCallback) {
         guard !aborted else {
             sendReset(onError: report)
             return
@@ -378,11 +390,16 @@ import CoreBluetooth
             // Therefore, there are 2 commands to the DFU Control Point required: one
             // before we start sending init packet, and another one the whole init packet
             // is sent. After sending the second packet a notification will be received.
-            dfuControlPointCharacteristic!.send(Request.initDfuParameters(req: InitDfuParametersRequest.receiveInitPacket), onSuccess: nil, onError: report)
-            dfuPacketCharacteristic!.sendInitPacket(data)
-            dfuControlPointCharacteristic!.send(Request.initDfuParameters(req: InitDfuParametersRequest.initPacketComplete), onSuccess: success,
-                onError: {
-                    error, message in
+            dfuControlPointCharacteristic?.send(
+                Request.initDfuParameters(req: InitDfuParametersRequest.receiveInitPacket),
+                onSuccess: nil,
+                onError: report
+            )
+            dfuPacketCharacteristic?.sendInitPacket(data)
+            dfuControlPointCharacteristic?.send(
+                Request.initDfuParameters(req: InitDfuParametersRequest.initPacketComplete),
+                onSuccess: success,
+                onError: { error, message in
                     if error == .remoteLegacyDFUOperationFailed {
                         // Init packet validation failed. The device type, revision, app
                         // version or SoftDevice version does not match values specified
@@ -400,9 +417,9 @@ import CoreBluetooth
             // After receiving this packet the DFU target was sending a notification with
             // status.
             if data.count == 2 {
-                dfuControlPointCharacteristic!.send(Request.initDfuParameters_v1,
+                dfuControlPointCharacteristic?.send(Request.initDfuParameters_v1,
                                                     onSuccess: success, onError: report)
-                dfuPacketCharacteristic!.sendInitPacket(data)
+                dfuPacketCharacteristic?.sendInitPacket(data)
             } else {
                 // After sending the Extended Init Packet, the DFU would fail on CRC
                 // validation eventually.
@@ -436,7 +453,7 @@ import CoreBluetooth
                                               onError report: @escaping ErrorCallback) {
         if !aborted {
             packetReceiptNotificationNumber = prnValue
-            dfuControlPointCharacteristic!.send(Request.packetReceiptNotificationRequest(number: prnValue),
+            dfuControlPointCharacteristic?.send(Request.packetReceiptNotificationRequest(number: prnValue),
                                                 onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
@@ -472,11 +489,13 @@ import CoreBluetooth
         // 2. Sends firmware to the DFU Packet characteristic. If number > 0 it will receive
         //    Packet Receit Notifications every number packets.
         // 3. Receives response notification and calls onSuccess or onError.
-        dfuControlPointCharacteristic!.send(Request.receiveFirmwareImage,
-            onSuccess: {
+        dfuControlPointCharacteristic?.send(Request.receiveFirmwareImage,
+            onSuccess: { [weak self] in
+                guard let self = self else { return }
                 // Register callbacks for Packet Receipt Notifications/Responses.
-                self.dfuControlPointCharacteristic!.waitUntilUploadComplete(
-                    onSuccess: {
+                self.dfuControlPointCharacteristic?.waitUntilUploadComplete(
+                    onSuccess: { [weak self] in
+                        guard let self = self else { return }
                         // Upload is completed, release the temporary parameters.
                         self.firmware = nil
                         self.report   = nil
@@ -484,8 +503,8 @@ import CoreBluetooth
                         self.progressQueue = nil
                         success()
                     },
-                    onPacketReceiptNofitication: {
-                        bytesReceived in
+                    onPacketReceiptNofitication: { [weak self] bytesReceived in
+                        guard let self = self else { return }
                         // This callback is called from SecureDFUControlPoint in 2 cases:
                         // when a PRN is received (bytesReceived contains number of bytes
                         // reported), or when the iOS reports the
@@ -499,14 +518,21 @@ import CoreBluetooth
                         
                         // Each time a PRN is received, send next bunch of packets
                         if !self.paused && !self.aborted {
-                            let bytesSent = self.dfuPacketCharacteristic!.bytesSent
+                            guard let dfuPacketCharacteristic = self.dfuPacketCharacteristic else {
+                                self.firmware = nil
+                                self.report   = nil
+                                self.progressDelegate = nil
+                                self.progressQueue = nil
+                                return
+                            }
+                            let bytesSent = dfuPacketCharacteristic.bytesSent
                             // Due to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54
                             // only 16 least significant bits are verified.
                             if peripheralIsReadyToSendWriteWithoutRequest ||
                                (bytesSent & 0xFFFF) == (bytesReceived! & 0xFFFF) {
-                                self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber,
-                                                                       packetsOf: firmware,
-                                                                       andReportProgressTo: progress, on: queue)
+                                dfuPacketCharacteristic.sendNext(self.packetReceiptNotificationNumber,
+                                                                 packetsOf: firmware,
+                                                                 andReportProgressTo: progress, on: queue)
                             } else {
                                 // Target device deported invalid number of bytes received
                                 report(.bytesLost, "\(bytesSent) bytes were sent while \(bytesReceived!) bytes were reported as received")
@@ -521,8 +547,8 @@ import CoreBluetooth
                             self.sendReset(onError: report)
                         }
                     },
-                    onError: {
-                        error, message in
+                    onError: { [weak self] error, message in
+                        guard let self = self else { return }
                         // Upload failed, release the temporary parameters.
                         self.firmware = nil
                         self.report   = nil
@@ -533,10 +559,11 @@ import CoreBluetooth
                 )
                 // ...and start sending firmware.
                 if !self.paused && !self.aborted {
-                    let start = {
+                    let start = { [weak self] in
+                        guard let self = self else { return }
                         self.logger.a("Uploading firmware...")
                         self.logger.v("Sending firmware to DFU Packet characteristic...")
-                        self.dfuPacketCharacteristic!.sendNext(self.packetReceiptNotificationNumber,
+                        self.dfuPacketCharacteristic?.sendNext(self.packetReceiptNotificationNumber,
                                                                packetsOf: firmware,
                                                                andReportProgressTo: progress, on: queue)
                     }
@@ -558,7 +585,8 @@ import CoreBluetooth
                     self.sendReset(onError: report)
                 }
             },
-            onError: report)
+            onError: report
+        )
     }
     
     /**
@@ -570,7 +598,7 @@ import CoreBluetooth
     func sendValidateFirmwareRequest(onSuccess success: @escaping Callback,
                                      onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic!.send(Request.validateFirmware,
+            dfuControlPointCharacteristic?.send(Request.validateFirmware,
                                                 onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
@@ -585,7 +613,7 @@ import CoreBluetooth
      */
     func sendActivateAndResetRequest(onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic!.send(Request.activateAndReset,
+            dfuControlPointCharacteristic?.send(Request.activateAndReset,
                                                 onSuccess: nil, onError: report)
         } else {
             sendReset(onError: report)
@@ -600,7 +628,7 @@ import CoreBluetooth
      - parameter report: A callback called when writing characteristic failed.
      */
     func sendReset(onError report: @escaping ErrorCallback) {
-        dfuControlPointCharacteristic!.send(Request.reset, onSuccess: nil, onError: report)
+        dfuControlPointCharacteristic?.send(Request.reset, onSuccess: nil, onError: report)
     }
     
     // MARK: - Private service API methods
@@ -614,13 +642,13 @@ import CoreBluetooth
     */
     private func readDfuVersion(onSuccess success: @escaping Callback,
                                 onError report: @escaping ErrorCallback) {
-        dfuVersionCharacteristic!.readVersion(
-            onSuccess: {
-                major, minor in
+        dfuVersionCharacteristic?.readVersion(
+            onSuccess: { [weak self] major, minor in
+                guard let self = self else { return }
                 self.version = (major, minor)
                 success()
             },
-            onError:report
+            onError: report
         )
     }
     
@@ -693,7 +721,12 @@ import CoreBluetooth
                 _report?(.readingVersionFailed, "DFU Version found, but does not have the Read property")
                 return
             }
-            readDfuVersion(onSuccess: _success!, onError: _report!)
+            guard let _success = _success,
+                  let _report = _report else {
+                // This should never happen.
+                return
+            }
+            readDfuVersion(onSuccess: _success, onError: _report)
         } else {
             // Else... proceed.
             version = nil

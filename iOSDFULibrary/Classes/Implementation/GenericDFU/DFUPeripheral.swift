@@ -30,7 +30,7 @@
 
 import CoreBluetooth
 
-internal protocol BaseDFUPeripheralAPI : class, DFUController {
+internal protocol BaseDFUPeripheralAPI: AnyObject, DFUController {
     
     /**
      This method starts DFU process for given peripheral. If the peripheral is
@@ -101,8 +101,8 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     internal let experimentalButtonlessServiceInSecureDfuEnabled: Bool
     /// Default error callback.
     internal var defaultErrorCallback: ErrorCallback {
-        return { (error, message) in
-            self.delegate?.error(error, didOccurWithMessage: message)
+        return { [weak self] error, message in
+            self?.delegate?.error(error, didOccurWithMessage: message)
         }
     }
 
@@ -155,23 +155,23 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         }
         self.peripheral = peripheral
         
-        if peripheral.state != .connected {
-            connect()
-        } else {
+        switch peripheral.state {
+        case .connected:
             let name = peripheral.name ?? "Unknown device"
             logger.i("Connected to \(name)")
             
-            let dfuService = findDfuService(in: peripheral.services)
-            if dfuService == nil {
+            if let dfuService = findDfuService(in: peripheral.services) {
+                // A DFU service was found, congratulations!
+                logger.i("Services discovered")
+                peripheralDidDiscoverDfuService(dfuService)
+            } else {
                 // DFU service has not been found, but it doesn't matter it's not
                 // there. Perhaps the user's application didn't discover it.
                 // Let's discover DFU services.
                 discoverServices()
-            } else {
-                // A DFU service was found, congratulations!
-                logger.i("Services discovered")
-                peripheralDidDiscoverDfuService(dfuService!)
             }
+        default:
+            connect()
         }
     }
     
@@ -181,13 +181,14 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     }
     
     func disconnect() {
-        if peripheral!.state == .connected {
+        guard let peripheral = peripheral else { return }
+        if peripheral.state == .connected {
             logger.v("Disconnecting...")
         } else {
             logger.v("Cancelling connection...")
         }
         logger.d("centralManager.cancelPeripheralConnection(peripheral)")
-        centralManager.cancelPeripheralConnection(peripheral!)
+        centralManager.cancelPeripheralConnection(peripheral)
     }
     
     func destroy() {
@@ -239,10 +240,11 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
             stateAsString = "Unknown"
         }
         logger.d("[Callback] Central Manager did update state to: \(stateAsString)")
-        if central.state == .poweredOn {
+        switch central.state {
+        case .poweredOn:
             // We are now ready to rumble!
             start()
-        } else {
+        default:
             // The device has been already disconnected if it was connected.
             delegate?.error(.bluetoothDisabled, didOccurWithMessage: "Bluetooth adapter powered off")
             destroy()
@@ -339,11 +341,10 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     // MARK: - Peripheral Delegate methods
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        guard error == nil else {
+        if let error = error {
             logger.e("Services discovery failed")
-            logger.e(error!)
-            delegate?.error(.serviceDiscoveryFailed, didOccurWithMessage:
-                "Services discovery failed")
+            logger.e(error)
+            delegate?.error(.serviceDiscoveryFailed, didOccurWithMessage: "Services discovery failed")
             return
         }
         
@@ -370,8 +371,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
             logger.d("Did you connect to the correct target? It might be that the previous services were cached: toggle Bluetooth from iOS settings to clear cache. Also, ensure the device contains the Service Changed characteristic")
             
             // The device does not support DFU, nor buttonless jump
-            delegate?.error(.deviceNotSupported, didOccurWithMessage:
-                "DFU Service not found")
+            delegate?.error(.deviceNotSupported, didOccurWithMessage: "DFU Service not found")
             return
         }
         // A DFU service was found, congratulations!
@@ -409,7 +409,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
      This method should reset the device, preferably switching it to application mode.
      */
     func resetDevice() {
-        if peripheral != nil && peripheral!.state != .disconnected {
+        if let peripheral = peripheral, peripheral.state != .disconnected {
             disconnect()
         } else {
             peripheralDidDisconnect()
@@ -424,27 +424,17 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
      - returns: A `DFUService` type if a DFU service has been found, or `nil` if
                 services are `nil` or the list does not contain any supported DFU Service.
      */
-    private func findDfuService(in services:[CBService]?) -> CBService? {
-        if let services = services {
-            for service in services {
-                // Skip the experimental Buttonless DFU Service if this feature wasn't enabled.
-                if experimentalButtonlessServiceInSecureDfuEnabled && service.matches(uuid: uuidHelper.buttonlessExperimentalService) {
-                    // The experimental Buttonless DFU Service for Secure DFU has been found.
-                    return service
-                }
-
-                if service.matches(uuid: uuidHelper.secureDFUService) {
-                    // Secure DFU Service has been found.
-                    return service
-                }
-
-                if service.matches(uuid: uuidHelper.legacyDFUService) {
-                    // Legacy DFU Service has been found.
-                    return service
-                }
-            }
+    private func findDfuService(in services: [CBService]?) -> CBService? {
+        return services?.first { service in
+            // The experimental Buttonless DFU Service for Secure DFU has been found.
+            // Skip the experimental Buttonless DFU Service if this feature wasn't enabled.
+            (experimentalButtonlessServiceInSecureDfuEnabled &&
+                service.matches(uuid: uuidHelper.buttonlessExperimentalService)) ||
+            // Secure DFU Service has been found.
+            service.matches(uuid: uuidHelper.secureDFUService) ||
+            // Legacy DFU Service has been found.
+            service.matches(uuid: uuidHelper.legacyDFUService)
         }
-        return nil
     }
     
     /**
@@ -651,10 +641,10 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             // This part of firmware has been successfully sent.
             
             // Check if there is another part to be sent.
-            if (delegate?.peripheralDidDisconnectAfterFirmwarePartSent() ?? false) {
+            if delegate?.peripheralDidDisconnectAfterFirmwarePartSent() == true {
                 // As we are already in bootloader mode, the peripheral set
                 // may be reused for sending a second part.
-                connectOrSwitchToNewPeripheral(after: 3.0)
+                connectOrSwitchToNewPeripheral(after: 15.0)
             } else {
                 // Upload is completed.
                 // Peripheral has been destroyed and state is now .completed.
@@ -695,15 +685,15 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         // With that flag equal to true, the library will try to connect to the
         // same device (with a short timeout), and if that fails, will try to
         // scan for a new address using `DFUPeripheralSelector`.
-        connect(withTimeout: timeout) { [unowned self] in
+        connect(withTimeout: timeout) { [weak self] in
             // Scan for a new device and connect to it.
-            self.switchToNewPeripheralAndConnect()
+            self?.switchToNewPeripheralAndConnect()
         }
     }
     
     func switchToNewPeripheralAndConnect() {
         // Release the previous peripheral.
-        peripheral!.delegate = nil
+        peripheral?.delegate = nil
         peripheral = nil
         cleanUp()
         

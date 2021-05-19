@@ -28,7 +28,7 @@
 * POSSIBILITY OF SUCH DAMAGE.
 */
 
-internal protocol BasePeripheralDelegate : class {
+internal protocol BasePeripheralDelegate: AnyObject {
     
     /**
      Method called when the iDevice failed to connect to the given peripheral.

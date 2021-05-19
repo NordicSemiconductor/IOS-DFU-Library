@@ -1,16 +1,42 @@
 ### Changelog
+- **4.10.3**
+   - Project compilation available for Arm Simulators (#423).
+   
+- **4.10.2**
+   - Bugfix: Fixed compilation issue in Xcode 12.4 ([#417](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/417)).
+   
+- **4.10.1**
+   - Bugfix: A log message was incorrectly shown pointing to a solution to non-existing problem ([#419](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/419)). 
+   
+- **4.10.0**
+   - Improvement: Guarantee word-aligned writes to the packet characteristic ([#366](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/366)).
+   - Improvement: Extended DFU Connection Timeout from 3 to 15 seconds ([#411](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/411)).
+   - Warning fix: Fixed 'deprecated class keyword for protocol objects' ([#410](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/410)).
+   - Migration to Xcode 12.5 and Swift 5.4.
+   - Support for Apple watchOS and tvOS on CocoaPods ([#412](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/412)).
+   - Bigfix: Unwrapping optionals fixed ([#413](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/413)).
+   - Bugfix: Truncating too long advertising names ([#415](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/415)).
+   - Improvement: Add links to Xamarin binding libraries (#389 and #401).
+   - Improvement: Add syntax highlighting to readme ([#402](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/402)).
+   
+- **4.9.0**
+   - ZIPFoundation version set to 0.9.11.
+   - Migration to Swift 5.3.
+   - Improvement: Reconnection timeout improvements ([#386](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/386)).
+   - Improvement: Asynchronous firmware provider in the sample app ([#387](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/387)).
+   
 - **4.8.0**
-   - Feature: Option to force scanning for Legacy DFU bootloader after jumping using Buttonless Service (#374).
-   - Feature: Option to set connection timeout (#369).
-   - Feature: Option to set data object preparation delay (#377).
+   - Feature: Option to force scanning for Legacy DFU bootloader after jumping using Buttonless Service ([#374](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/374)).
+   - Feature: Option to set connection timeout ([#369](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/369)).
+   - Feature: Option to set data object preparation delay ([#377](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/377)).
    
 - **4.7.2**
-   - Improvement: Report error when bluetooth is turned off (#371).
-   - Bugfix: Fixed Carthage configuration (shared schemes) (#370).
+   - Improvement: Report error when bluetooth is turned off ([#371](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/371)).
+   - Bugfix: Fixed Carthage configuration (shared schemes) ([#370](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/370)).
 
 - **4.7.1**
    - Bug fixed: A log message was added to help solve #365 issue.
-   - Bug fixed: DFU will not proceed when setting alternative advertising name caused disconnection (#367).
+   - Bug fixed: DFU will not proceed when setting alternative advertising name caused disconnection ([#367](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/367)).
    - Bug fixed: Tests for nRF52840 fixed. 
 
 - **4.7.0**
@@ -23,41 +49,41 @@
    
 - **4.6.0**
     - Feature: Automatic retrying DFU on disconnection during update. 
-    - Bugfix: Some delegates were called on a wrong queue (#339).
+    - Bugfix: Some delegates were called on a wrong queue ([#339](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/339)).
     - Bugfix: DFU from SDK 6.0 fixed. PRN is forced set to 1. 
     - Improvement: The sample app has been modified to work on iOS 13.
     
 - **4.5.1**
-    - Bugfix: Fixed an issue where DFU could not be started on iOS 13 (#322). 
+    - Bugfix: Fixed an issue where DFU could not be started on iOS 13 ([#322](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/322)). 
     
 - **4.5.0**
     - Improvement: Hex2Bin converter rewritten to Swift 5.
     - Library released in Swift Package Manager (SPM).
 
 - **4.4.2**
-    - Bugfix: Missing buttonless service statuses added (#297).
-    - Improvement: Added support for older Swift versions (#295).
+    - Bugfix: Missing buttonless service statuses added ([#297](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/297)).
+    - Improvement: Added support for older Swift versions ([#295](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/295)).
     - Improvement: ZIPFoundation dependency bound to 0.9.9.
 
 - **4.4.1**
-    - Bugfix: Fixed calculating number of bytes received from PRN (#288).
-    - Improvement: ZIPFoundation dependency upgraded to 0.9.9 (#281).
+    - Bugfix: Fixed calculating number of bytes received from PRN ([#288](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/288)).
+    - Improvement: ZIPFoundation dependency upgraded to 0.9.9 ([#281](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/281)).
 
 - **4.4.0**
     - Improvement: Swift 5.0 migration.
     - Improvement: New App Store icon added to supress the warning.
-    - Bugfix: Fixed name conflict when adding the library manually (#293).
+    - Bugfix: Fixed name conflict when adding the library manually ([#293](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/293)).
     - Bugfix: Fixed displaying total progress in the sample app.
 
 - **4.3.0**
-    - Improvement: Zip dependency switched to ZipFramework (#251).
-    - Improvement: Dispatching delegates in designated queues (#249).
-    - Improvement: Added option to disable resuming Secure DFU operation (#264).
-    - Improvement: Attempt to send an App when SD+BL update failed with remote error (#266).
-    - Improvement: Extended errors exposed (#262).
-    - Bugfix: Fixed a crash during restarting DFU (#269).
-    - Bugfix: Fixed resuming Secure DFU on SDK 15 (#270).
-    - Bugfix: Typos in 2 error constants fixed (#263).
+    - Improvement: Zip dependency switched to ZipFramework ([#251](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/251)).
+    - Improvement: Dispatching delegates in designated queues ([#249](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/249)).
+    - Improvement: Added option to disable resuming Secure DFU operation ([#264](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/264)).
+    - Improvement: Attempt to send an App when SD+BL update failed with remote error ([#266](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/266)).
+    - Improvement: Extended errors exposed ([#262](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/262)).
+    - Bugfix: Fixed a crash during restarting DFU ([#269](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/269)).
+    - Bugfix: Fixed resuming Secure DFU on SDK 15 ([#270](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/270)).
+    - Bugfix: Typos in 2 error constants fixed ([#263](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/263)).
 
 - **4.2.2**
     - Bugfix: Fixed issue #245 where operationFailed error messages where not reported in some cases.
@@ -138,19 +164,19 @@
 - **3.0.4**:
     - Feature: `restart()` method restored in `DFUServiceController`.
     - Bugfix: Fixed error reporting when Buttonless jump fails.
-    - Bugfix: Crash on aborting when peripheral is changing (#72).
+    - Bugfix: Crash on aborting when peripheral is changing ([#72](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/72)).
     - Enhancement: A lot of minor code improvements.
 
 - **3.0.3**:
-    - Documentation warning fixed (#68).
+    - Documentation warning fixed ([#68](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/68)).
     - License changed to BSD 3-Clause in Podspec.
 
 - **3.0.2**:
-    - Bugfix: Ignoring updates from non-DFU characteristics (#66).
+    - Bugfix: Ignoring updates from non-DFU characteristics ([#66](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/66)).
     - Enhancement: Log messages improved for connected devices.
 
 - **3.0.1**:
-    - Bugfix: Crash if DFU Characteristic isn't found (#64).
+    - Bugfix: Crash if DFU Characteristic isn't found ([#64](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/64)).
     - Bugfix: Discovering all services to determine mode for Legacy bootloaders without DFU Version char.
     - Enhancement: License changed to BSD 3-Clause.
 
