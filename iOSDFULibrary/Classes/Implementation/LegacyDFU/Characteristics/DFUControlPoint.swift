@@ -221,14 +221,14 @@ internal struct PacketReceiptNotification {
         self.report  = report
         
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Set the peripheral delegate to self.
-        peripheral.delegate = self
+        peripheral?.delegate = self
         
         logger.v("Enabling notifications for \(characteristic.uuid.uuidString)...")
         logger.d("peripheral.setNotifyValue(true, for: \(characteristic.uuid.uuidString))")
-        peripheral.setNotifyValue(true, for: characteristic)
+        peripheral?.setNotifyValue(true, for: characteristic)
     }
     
     /**
@@ -247,10 +247,10 @@ internal struct PacketReceiptNotification {
         self.resetSent = false
         
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Set the peripheral delegate to self.
-        peripheral.delegate = self
+        peripheral?.delegate = self
         
         switch request {
         case .initDfuParameters(let req):
@@ -270,7 +270,7 @@ internal struct PacketReceiptNotification {
         }
         logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
         logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(characteristic.uuid.uuidString), type: .withResponse)")
-        peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
+        peripheral?.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     
     /**
@@ -295,10 +295,10 @@ internal struct PacketReceiptNotification {
         self.uploadStartTime = CFAbsoluteTimeGetCurrent()
         
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Set the peripheral delegate to self.
-        peripheral.delegate = self
+        peripheral?.delegate = self
     }
     
     // MARK: - Peripheral Delegate callbacks

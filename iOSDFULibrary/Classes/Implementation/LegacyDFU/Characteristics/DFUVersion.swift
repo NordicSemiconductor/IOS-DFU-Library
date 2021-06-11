@@ -66,14 +66,14 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
         self.report = report
         
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Set the peripheral delegate to self.
-        peripheral.delegate = self
+        peripheral?.delegate = self
         
         logger.v("Reading DFU Version number...")
         logger.d("peripheral.readValue(\(characteristic.uuid.uuidString))")
-        peripheral.readValue(for: characteristic)
+        peripheral?.readValue(for: characteristic)
     }
     
     // MARK: - Peripheral Delegate callbacks

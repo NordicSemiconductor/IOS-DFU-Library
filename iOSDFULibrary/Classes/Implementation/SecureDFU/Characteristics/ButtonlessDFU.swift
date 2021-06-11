@@ -178,10 +178,10 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         self.report  = report
         
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Set the peripheral delegate to self.
-        peripheral.delegate = self
+        peripheral?.delegate = self
         
         if characteristic.properties.contains(.indicate) {
             logger.v("Enabling indications for \(characteristic.uuid.uuidString)...")
@@ -189,7 +189,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
             logger.v("Enabling notifications for \(characteristic.uuid.uuidString)...")
         }
         logger.d("peripheral.setNotifyValue(true, for: \(characteristic.uuid.uuidString))")
-        peripheral.setNotifyValue(true, for: characteristic)
+        peripheral?.setNotifyValue(true, for: characteristic)
     }
     
     /**
@@ -207,16 +207,16 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         self.report  = report
         
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Set the peripheral delegate to self.
-        peripheral.delegate = self
+        peripheral?.delegate = self
         
         let buttonlessUUID = characteristic.uuid.uuidString
         
         logger.v("Writing to characteristic \(buttonlessUUID)...")
         logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(buttonlessUUID), type: .withResponse)")
-        peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
+        peripheral?.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     
     // MARK: - Peripheral Delegate callbacks

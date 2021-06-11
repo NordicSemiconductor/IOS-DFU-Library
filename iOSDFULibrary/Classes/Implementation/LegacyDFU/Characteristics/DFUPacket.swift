@@ -67,7 +67,7 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendFirmwareSize(_ size: DFUFirmwareSize) {
         // Get the peripheral object
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         let data = Data()
             + size.softdevice.littleEndian
@@ -78,7 +78,7 @@ internal class DFUPacket: DFUCharacteristic {
         
         logger.v("Writing image sizes (\(size.softdevice)b, \(size.bootloader)b, \(size.application)b) to characteristic \(packetUUID)...")
         logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
-        peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
+        peripheral?.writeValue(data, for: characteristic, type: .withoutResponse)
     }
 
     /**
@@ -89,7 +89,7 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendFirmwareSize_v1(_ size: DFUFirmwareSize) {
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         let data = Data() + size.application.littleEndian
         
@@ -97,7 +97,7 @@ internal class DFUPacket: DFUCharacteristic {
 
         logger.v("Writing image size (\(size.application)b) to characteristic \(packetUUID)...")
         logger.d("peripheral.writeValue(0x\(data.hexString), for: \(packetUUID), type: .withoutResponse)")
-        peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
+        peripheral?.writeValue(data, for: characteristic, type: .withoutResponse)
     }
     
     /**
@@ -107,7 +107,7 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendInitPacket(_ data: Data) {
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Data may be sent in up-to-20-bytes packets.
         var offset: UInt32 = 0
@@ -122,7 +122,7 @@ internal class DFUPacket: DFUCharacteristic {
             logger.v("Writing to characteristic \(packetUUID)...")
             logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(packetUUID), type: .withoutResponse)")
 
-            peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
+            peripheral?.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             offset += packetLength
             bytesToSend -= packetLength
@@ -143,7 +143,7 @@ internal class DFUPacket: DFUCharacteristic {
     func sendNext(_ prnValue: UInt16, packetsOf firmware: DFUFirmware,
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Some super complicated computations...
         let bytesTotal   = UInt32(firmware.data.count)
@@ -184,7 +184,7 @@ internal class DFUPacket: DFUCharacteristic {
             if #available(iOS 11.0, macOS 10.13, *) {
                 // The peripheral.canSendWriteWithoutResponse often returns false
                 // before even we start sending, let's do a workaround.
-                canSendPacket = bytesSent == 0 || peripheral.canSendWriteWithoutResponse
+                canSendPacket = bytesSent == 0 || (peripheral?.canSendWriteWithoutResponse ?? false)
             }
             // If PRNs are enabled we will ignore the new API and base synchronization
             // on PRNs only.
@@ -195,7 +195,7 @@ internal class DFUPacket: DFUCharacteristic {
             let bytesLeft    = bytesTotal - bytesSent
             let packetLength = min(bytesLeft, packetSize)
             let packet       = firmware.data.subdata(in: Int(bytesSent) ..< Int(bytesSent + packetLength))
-            peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
+            peripheral?.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             bytesSent += packetLength
             packetsToSendNow -= 1

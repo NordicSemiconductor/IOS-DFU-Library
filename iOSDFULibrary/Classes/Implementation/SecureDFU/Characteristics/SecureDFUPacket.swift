@@ -57,9 +57,9 @@ internal class SecureDFUPacket: DFUCharacteristic {
         self.characteristic = characteristic
         self.logger = logger
         
-        if #available(iOS 9.0, macOS 10.12, *) {
+        if #available(iOS 9.0, macOS 10.12, *), let peripheral = characteristic.service?.peripheral {
             // Make the packet size the first word-aligned value that's less than the maximum.
-            packetSize = UInt32(characteristic.service.peripheral.maximumWriteValueLength(for: .withoutResponse)) & 0xFFFFFFFC
+            packetSize = UInt32(peripheral.maximumWriteValueLength(for: .withoutResponse)) & 0xFFFFFFFC
             if packetSize > 20 {
                 // MTU is 3 bytes larger than payload
                 // (1 octet for Op-Code and 2 octets for Att Handle).
@@ -79,7 +79,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
      */
     func sendInitPacket(_ data: Data) {
         // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
+        let peripheral = characteristic.service?.peripheral
         
         // Data may be sent in up-to-20-bytes packets.
         var offset: UInt32 = 0
@@ -92,7 +92,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
             
             logger.v("Writing to characteristic \(packetUUID)...")
             logger.d("peripheral.writeValue(0x\(packet.hexString), for: \(packetUUID), type: .withoutResponse)")
-            peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
+            peripheral?.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             offset += packetLength
             bytesToSend -= packetLength
@@ -114,7 +114,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
     func sendNext(_ prnValue: UInt16, packetsFrom range: Range<Int>, of firmware: DFUFirmware,
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
                   andCompletionTo complete: @escaping Callback) {
-        let peripheral          = characteristic.service.peripheral
+        let peripheral          = characteristic.service?.peripheral
         let objectData          = firmware.data.subdata(in: range)
         let objectSizeInBytes   = UInt32(objectData.count)
         let objectSizeInPackets = (objectSizeInBytes + packetSize - 1) / packetSize
@@ -161,7 +161,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
             if #available(iOS 11.0, macOS 10.13, *) {
                 // The peripheral.canSendWriteWithoutResponse often returns false before even we
                 // start sending, let's do a workaround.
-                canSendPacket = bytesSent == 0 || peripheral.canSendWriteWithoutResponse
+                canSendPacket = bytesSent == 0 || (peripheral?.canSendWriteWithoutResponse ?? false)
             }
             // If PRNs are enabled we will ignore the new API and base synchronization on PRNs only.
             guard canSendPacket || prnValue > 0 else {
@@ -171,7 +171,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
             let bytesLeft = objectSizeInBytes - bytesSent
             let packetLength = min(bytesLeft, packetSize)
             let packet = objectData.subdata(in: Int(bytesSent) ..< Int(packetLength + bytesSent))
-            peripheral.writeValue(packet, for: characteristic, type: .withoutResponse)
+            peripheral?.writeValue(packet, for: characteristic, type: .withoutResponse)
             
             bytesSent += packetLength
             packetsToSendNow -= 1
