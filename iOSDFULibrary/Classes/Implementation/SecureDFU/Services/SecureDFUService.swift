@@ -145,7 +145,11 @@ import CoreBluetooth
         self.report  = report
         
         // Get the peripheral object
+        #if swift(>=5.5)
+        guard let peripheral = service.peripheral else { return }
+        #else
         let peripheral = service.peripheral
+        #endif
         
         // Set the peripheral delegate to self
         peripheral.delegate = self
