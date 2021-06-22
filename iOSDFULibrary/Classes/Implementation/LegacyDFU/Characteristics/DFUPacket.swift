@@ -68,7 +68,7 @@ internal class DFUPacket: DFUCharacteristic {
     func sendFirmwareSize(_ size: DFUFirmwareSize) {
         // Get the peripheral object
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -94,7 +94,7 @@ internal class DFUPacket: DFUCharacteristic {
     func sendFirmwareSize_v1(_ size: DFUFirmwareSize) {
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -116,7 +116,7 @@ internal class DFUPacket: DFUCharacteristic {
     func sendInitPacket(_ data: Data) {
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -156,7 +156,7 @@ internal class DFUPacket: DFUCharacteristic {
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif

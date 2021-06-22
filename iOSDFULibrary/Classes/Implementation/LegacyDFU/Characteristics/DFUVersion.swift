@@ -67,7 +67,7 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
         
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif

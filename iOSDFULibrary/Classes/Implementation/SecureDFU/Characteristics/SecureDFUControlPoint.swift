@@ -353,7 +353,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -385,7 +385,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -418,7 +418,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -452,7 +452,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
 
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif

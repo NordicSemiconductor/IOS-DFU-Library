@@ -59,7 +59,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
         
         if #available(iOS 9.0, macOS 10.12, *) {
             #if swift(>=5.5)
-            guard let service = characteristic.service, let peripheral = service.peripheral else {
+            guard let peripheral = characteristic.service?.peripheral else {
                 packetSize = 20 // Default MTU is 23.
                 return
             }
@@ -88,7 +88,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
     func sendInitPacket(_ data: Data) {
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -127,7 +127,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
                   andCompletionTo complete: @escaping Callback) {
         #if swift(>=5.5)
-        guard let service = characteristic.service, let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else { return }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
