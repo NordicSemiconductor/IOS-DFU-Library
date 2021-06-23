@@ -430,7 +430,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         }
         let initPacketLength = UInt32(initPacket.count)
         guard offset < initPacketLength - offset else {
-            logger.d("offset \(offset) is larger or equal than initPacketLength - offset \(initPacketLength - offset). No more Init Packet Data to send.")
+            logger.e("offset \(offset) is larger or equal than initPacketLength - offset \(initPacketLength - offset).")
             return
         }
         let data = initPacket.subdata(in: Int(offset) ..< Int(initPacketLength - offset))
