@@ -110,6 +110,10 @@ import Foundation
     /// Service has done 3 attempts to send the data.
     case crcError                             = 309
     
+    /// Raised when a programming invariant, such as a bounds check for an array,
+    /// has not been met.
+    case programmingError                     = 400
+    
     /// Returns whether the error has been returned by the remote device or
     /// occurred locally.
     var isRemote: Bool {

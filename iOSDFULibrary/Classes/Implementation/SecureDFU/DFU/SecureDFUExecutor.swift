@@ -435,10 +435,20 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      Creates the new data object with length equal to the length of the range with given index.
      The ranges were calculated using `calculateFirmwareRanges()`.
      
+     - Requires: `firmwareRanges` must not be `nil` and `rangeIdx` parameter must be within bounds. Otherwise, `peripheral.defaultErrorCallback` will be called instead.
      - parameter rangeIdx: Index of a range of the firmware.
      */
     private func createDataObject(_ rangeIdx: Int) {
-        let currentRange = firmwareRanges![rangeIdx]
+        guard let firmwareRanges = firmwareRanges, 0..<firmwareRanges.count ~= rangeIdx else {
+            if let ranges = firmwareRanges {
+                peripheral.defaultErrorCallback(.programmingError, "Variable @rangeIdx \(rangeIdx) in \(#function) does not fit in range 0..<\(ranges.count)")
+            } else {
+                peripheral.defaultErrorCallback(.fileNotSpecified, "Variable @firmwareRanges in \(#function) is nil.")
+            }
+            return
+        }
+        
+        let currentRange = firmwareRanges[rangeIdx]
         peripheral.createDataObject(withLength: UInt32(currentRange.upperBound - currentRange.lowerBound))
         // -> peripheralDidCreateDataObject() will be called.
     }
