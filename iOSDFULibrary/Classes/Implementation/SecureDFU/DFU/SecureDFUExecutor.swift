@@ -424,8 +424,16 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                          This allows resuming uploading the Init Packet.
      */
     private func sendInitPacket(fromOffset offset: UInt32) {
-        let initPacketLength = UInt32(firmware.initPacket!.count)
-        let data = firmware.initPacket!.subdata(in: Int(offset) ..< Int(initPacketLength - offset))
+        guard let initPacket = firmware.initPacket else {
+            logger.e("Firmware initPacket is nil.")
+            return
+        }
+        let initPacketLength = UInt32(initPacket.count)
+        guard offset < initPacketLength - offset else {
+            logger.d("offset \(offset) is larger or equal than initPacketLength - offset \(initPacketLength - offset). No more Init Packet Data to send.")
+            return
+        }
+        let data = initPacket.subdata(in: Int(offset) ..< Int(initPacketLength - offset))
         
         // Send following bytes of init packet (offset may be 0).
         peripheral.sendInitPacket(data) // -> peripheralDidReceiveInitPacket() will be called.
