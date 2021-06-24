@@ -42,7 +42,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     private var firmwareRanges  : [Range<Int>]?
     private var currentRangeIdx : Int = 0
     
-    private var offset          : UInt32!
+    private var offset          : UInt32 = 0
     
     private var initPacketSent  : Bool = false
     private var firmwareSent    : Bool = false
