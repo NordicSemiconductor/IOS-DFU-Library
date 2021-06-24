@@ -351,7 +351,12 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidCreateDataObject() {
-        logger.i("Data object \(currentRangeIdx + 1)/\(firmwareRanges!.count) created")
+        guard let firmwareRanges = firmwareRanges else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert firmwareRanges != nil failed")
+            return
+        }
+        logger.i("Data object \(currentRangeIdx + 1)/\(firmwareRanges.count) created")
         // For SDK 15.x and 16 the bootloader needs some time before it's ready to receive data.
         // Otherwise, some packets may be discarded and the received checksum will not match.
         if currentRangeIdx == 0 || initiator.dataObjectPreparationDelay > 0 {
