@@ -109,6 +109,9 @@ import Foundation
     /// Error raised when the CRC reported by the remote device does not match.
     /// Service has done 3 attempts to send the data.
     case crcError                             = 309
+    /// The service went into an invalid state. The service will try to close
+    /// without crashing. Recovery to a know state is not possible.
+    case invalidInternalState                 = 500
     
     /// Returns whether the error has been returned by the remote device or
     /// occurred locally.

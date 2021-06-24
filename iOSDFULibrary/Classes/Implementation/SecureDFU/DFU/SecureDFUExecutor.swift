@@ -42,16 +42,16 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     private var firmwareRanges  : [Range<Int>]?
     private var currentRangeIdx : Int = 0
     
-    private var maxLen          : UInt32?
-    private var offset          : UInt32?
-    private var crc             : UInt32?
+    private var maxLen          : UInt32!
+    private var offset          : UInt32!
+    private var crc             : UInt32!
     
     private var initPacketSent  : Bool = false
     private var firmwareSent    : Bool = false
-    private var uploadStartTime : CFAbsoluteTime?
+    private var uploadStartTime : CFAbsoluteTime!
     
     /// Retry counter in case the peripheral returns invalid CRC.
-    private let MaxRetryCount = 3
+    private let maxRetryCount = 3
     private var retryCount: Int
     
     // MARK: - Initialization
@@ -61,7 +61,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         self.firmware   = initiator.file!
         self.peripheral = SecureDFUPeripheral(initiator, logger)
         
-        self.retryCount = MaxRetryCount
+        self.retryCount = maxRetryCount
     }
     
     func start() {
@@ -74,8 +74,13 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     // MARK: - DFU Peripheral Delegate methods
     
     func peripheralDidBecomeReady() {
-        if firmware.initPacket == nil && peripheral.isInitPacketRequired() {
-            error(.extendedInitPacketRequired, didOccurWithMessage: "The init packet is required by the target device")
+        // This will always pass, unless the library was modified to skip validation.
+        assert(peripheral.isInitPacketRequired(), "This exacutor requires the peripheral to require Init packet")
+        
+        // Ensure the Init packet is provided in the firmware.
+        guard let _ = firmware.initPacket else {
+            error(.extendedInitPacketRequired, didOccurWithMessage:
+                  "The init packet is required by the target device")
             return
         }
         resetFirmwareRanges()
@@ -103,7 +108,16 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         }
     }
     
-    func peripheralDidSendCommandObjectInfo(maxLen: UInt32, offset: UInt32, crc: UInt32 ) {
+    func peripheralDidSendCommandObjectInfo(maxLen: UInt32, offset: UInt32, crc: UInt32) {
+        guard let initPacket = firmware.initPacket else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert initPacket != nil failed")
+            return
+        }
+        
+        /// The length of Init packet in bytes.
+        let initPacketLength = UInt32(initPacket.count)
+        
         self.maxLen = maxLen
         self.offset = offset
         self.crc = crc
@@ -111,10 +125,9 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         // Was Init packet sent, at least partially, before?
         if offset > 0 {
             // If we are allowed to resume, then verify CRC of the part that was sent before.
-            if !initiator.disableResume && verifyCRC(for: firmware.initPacket!,
-                                                     andPacketOffset: offset, matches: crc) {
-                // Resume sending Init Packet
-                if offset < UInt32(firmware.initPacket!.count) {
+            if !initiator.disableResume && verifyCRC(for: initPacket, andPacketOffset: offset, matches: crc) {
+                // Resume sending Init Packet.
+                if offset < initPacketLength {
                     logger.a("Resuming sending Init packet...")
                     
                     // We need to send rest of the Init packet, but before that let's make sure
@@ -133,23 +146,23 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 // or we are resuming from a BL/SD + App and need to start all over again.
                 self.offset = 0
                 self.crc = 0
-                peripheral.createCommandObject(withLength: UInt32(firmware.initPacket!.count)) // -> peripheralDidCreateCommandObject()
+                peripheral.createCommandObject(withLength: initPacketLength) // -> peripheralDidCreateCommandObject()
             }
         } else {
             // No Init Packet was sent before. Create the Command object.
-            peripheral.createCommandObject(withLength: UInt32(firmware.initPacket!.count)) // -> peripheralDidCreateCommandObject()
+            peripheral.createCommandObject(withLength: initPacketLength) // -> peripheralDidCreateCommandObject()
         }
     }
     
     func peripheralDidCreateCommandObject() {
-        // Disable PRNs for first time while we write Init file.
-        peripheral.setPRNValue(0) // -> peripheralDidSetPRNValue() will be called/
+        // Disable PRNs for while we write the Init packet.
+        peripheral.setPRNValue(0) // -> peripheralDidSetPRNValue() will be called.
     }
     
     func peripheralDidSetPRNValue() {
         if initPacketSent == false {
-            // PRNs are disabled, we may sent Init Packet data.
-            sendInitPacket(fromOffset: offset!) // -> peripheralDidReceiveInitPacket() will be called.
+            // PRNs are disabled, we may sent Init packet data.
+            sendInitPacket(fromOffset: offset) // -> peripheralDidReceiveInitPacket() will be called.
         } else {
             // PRNs are ready, check out the Data object.
             peripheral.readDataObjectInfo() // -> peripheralDidSendDataObjectInfo(...) will be called.
@@ -157,19 +170,33 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidReceiveInitPacket() {
-        logger.a(String(format: "Command object sent (CRC = %08X)", crc32(data: firmware.initPacket!)))
+        guard let initPacket = firmware.initPacket else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert initPacket != nil failed")
+            return
+        }
+        logger.a(String(format: "Command object sent (CRC = %08X)", crc32(data: initPacket)))
         
         // Init Packet sent. Let's check the CRC before executing it.
         peripheral.sendCalculateChecksumCommand() // -> peripheralDidSendChecksum(...) will be called.
     }
     
     func peripheralDidSendChecksum(offset: UInt32, crc: UInt32) {
+        guard let initPacket = firmware.initPacket else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert initPacket != nil failed")
+            return
+        }
+        
+        /// The length of Init packet in bytes.
+        let initPacketLength = UInt32(initPacket.count)
+        
         self.crc    = crc
         self.offset = offset
         
         if initPacketSent == false {
-            // Verify CRC
-            if verifyCRC(for: firmware.initPacket!, andPacketOffset: UInt32(firmware.initPacket!.count), matches: crc) {
+            // Verify CRC.
+            if verifyCRC(for: initPacket, andPacketOffset: initPacketLength, matches: crc) {
                 // Init Packet sent correctly.
                 crcOk()
                 
@@ -179,11 +206,11 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                                                                       //    will be called.
             } else {
                 // The CRC does not match, let's start from the beginning.
-                retryOrReportCrcError({
+                retryOrReportCrcError {
                     self.offset = 0
                     self.crc = 0
-                    peripheral.createCommandObject(withLength: UInt32(firmware.initPacket!.count)) // -> peripheralDidCreateCommandObject()
-                })
+                    peripheral.createCommandObject(withLength: initPacketLength) // -> peripheralDidCreateCommandObject()
+                }
             }
         } else {
             // Verify CRC
@@ -195,9 +222,9 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 firmwareSent = offset == UInt32(firmware.data.count)
                 peripheral.sendExecuteCommand(andActivateIf: firmwareSent) // -> peripheralDidExecuteObject()
             } else {
-                retryOrReportCrcError({
+                retryOrReportCrcError {
                     createDataObject(currentRangeIdx) // -> peripheralDidCreateDataObject() will be called.
-                })
+                }
             }
         }
     }
@@ -212,10 +239,20 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             
             logger.w("Invalid system components. Trying to send application")
             
+            // Verify the new part, which should also have the Init packet.
+            guard let initPacket = firmware.initPacket else {
+                error(.extendedInitPacketRequired, didOccurWithMessage:
+                      "The init packet is required by the target device")
+                return
+            }
+            
+            /// The length of Init packet in bytes.
+            let initPacketLength = UInt32(initPacket.count)
+            
             // New Init Packet has to be sent. Create the Command object.
             offset = 0
             crc = 0
-            peripheral.createCommandObject(withLength: UInt32(firmware.initPacket!.count)) // -> peripheralDidCreateCommandObject()
+            peripheral.createCommandObject(withLength: initPacketLength) // -> peripheralDidCreateCommandObject()
         } else {
             error(remoteError, didOccurWithMessage: message)
         }
@@ -239,7 +276,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 // The last data object was sent.
                 // Now the device will reset itself and onTransferCompleted() method will ba called
                 // (from the extension).
-                let interval = CFAbsoluteTimeGetCurrent() - uploadStartTime! as CFTimeInterval
+                let interval = CFAbsoluteTimeGetCurrent() - uploadStartTime as CFTimeInterval
                 logger.a("Upload completed in \(interval.format(".2")) seconds")
                 
                 delegate {
@@ -303,9 +340,9 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                     // currentRangeIdx won't go below 0 because offset > 0 and offset % maxLen == 0
                     currentRangeIdx -= 1
                 }
-                retryOrReportCrcError({
+                retryOrReportCrcError {
                     createDataObject(currentRangeIdx) // -> peripheralDidCreateDataObject() will be called.
-                })
+                }
             }
         } else {
             // Create the first data object
@@ -334,7 +371,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     // MARK: - Private methods
     
-    private func retryOrReportCrcError(_ operation:()->()) {
+    private func retryOrReportCrcError(_ operation: () -> ()) {
         retryCount -= 1
         if retryCount > 0 {
             logger.w("CRC does not match! Retrying...")
@@ -346,7 +383,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     private func crcOk() {
-        retryCount = MaxRetryCount
+        retryCount = maxRetryCount
     }
     
     /**
@@ -425,12 +462,14 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      */
     private func sendInitPacket(fromOffset offset: UInt32) {
         guard let initPacket = firmware.initPacket else {
-            logger.e("Firmware initPacket is nil.")
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert initPacket != nil failed")
             return
         }
         let initPacketLength = UInt32(initPacket.count)
-        guard offset < initPacketLength - offset else {
-            logger.e("Offset \(offset) is larger or equal than initPacketLength - offset \(initPacketLength - offset).")
+        guard Int(offset) < Int(initPacketLength - offset) else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Asset offset (\(offset)) < initPacketLength (\(initPacketLength)) - offset (\(offset)) failed")
             return
         }
         let data = initPacket.subdata(in: Int(offset) ..< Int(initPacketLength - offset))
@@ -446,7 +485,12 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      - parameter rangeIdx: Index of a range of the firmware.
      */
     private func createDataObject(_ rangeIdx: Int) {
-        let currentRange = firmwareRanges![rangeIdx]
+        guard let firmwareRanges = firmwareRanges else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert firmwareRanges != nil failed")
+            return
+        }
+        let currentRange = firmwareRanges[rangeIdx]
         peripheral.createDataObject(withLength: UInt32(currentRange.upperBound - currentRange.lowerBound))
         // -> peripheralDidCreateDataObject() will be called.
     }
@@ -463,21 +507,31 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                                the range. The offset must be inside the given range.
      */
     private func sendDataObject(_ rangeIdx: Int, from resumeOffset: UInt32? = nil) {
-        var aRange = firmwareRanges![rangeIdx]
+        guard let firmwareRanges = firmwareRanges else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert firmwareRanges != nil failed")
+            return
+        }
+        guard firmwareRanges.count > rangeIdx else {
+            error(.invalidInternalState, didOccurWithMessage:
+                  "Assert firmwareRanges.count (\(firmwareRanges.count)) > rangeIdx (\(rangeIdx)) failed")
+            return
+        }
+        var range = firmwareRanges[rangeIdx]
         
         if let resumeOffset = resumeOffset {
-            if UInt32(aRange.lowerBound) == resumeOffset {
+            if UInt32(range.lowerBound) == resumeOffset {
                 // We reached the end of previous object so a new one must be created.
                 createDataObject(rangeIdx)
                 return
             }
             
             // This is a resuming object, recalculate location and size.
-            let newLength = aRange.lowerBound + (aRange.upperBound - aRange.lowerBound) - Int(offset!)
-            aRange = Int(resumeOffset) ..< newLength + Int(resumeOffset)
+            let newLength = range.lowerBound + (range.upperBound - range.lowerBound) - Int(offset)
+            range = Int(resumeOffset) ..< newLength + Int(resumeOffset)
         }
         
-        peripheral.sendNextObject(from: aRange, of: firmware,
+        peripheral.sendNextObject(from: range, of: firmware,
                                   andReportProgressTo: initiator.progressDelegate,
                                   on: initiator.progressDelegateQueue)
         // -> peripheralDidReceiveObject() will be called.
