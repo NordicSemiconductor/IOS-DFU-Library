@@ -155,7 +155,11 @@ import CoreBluetooth
         self.report  = report
         
         // Get the peripheral object
+        #if swift(>=5.5)
+        guard let peripheral = service.peripheral else { return }
+        #else
         let peripheral = service.peripheral
+        #endif
         
         // Set the peripheral delegate to self
         peripheral.delegate = self
@@ -194,7 +198,12 @@ import CoreBluetooth
         // - we must be in the DFU mode already (otherwise the device would be useless...).
         // Note: On iOS the Generic Access and Generic Attribute services (nor HID Service)
         //       are not returned during service discovery.
-        let services = service.peripheral.services
+        #if swift(>=5.5)
+        guard let peripheral = service.peripheral else { return false }
+        #else
+        let peripheral = service.peripheral
+        #endif
+        let services = peripheral.services
         if services?.count == 1 {
             return false
         }

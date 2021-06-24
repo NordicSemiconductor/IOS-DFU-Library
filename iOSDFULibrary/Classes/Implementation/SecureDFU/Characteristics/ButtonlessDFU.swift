@@ -178,7 +178,11 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         self.report  = report
         
         // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else { return }
+        #else
         let peripheral = characteristic.service.peripheral
+        #endif
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self
@@ -207,7 +211,11 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         self.report  = report
         
         // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else { return }
+        #else
         let peripheral = characteristic.service.peripheral
+        #endif
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self

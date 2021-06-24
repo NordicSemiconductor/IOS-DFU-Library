@@ -67,7 +67,11 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendFirmwareSize(_ size: DFUFirmwareSize) {
         // Get the peripheral object
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else { return }
+        #else
         let peripheral = characteristic.service.peripheral
+        #endif
         
         let data = Data()
             + size.softdevice.littleEndian
@@ -89,7 +93,11 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendFirmwareSize_v1(_ size: DFUFirmwareSize) {
         // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else { return }
+        #else
         let peripheral = characteristic.service.peripheral
+        #endif
         
         let data = Data() + size.application.littleEndian
         
@@ -107,7 +115,11 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendInitPacket(_ data: Data) {
         // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else { return }
+        #else
         let peripheral = characteristic.service.peripheral
+        #endif
         
         // Data may be sent in up-to-20-bytes packets.
         var offset: UInt32 = 0
@@ -143,7 +155,11 @@ internal class DFUPacket: DFUCharacteristic {
     func sendNext(_ prnValue: UInt16, packetsOf firmware: DFUFirmware,
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue) {
         // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else { return }
+        #else
         let peripheral = characteristic.service.peripheral
+        #endif
         
         // Some super complicated computations...
         let bytesTotal   = UInt32(firmware.data.count)
