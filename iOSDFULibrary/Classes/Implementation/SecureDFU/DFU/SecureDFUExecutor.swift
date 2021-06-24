@@ -42,9 +42,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     private var firmwareRanges  : [Range<Int>]?
     private var currentRangeIdx : Int = 0
     
-    private var maxLen          : UInt32!
-    private var offset          : UInt32!
-    private var crc             : UInt32!
+    private var offset          : UInt32 = 0
     
     private var initPacketSent  : Bool = false
     private var firmwareSent    : Bool = false
@@ -118,9 +116,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         /// The length of Init packet in bytes.
         let initPacketLength = UInt32(initPacket.count)
         
-        self.maxLen = maxLen
         self.offset = offset
-        self.crc = crc
         
         // Was Init packet sent, at least partially, before?
         if offset > 0 {
@@ -145,7 +141,6 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 // Start new update. We are either flashing a different firmware,
                 // or we are resuming from a BL/SD + App and need to start all over again.
                 self.offset = 0
-                self.crc = 0
                 peripheral.createCommandObject(withLength: initPacketLength) // -> peripheralDidCreateCommandObject()
             }
         } else {
@@ -191,7 +186,6 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         /// The length of Init packet in bytes.
         let initPacketLength = UInt32(initPacket.count)
         
-        self.crc    = crc
         self.offset = offset
         
         if initPacketSent == false {
@@ -208,7 +202,6 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
                 // The CRC does not match, let's start from the beginning.
                 retryOrReportCrcError {
                     self.offset = 0
-                    self.crc = 0
                     peripheral.createCommandObject(withLength: initPacketLength) // -> peripheralDidCreateCommandObject()
                 }
             }
@@ -251,7 +244,6 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             
             // New Init Packet has to be sent. Create the Command object.
             offset = 0
-            crc = 0
             peripheral.createCommandObject(withLength: initPacketLength) // -> peripheralDidCreateCommandObject()
         } else {
             error(remoteError, didOccurWithMessage: message)
@@ -287,9 +279,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidSendDataObjectInfo(maxLen: UInt32, offset: UInt32, crc: UInt32 ) {
-        self.maxLen = maxLen
         self.offset = offset
-        self.crc    = crc
         
         // This is the initial state, if ranges aren't set, assume this is the first
         // or the only stage in the DFU process. The Init packet was already sent and executed.
