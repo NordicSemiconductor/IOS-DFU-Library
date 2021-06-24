@@ -42,7 +42,6 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     private var firmwareRanges  : [Range<Int>]?
     private var currentRangeIdx : Int = 0
     
-    private var maxLen          : UInt32!
     private var offset          : UInt32!
     private var crc             : UInt32!
     
@@ -118,7 +117,6 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         /// The length of Init packet in bytes.
         let initPacketLength = UInt32(initPacket.count)
         
-        self.maxLen = maxLen
         self.offset = offset
         self.crc = crc
         
@@ -287,7 +285,6 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralDidSendDataObjectInfo(maxLen: UInt32, offset: UInt32, crc: UInt32 ) {
-        self.maxLen = maxLen
         self.offset = offset
         self.crc    = crc
         
