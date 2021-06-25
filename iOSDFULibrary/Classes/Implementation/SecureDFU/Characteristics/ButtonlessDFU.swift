@@ -100,7 +100,7 @@ internal struct ButtonlessDFUResponse {
     init?(_ data: Data) {
         // The correct response is always 3 bytes long: Response Op Code,
         // Request Op Code and Status.
-        guard data.count == 3,
+        guard data.count >= 3,
               let opCode = ButtonlessDFUOpCode(rawValue: data[0]),
               let requestOpCode = ButtonlessDFUOpCode(rawValue: data[1]),
               let status = ButtonlessDFUResultCode(rawValue: data[2]),
@@ -173,12 +173,19 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
      - parameter report:  Method called in case of an error.
      */
     func enable(onSuccess success: Callback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks.
         self.success = success
         self.report  = report
-        
-        // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self
@@ -202,12 +209,19 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
      */
     func send(_ request: ButtonlessDFURequest,
               onSuccess success: Callback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks and parameter.
         self.success = success
         self.report  = report
-        
-        // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self

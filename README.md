@@ -56,7 +56,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library", 
-      .upToNextMajor(from: "<Desired Version, e.g. 4.10.2>")
+      .upToNextMajor(from: "<Desired Version, e.g. 4.10.4>")
     )
   ],
   targets: [.target(name: "<Your Target Name>", dependencies: ["NordicDFU"])]

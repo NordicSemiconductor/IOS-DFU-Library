@@ -66,7 +66,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
     func peripheralDidBecomeReady() {
         if firmware.initPacket == nil && peripheral.isInitPacketRequired() {
             error(.extendedInitPacketRequired, didOccurWithMessage:
-                "The init packet is required by the target device")
+                  "The init packet is required by the target device")
             return
         }
         delegate {
@@ -101,7 +101,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
         } else {
             // Operation can not be continued.
             error(.remoteLegacyDFUNotSupported, didOccurWithMessage:
-                "Updating Softdevice or Bootloader is not supported")
+                  "Updating Softdevice or Bootloader is not supported")
         }
     }
 
@@ -140,7 +140,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
             peripheral.start()
         } else {
             error(.remoteLegacyDFUInvalidState, didOccurWithMessage:
-                "Peripheral is in an invalid state, please try to reset and start over again.")
+                  "Peripheral is in an invalid state, please try to reset and start over again.")
         }
     }
     
@@ -157,8 +157,9 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
         // received by the DFU target before sending a new Packet Receipt Notification.
         // After receiving status Success it will send the firmware.
         peripheral.sendFirmware(firmware,
-                                withPacketReceiptNotificationNumber: initiator.packetReceiptNotificationParameter,
-                                andReportProgressTo: initiator.progressDelegate,
-                                on: initiator.progressDelegateQueue)
+            withPacketReceiptNotificationNumber: initiator.packetReceiptNotificationParameter,
+            andReportProgressTo: initiator.progressDelegate,
+            on: initiator.progressDelegateQueue
+        )
     }
 }

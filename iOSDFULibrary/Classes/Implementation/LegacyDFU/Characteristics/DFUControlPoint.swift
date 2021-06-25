@@ -142,7 +142,7 @@ internal struct Response {
     let status        : DFUResultCode
     
     init?(_ data: Data) {
-        guard data.count == 3,
+        guard data.count >= 3,
               let opCode = DFUOpCode(rawValue: data[0]),
               let requestOpCode = DFUOpCode(rawValue: data[1]),
               let status = DFUResultCode(rawValue: data[2]),
@@ -165,7 +165,7 @@ internal struct PacketReceiptNotification {
     let bytesReceived : UInt32
     
     init?(_ data: Data) {
-        guard data.count == 5,
+        guard data.count >= 5,
               let opCode = DFUOpCode(rawValue: data[0]),
               opCode == .packetReceiptNotification else {
             return nil
@@ -216,12 +216,19 @@ internal struct PacketReceiptNotification {
      - parameter report:  Method called in case of an error.
      */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks.
         self.success = success
         self.report  = report
-        
-        // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self
@@ -240,14 +247,21 @@ internal struct PacketReceiptNotification {
      - parameter report:  Method called in case of an error.
      */
     func send(_ request: Request, onSuccess success: Callback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks and parameter.
         self.success   = success
         self.report    = report
         self.request   = request
         self.resetSent = false
-        
-        // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self
@@ -287,15 +301,22 @@ internal struct PacketReceiptNotification {
     func waitUntilUploadComplete(onSuccess success: Callback?,
                                  onPacketReceiptNofitication proceed: ProgressCallback?,
                                  onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks. The proceed callback will be called periodically whenever
         // a packet receipt notification is received. It resumes uploading.
         self.success = success
         self.proceed = proceed
         self.report  = report
         self.uploadStartTime = CFAbsoluteTimeGetCurrent()
-        
-        // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self

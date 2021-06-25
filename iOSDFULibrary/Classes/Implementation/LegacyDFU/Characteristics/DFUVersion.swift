@@ -61,12 +61,19 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
      - parameter report:  Method called on error of if version is not supported.
      */
     func readVersion(onSuccess success: VersionCallback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks.
         self.success = success
         self.report = report
-        
-        // Get the peripheral object.
-        let peripheral = characteristic.service.peripheral
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self

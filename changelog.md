@@ -1,4 +1,10 @@
 ### Changelog
+- **4.10.4**
+   - Fix for compilation error in Xcode 13 related to change in iOS API (#433, #439).
+   - Improvement: State validation (#434, #435, #437).
+   - Imporvement: Unnecessary fields removed from `SecureDFUExecutor` (#438).
+   - Improvement: Accepting garbage after valid data in notifications (#440, #436).
+   
 - **4.10.3**
    - Project compilation available for Arm Simulators (#423).
    
