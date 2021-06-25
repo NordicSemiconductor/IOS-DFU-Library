@@ -142,7 +142,7 @@ internal struct Response {
     let status        : DFUResultCode
     
     init?(_ data: Data) {
-        guard data.count == 3,
+        guard data.count >= 3,
               let opCode = DFUOpCode(rawValue: data[0]),
               let requestOpCode = DFUOpCode(rawValue: data[1]),
               let status = DFUResultCode(rawValue: data[2]),
@@ -165,7 +165,7 @@ internal struct PacketReceiptNotification {
     let bytesReceived : UInt32
     
     init?(_ data: Data) {
-        guard data.count == 5,
+        guard data.count >= 5,
               let opCode = DFUOpCode(rawValue: data[0]),
               opCode == .packetReceiptNotification else {
             return nil
