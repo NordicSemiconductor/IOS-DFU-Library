@@ -204,7 +204,7 @@ internal struct SecureDFUResponse {
             case .readObjectInfo:
                 // The correct reponse for Read Object Info has additional 12 bytes:
                 // Max Object Size, Offset and CRC.
-                guard data.count == 15 else { return nil }
+                guard data.count >= 15 else { return nil }
                 let maxSize : UInt32 = data.asValue(offset: 3)
                 let offset  : UInt32 = data.asValue(offset: 7)
                 let crc     : UInt32 = data.asValue(offset: 11)
@@ -216,7 +216,7 @@ internal struct SecureDFUResponse {
             case .calculateChecksum:
                 // The correct reponse for Calculate Checksum has additional 8 bytes:
                 // Offset and CRC.
-                guard data.count == 11 else { return nil }
+                guard data.count >= 11 else { return nil }
                 let offset : UInt32 = data.asValue(offset: 3)
                 let crc    : UInt32 = data.asValue(offset: 7)
                 
@@ -234,7 +234,7 @@ internal struct SecureDFUResponse {
             // If extended error was received, parse the extended error code
             // The correct response for Read Error request has 4 bytes.
             // The 4th byte is the extended error code.
-            guard data.count == 4,
+            guard data.count >= 4,
                   let error = SecureDFUExtendedErrorCode(rawValue: data[3]) else {
                 return nil
             }
@@ -290,7 +290,7 @@ internal struct SecureDFUPacketReceiptNotification {
     let crc           : UInt32
 
     init?(_ data: Data) {
-        guard data.count == 11,
+        guard data.count >= 11,
               let opCode = SecureDFUOpCode(rawValue: data[0]),
               let requestOpCode = SecureDFUOpCode(rawValue: data[1]),
               let resultCode = SecureDFUResultCode(rawValue: data[2]),
