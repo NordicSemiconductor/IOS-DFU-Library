@@ -157,7 +157,7 @@ import CoreBluetooth
         // Get the peripheral object
         #if swift(>=5.5)
         guard let peripheral = service.peripheral else {
-            report(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            report(.invalidInternalState, "Assert service.peripheral != nil failed")
             return
         }
         #else
