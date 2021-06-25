@@ -346,17 +346,20 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      - parameter report:  Method called in case of an error.
      */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks.
         self.success  = success
         self.response = nil
         self.report   = report
-        
-        // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else { return }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self
@@ -378,17 +381,20 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      */
     func send(_ request: SecureDFURequest,
               onSuccess success: Callback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks and parameter.
         self.success  = success
         self.response = nil
         self.report   = report
-        
-        // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else { return }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self
@@ -411,17 +417,20 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      */
     func send(_ request: SecureDFURequest,
               onResponse response: SecureDFUResponseCallback?, onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks and parameter.
         self.success  = nil
         self.response = response
         self.report   = report
-        
-        // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else { return }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self
@@ -443,19 +452,24 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
                           can be resumed.
      - parameter report:  Method called in case of an error.
      */
-    func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {
+    func waitUntilUploadComplete(onSuccess success: Callback?,
+                                 onPacketReceiptNofitication proceed: ProgressCallback?,
+                                 onError report: ErrorCallback?) {
+        // Get the peripheral object.
+        #if swift(>=5.5)
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
+        #else
+        let peripheral = characteristic.service.peripheral
+        #endif
+        
         // Save callbacks. The proceed callback will be called periodically whenever a packet
         // receipt notification is received. It resumes uploading.
         self.success = success
         self.proceed = proceed
         self.report  = report
-
-        // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else { return }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Set the peripheral delegate to self.
         peripheral.delegate = self

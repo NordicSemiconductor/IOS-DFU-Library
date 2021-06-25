@@ -107,7 +107,8 @@ import CoreBluetooth
         dfuPacketCharacteristic.sendNext(packetReceiptNotificationNumber ?? 0,
                                          packetsFrom: range, of: firmware,
                                          andReportProgressTo: progressDelegate, on: progressQueue,
-                                         andCompletionTo: success)
+                                         andCompletionTo: success,
+                                         onError: report)
         return paused
     }
     
@@ -140,16 +141,19 @@ import CoreBluetooth
     */
     func discoverCharacteristics(onSuccess success: @escaping Callback,
                                  onError report: @escaping ErrorCallback) {
-        // Save callbacks
-        self.success = success
-        self.report  = report
-        
         // Get the peripheral object
         #if swift(>=5.5)
-        guard let peripheral = service.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
         #else
         let peripheral = service.peripheral
         #endif
+        
+        // Save callbacks
+        self.success = success
+        self.report  = report
         
         // Set the peripheral delegate to self
         peripheral.delegate = self
@@ -333,9 +337,11 @@ import CoreBluetooth
      overflow error may occur.
      
      - parameter packetData: Data to be sent as Init Packet.
+     - parameter report:     Method called when an error occurred.
      */
-    func sendInitPacket(withdata packetData: Data){
-        dfuPacketCharacteristic?.sendInitPacket(packetData)
+    func sendInitPacket(withData packetData: Data,
+                        onError report: @escaping ErrorCallback) {
+        dfuPacketCharacteristic?.sendInitPacket(packetData, onError: report)
     }
 
     /**
@@ -408,7 +414,7 @@ import CoreBluetooth
                         dfuPacketCharacteristic.sendNext(self.packetReceiptNotificationNumber ?? 0,
                                                          packetsFrom: range, of: firmware,
                                                          andReportProgressTo: progressDelegate, on: queue,
-                                                         andCompletionTo: _success)
+                                                         andCompletionTo: _success, onError: _report)
                     } else {
                         // Target device deported invalid number of bytes received
                         report(.bytesLost, "\(bytesSent) bytes were sent while \(bytesReceived!) bytes were reported as received")
@@ -435,7 +441,7 @@ import CoreBluetooth
             dfuPacketCharacteristic?.sendNext(packetReceiptNotificationNumber ?? 0,
                                               packetsFrom: range, of: firmware,
                                               andReportProgressTo: progressDelegate, on: queue,
-                                              andCompletionTo: _success)
+                                              andCompletionTo: _success, onError: _report)
         } else if aborted {
             self.firmware = nil
             self.range    = nil
