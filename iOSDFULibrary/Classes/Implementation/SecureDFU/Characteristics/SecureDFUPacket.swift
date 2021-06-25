@@ -83,12 +83,16 @@ internal class SecureDFUPacket: DFUCharacteristic {
     /**
      Sends the whole content of the data object.
      
-     - parameter data: The data to be sent.
+     - parameter data:   The data to be sent.
+     - parameter report: Method called in case of an error.
      */
-    func sendInitPacket(_ data: Data) {
+    func sendInitPacket(_ data: Data, onError report: ErrorCallback?) {
         // Get the peripheral object.
         #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
@@ -122,15 +126,21 @@ internal class SecureDFUPacket: DFUCharacteristic {
        - progress: An optional progress delegate.
        - queue:    The queue to dispatch progress events on.
        - complete: The completon callback.
+       - report:   Method called in case of an error.       
      */
     func sendNext(_ prnValue: UInt16, packetsFrom range: Range<Int>, of firmware: DFUFirmware,
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
-                  andCompletionTo complete: @escaping Callback) {
+                  andCompletionTo complete: @escaping Callback,
+                  onError report: ErrorCallback?) {
         #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else { return }
+        guard let peripheral = characteristic.service?.peripheral else {
+            report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
+            return
+        }
         #else
         let peripheral = characteristic.service.peripheral
         #endif
+        
         let objectData          = firmware.data.subdata(in: range)
         let objectSizeInBytes   = UInt32(objectData.count)
         let objectSizeInPackets = (objectSizeInBytes + packetSize - 1) / packetSize

@@ -117,7 +117,7 @@ import CoreBluetooth
         dfuPacketCharacteristic.sendNext(packetReceiptNotificationNumber,
                                           packetsOf: firmware,
                                           andReportProgressTo: progressDelegate,
-                                          on: progressQueue)
+                                          on: progressQueue, onError: report)
         return paused
     }
     
@@ -156,7 +156,10 @@ import CoreBluetooth
         
         // Get the peripheral object
         #if swift(>=5.5)
-        guard let peripheral = service.peripheral else { return }
+        guard let peripheral = service.peripheral else {
+            report(.invalidInternalState, "Assert service.peripheral != nil failed")
+            return
+        }
         #else
         let peripheral = service.peripheral
         #endif
@@ -199,7 +202,10 @@ import CoreBluetooth
         // Note: On iOS the Generic Access and Generic Attribute services (nor HID Service)
         //       are not returned during service discovery.
         #if swift(>=5.5)
-        guard let peripheral = service.peripheral else { return false }
+        guard let peripheral = service.peripheral else {
+            logger.e("Assert service.peripheral != nil failed")
+            return false // Return value doesn't really matter.
+        }
         #else
         let peripheral = service.peripheral
         #endif
@@ -306,7 +312,7 @@ import CoreBluetooth
                     report(error, message)
                 }
             )
-            self.dfuPacketCharacteristic?.sendFirmwareSize(size)
+            self.dfuPacketCharacteristic?.sendFirmwareSize(size, onError: report)
         }
         if version != nil {
             // The legacy DFU bootloader from SDK 7.0+ does not require delay.
@@ -354,7 +360,7 @@ import CoreBluetooth
                     }
                     report(error, message)
                 })
-            self.dfuPacketCharacteristic?.sendFirmwareSize_v1(size)
+            self.dfuPacketCharacteristic?.sendFirmwareSize_v1(size, onError: report)
         }
     }
     
@@ -404,7 +410,7 @@ import CoreBluetooth
                 onSuccess: nil,
                 onError: report
             )
-            dfuPacketCharacteristic?.sendInitPacket(data)
+            dfuPacketCharacteristic?.sendInitPacket(data, onError: report)
             dfuControlPointCharacteristic?.send(
                 Request.initDfuParameters(req: InitDfuParametersRequest.initPacketComplete),
                 onSuccess: success,
@@ -428,7 +434,7 @@ import CoreBluetooth
             if data.count == 2 {
                 dfuControlPointCharacteristic?.send(Request.initDfuParameters_v1,
                                                     onSuccess: success, onError: report)
-                dfuPacketCharacteristic?.sendInitPacket(data)
+                dfuPacketCharacteristic?.sendInitPacket(data, onError: report)
             } else {
                 // After sending the Extended Init Packet, the DFU would fail on CRC
                 // validation eventually.
@@ -541,7 +547,8 @@ import CoreBluetooth
                                (bytesSent & 0xFFFF) == (bytesReceived! & 0xFFFF) {
                                 dfuPacketCharacteristic.sendNext(self.packetReceiptNotificationNumber,
                                                                  packetsOf: firmware,
-                                                                 andReportProgressTo: progress, on: queue)
+                                                                 andReportProgressTo: progress, on: queue,
+                                                                 onError: report)
                             } else {
                                 // Target device deported invalid number of bytes received
                                 report(.bytesLost, "\(bytesSent) bytes were sent while \(bytesReceived!) bytes were reported as received")
@@ -574,7 +581,8 @@ import CoreBluetooth
                         self.logger.v("Sending firmware to DFU Packet characteristic...")
                         self.dfuPacketCharacteristic?.sendNext(self.packetReceiptNotificationNumber,
                                                                packetsOf: firmware,
-                                                               andReportProgressTo: progress, on: queue)
+                                                               andReportProgressTo: progress, on: queue,
+                                                               onError: report)
                     }
                     // On devices running SDK 6.0 or older a delay is required before the device is ready
                     // to receive data.

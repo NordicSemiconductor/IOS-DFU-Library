@@ -255,7 +255,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         // It sends all bytes of init packet in up-to-20-byte packets.
         // The init packet may not be too long as sending > ~15 packets without
         // PRNs may lead to buffer overflow.
-        dfuService?.sendInitPacket(withdata: packetData)
+        dfuService?.sendInitPacket(withData: packetData,
+           onError: defaultErrorCallback
+        )
         self.delegate?.peripheralDidReceiveInitPacket()
     }
     
