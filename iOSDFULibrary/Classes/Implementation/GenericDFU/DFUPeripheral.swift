@@ -616,7 +616,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         if shouldReconnect {
             shouldReconnect = false
             // We need to reconnect to the device.
-            connect(withTimeout: 5.0)
+            connect(withTimeout: connectionTimeout)
         } else if jumpingToBootloader {
             jumpingToBootloader = false
             if newAddressExpected {
@@ -634,7 +634,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
                 }
             } else {
                 // Connect again, hoping for DFU mode this time.
-                connect(withTimeout: 5.0)
+                connect(withTimeout: connectionTimeout)
             }
         } else if activating {
             activating = false
