@@ -162,7 +162,12 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     func readDataObjectInfo() {
         dfuService?.readDataObjectInfo(
             onReponse: { response in
-                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: response.maxSize!,
+                guard let maxSize = response.maxSize, maxSize > 0 else {
+                    self.defaultErrorCallback(DFUError.unsupportedResponse,
+                                              "Received Maximum Response Size smaller than 1 byte.")
+                    return
+                }
+                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: maxSize,
                                                                offset: response.offset!,
                                                                crc: response.crc!)
             },
