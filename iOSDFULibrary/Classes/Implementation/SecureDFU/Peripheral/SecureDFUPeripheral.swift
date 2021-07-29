@@ -74,7 +74,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func enableControlPoint() {
         dfuService?.enableControlPoint(
-            onSuccess: { self.delegate?.peripheralDidEnableControlPoint() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidEnableControlPoint() },
             onError: defaultErrorCallback
         )
     }
@@ -115,16 +115,16 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         possibleDisconnectionOnSettingAlternativeName = name != nil
         
         dfuService.jumpToBootloaderMode(withAlternativeAdvertisingName: name,
-            onSuccess: {
-                self.jumpingToBootloader = true
-                self.possibleDisconnectionOnSettingAlternativeName = false
+            onSuccess: { [weak self] in
+                self?.jumpingToBootloader = true
+                self?.possibleDisconnectionOnSettingAlternativeName = false
                 // The device will now disconnect and
                 // `centralManager(_:didDisconnectPeripheral:error)` will be called.
             },
-            onError: { error, message in
-                self.jumpingToBootloader = false
-                self.possibleDisconnectionOnSettingAlternativeName = false
-                self.delegate?.error(error, didOccurWithMessage: message)
+            onError: { [weak self] error, message in
+                self?.jumpingToBootloader = false
+                self?.possibleDisconnectionOnSettingAlternativeName = false
+                self?.delegate?.error(error, didOccurWithMessage: message)
             }
         )
     }
@@ -161,7 +161,8 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func readDataObjectInfo() {
         dfuService?.readDataObjectInfo(
-            onReponse: { response in
+            onReponse: { [weak self] response in
+                guard let self = self else { return }
                 guard response.maxSize! > 0 else {
                     self.logger.e("Invalid Data Object Max size = 0 received (expected > 0, typically 4096 bytes)")
                     self.delegate?.error(.unsupportedResponse,
@@ -182,7 +183,8 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func readCommandObjectInfo() {
         dfuService?.readCommandObjectInfo(
-            onReponse: { response in
+            onReponse: { [weak self] response in
+                guard let self = self else { return }
                 guard response.maxSize! > 0 else {
                     self.logger.e("Invalid Command Object Max size = 0 received (expected > 0, typically 256 bytes)")
                     self.delegate?.error(.unsupportedResponse,
@@ -204,7 +206,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func createDataObject(withLength length: UInt32) {
         dfuService?.createDataObject(withLength: length,
-             onSuccess: { self.delegate?.peripheralDidCreateDataObject() },
+             onSuccess: { [weak self] in self?.delegate?.peripheralDidCreateDataObject() },
              onError: defaultErrorCallback
         )
     }
@@ -216,7 +218,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func createCommandObject(withLength length: UInt32) {
         dfuService?.createCommandObject(withLength: length,
-            onSuccess: { self.delegate?.peripheralDidCreateCommandObject() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidCreateCommandObject() },
             onError: defaultErrorCallback
         )
     }
@@ -234,7 +236,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                         on queue: DispatchQueue) {
         dfuService?.sendNextObject(from: range, of: firmware,
             andReportProgressTo: progress, on: queue,
-            onSuccess: { self.delegate?.peripheralDidReceiveObject() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidReceiveObject() },
             onError: defaultErrorCallback
         )
     }
@@ -251,7 +253,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func setPRNValue(_ newValue: UInt16 = 0) {
         dfuService?.setPacketReceiptNotificationValue(newValue,
-            onSuccess: { self.delegate?.peripheralDidSetPRNValue() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidSetPRNValue() },
             onError: defaultErrorCallback
         )
     }
@@ -278,9 +280,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
      */
     func sendCalculateChecksumCommand() {
         dfuService?.calculateChecksumCommand(
-            onSuccess: { response in
-                self.delegate?.peripheralDidSendChecksum(offset: response.offset!,
-                                                         crc: response.crc!)
+            onSuccess: { [weak self] response in
+                self?.delegate?.peripheralDidSendChecksum(offset: response.offset!,
+                                                          crc: response.crc!)
             },
             onError: defaultErrorCallback
         )
@@ -301,8 +303,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                             andActivateIf complete: Bool = false) {
         activating = complete
         dfuService?.executeCommand(
-            onSuccess: { self.delegate?.peripheralDidExecuteObject() },
-            onError: { error, message in
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidExecuteObject() },
+            onError: { [weak self] error, message in
+                guard let self = self else { return }
                 self.activating = false
                 
                 // In SDK 15.2 (and perhaps 15.x), the DFU target may reoprt only full pages

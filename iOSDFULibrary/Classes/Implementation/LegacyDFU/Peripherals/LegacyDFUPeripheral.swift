@@ -60,7 +60,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      */
     func enableControlPoint() {
         dfuService?.enableControlPoint(
-            onSuccess: { self.delegate?.peripheralDidEnableControlPoint() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidEnableControlPoint() },
             onError: defaultErrorCallback
         )
     }
@@ -88,9 +88,9 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         dfuService.jumpToBootloaderMode(
             // On success, the device gets disconnected and
             // `centralManager(_:didDisconnectPeripheral:error)` will be called.
-            onError: { error, message in
-                self.jumpingToBootloader = false
-                self.delegate?.error(error, didOccurWithMessage: message)
+            onError: { [weak self] error, message in
+                self?.jumpingToBootloader = false
+                self?.delegate?.error(error, didOccurWithMessage: message)
             }
         )
     }
@@ -110,8 +110,9 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      */
     func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize) {
         dfuService?.sendStartDfu(withFirmwareType: type, andSize: size,
-            onSuccess: { self.delegate?.peripheralDidStartDfu() },
-            onError: { error, message in
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidStartDfu() },
+            onError: { [weak self] error, message in
+                guard let self = self else { return }
                 if error == .remoteLegacyDFUNotSupported {
                     self.logger.w("DFU target does not support DFU v.2")
                     self.delegate?.peripheralDidFailToStartDfuWithType()
@@ -141,7 +142,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         slowDfuMode = true
         
         dfuService.sendStartDfu(withFirmwareSize: size,
-            onSuccess: { self.delegate?.peripheralDidStartDfu() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidStartDfu() },
             onError: defaultErrorCallback
         )
     }
@@ -154,7 +155,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      */
     func sendInitPacket(_ data: Data) {
         dfuService?.sendInitPacket(data,
-            onSuccess: { self.delegate?.peripheralDidReceiveInitPacket() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidReceiveInitPacket() },
             onError: defaultErrorCallback
         )
     }
@@ -181,11 +182,12 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
             prn = 1
         }
         dfuService?.sendPacketReceiptNotificationRequest(prn,
-            onSuccess: {
+            onSuccess: { [weak self] in
+                guard let self = self else { return }
                 // Now the service is ready to send the firmware.
                 self.dfuService?.sendFirmware(firmware, withDelay: self.slowDfuMode,
                     andReportProgressTo: progress, on: queue,
-                    onSuccess: { self.delegate?.peripheralDidReceiveFirmware() },
+                    onSuccess: { [weak self] in self?.delegate?.peripheralDidReceiveFirmware() },
                     onError: self.defaultErrorCallback
                 )
             },
@@ -199,7 +201,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
      */
     func validateFirmware() {
         dfuService?.sendValidateFirmwareRequest(
-            onSuccess: { self.delegate?.peripheralDidVerifyFirmware() },
+            onSuccess: { [weak self] in self?.delegate?.peripheralDidVerifyFirmware() },
             onError: defaultErrorCallback
         )
     }
@@ -219,9 +221,9 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         dfuService.sendActivateAndResetRequest(
             // On success, the device gets disconnected and
             // `centralManager(_:didDisconnectPeripheral:error)` will be called.
-            onError: { error, message in
-                self.activating = false
-                self.delegate?.error(error, didOccurWithMessage: message)
+            onError: { [weak self] error, message in
+                self?.activating = false
+                self?.delegate?.error(error, didOccurWithMessage: message)
             }
         )
     }
