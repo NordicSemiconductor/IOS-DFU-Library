@@ -186,7 +186,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                 guard response.maxSize! > 0 else {
                     self.logger.e("Invalid Command Object Max size = 0 received (expected > 0, typically 256 bytes)")
                     self.delegate?.error(.unsupportedResponse,
-                                         didOccurWithMessage: "Received max size = 0, expected 256")
+                                         didOccurWithMessage: "Received max object size = 0, expected 256")
                     return
                 }
                 self.delegate?.peripheralDidSendCommandObjectInfo(maxLen: response.maxSize!,
