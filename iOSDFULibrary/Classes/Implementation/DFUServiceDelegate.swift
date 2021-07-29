@@ -52,6 +52,7 @@ import Foundation
     
     // This error will no longer be reported.
     case remoteSecureDFUExtendedError         = 21 // 10 + 11
+    
     // Instead, one of the extended errors below will used.
     case remoteExtendedErrorWrongCommandFormat   = 22 // 20 + 0x02
     case remoteExtendedErrorUnknownCommand       = 23 // 20 + 0x03
@@ -74,9 +75,12 @@ import Foundation
     
     // Buttonless DFU errors (received value + 90 as they overlap legacy
     // and secure DFU errors).
-    case remoteButtonlessDFUSuccess            = 91 // 90 + 1
-    case remoteButtonlessDFUOpCodeNotSupported = 92 // 90 + 2
-    case remoteButtonlessDFUOperationFailed    = 94 // 90 + 4
+    case remoteButtonlessDFUSuccess                     = 91 // 90 + 1
+    case remoteButtonlessDFUOpCodeNotSupported          = 92 // 90 + 2
+    case remoteButtonlessDFUOperationFailed             = 94 // 90 + 4
+    case remoteButtonlessDFUInvalidAdvertisementName    = 95 // 90 + 5
+    case remoteButtonlessDFUBusy                        = 96 // 90 + 6
+    case remoteButtonlessDFUNotBonded                   = 97 // 90 + 7
     
     /// Providing the DFUFirmware is required.
     case fileNotSpecified                     = 101
