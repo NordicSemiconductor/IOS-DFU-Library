@@ -162,12 +162,13 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     func readDataObjectInfo() {
         dfuService?.readDataObjectInfo(
             onReponse: { response in
-                guard let maxSize = response.maxSize, maxSize > 0 else {
-                    self.defaultErrorCallback(DFUError.unsupportedResponse,
-                                              "Received invalid maxSize (nil or smaller than 1).")
+                guard response.maxSize! > 0 else {
+                    self.logger.e("Invalid Data Object Max size = 0 received (expected > 0, typically 4096 bytes)")
+                    self.delegate?.error(.unsupportedResponse,
+                                         didOccurWithMessage: "Received max object size = 0, expected 4096")
                     return
                 }
-                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: maxSize,
+                self.delegate?.peripheralDidSendDataObjectInfo(maxLen: response.maxSize!,
                                                                offset: response.offset!,
                                                                crc: response.crc!)
             },
@@ -182,6 +183,12 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     func readCommandObjectInfo() {
         dfuService?.readCommandObjectInfo(
             onReponse: { response in
+                guard response.maxSize! > 0 else {
+                    self.logger.e("Invalid Command Object Max size = 0 received (expected > 0, typically 256 bytes)")
+                    self.delegate?.error(.unsupportedResponse,
+                                         didOccurWithMessage: "Received max object size = 0, expected 256")
+                    return
+                }
                 self.delegate?.peripheralDidSendCommandObjectInfo(maxLen: response.maxSize!,
                                                                   offset: response.offset!,
                                                                   crc: response.crc!)
