@@ -30,6 +30,18 @@
 
 import Foundation
 
+internal enum DFURemoteError : Int {
+    case legacy                      = 0
+    case secure                      = 10
+    case secureExtended              = 20
+    case buttonless                  = 90
+    case experimentalButtonless      = 9000
+    
+    func with(code: UInt8) -> DFUError {
+        return DFUError(rawValue: Int(code) + rawValue)!
+    }
+}
+
 @objc public enum DFUError : Int {
     // Legacy DFU errors.
     case remoteLegacyDFUSuccess               = 1

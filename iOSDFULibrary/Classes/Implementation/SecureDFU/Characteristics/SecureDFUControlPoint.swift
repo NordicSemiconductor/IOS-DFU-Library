@@ -62,6 +62,10 @@ internal enum SecureDFUExtendedErrorCode : UInt8 {
         return rawValue
     }
     
+    var error: DFUError {
+        return DFURemoteError.secureExtended.with(code: code)
+    }
+    
     var description: String {
         switch self {
         case .noError:              return "No error"
@@ -155,6 +159,14 @@ internal enum SecureDFUResultCode : UInt8 {
     case operationFailed       = 0x0A
     case extendedError         = 0x0B
     
+    var code: UInt8 {
+        return rawValue
+    }
+    
+    var error: DFUError {
+        return DFURemoteError.secure.with(code: code)
+    }
+    
     var description: String {
         switch self {
             case .invalidCode:           return "Invalid code"
@@ -169,10 +181,6 @@ internal enum SecureDFUResultCode : UInt8 {
             case .operationFailed:       return "Operation failed"
             case .extendedError:         return "Extended error"
         }
-    }
-    
-    var code: UInt8 {
-        return rawValue
     }
 }
 
@@ -576,12 +584,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         case .extendedError:
             // An extended error was received.
             logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
-            // The returned errod code is incremented by 20 to match Secure DFU remote codes.
-            report?(DFUError(rawValue: Int(dfuResponse.error!.code) + 20)!, dfuResponse.error!.description)
+            report?(dfuResponse.error!.error, dfuResponse.error!.description)
         default:
             logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
-            // The returned errod code is incremented by 10 to match Secure DFU remote codes.
-            report?(DFUError(rawValue: Int(dfuResponse.status.code) + 10)!, dfuResponse.status.description)
+            report?(dfuResponse.status.error, dfuResponse.status.description)
         }
     }
     
