@@ -120,6 +120,14 @@ internal enum DFUResultCode : UInt8 {
     case crcError             = 5
     case operationFailed      = 6
     
+    var code: UInt8 {
+        return rawValue
+    }
+    
+    var error: DFUError {
+        return DFURemoteError.legacy.with(code: code)
+    }
+    
     var description: String {
         switch self {
         case .success:              return "Success"
@@ -129,10 +137,6 @@ internal enum DFUResultCode : UInt8 {
         case .crcError:             return "CRC Error"
         case .operationFailed:      return "Operation failed"
         }
-    }
-    
-    var code: UInt8 {
-        return rawValue
     }
 }
 
@@ -455,7 +459,7 @@ internal struct PacketReceiptNotification {
                 success?()
             } else {
                 logger.e("Error \(response.status.code): \(response.status.description)")
-                report?(DFUError(rawValue: Int(response.status.rawValue))!, response.status.description)
+                report?(response.status.error, response.status.description)
             }
         } else {
             logger.e("Unknown response received: 0x\(characteristicValue.hexString)")
