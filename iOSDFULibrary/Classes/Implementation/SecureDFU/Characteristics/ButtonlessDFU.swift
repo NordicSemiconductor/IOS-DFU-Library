@@ -147,6 +147,14 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     }
     
     /**
+     Returns whether the characteristic is an instance of Experimental Buttonless
+     DFU Service from SDK 12.
+     */
+    internal var isExperimental: Bool {
+        return characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic)
+    }
+    
+    /**
      Returns `true` for a buttonless DFU characteristic that may support setting
      bootloader's name. This feature has been added in SDK 14.0 to Buttonless
      service without bond sharing (the one with bond sharing does not change 
@@ -310,7 +318,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         
         guard dfuResponse.status == .success else {
             logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
-            let type = characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic) ?
+            let type = isExperimental ?
                 DFURemoteError.experimentalButtonless :
                 DFURemoteError.buttonless
             report?(dfuResponse.status.error(ofType: type), dfuResponse.status.description)
