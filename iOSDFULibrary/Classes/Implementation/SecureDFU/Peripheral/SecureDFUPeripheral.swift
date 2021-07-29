@@ -164,7 +164,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             onReponse: { response in
                 guard let maxSize = response.maxSize, maxSize > 0 else {
                     self.defaultErrorCallback(DFUError.unsupportedResponse,
-                                              "Received Maximum Response Size smaller than 1 byte.")
+                                              "Received invalid maxSize (nil or smaller than 1).")
                     return
                 }
                 self.delegate?.peripheralDidSendDataObjectInfo(maxLen: maxSize,
