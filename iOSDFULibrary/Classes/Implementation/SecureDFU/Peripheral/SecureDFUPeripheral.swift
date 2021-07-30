@@ -156,11 +156,11 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Reads Data Object Info in order to obtain current status and the maximum
-     object size.
+     Selects Data Object. As a result, the current status and the maximum
+     object size is returned.
      */
-    func readDataObjectInfo() {
-        dfuService?.readDataObjectInfo(
+    func selectDataObject() {
+        dfuService?.selectDataObject(
             onReponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.maxSize! > 0 else {
@@ -178,11 +178,11 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Reads Command Object Info in order to obtain current status and the maximum
-     object size.
+     Selects Command Object. As a result, the current status and the maximum
+     object size is returned.
      */
-    func readCommandObjectInfo() {
-        dfuService?.readCommandObjectInfo(
+    func selectCommandObject() {
+        dfuService?.selectCommandObject(
             onReponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.maxSize! > 0 else {

@@ -37,7 +37,7 @@ internal enum SecureDFUOpCode : UInt8 {
     case calculateChecksum    = 0x03
     case execute              = 0x04
  // case no-such-op-code      = 0x05
-    case readObjectInfo       = 0x06
+    case selectObject         = 0x06
     case getMtu               = 0x07 // not supported by this library
     case write                = 0x08 // not supported by this library
     case ping                 = 0x09 // not supported by this library
@@ -127,8 +127,8 @@ internal enum SecureDFURequest {
     case getProtocolVersion
     case createCommandObject(withSize: UInt32)
     case createDataObject(withSize: UInt32)
-    case readCommandObjectInfo
-    case readDataObjectInfo
+    case selectCommandObject
+    case selectDataObject
     case setPacketReceiptNotification(value: UInt16)
     case calculateChecksumCommand
     case executeCommand
@@ -139,30 +139,30 @@ internal enum SecureDFURequest {
     case getFwVersion(image: SecureDFUImageType)
     case abort
 
-    var data : Data {
+    var data: Data {
         switch self {
         case .getProtocolVersion:
             return Data([SecureDFUOpCode.getProtocolVersion.code])
-        case .createDataObject(let aSize):
+        case .createDataObject(let size):
             var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.data.rawValue])
-            data += aSize.littleEndian
+            data += size.littleEndian
             return data
-        case .createCommandObject(let aSize):
+        case .createCommandObject(let size):
             var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.command.rawValue])
-            data += aSize.littleEndian
+            data += size.littleEndian
             return data
-        case .setPacketReceiptNotification(let aSize):
+        case .setPacketReceiptNotification(let size):
             var data = Data([SecureDFUOpCode.setPRNValue.code])
-            data += aSize.littleEndian
+            data += size.littleEndian
             return data
         case .calculateChecksumCommand:
             return Data([SecureDFUOpCode.calculateChecksum.code])
         case .executeCommand:
             return Data([SecureDFUOpCode.execute.code])
-        case .readCommandObjectInfo:
-            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.command.rawValue])
-        case .readDataObjectInfo:
-            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.data.rawValue])
+        case .selectCommandObject:
+            return Data([SecureDFUOpCode.selectObject.code, SecureDFUProcedureType.command.rawValue])
+        case .selectDataObject:
+            return Data([SecureDFUOpCode.selectObject.code, SecureDFUProcedureType.data.rawValue])
         case .getMtu:
             return Data([SecureDFUOpCode.getMtu.code])
         case .write(let bytes):
@@ -181,7 +181,7 @@ internal enum SecureDFURequest {
         }
     }
 
-    var description : String {
+    var description: String {
         switch self {
         case .getProtocolVersion:            return "Get Protocol Version (Op Code = 0)"
         case .createCommandObject(let size): return "Create Command Object (Op Code = 1, Type = 1, Size: \(size)b)"
@@ -190,8 +190,8 @@ internal enum SecureDFURequest {
                                              return "Packet Receipt Notif Req (Op Code = 2, Value = \(number))"
         case .calculateChecksumCommand:      return "Calculate Checksum (Op Code = 3)"
         case .executeCommand:                return "Execute Object (Op Code = 4)"
-        case .readCommandObjectInfo:         return "Read Command Object Info (Op Code = 6, Type = 1)"
-        case .readDataObjectInfo:            return "Read Data Object Info (Op Code = 6, Type = 2)"
+        case .selectCommandObject:           return "Select Command Object (Op Code = 6, Type = 1)"
+        case .selectDataObject:              return "Select Data Object (Op Code = 6, Type = 2)"
         case .getMtu:                        return "Get MTU (Op Code = 7)"
         case .write(let bytes):              return "Write (Op Code = 8, Data = 0x\(bytes.hexString), Length = \(bytes.count))"
         case .ping(let id):                  return "Ping (Op Code = 9, ID = \(id))"
@@ -268,8 +268,8 @@ internal struct SecureDFUResponse {
         case .success:
             // Parse response data in case of a success.
             switch requestOpCode {
-            case .readObjectInfo:
-                // The correct reponse for Read Object Info has additional 12 bytes:
+            case .selectObject:
+                // The correct reponse for Select Object has additional 12 bytes:
                 // Max Object Size, Offset and CRC.
                 guard data.count >= 15 else { return nil }
                 let maxSize : UInt32 = data.asValue(offset: 3)
@@ -287,7 +287,7 @@ internal struct SecureDFUResponse {
                 let offset : UInt32 = data.asValue(offset: 3)
                 let crc    : UInt32 = data.asValue(offset: 7)
                 
-                self.maxSize = 0
+                self.maxSize = nil
                 self.offset  = offset
                 self.crc     = crc
                 self.error   = nil
@@ -298,9 +298,7 @@ internal struct SecureDFUResponse {
                 self.error   = nil
             }
         case .extendedError:
-            // If extended error was received, parse the extended error code
-            // The correct response for Read Error request has 4 bytes.
-            // The 4th byte is the extended error code.
+            // If extended error was received, the 4th byte is the extended error code.
             guard data.count >= 4,
                   let error = SecureDFUExtendedErrorCode(rawValue: data[3]) else {
                 return nil
@@ -331,14 +329,14 @@ internal struct SecureDFUResponse {
             return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue), Unsupported Extended Error value)"
         case .success:
             switch requestOpCode {
-            case .readObjectInfo:
+            case .selectObject:
                 // Max size for a command object is usually around 256. Let's say 1024,
                 // just to be sure. This is only for logging, so may be wrong.
-                return String(format: "\(maxSize! > 1024 ? "Data" : "Command") object info (Max size = \(maxSize!), Offset = \(offset!), CRC = %08X)", crc!)
+                return String(format: "\(maxSize! > 1024 ? "Data" : "Command") object selected (Max size = \(maxSize!), Offset = \(offset!), CRC = %08X)", crc!)
             case .calculateChecksum:
                 return String(format: "Checksum (Offset = \(offset!), CRC = %08X)", crc!)
             default:
-                // Other responses are either not logged, or logged by service or executor,
+                // Other responses are either not logged, or logged by the service or executor,
                 // so this 'default' should never be called.
                 break
             }
@@ -630,7 +628,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         switch dfuResponse.status {
         case .success:
             switch dfuResponse.requestOpCode {
-            case .readObjectInfo, .calculateChecksum:
+            case .selectObject, .calculateChecksum:
                 logger.a("\(dfuResponse.description) received")
                 response?(dfuResponse)
             case .createObject, .setPRNValue, .execute:

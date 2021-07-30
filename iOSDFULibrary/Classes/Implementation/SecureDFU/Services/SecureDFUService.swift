@@ -199,15 +199,15 @@ import CoreBluetooth
     }
     
     /**
-     Reads Command Object Info. Result it reported using callbacks.
+     Selects the Command Object. Result it reported using callbacks.
      
      - parameter response: Method called when the response was received.
      - parameter report:   Method called when an error occurred.
      */
-    func readCommandObjectInfo(onReponse response: @escaping SecureDFUResponseCallback,
-                               onError report: @escaping ErrorCallback) {
+    func selectCommandObject(onReponse response: @escaping SecureDFUResponseCallback,
+                             onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic?.send(.readCommandObjectInfo,
+            dfuControlPointCharacteristic?.send(.selectCommandObject,
                                                 onResponse: response, onError: report)
         } else {
             sendReset(onError: report)
@@ -215,15 +215,15 @@ import CoreBluetooth
     }
     
     /**
-     Reads object info Data. Result it reported using callbacks.
+     Selects the Data Object. Result it reported using callbacks.
      
      - parameter response: Method called when the response was received.
      - parameter report:   Method called when an error occurred.
      */
-    func readDataObjectInfo(onReponse response: @escaping SecureDFUResponseCallback,
-                            onError report: @escaping ErrorCallback) {
+    func selectDataObject(onReponse response: @escaping SecureDFUResponseCallback,
+                          onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic?.send(.readDataObjectInfo,
+            dfuControlPointCharacteristic?.send(.selectDataObject,
                                                 onResponse: response, onError: report)
         } else {
             sendReset(onError: report)
