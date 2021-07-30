@@ -329,4 +329,12 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             }
         )
     }
+    
+    override func resetDevice() {
+        guard let dfuService = dfuService, dfuService.supportsReset() else {
+            super.resetDevice()
+            return
+        }
+        dfuService.sendReset(onError: defaultErrorCallback)
+    }
 }
