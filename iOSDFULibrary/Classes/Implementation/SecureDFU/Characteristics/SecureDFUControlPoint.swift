@@ -31,11 +31,19 @@
 import CoreBluetooth
 
 internal enum SecureDFUOpCode : UInt8 {
+    case getProtocolVersion   = 0x0  // not supported by this library
     case createObject         = 0x01
     case setPRNValue          = 0x02
     case calculateChecksum    = 0x03
     case execute              = 0x04
+ // case no-such-op-code      = 0x05
     case readObjectInfo       = 0x06
+    case getMtu               = 0x07 // not supported by this library
+    case write                = 0x08 // not supported by this library
+    case ping                 = 0x09 // not supported by this library
+    case getHwVersion         = 0x0A // not supported by this library
+    case getFwVersion         = 0x0B // not supported by this library
+    case abort                = 0x0C
     case responseCode         = 0x60
 
     var code: UInt8 {
@@ -98,17 +106,40 @@ internal enum SecureDFUProcedureType : UInt8 {
     }
 }
 
+internal enum SecureDFUImageType : UInt8 {
+    case softdevice  = 0x00
+    case application = 0x01
+    case bootloader  = 0x02
+    
+    var description: String{
+        switch self{
+            case .softdevice:  return "Soft Device"
+            case .application: return "Application"
+            case .bootloader:  return "Bootloader"
+        }
+    }
+}
+
 internal enum SecureDFURequest {
-    case createCommandObject(withSize : UInt32)
-    case createDataObject(withSize : UInt32)
+    case getProtocolVersion
+    case createCommandObject(withSize: UInt32)
+    case createDataObject(withSize: UInt32)
     case readCommandObjectInfo
     case readDataObjectInfo
-    case setPacketReceiptNotification(value : UInt16)
+    case setPacketReceiptNotification(value: UInt16)
     case calculateChecksumCommand
     case executeCommand
+    case getMtu
+    case write(bytes: Data)
+    case ping(id: UInt8)
+    case getHwVersion
+    case getFwVersion(image: SecureDFUImageType)
+    case abort
 
     var data : Data {
         switch self {
+        case .getProtocolVersion:
+            return Data([SecureDFUOpCode.getProtocolVersion.code])
         case .createDataObject(let aSize):
             var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.data.rawValue])
             data += aSize.littleEndian
@@ -117,10 +148,6 @@ internal enum SecureDFURequest {
             var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.command.rawValue])
             data += aSize.littleEndian
             return data
-        case .readCommandObjectInfo:
-            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.command.rawValue])
-        case .readDataObjectInfo:
-            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.data.rawValue])
         case .setPacketReceiptNotification(let aSize):
             var data = Data([SecureDFUOpCode.setPRNValue.code])
             data += aSize.littleEndian
@@ -129,19 +156,45 @@ internal enum SecureDFURequest {
             return Data([SecureDFUOpCode.calculateChecksum.code])
         case .executeCommand:
             return Data([SecureDFUOpCode.execute.code])
+        case .readCommandObjectInfo:
+            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.command.rawValue])
+        case .readDataObjectInfo:
+            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.data.rawValue])
+        case .getMtu:
+            return Data([SecureDFUOpCode.getMtu.code])
+        case .write(let bytes):
+            var data = Data([SecureDFUOpCode.write.code])
+            data += bytes
+            data += UInt16(bytes.count).littleEndian
+            return data
+        case .ping(let id):
+            return Data([SecureDFUOpCode.ping.code, id])
+        case .getHwVersion:
+            return Data([SecureDFUOpCode.getHwVersion.code])
+        case .getFwVersion(let image):
+            return Data([SecureDFUOpCode.getFwVersion.code, image.rawValue])
+        case .abort:
+            return Data([SecureDFUOpCode.abort.code])
         }
     }
 
     var description : String {
         switch self {
+        case .getProtocolVersion:            return "Get Protocol Version (Op Code = 0)"
         case .createCommandObject(let size): return "Create Command Object (Op Code = 1, Type = 1, Size: \(size)b)"
         case .createDataObject(let size):    return "Create Data Object (Op Code = 1, Type = 2, Size: \(size)b)"
-        case .readCommandObjectInfo:         return "Read Command Object Info (Op Code = 6, Type = 1)"
-        case .readDataObjectInfo:            return "Read Data Object Info (Op Code = 6, Type = 2)"
         case .setPacketReceiptNotification(let number):
                                              return "Packet Receipt Notif Req (Op Code = 2, Value = \(number))"
         case .calculateChecksumCommand:      return "Calculate Checksum (Op Code = 3)"
         case .executeCommand:                return "Execute Object (Op Code = 4)"
+        case .readCommandObjectInfo:         return "Read Command Object Info (Op Code = 6, Type = 1)"
+        case .readDataObjectInfo:            return "Read Data Object Info (Op Code = 6, Type = 2)"
+        case .getMtu:                        return "Get MTU (Op Code = 7)"
+        case .write(let bytes):              return "Write (Op Code = 8, Data = 0x\(bytes.hexString), Length = \(bytes.count))"
+        case .ping(let id):                  return "Ping (Op Code = 9, ID = \(id))"
+        case .getHwVersion:                  return "Get HW Version (Op Code = 10)"
+        case .getFwVersion(let image):       return "Get FW Version (Op Code = 11, Type = \(image.rawValue))"
+        case .abort:                         return "Abort (Op Code = 12)"
         }
     }
 }
@@ -155,7 +208,7 @@ internal enum SecureDFUResultCode : UInt8 {
     case invalidObject         = 0x05
     case signatureMismatch     = 0x06
     case unsupportedType       = 0x07
-    case operationNotpermitted = 0x08
+    case operationNotPermitted = 0x08
     case operationFailed       = 0x0A
     case extendedError         = 0x0B
     
@@ -176,7 +229,7 @@ internal enum SecureDFUResultCode : UInt8 {
             case .insufficientResources: return "Insufficient resources"
             case .invalidObject:         return "Invalid object"
             case .signatureMismatch:     return "Signature mismatch"
-            case .operationNotpermitted: return "Operation not permitted"
+            case .operationNotPermitted: return "Operation not permitted"
             case .unsupportedType:       return "Unsupported type"
             case .operationFailed:       return "Operation failed"
             case .extendedError:         return "Extended error"

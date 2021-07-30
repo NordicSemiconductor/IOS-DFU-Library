@@ -48,7 +48,6 @@ import CoreBluetooth
     private var dfuControlPointCharacteristic : DFUControlPoint?
     private var dfuVersionCharacteristic      : DFUVersion?
     
-
     /// This method returns true if DFU Control Point characteristc has been discovered.
     /// A device without this characteristic is not supported and even can't be resetted
     /// by sending a Reset command.
