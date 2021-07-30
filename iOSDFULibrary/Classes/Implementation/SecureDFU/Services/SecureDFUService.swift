@@ -49,8 +49,7 @@ import CoreBluetooth
     private var dfuControlPointCharacteristic : SecureDFUControlPoint?
     
     /// This method returns true if DFU Control Point characteristc has been discovered.
-    /// A device without this characteristic is not supported and even can't be resetted
-    /// by sending a Reset command.
+    /// A device without this characteristic is not supported and can only be disconnected.
     internal func supportsReset() -> Bool {
         // The Abort (0x0C) command has been added to DFU bootloader in SDK 15.
         // https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_dfu_transport.html?cp=8_5_3_3_5_2

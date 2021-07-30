@@ -64,7 +64,7 @@ import CoreBluetooth
     private var success: Callback?
     /// A temporary callback used to report an operation error.
     private var report:  ErrorCallback?
-    /// A temporaty callback used to report progress status.
+    /// A temporary callback used to report progress status.
     private var progressDelegate: DFUProgressDelegate?
     private var progressQueue: DispatchQueue?
     
