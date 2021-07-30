@@ -66,6 +66,9 @@ internal enum SecureDFUExtendedErrorCode : UInt8 {
     case verificationFailed   = 0x0C
     case insufficientSpace    = 0x0D
     
+    // Note: When more result codes are added, the corresponding DFUError
+    //       case needs to be added. See `error` property below.
+    
     var code: UInt8 {
         return rawValue
     }
@@ -211,6 +214,9 @@ internal enum SecureDFUResultCode : UInt8 {
     case operationNotPermitted = 0x08
     case operationFailed       = 0x0A
     case extendedError         = 0x0B
+    
+    // Note: When more result codes are added, the corresponding DFUError
+    //       case needs to be added. See `error` property below.
     
     var code: UInt8 {
         return rawValue

@@ -38,6 +38,10 @@ internal enum DFURemoteError : Int {
     case experimentalButtonless      = 9000
     
     func with(code: UInt8) -> DFUError {
+        // The force-unwrap here is used, as the only available codes
+        // that this method is called with are hardcoded in the library
+        // (ButtonlessDFU, DFUControlPoint, SecureDFUControlPoint)
+        // and, with the optional offset, will match an existing DFUError.
         return DFUError(rawValue: Int(code) + rawValue)!
     }
 }

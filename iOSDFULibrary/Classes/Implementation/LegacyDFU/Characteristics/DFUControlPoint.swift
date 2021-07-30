@@ -120,6 +120,9 @@ internal enum DFUResultCode : UInt8 {
     case crcError             = 5
     case operationFailed      = 6
     
+    // Note: When more result codes are added, the corresponding DFUError
+    //       case needs to be added. See `error` property below.
+    
     var code: UInt8 {
         return rawValue
     }
@@ -182,7 +185,7 @@ internal struct PacketReceiptNotification {
         // instad of 32-bit. However, the packet is still 5 bytes long and the two last
         // bytes are 0x00-00. This has to be taken under consideration when comparing
         // number of bytes sent and received as the latter counter may rewind if fw size
-        // is > 0xFFFF bytes (LegacyDFUService:L446).
+        // is > 0xFFFF bytes (LegacyDFUService:L543).
         self.bytesReceived = data.asValue(offset: 1)
     }
 }

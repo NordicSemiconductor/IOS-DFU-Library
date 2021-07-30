@@ -59,6 +59,9 @@ internal enum ButtonlessDFUResultCode : UInt8 {
     /// The request was rejected because no bond was created.
     case notBonded          = 0x07
     
+    // Note: When more result codes are added, the corresponding DFUError
+    //       case needs to be added. See `error(ofType:)` method below.
+    
     var code: UInt8 {
         return rawValue
     }
