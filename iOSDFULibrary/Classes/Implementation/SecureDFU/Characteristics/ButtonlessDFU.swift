@@ -59,6 +59,17 @@ internal enum ButtonlessDFUResultCode : UInt8 {
     /// The request was rejected because no bond was created.
     case notBonded          = 0x07
     
+    // Note: When more result codes are added, the corresponding DFUError
+    //       case needs to be added. See `error(ofType:)` method below.
+    
+    var code: UInt8 {
+        return rawValue
+    }
+    
+    func error(ofType remoteError: DFURemoteError) -> DFUError {
+        return remoteError.with(code: code)
+    }
+    
     var description: String {
         switch self {
         case .success:            return "Success"
@@ -69,17 +80,13 @@ internal enum ButtonlessDFUResultCode : UInt8 {
         case .notBonded:          return "Device not bonded"
         }
     }
-    
-    var code: UInt8 {
-        return rawValue
-    }
 }
 
 internal enum ButtonlessDFURequest {
     case enterBootloader
-    case set(name : String)
+    case set(name: String)
     
-    var data : Data {
+    var data: Data {
         switch self {
         case .enterBootloader:
             return Data([ButtonlessDFUOpCode.enterBootloader.code])
@@ -140,6 +147,14 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     internal var newAddressExpected: Bool {
         return characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic)
             || characteristic.uuid.isEqual(uuidHelper.buttonlessWithoutBonds)
+    }
+    
+    /**
+     Returns whether the characteristic is an instance of Experimental Buttonless
+     DFU Service from SDK 12.
+     */
+    internal var isExperimental: Bool {
+        return characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic)
     }
     
     /**
@@ -306,11 +321,10 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         
         guard dfuResponse.status == .success else {
             logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
-            // The returned errod code is incremented by 90 or 9000 to match Buttonless DFU or
-            // Experimental Buttonless DFU remote codes.
-            // See DFUServiceDelegate.swift -> DFUError.
-            let offset = characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic) ? 9000 : 90
-            report?(DFUError(rawValue: Int(dfuResponse.status.code) + offset)!, dfuResponse.status.description)
+            let type = isExperimental ?
+                DFURemoteError.experimentalButtonless :
+                DFURemoteError.buttonless
+            report?(dfuResponse.status.error(ofType: type), dfuResponse.status.description)
             return
         }
         

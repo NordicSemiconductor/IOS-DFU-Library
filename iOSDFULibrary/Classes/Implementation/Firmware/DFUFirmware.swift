@@ -56,7 +56,7 @@ import Foundation
 
 /// The DFUFirmware object wraps the firmware file.
 @objc public class DFUFirmware : NSObject, DFUStream {
-    internal let stream: DFUStream?
+    internal let stream: DFUStream
     
     /// The name of the firmware file.
     @objc public let fileName: String?
@@ -65,33 +65,31 @@ import Foundation
     
     /// Information whether the firmware was successfully initialized.
     @objc public var valid: Bool {
-        return stream != nil
+        // init(...) would return nil if the firmware was invalid.
+        return true
     }
     
     /// The size of each component of the firmware.
     @objc public var size: DFUFirmwareSize {
-        return stream!.size
+        return stream.size
     }
     
     /// Number of connectinos required to transfer the firmware.
     /// This does not include the connection needed to switch to the DFU mode.
     @objc public var parts: Int {
-        if stream == nil {
-            return 0
-        }
-        return stream!.parts
+        return stream.parts
     }
     
     internal var currentPartSize: DFUFirmwareSize {
-        return stream!.currentPartSize
+        return stream.currentPartSize
     }
     
     internal var currentPartType: UInt8 {
-        return stream!.currentPartType
+        return stream.currentPartType
     }
     
     internal var currentPart: Int {
-        return stream!.currentPart
+        return stream.currentPart
     }
     
     /**
@@ -128,8 +126,6 @@ import Foundation
         let ext = urlToZipFile.pathExtension
         if ext.caseInsensitiveCompare("zip") != .orderedSame {
             NSLog("\(fileName!) is not a ZIP file")
-            stream = nil
-            super.init()
             return nil
         }
         
@@ -137,8 +133,6 @@ import Foundation
             stream = try DFUStreamZip(urlToZipFile: urlToZipFile, type: type)
         } catch let error as NSError {
             NSLog("Error while creating ZIP stream: \(error.localizedDescription)")
-            stream = nil
-            super.init()
             return nil
         }
         super.init()
@@ -177,8 +171,6 @@ import Foundation
             stream = try DFUStreamZip(zipFile: zipFile, type: type)
         } catch let error as NSError {
             NSLog("Error while creating ZIP stream: \(error.localizedDescription)")
-            stream = nil
-            super.init()
             return nil
         }
         super.init()
@@ -205,8 +197,6 @@ import Foundation
         let hex = ext.caseInsensitiveCompare("hex") == .orderedSame
         guard bin || hex else {
             NSLog("\(fileName!) is not a BIN or HEX file")
-            stream = nil
-            super.init()
             return nil
         }
         
@@ -214,8 +204,6 @@ import Foundation
             let datExt = datUrl.pathExtension
             guard datExt.caseInsensitiveCompare("dat") == .orderedSame else {
                 NSLog("\(fileName!) is not a DAT file")
-                stream = nil
-                super.init()
                 return nil
             }
         }
@@ -275,18 +263,18 @@ import Foundation
     }
     
     internal var data: Data {
-        return stream!.data as Data
+        return stream.data as Data
     }
     
     internal var initPacket: Data? {
-        return stream!.initPacket as Data?
+        return stream.initPacket as Data?
     }
     
     internal func hasNextPart() -> Bool {
-        return stream!.hasNextPart()
+        return stream.hasNextPart()
     }
     
     internal func switchToNextPart() {
-        stream!.switchToNextPart()
+        stream.switchToNextPart()
     }
 }

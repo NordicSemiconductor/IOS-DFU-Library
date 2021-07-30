@@ -48,7 +48,6 @@ import CoreBluetooth
     private var dfuControlPointCharacteristic : DFUControlPoint?
     private var dfuVersionCharacteristic      : DFUVersion?
     
-
     /// This method returns true if DFU Control Point characteristc has been discovered.
     /// A device without this characteristic is not supported and even can't be resetted
     /// by sending a Reset command.
@@ -65,7 +64,7 @@ import CoreBluetooth
     private var success: Callback?
     /// A temporary callback used to report an operation error.
     private var report:  ErrorCallback?
-    /// A temporaty callback used to report progress status.
+    /// A temporary callback used to report progress status.
     private var progressDelegate: DFUProgressDelegate?
     private var progressQueue: DispatchQueue?
     

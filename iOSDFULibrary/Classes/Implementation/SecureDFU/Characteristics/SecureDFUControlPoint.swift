@@ -31,11 +31,19 @@
 import CoreBluetooth
 
 internal enum SecureDFUOpCode : UInt8 {
+    case getProtocolVersion   = 0x0  // not supported by this library
     case createObject         = 0x01
     case setPRNValue          = 0x02
     case calculateChecksum    = 0x03
     case execute              = 0x04
-    case readObjectInfo       = 0x06
+ // case no-such-op-code      = 0x05
+    case selectObject         = 0x06
+    case getMtu               = 0x07 // not supported by this library
+    case write                = 0x08 // not supported by this library
+    case ping                 = 0x09 // not supported by this library
+    case getHwVersion         = 0x0A // not supported by this library
+    case getFwVersion         = 0x0B // not supported by this library
+    case abort                = 0x0C
     case responseCode         = 0x60
 
     var code: UInt8 {
@@ -58,8 +66,15 @@ internal enum SecureDFUExtendedErrorCode : UInt8 {
     case verificationFailed   = 0x0C
     case insufficientSpace    = 0x0D
     
+    // Note: When more result codes are added, the corresponding DFUError
+    //       case needs to be added. See `error` property below.
+    
     var code: UInt8 {
         return rawValue
+    }
+    
+    var error: DFUError {
+        return DFURemoteError.secureExtended.with(code: code)
     }
     
     var description: String {
@@ -94,50 +109,95 @@ internal enum SecureDFUProcedureType : UInt8 {
     }
 }
 
+internal enum SecureDFUImageType : UInt8 {
+    case softdevice  = 0x00
+    case application = 0x01
+    case bootloader  = 0x02
+    
+    var description: String{
+        switch self{
+            case .softdevice:  return "Soft Device"
+            case .application: return "Application"
+            case .bootloader:  return "Bootloader"
+        }
+    }
+}
+
 internal enum SecureDFURequest {
-    case createCommandObject(withSize : UInt32)
-    case createDataObject(withSize : UInt32)
-    case readCommandObjectInfo
-    case readDataObjectInfo
-    case setPacketReceiptNotification(value : UInt16)
+    case getProtocolVersion
+    case createCommandObject(withSize: UInt32)
+    case createDataObject(withSize: UInt32)
+    case selectCommandObject
+    case selectDataObject
+    case setPacketReceiptNotification(value: UInt16)
     case calculateChecksumCommand
     case executeCommand
+    case getMtu
+    case write(bytes: Data)
+    case ping(id: UInt8)
+    case getHwVersion
+    case getFwVersion(image: SecureDFUImageType)
+    case abort
 
-    var data : Data {
+    var data: Data {
         switch self {
-        case .createDataObject(let aSize):
+        case .getProtocolVersion:
+            return Data([SecureDFUOpCode.getProtocolVersion.code])
+        case .createDataObject(let size):
             var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.data.rawValue])
-            data += aSize.littleEndian
+            data += size.littleEndian
             return data
-        case .createCommandObject(let aSize):
+        case .createCommandObject(let size):
             var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.command.rawValue])
-            data += aSize.littleEndian
+            data += size.littleEndian
             return data
-        case .readCommandObjectInfo:
-            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.command.rawValue])
-        case .readDataObjectInfo:
-            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.data.rawValue])
-        case .setPacketReceiptNotification(let aSize):
+        case .setPacketReceiptNotification(let size):
             var data = Data([SecureDFUOpCode.setPRNValue.code])
-            data += aSize.littleEndian
+            data += size.littleEndian
             return data
         case .calculateChecksumCommand:
             return Data([SecureDFUOpCode.calculateChecksum.code])
         case .executeCommand:
             return Data([SecureDFUOpCode.execute.code])
+        case .selectCommandObject:
+            return Data([SecureDFUOpCode.selectObject.code, SecureDFUProcedureType.command.rawValue])
+        case .selectDataObject:
+            return Data([SecureDFUOpCode.selectObject.code, SecureDFUProcedureType.data.rawValue])
+        case .getMtu:
+            return Data([SecureDFUOpCode.getMtu.code])
+        case .write(let bytes):
+            var data = Data([SecureDFUOpCode.write.code])
+            data += bytes
+            data += UInt16(bytes.count).littleEndian
+            return data
+        case .ping(let id):
+            return Data([SecureDFUOpCode.ping.code, id])
+        case .getHwVersion:
+            return Data([SecureDFUOpCode.getHwVersion.code])
+        case .getFwVersion(let image):
+            return Data([SecureDFUOpCode.getFwVersion.code, image.rawValue])
+        case .abort:
+            return Data([SecureDFUOpCode.abort.code])
         }
     }
 
-    var description : String {
+    var description: String {
         switch self {
+        case .getProtocolVersion:            return "Get Protocol Version (Op Code = 0)"
         case .createCommandObject(let size): return "Create Command Object (Op Code = 1, Type = 1, Size: \(size)b)"
         case .createDataObject(let size):    return "Create Data Object (Op Code = 1, Type = 2, Size: \(size)b)"
-        case .readCommandObjectInfo:         return "Read Command Object Info (Op Code = 6, Type = 1)"
-        case .readDataObjectInfo:            return "Read Data Object Info (Op Code = 6, Type = 2)"
         case .setPacketReceiptNotification(let number):
                                              return "Packet Receipt Notif Req (Op Code = 2, Value = \(number))"
         case .calculateChecksumCommand:      return "Calculate Checksum (Op Code = 3)"
         case .executeCommand:                return "Execute Object (Op Code = 4)"
+        case .selectCommandObject:           return "Select Command Object (Op Code = 6, Type = 1)"
+        case .selectDataObject:              return "Select Data Object (Op Code = 6, Type = 2)"
+        case .getMtu:                        return "Get MTU (Op Code = 7)"
+        case .write(let bytes):              return "Write (Op Code = 8, Data = 0x\(bytes.hexString), Length = \(bytes.count))"
+        case .ping(let id):                  return "Ping (Op Code = 9, ID = \(id))"
+        case .getHwVersion:                  return "Get HW Version (Op Code = 10)"
+        case .getFwVersion(let image):       return "Get FW Version (Op Code = 11, Type = \(image.rawValue))"
+        case .abort:                         return "Abort (Op Code = 12)"
         }
     }
 }
@@ -151,9 +211,20 @@ internal enum SecureDFUResultCode : UInt8 {
     case invalidObject         = 0x05
     case signatureMismatch     = 0x06
     case unsupportedType       = 0x07
-    case operationNotpermitted = 0x08
+    case operationNotPermitted = 0x08
     case operationFailed       = 0x0A
     case extendedError         = 0x0B
+    
+    // Note: When more result codes are added, the corresponding DFUError
+    //       case needs to be added. See `error` property below.
+    
+    var code: UInt8 {
+        return rawValue
+    }
+    
+    var error: DFUError {
+        return DFURemoteError.secure.with(code: code)
+    }
     
     var description: String {
         switch self {
@@ -164,15 +235,11 @@ internal enum SecureDFUResultCode : UInt8 {
             case .insufficientResources: return "Insufficient resources"
             case .invalidObject:         return "Invalid object"
             case .signatureMismatch:     return "Signature mismatch"
-            case .operationNotpermitted: return "Operation not permitted"
+            case .operationNotPermitted: return "Operation not permitted"
             case .unsupportedType:       return "Unsupported type"
             case .operationFailed:       return "Operation failed"
             case .extendedError:         return "Extended error"
         }
-    }
-    
-    var code: UInt8 {
-        return rawValue
     }
 }
 
@@ -201,8 +268,8 @@ internal struct SecureDFUResponse {
         case .success:
             // Parse response data in case of a success.
             switch requestOpCode {
-            case .readObjectInfo:
-                // The correct reponse for Read Object Info has additional 12 bytes:
+            case .selectObject:
+                // The correct reponse for Select Object has additional 12 bytes:
                 // Max Object Size, Offset and CRC.
                 guard data.count >= 15 else { return nil }
                 let maxSize : UInt32 = data.asValue(offset: 3)
@@ -220,7 +287,7 @@ internal struct SecureDFUResponse {
                 let offset : UInt32 = data.asValue(offset: 3)
                 let crc    : UInt32 = data.asValue(offset: 7)
                 
-                self.maxSize = 0
+                self.maxSize = nil
                 self.offset  = offset
                 self.crc     = crc
                 self.error   = nil
@@ -231,9 +298,7 @@ internal struct SecureDFUResponse {
                 self.error   = nil
             }
         case .extendedError:
-            // If extended error was received, parse the extended error code
-            // The correct response for Read Error request has 4 bytes.
-            // The 4th byte is the extended error code.
+            // If extended error was received, the 4th byte is the extended error code.
             guard data.count >= 4,
                   let error = SecureDFUExtendedErrorCode(rawValue: data[3]) else {
                 return nil
@@ -264,14 +329,14 @@ internal struct SecureDFUResponse {
             return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue), Unsupported Extended Error value)"
         case .success:
             switch requestOpCode {
-            case .readObjectInfo:
+            case .selectObject:
                 // Max size for a command object is usually around 256. Let's say 1024,
                 // just to be sure. This is only for logging, so may be wrong.
-                return String(format: "\(maxSize! > 1024 ? "Data" : "Command") object info (Max size = \(maxSize!), Offset = \(offset!), CRC = %08X)", crc!)
+                return String(format: "\(maxSize! > 1024 ? "Data" : "Command") object selected (Max size = \(maxSize!), Offset = \(offset!), CRC = %08X)", crc!)
             case .calculateChecksum:
                 return String(format: "Checksum (Offset = \(offset!), CRC = %08X)", crc!)
             default:
-                // Other responses are either not logged, or logged by service or executor,
+                // Other responses are either not logged, or logged by the service or executor,
                 // so this 'default' should never be called.
                 break
             }
@@ -563,7 +628,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         switch dfuResponse.status {
         case .success:
             switch dfuResponse.requestOpCode {
-            case .readObjectInfo, .calculateChecksum:
+            case .selectObject, .calculateChecksum:
                 logger.a("\(dfuResponse.description) received")
                 response?(dfuResponse)
             case .createObject, .setPRNValue, .execute:
@@ -576,12 +641,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         case .extendedError:
             // An extended error was received.
             logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
-            // The returned errod code is incremented by 20 to match Secure DFU remote codes.
-            report?(DFUError(rawValue: Int(dfuResponse.error!.code) + 20)!, dfuResponse.error!.description)
+            report?(dfuResponse.error!.error, dfuResponse.error!.description)
         default:
             logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
-            // The returned errod code is incremented by 10 to match Secure DFU remote codes.
-            report?(DFUError(rawValue: Int(dfuResponse.status.code) + 10)!, dfuResponse.status.description)
+            report?(dfuResponse.status.error, dfuResponse.status.description)
         }
     }
     

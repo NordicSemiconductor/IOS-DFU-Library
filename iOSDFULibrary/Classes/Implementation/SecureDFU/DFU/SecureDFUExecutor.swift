@@ -100,9 +100,9 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         } else {
             // The device is ready to proceed with DFU.
             
-            // Start by reading command object info to get the maximum write size.
-            peripheral.readCommandObjectInfo() // -> peripheralDidSendCommandObjectInfo(...) will be
-                                               //    called when object received.
+            // Start by selecting Command Object to get the maximum write size.
+            peripheral.selectCommandObject() // -> peripheralDidSendCommandObjectInfo(...) will be
+                                             //    called when object received.
         }
     }
     
@@ -160,7 +160,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             sendInitPacket(fromOffset: offset) // -> peripheralDidReceiveInitPacket() will be called.
         } else {
             // PRNs are ready, check out the Data object.
-            peripheral.readDataObjectInfo() // -> peripheralDidSendDataObjectInfo(...) will be called.
+            peripheral.selectDataObject() // -> peripheralDidSendDataObjectInfo(...) will be called.
         }
     }
     
@@ -278,7 +278,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         }
     }
     
-    func peripheralDidSendDataObjectInfo(maxLen: UInt32, offset: UInt32, crc: UInt32 ) {
+    func peripheralDidSendDataObjectInfo(maxLen: UInt32, offset: UInt32, crc: UInt32) {
         self.offset = offset
         
         // This is the initial state, if ranges aren't set, assume this is the first
