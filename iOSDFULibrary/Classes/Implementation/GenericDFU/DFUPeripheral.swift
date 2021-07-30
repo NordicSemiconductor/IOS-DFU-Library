@@ -200,6 +200,14 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         delegate = nil
     }
     
+    func resetDevice() {
+        if let peripheral = peripheral, peripheral.state != .disconnected {
+            disconnect()
+        } else {
+            peripheralDidDisconnect()
+        }
+    }
+    
     // MARK: - DFU Controller API
     
     func pause() -> Bool {
@@ -403,17 +411,6 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         // Notify the delegate about the disconnection.
         // Most probably an error occurred and will be reported to the user.
         delegate?.peripheralDidDisconnect()
-    }
-    
-    /**
-     This method should reset the device, preferably switching it to application mode.
-     */
-    func resetDevice() {
-        if let peripheral = peripheral, peripheral.state != .disconnected {
-            disconnect()
-        } else {
-            peripheralDidDisconnect()
-        }
     }
     
     // MARK: - Private methods
