@@ -32,7 +32,7 @@ pod install
 - Create a new **Cartfile** in your project's root with the following contents
 
 ```ogld
-github "NordicSemiconductor/IOS-Pods-DFU-Library" ~> x.y //Replace x.y with your required version
+github "NordicSemiconductor/IOS-DFU-Library" ~> x.y //Replace x.y with your required version
 ```
 
 - Build with carthage
@@ -55,7 +55,7 @@ let package = Package(
   name: "<Your Product Name>",
   dependencies: [
     .package(
-      url: "https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library", 
+      url: "https://github.com/NordicSemiconductor/IOS-DFU-Library", 
       .upToNextMajor(from: "<Desired Version, e.g. 4.11.0>")
     )
   ],
@@ -149,7 +149,7 @@ The library is compatible with nRF51 and nRF52 devices with S-Series Soft Device
 * **SDK 14.0.0** - Buttonless DFU no longer experimental. New buttonless characteristic added for bonded devices (requires bond, cache cleaning relies on Service Changed indication).
 * **SDK 15.0.0** - Support for higher MTUs added.
 
-This library is fully backwards compatible and supports both the new and legacy DFU. The experimental buttonless DFU service from SDK 12 is supported since version 1.1.0. Due to the fact, that this experimental service from SDK 12 is not safe, you have to set [enableUnsafeExperimentalButtonlessServiceInSecureDfu](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/blob/master/iOSDFULibrary/Classes/Implementation/DFUServiceInitiator.swift#L296) to true to enable it, this is off by default. Read the method documentation for details. It is recommended to use the Buttonless service from SDK 13 (for non-bonded devices, or 14 for bonded). Both are supported since DFU Library 1.3.0.
+This library is fully backwards compatible and supports both the new and legacy DFU. The experimental buttonless DFU service from SDK 12 is supported since version 1.1.0. Due to the fact, that this experimental service from SDK 12 is not safe, you have to set [enableUnsafeExperimentalButtonlessServiceInSecureDfu](https://github.com/NordicSemiconductor/IOS-DFU-Library/blob/master/iOSDFULibrary/Classes/Implementation/DFUServiceInitiator.swift#L296) to true to enable it, this is off by default. Read the method documentation for details. It is recommended to use the Buttonless service from SDK 13 (for non-bonded devices, or 14 for bonded). Both are supported since DFU Library 1.3.0.
 
 Check platform folders for mode details about compatibility for each library.
 
