@@ -54,7 +54,7 @@ To include the library in your project do one of those options:
    pod install
    ```
 
-   **Notice:** Our Cocoapods releases will always be the exact same version as this repository. you may [follow our pod repository here](http://github.com/NordicSemiconductor/IOS-Pods-DFU-Library).
+   **Notice:** Our Cocoapods releases will always be the exact same version as this repository. you may [follow our pod repository here](http://github.com/NordicSemiconductor/IOS-DFU-Library).
 
 2. Include the library as a precompiled framework:
 
@@ -149,4 +149,4 @@ Check the nRF Toolbox project ([here](https://github.com/NordicSemiconductor/IOS
 
 ### Issues
 
-Please, submit all issues to the iOS Pods DFU Library [here](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues "Issues").
+Please, submit all issues to the iOS Pods DFU Library [here](https://github.com/NordicSemiconductor/IOS-DFU-Library/issues "Issues").
