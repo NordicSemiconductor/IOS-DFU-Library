@@ -189,14 +189,11 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
      */
     func enable(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Save callbacks.
         self.success = success
@@ -225,14 +222,11 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     func send(_ request: ButtonlessDFURequest,
               onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Save callbacks and parameter.
         self.success = success

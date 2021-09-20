@@ -62,14 +62,11 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
      */
     func readVersion(onSuccess success: VersionCallback?, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Save callbacks.
         self.success = success

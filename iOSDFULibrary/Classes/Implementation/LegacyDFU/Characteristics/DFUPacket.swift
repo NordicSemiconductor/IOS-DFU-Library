@@ -68,14 +68,11 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendFirmwareSize(_ size: DFUFirmwareSize, onError report: ErrorCallback?) {
         // Get the peripheral object
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         let data = Data()
             + size.softdevice.littleEndian
@@ -98,14 +95,11 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendFirmwareSize_v1(_ size: DFUFirmwareSize, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         let data = Data() + size.application.littleEndian
         
@@ -124,14 +118,11 @@ internal class DFUPacket: DFUCharacteristic {
      */
     func sendInitPacket(_ data: Data, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Data may be sent in up-to-20-bytes packets.
         var offset: UInt32 = 0
@@ -169,14 +160,11 @@ internal class DFUPacket: DFUCharacteristic {
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
                   onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Some super complicated computations...
         let bytesTotal   = UInt32(firmware.data.count)
