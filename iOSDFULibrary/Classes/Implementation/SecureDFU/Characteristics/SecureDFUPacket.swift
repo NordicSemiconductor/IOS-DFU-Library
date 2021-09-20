@@ -58,14 +58,12 @@ internal class SecureDFUPacket: DFUCharacteristic {
         self.logger = logger
         
         if #available(iOS 9.0, macOS 10.12, *) {
-            #if swift(>=5.5)
-            guard let peripheral = characteristic.service?.peripheral else {
+            let optService: CBService? = characteristic.service
+            guard let peripheral = optService?.peripheral else {
                 packetSize = 20 // Default MTU is 23.
                 return
             }
-            #else
-            let peripheral = characteristic.service.peripheral
-            #endif
+            
             // Make the packet size the first word-aligned value that's less than the maximum.
             packetSize = UInt32(peripheral.maximumWriteValueLength(for: .withoutResponse)) & 0xFFFFFFFC
             if packetSize > 20 {
@@ -88,14 +86,11 @@ internal class SecureDFUPacket: DFUCharacteristic {
      */
     func sendInitPacket(_ data: Data, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Data may be sent in up-to-20-bytes packets.
         var offset: UInt32 = 0
@@ -132,14 +127,11 @@ internal class SecureDFUPacket: DFUCharacteristic {
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
                   andCompletionTo complete: @escaping Callback,
                   onError report: ErrorCallback?) {
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         let objectData          = firmware.data.subdata(in: range)
         let objectSizeInBytes   = UInt32(objectData.count)

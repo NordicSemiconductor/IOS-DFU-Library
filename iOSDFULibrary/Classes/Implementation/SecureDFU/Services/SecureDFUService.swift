@@ -151,15 +151,11 @@ import CoreBluetooth
     */
     func discoverCharacteristics(onSuccess success: @escaping Callback,
                                  onError report: @escaping ErrorCallback) {
-        // Get the peripheral object
-        #if swift(>=5.5)
-        guard let peripheral = service.peripheral else {
+        let optPeripheral: CBPeripheral? = service.peripheral
+        guard let peripheral = optPeripheral else {
             report(.invalidInternalState, "Assert service.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = service.peripheral
-        #endif
         
         // Save callbacks
         self.success = success
