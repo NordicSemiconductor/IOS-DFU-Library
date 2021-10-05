@@ -1,4 +1,7 @@
 ### Changelog
+- **4.11.1**
+   - Improvement: Xcode 13 issue fixed (#455).
+   
 - **4.11.0**
    - Feature: Support for Abort op code added in Secure DFU (#447). 
    - Improvement: More op codes added in Secure DFU in SDK 15 (#447).
