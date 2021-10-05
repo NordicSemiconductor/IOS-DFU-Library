@@ -224,14 +224,11 @@ internal struct PacketReceiptNotification {
      */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Save callbacks.
         self.success = success
@@ -255,14 +252,11 @@ internal struct PacketReceiptNotification {
      */
     func send(_ request: Request, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Save callbacks and parameter.
         self.success   = success
@@ -309,14 +303,11 @@ internal struct PacketReceiptNotification {
                                  onPacketReceiptNofitication proceed: ProgressCallback?,
                                  onError report: ErrorCallback?) {
         // Get the peripheral object.
-        #if swift(>=5.5)
-        guard let peripheral = characteristic.service?.peripheral else {
+        let optService: CBService? = characteristic.service
+        guard let peripheral = optService?.peripheral else {
             report?(.invalidInternalState, "Assert characteristic.service?.peripheral != nil failed")
             return
         }
-        #else
-        let peripheral = characteristic.service.peripheral
-        #endif
         
         // Save callbacks. The proceed callback will be called periodically whenever
         // a packet receipt notification is received. It resumes uploading.

@@ -48,7 +48,7 @@ if you need to resymbolicate crash logs. you may want to keep those files bundle
 **For Swift Package Manager:**
 
 ```swift
-// swift-tools-version:5.4
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
@@ -56,7 +56,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/NordicSemiconductor/IOS-DFU-Library", 
-      .upToNextMajor(from: "<Desired Version, e.g. 4.11.0>")
+      .upToNextMajor(from: "<Desired Version, e.g. 4.11.1>")
     )
   ],
   targets: [.target(name: "<Your Target Name>", dependencies: ["NordicDFU"])]

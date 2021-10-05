@@ -1,5 +1,5 @@
 PODS:
-  - iOSDFULibrary (4.11.0):
+  - iOSDFULibrary (4.11.1):
     - ZIPFoundation (= 0.9.11)
   - ZIPFoundation (0.9.11)
 
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  iOSDFULibrary: 65f745d4224ac06625d60b3fc51aad2dec60346a
+  iOSDFULibrary: 3500ac00451aa7d8ec48a752e91099669a2c1d27
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
 PODFILE CHECKSUM: 16697609d795697cac6384a823bc962ccbddb9d0
