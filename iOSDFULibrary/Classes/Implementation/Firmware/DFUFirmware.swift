@@ -27,9 +27,8 @@
 * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 * POSSIBILITY OF SUCH DAMAGE.
 */
-
+ 
 import Foundation
-
 /**
  The type of the BIN or HEX file, or selection of content from the Distribution
  packet (ZIP) file.
@@ -102,9 +101,8 @@ import Foundation
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
-    @objc convenience public init?(urlToZipFile: URL) {
-        self.init(urlToZipFile: urlToZipFile,
-                  type: DFUFirmwareType.softdeviceBootloaderApplication)
+    @objc convenience public init?(urlToZipFile: URL, errorHandler: ((String) -> ())?) {
+        self.init(urlToZipFile: urlToZipFile, type: DFUFirmwareType.softdeviceBootloaderApplication, errorHandler: errorHandler)
     }
     
     /**
@@ -118,7 +116,7 @@ import Foundation
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
-    @objc public init?(urlToZipFile: URL, type: DFUFirmwareType) {
+    @objc public init?(urlToZipFile: URL, type: DFUFirmwareType, errorHandler: ((String) -> ())?) {
         fileUrl = urlToZipFile
         fileName = urlToZipFile.lastPathComponent
         
@@ -126,13 +124,21 @@ import Foundation
         let ext = urlToZipFile.pathExtension
         if ext.caseInsensitiveCompare("zip") != .orderedSame {
             NSLog("\(fileName!) is not a ZIP file")
+            errorHandler?("The selected file \(fileName ?? "") is not a ZIP file.")
             return nil
         }
         
         do {
             stream = try DFUStreamZip(urlToZipFile: urlToZipFile, type: type)
-        } catch let error as NSError {
-            NSLog("Error while creating ZIP stream: \(error.localizedDescription)")
+        }
+        catch let error as DFUStreamZipError {
+            NSLog("Error while creating ZIP stream: ERROR >>> \(error)  ERR DESC >>> \(error.localizedDescription)")
+            errorHandler?("Error while creating ZIP stream: \(error.localizedDescription)")
+            return nil
+        }
+        catch let error as NSError {
+            NSLog("Error while creating ZIP stream: ERROR >>> \(error)  ERR DESC >>> \(error.localizedDescription)")
+            errorHandler?("Error while creating ZIP stream: \(error.localizedDescription)")
             return nil
         }
         super.init()
@@ -148,8 +154,8 @@ import Foundation
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
-    @objc convenience public init?(zipFile: Data) {
-        self.init(zipFile: zipFile, type: DFUFirmwareType.softdeviceBootloaderApplication)
+    @objc convenience public init?(zipFile: Data, errorHandler: ((String) -> ())?) {
+        self.init(zipFile: zipFile, type: DFUFirmwareType.softdeviceBootloaderApplication, errorHandler: errorHandler)
     }
     
     /**
@@ -163,7 +169,7 @@ import Foundation
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
-    @objc public init?(zipFile: Data, type: DFUFirmwareType) {
+    @objc public init?(zipFile: Data, type: DFUFirmwareType, errorHandler: ((String) -> ())?) {
         fileUrl = nil
         fileName = nil
         
@@ -171,6 +177,7 @@ import Foundation
             stream = try DFUStreamZip(zipFile: zipFile, type: type)
         } catch let error as NSError {
             NSLog("Error while creating ZIP stream: \(error.localizedDescription)")
+            errorHandler?("Error while creating ZIP stream: \(error.localizedDescription)")
             return nil
         }
         super.init()
@@ -187,7 +194,8 @@ import Foundation
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
-    @objc public init?(urlToBinOrHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
+    @objc public init?(urlToBinOrHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType,
+                       errorHandler: ((String) -> ())?) {
         fileUrl = urlToBinOrHexFile
         fileName = urlToBinOrHexFile.lastPathComponent
         
@@ -197,6 +205,7 @@ import Foundation
         let hex = ext.caseInsensitiveCompare("hex") == .orderedSame
         guard bin || hex else {
             NSLog("\(fileName!) is not a BIN or HEX file")
+            errorHandler?("\(fileName!) is not a BIN or HEX file.")
             return nil
         }
         
@@ -204,16 +213,17 @@ import Foundation
             let datExt = datUrl.pathExtension
             guard datExt.caseInsensitiveCompare("dat") == .orderedSame else {
                 NSLog("\(fileName!) is not a DAT file")
+                errorHandler?("\(fileName!) is not a DAT file.")
                 return nil
             }
         }
         
         if bin {
-            stream = DFUStreamBin(urlToBinFile: urlToBinOrHexFile,
-                                  urlToDatFile: urlToDatFile, type: type)
+            stream = DFUStreamBin(urlToBinFile: urlToBinOrHexFile, urlToDatFile: urlToDatFile, type: type)
         } else {
             guard let s = DFUStreamHex(urlToHexFile: urlToBinOrHexFile,
                                        urlToDatFile: urlToDatFile, type: type) else {
+                errorHandler?("Couldn't create stream.")
                 return nil
             }
             stream = s
@@ -235,7 +245,6 @@ import Foundation
     @objc public init?(binFile: Data, datFile: Data?, type: DFUFirmwareType) {
         fileUrl = nil
         fileName = nil
-        
         stream = DFUStreamBin(binFile: binFile, datFile: datFile, type: type)
         super.init()
     }
@@ -251,11 +260,12 @@ import Foundation
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
-    @objc public init?(hexFile: Data, datFile: Data?, type: DFUFirmwareType) {
+    @objc public init?(hexFile: Data, datFile: Data?, type: DFUFirmwareType, errorHandler: ((String) -> ())?) {
         fileUrl = nil
         fileName = nil
         
         guard let s = DFUStreamHex(hexFile: hexFile, datFile: datFile, type: type) else {
+            errorHandler?("Couldn't create stream.")
             return nil
         }
         stream = s
@@ -278,3 +288,5 @@ import Foundation
         stream.switchToNextPart()
     }
 }
+
+ 
