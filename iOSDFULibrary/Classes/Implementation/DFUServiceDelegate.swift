@@ -37,12 +37,14 @@ internal enum DFURemoteError : Int {
     case buttonless                  = 90
     case experimentalButtonless      = 9000
     
+    /// Returns a representative ``DFUError``
+    ///
+    /// The only available codes that this method is called with are
+    /// hardcoded in the library (ButtonlessDFU, DFUControlPoint,
+    /// SecureDFUControlPoint). But, we have seen crashes so,
+    /// we are returning ``DFUError.unsupportedResponse`` if a code is not found.
     func with(code: UInt8) -> DFUError {
-        // The force-unwrap here is used, as the only available codes
-        // that this method is called with are hardcoded in the library
-        // (ButtonlessDFU, DFUControlPoint, SecureDFUControlPoint)
-        // and, with the optional offset, will match an existing DFUError.
-        return DFUError(rawValue: Int(code) + rawValue)!
+        return DFUError(rawValue: Int(code) + rawValue) ?? .unsupportedResponse
     }
 }
 
