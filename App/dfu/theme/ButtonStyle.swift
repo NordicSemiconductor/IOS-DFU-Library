@@ -23,6 +23,7 @@ private extension DfuButtonStyle {
 
     var body: some View {
       return configuration.label
+            .frame(minWidth: 80)
             .foregroundColor(.white)
             .padding(10)
             .background(RoundedRectangle(cornerRadius: 30)
@@ -41,6 +42,7 @@ struct DfuButton: View {
   var body: some View {
     Button(action: action) {
       Text(self.title).foregroundColor(Color.white)
-    }.buttonStyle(DfuButtonStyle())
+    }
+    .buttonStyle(DfuButtonStyle())
   }
 }

@@ -27,7 +27,25 @@ struct FileSectionView: View {
                     self.openFile.toggle()
                     errorMessage = nil
                 })
-            }.padding()
+            }
+            .padding()
+            .onOpenURL { url in
+                do {
+                    let fileUrl = url
+                    print(fileUrl)
+                    
+                    guard fileUrl.startAccessingSecurityScopedResource() else { return }
+                    let resources = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
+                    let fileSize = resources.fileSize!
+                    let fileName = resources.name!
+                    
+                    viewModel.zipFile = ZipFile(name: fileName, size: fileSize, url: fileUrl)
+                    
+                    fileUrl.stopAccessingSecurityScopedResource()
+                } catch {
+                    errorMessage = error.localizedDescription
+                }
+            }
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)
@@ -63,7 +81,7 @@ struct FileSectionView: View {
                 viewModel.zipFile = ZipFile(name: fileName, size: fileSize, url: fileUrl)
                 
                 fileUrl.stopAccessingSecurityScopedResource()
-                
+                print(fileUrl)
             } catch {
                 errorMessage = error.localizedDescription
             }

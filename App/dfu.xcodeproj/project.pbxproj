@@ -62,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		8D02F954281FD99B0030D67A /* DfuImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuImages.swift; sourceTree = "<group>"; };
+		8D086C1D283259B600E63785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxSectionView.swift; sourceTree = "<group>"; };
 		8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPacketsDialog.swift; sourceTree = "<group>"; };
 		8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertDialog.swift; sourceTree = "<group>"; };
@@ -77,13 +78,15 @@
 		8D78D12327FC606900FE0493 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
 		8D78D12527FC60F300FE0493 /* DfuStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuStrings.swift; sourceTree = "<group>"; };
 		8D81E08127EC9B8B00CE843C /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		8D8AE47A283268BC003900E5 /* dfuDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dfuDebug.entitlements; sourceTree = "<group>"; };
 		8D9B54A627F5C4EC009A5461 /* ProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressItemView.swift; sourceTree = "<group>"; };
 		8DB222F327F1C399005A4D92 /* ZipFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipFile.swift; sourceTree = "<group>"; };
 		8DB222F527F1C3B8005A4D92 /* DfuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuViewModel.swift; sourceTree = "<group>"; };
 		8DB222F727F1C968005A4D92 /* DfuProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuProgress.swift; sourceTree = "<group>"; };
 		8DB222FB27F1CDEB005A4D92 /* DfuUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuUiState.swift; sourceTree = "<group>"; };
 		8DB222FD27F1CDFE005A4D92 /* DfuUiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuUiError.swift; sourceTree = "<group>"; };
-		8DEF02E327EB48A400838144 /* dfu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dfu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DDC435D282E88C100D83596 /* dfu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dfu.entitlements; sourceTree = "<group>"; };
+		8DEF02E327EB48A400838144 /* DFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF02E627EB48A400838144 /* dfuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuApp.swift; sourceTree = "<group>"; };
 		8DEF02E827EB48A400838144 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DEF02EA27EB48A400838144 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -213,7 +216,7 @@
 		8DEF02E427EB48A400838144 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DEF02E327EB48A400838144 /* dfu.app */,
+				8DEF02E327EB48A400838144 /* DFU.app */,
 				8DEF02F327EB48A400838144 /* dfuTests.xctest */,
 				8DEF02FD27EB48A400838144 /* dfuUITests.xctest */,
 			);
@@ -223,6 +226,9 @@
 		8DEF02E527EB48A400838144 /* dfu */ = {
 			isa = PBXGroup;
 			children = (
+				8D8AE47A283268BC003900E5 /* dfuDebug.entitlements */,
+				8D086C1D283259B600E63785 /* Info.plist */,
+				8DDC435D282E88C100D83596 /* dfu.entitlements */,
 				8D78D12227FC605D00FE0493 /* welcome */,
 				8D78D11927FC421D00FE0493 /* theme */,
 				8D9B54A527F59D0F009A5461 /* views */,
@@ -283,7 +289,7 @@
 				8DEF031127EB494000838144 /* NordicDFU */,
 			);
 			productName = dfu;
-			productReference = 8DEF02E327EB48A400838144 /* dfu.app */;
+			productReference = 8DEF02E327EB48A400838144 /* DFU.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8DEF02F227EB48A400838144 /* dfuTests */ = {
@@ -584,17 +590,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = dfu/dfuDebug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dfu/Preview Content\"";
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = dfu/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DFU;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -603,7 +615,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = no.nordicsemi.dfu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DFU;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -615,17 +628,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = dfu/dfu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dfu/Preview Content\"";
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = dfu/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DFU;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -634,7 +652,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = no.nordicsemi.dfu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DFU;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

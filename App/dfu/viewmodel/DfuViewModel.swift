@@ -69,7 +69,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     
     func abort() {
         if let controller = controller {
-            controller.abort()
+            _ = controller.abort()
         }
     }
     

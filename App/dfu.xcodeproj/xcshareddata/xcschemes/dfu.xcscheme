@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DEF02E227EB48A400838144"
-               BuildableName = "dfu.app"
+               BuildableName = "DFU.app"
                BlueprintName = "dfu"
                ReferencedContainer = "container:dfu.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DEF02E227EB48A400838144"
-            BuildableName = "dfu.app"
+            BuildableName = "DFU.app"
             BlueprintName = "dfu"
             ReferencedContainer = "container:dfu.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DEF02E227EB48A400838144"
-            BuildableName = "dfu.app"
+            BuildableName = "DFU.app"
             BlueprintName = "dfu"
             ReferencedContainer = "container:dfu.xcodeproj">
          </BuildableReference>
