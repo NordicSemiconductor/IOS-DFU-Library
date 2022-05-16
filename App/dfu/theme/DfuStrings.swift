@@ -74,4 +74,6 @@ struct DfuStrings {
     static let settingsProvideNumberOfPackets = "Please provide integer value:"
     
     static let rssi = "RSSI: %@"
+    
+    static let fileError = "Selected file is invalid."
 }

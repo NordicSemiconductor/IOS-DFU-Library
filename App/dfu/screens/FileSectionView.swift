@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FileSectionView: View {
     @State private var openFile = false
-    @State private var errorMessage: String? = nil
     
     @ObservedObject
     var viewModel: DfuViewModel
@@ -23,28 +22,20 @@ struct FileSectionView: View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                
-                DfuButton(title: DfuStrings.select, action: {
-                    self.openFile.toggle()
-                    errorMessage = nil
-                })
+                if (viewModel.isFileLoading) {
+                    ProgressBar()
+                } else {
+                    DfuButton(title: DfuStrings.select, action: {
+                        self.openFile.toggle()
+                        viewModel.isFileLoading = true
+                        viewModel.clearFileError()
+                    })
+                }
             }
             .padding()
             .onOpenURL { url in
-                do {
-                    let fileUrl = url
-                    print(fileUrl)
-                    
-                    guard fileUrl.startAccessingSecurityScopedResource() else { return }
-                    let resources = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
-                    let fileSize = resources.fileSize!
-                    let fileName = resources.name!
-                    
-                    viewModel.zipFile = ZipFile(name: fileName, size: fileSize, url: fileUrl)
-                    
-                    fileUrl.stopAccessingSecurityScopedResource()
-                } catch {
-                    errorMessage = error.localizedDescription
-                }
+                viewModel.isFileLoading = true
+                onFileOpen(opened: url)
             }
             
             HStack {
@@ -54,37 +45,53 @@ struct FileSectionView: View {
                     .padding(.leading, 25)
                     .padding(.trailing, 25)
                 
-                if let file = viewModel.zipFile {
-                    VStack {
+                VStack {
+                    if let file = viewModel.zipFile {
                         Text(String(format: DfuStrings.fileName, file.name)).frame(maxWidth: .infinity, alignment: .leading)
                         Text(String(format: DfuStrings.fileSize, file.size)).frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    else {
+                        Text(DfuStrings.fileSelect).frame(maxWidth: .infinity, alignment: .leading)
                     }
-                } else if let errorMessage = errorMessage {
-                    Text(errorMessage)
-                    Spacer()
-                } else {
-                    Text(DfuStrings.fileSelect)
-                    Spacer()
+                    if viewModel.fileError != nil {
+                        Spacer()
+                        Text(viewModel.fileError!)
+                            .foregroundColor(ThemeColor.nordicRed)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
             }
         }
         .fileImporter(isPresented: $openFile, allowedContentTypes: [.zip]) { (res) in
             do {
                 let fileUrl = try res.get()
-                print(fileUrl)
-                
-                guard fileUrl.startAccessingSecurityScopedResource() else { return }
-                let resources = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
-                let fileSize = resources.fileSize!
-                let fileName = resources.name!
-                
-                viewModel.zipFile = ZipFile(name: fileName, size: fileSize, url: fileUrl)
-                
-                fileUrl.stopAccessingSecurityScopedResource()
-                print(fileUrl)
+                onFileOpen(opened: fileUrl)
             } catch {
-                errorMessage = error.localizedDescription
+                viewModel.onFileError(message: error.localizedDescription)
             }
+        }
+    }
+    
+    private func onFileOpen(opened fileUrl: URL) {
+        do {
+            print(fileUrl)
+            
+            guard fileUrl.startAccessingSecurityScopedResource() else { return }
+            let resources = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
+            let fileSize = resources.fileSize!
+            let fileName = resources.name!
+            
+            let zipFile = ZipFile(name: fileName, size: fileSize, url: fileUrl)
+            try viewModel.onFileSelected(selected: zipFile)
+            
+            fileUrl.stopAccessingSecurityScopedResource()
+            print(fileUrl)
+            
+            defer {
+                viewModel.isFileLoading = false
+            }
+        } catch {
+            viewModel.onFileError(message: error.localizedDescription)
         }
     }
 }

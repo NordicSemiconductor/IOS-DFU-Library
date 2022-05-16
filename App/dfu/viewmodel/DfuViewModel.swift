@@ -13,7 +13,13 @@ import SwiftUI
 class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     
     @Published
-    var zipFile: ZipFile? = nil
+    var fileError: String? = nil
+    
+    @Published
+    var isFileLoading: Bool = false
+    
+    @Published
+    private(set) var zipFile: ZipFile? = nil
     
     @Published
     var device: BluetoothDevice? = nil
@@ -47,6 +53,16 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     
     private var controller: DFUServiceController? = nil
     
+    func onFileSelected(selected file: ZipFile) throws {
+        let selectedFirmware = DFUFirmware(urlToZipFile: file.url, type: DFUFirmwareType.application)
+        
+        if selectedFirmware == nil {
+            fileError = DfuStrings.fileError
+            return
+        }
+        zipFile = file
+    }
+    
     func install() {
         print(zipFile ?? "null")
         print(device ?? "null")
@@ -54,6 +70,11 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         guard zipFile!.url.startAccessingSecurityScopedResource() else { return }
         
         let selectedFirmware = DFUFirmware(urlToZipFile: zipFile!.url, type: DFUFirmwareType.application)
+        
+        if selectedFirmware == nil {
+            fileError = DfuStrings.fileError
+            return
+        }
         
         let initiator = DFUServiceInitiator().with(firmware: selectedFirmware!)
 
@@ -65,6 +86,14 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         progressSection = progressSection.toBootloaderState()
         
         zipFile!.url.stopAccessingSecurityScopedResource()
+    }
+    
+    func onFileError(message value: String) {
+        fileError = value
+    }
+    
+    func clearFileError() {
+        fileError = nil
     }
     
     func abort() {
