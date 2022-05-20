@@ -358,7 +358,7 @@ import CoreBluetooth
      - parameter progressQueue: The dispatch queue to invoke all progress delegate
                                 callbacks on.
      - parameter loggerQueue: The dispatch queue to invoke all logger events on.
-     - parameter centralManagerOptions: An optional dictionary that contains initialization options for a central manager.
+     - parameter centralManagerOptions: An optional dictionary that contains initialization options for `CBCentralManager`.
 
      - returns: The initiator instance.
      
