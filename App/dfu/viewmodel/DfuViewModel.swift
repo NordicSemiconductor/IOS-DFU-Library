@@ -16,9 +16,6 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     var fileError: String? = nil
     
     @Published
-    var isFileLoading: Bool = false
-    
-    @Published
     private(set) var zipFile: ZipFile? = nil
     
     @Published
@@ -36,8 +33,8 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     @AppStorage("numberOfPackets")
     var numberOfPackets: Int = 23
     
-    @AppStorage("keepBondInformation")
-    var keepBondInformation: Bool = false
+    @AppStorage("alternativeAdvertisingNameEnabled")
+    var alternativeAdvertisingNameEnabled: Bool = false
     
     @AppStorage("externalMcuDfu")
     var externalMcuDfu: Bool = false
@@ -53,11 +50,27 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     
     private var controller: DFUServiceController? = nil
     
+    func isFileButtonDisabled() -> Bool {
+        return progressSection.isRunning()
+    }
+    
+    func isDeviceButtonDisabled() -> Bool {
+        return isFileButtonDisabled() || zipFile == nil
+    }
+    
+    func isProgressButtonDisabled() -> Bool {
+        return zipFile == nil || device == nil
+    }
+    
     func onFileSelected(selected file: ZipFile) throws {
-        let selectedFirmware = DFUFirmware(urlToZipFile: file.url, type: DFUFirmwareType.application)
+        let selectedFirmware = DFUFirmware(
+            urlToZipFile: file.url,
+            type: DFUFirmwareType.softdeviceBootloaderApplication
+        )
         
-        if selectedFirmware == nil {
+         guard let _ = selectedFirmware else {
             fileError = DfuStrings.fileError
+            zipFile = nil
             return
         }
         zipFile = file
@@ -69,18 +82,34 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         os_log("%@", zipFile.debugDescription)
         guard zipFile!.url.startAccessingSecurityScopedResource() else { return }
         
-        let selectedFirmware = DFUFirmware(urlToZipFile: zipFile!.url, type: DFUFirmwareType.application)
+        let selectedFirmware = DFUFirmware(
+            urlToZipFile: zipFile!.url,
+            type: DFUFirmwareType.softdeviceBootloaderApplication
+        )
         
-        if selectedFirmware == nil {
+        guard let selectedFirmware = selectedFirmware else {
             fileError = DfuStrings.fileError
             return
         }
         
-        let initiator = DFUServiceInitiator().with(firmware: selectedFirmware!)
+        let initiator = DFUServiceInitiator().with(firmware: selectedFirmware)
 
-//        initiator.logger = self
+        initiator.logger = self
         initiator.delegate = self
         initiator.progressDelegate = self
+        
+        if packetsReceiptNotification {
+            initiator.packetReceiptNotificationParameter = UInt16(numberOfPackets)
+        } else {
+            initiator.packetReceiptNotificationParameter = 0
+        }
+        
+        initiator.forceScanningForNewAddressInLegacyDfu = forceScanningInLegacyDfu
+        initiator.dataObjectPreparationDelay = 0.4
+        initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = true
+        initiator.forceDfu = externalMcuDfu
+        initiator.disableResume = disableResume
+        initiator.alternativeAdvertisingNameEnabled = alternativeAdvertisingNameEnabled
 
         controller = initiator.start(target: device!.peripheral)
         progressSection = progressSection.toBootloaderState()
@@ -89,6 +118,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     }
     
     func onFileError(message value: String) {
+        zipFile = nil
         fileError = value
     }
     
@@ -150,4 +180,40 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
             showWelcomeScreen = false
         }
     }
+}
+
+extension DfuViewModel: LoggerDelegate {
+    
+    func logWith(_ level: LogLevel, message: String) {
+        if #available(iOS 10.0, *) {
+            os_log("%{public}@", log: category, type: level.type, message)
+        } else {
+            NSLog("%@", message)
+        }
+    }
+    
+}
+
+extension LogLevel {
+    
+    /// Mapping from mesh log levels to system log types.
+    var type: OSLogType {
+        switch self {
+        case .debug:       return .debug
+        case .verbose:     return .debug
+        case .info:        return .info
+        case .application: return .default
+        case .warning:     return .error
+        case .error:       return .fault
+        }
+    }
+    
+}
+
+private extension DfuViewModel {
+    
+    var category: OSLog {
+        return OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "DFU")
+    }
+    
 }

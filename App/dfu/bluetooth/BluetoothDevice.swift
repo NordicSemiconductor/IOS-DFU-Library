@@ -19,4 +19,16 @@ struct BluetoothDevice : Identifiable {
     let rssi: NSNumber
     
     let name: String
+    
+    func getSignalStrength() -> SignalStrength {
+        if (rssi.compare(NSNumber(-65)) == ComparisonResult.orderedDescending) {
+            return SignalStrength.strong
+        }
+        else if (rssi.compare(NSNumber(-85)) == ComparisonResult.orderedDescending) {
+            return SignalStrength.normal
+        }
+        else {
+            return SignalStrength.weak
+        }
+    }
 }

@@ -20,21 +20,20 @@ struct ScannerView: View {
     var bluetoothManager: BluetoothManager = BluetoothManager()
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(bluetoothManager.filteredDevices()) { device in
-                    Button(action: {
-                        viewModel.device = device
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Text(device.name).frame(maxWidth: .infinity, alignment: .leading)
-                            Text(String(format: DfuStrings.rssi, device.rssi))
-                        }
+        List {
+            ForEach(bluetoothManager.filteredDevices()) { device in
+                Button(action: {
+                    viewModel.device = device
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    HStack {
+                        Text(device.name).frame(maxWidth: .infinity, alignment: .leading)
+                        SignalStrengthIndicator(signalStrength: device.getSignalStrength())
                     }
                 }
-            }.frame(maxWidth: .infinity)
+            }
         }
+        .frame(maxWidth: .infinity)
         .navigationTitle(DfuStrings.scanner)
         .onAppear { bluetoothManager.startScan() }
         .onDisappear { bluetoothManager.stopScan() }

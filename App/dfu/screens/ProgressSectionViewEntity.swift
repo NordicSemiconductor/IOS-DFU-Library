@@ -22,7 +22,7 @@ struct ProgressSectionViewEntity {
         return false
     }
     
-    init(
+    init (
         bootloaderStatus: DfuUiStateStatus = DfuUiStateStatus.idle,
         dfuStatus: DfuUiStateStatus = DfuUiStateStatus.idle,
         installationStatus: DfuInstallationStatus = DfuInstallationStatus.idle,

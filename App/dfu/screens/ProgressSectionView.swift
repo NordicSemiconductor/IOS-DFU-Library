@@ -43,7 +43,7 @@ struct ProgressSectionView: View {
             let result = viewModel.progressSection.resultStatus
             ResultItemView(status: result)
             
-        }.disabled(viewModel.zipFile == nil || viewModel.device == nil)
+        }.disabled(viewModel.isProgressButtonDisabled())
     }
 }
 

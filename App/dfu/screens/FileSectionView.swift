@@ -21,27 +21,21 @@ struct FileSectionView: View {
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-               
-                if (viewModel.isFileLoading) {
-                    ProgressBar()
-                } else {
-                    DfuButton(title: DfuStrings.select, action: {
-                        self.openFile.toggle()
-                        viewModel.isFileLoading = true
-                        viewModel.clearFileError()
-                    })
-                }
+                
+                DfuButton(title: DfuStrings.select, action: {
+                    self.openFile.toggle()
+                    viewModel.clearFileError()
+                })
             }
             .padding()
             .onOpenURL { url in
-                viewModel.isFileLoading = true
                 onFileOpen(opened: url)
-            }
+            }.disabled(viewModel.isFileButtonDisabled())
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray)
-                    .frame(width: 5, height: 30)
+                    .frame(width: 5, height: .infinity)
                     .padding(.leading, 25)
                     .padding(.trailing, 25)
                 
@@ -49,8 +43,7 @@ struct FileSectionView: View {
                     if let file = viewModel.zipFile {
                         Text(String(format: DfuStrings.fileName, file.name)).frame(maxWidth: .infinity, alignment: .leading)
                         Text(String(format: DfuStrings.fileSize, file.size)).frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    else {
+                    } else {
                         Text(DfuStrings.fileSelect).frame(maxWidth: .infinity, alignment: .leading)
                     }
                     if viewModel.fileError != nil {
@@ -59,7 +52,7 @@ struct FileSectionView: View {
                             .foregroundColor(ThemeColor.nordicRed)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                }
+                }.padding(.vertical, 8)
             }
         }
         .fileImporter(isPresented: $openFile, allowedContentTypes: [.zip]) { (res) in
@@ -85,11 +78,6 @@ struct FileSectionView: View {
             try viewModel.onFileSelected(selected: zipFile)
             
             fileUrl.stopAccessingSecurityScopedResource()
-            print(fileUrl)
-            
-            defer {
-                viewModel.isFileLoading = false
-            }
         } catch {
             viewModel.onFileError(message: error.localizedDescription)
         }

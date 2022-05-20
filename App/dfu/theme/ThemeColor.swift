@@ -16,6 +16,7 @@ struct ThemeColor {
     static let buttonDisabledBackground = Color.gray
     static let buttonEnabledBackground = nordicBlue
     static let nordicRed = Color("NordicRed")
+    static let nordicYellow = Color("NordicYellow")
 }
 
 extension View {

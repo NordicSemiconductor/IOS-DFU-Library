@@ -11,7 +11,7 @@ struct DeviceSectionView: View {
     @ObservedObject
     var viewModel: DfuViewModel
     
-    @State private var action: Bool?
+    @State private var goToScannerView: Bool?
     
     var body: some View {
         VStack {
@@ -21,26 +21,29 @@ struct DeviceSectionView: View {
                     .padding()
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                NavigationLink(destination: ScannerView(viewModel: viewModel), tag: true, selection: $action) { }
+                NavigationLink(destination: ScannerView(viewModel: viewModel), tag: true, selection: $goToScannerView) { }
                 DfuButton(title: DfuStrings.select, action: {
-                    action = true
+                    goToScannerView = true
                 })
             }.padding()
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray)
-                    .frame(width: 5, height: 30)
+                    .frame(width: 5, height: .infinity)
                     .padding(.leading, 25)
                     .padding(.trailing, 25)
+                
                 if let device = viewModel.device {
                     Text(String(format: DfuStrings.deviceName, device.name))
+                        .padding(.vertical, 8)
                 } else {
                     Text(DfuStrings.deviceSelect)
+                        .padding(.vertical, 8)
                 }
                 Spacer()
             }
-        }.disabled(viewModel.zipFile == nil)
+        }.disabled(viewModel.isDeviceButtonDisabled())
     }
 }
 

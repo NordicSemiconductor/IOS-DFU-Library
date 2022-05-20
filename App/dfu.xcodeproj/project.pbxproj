@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8D02F955281FD99B0030D67A /* DfuImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D02F954281FD99B0030D67A /* DfuImages.swift */; };
-		8D371ED128329A32004A3106 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D371ED028329A32004A3106 /* ProgressBar.swift */; };
 		8D4DEA0927F444CB00C1AD43 /* CheckboxSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */; };
 		8D4DEA0B27F4688500C1AD43 /* NumberOfPacketsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */; };
 		8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */; };
@@ -30,6 +29,7 @@
 		8DB222F827F1C968005A4D92 /* DfuProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F727F1C968005A4D92 /* DfuProgress.swift */; };
 		8DB222FC27F1CDEB005A4D92 /* DfuUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222FB27F1CDEB005A4D92 /* DfuUiState.swift */; };
 		8DB222FE27F1CDFE005A4D92 /* DfuUiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222FD27F1CDFE005A4D92 /* DfuUiError.swift */; };
+		8DEAF9C52835272C00503E4C /* SignalStrengthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAF9C42835272C00503E4C /* SignalStrengthIndicator.swift */; };
 		8DEF02E727EB48A400838144 /* dfuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02E627EB48A400838144 /* dfuApp.swift */; };
 		8DEF02E927EB48A400838144 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02E827EB48A400838144 /* ContentView.swift */; };
 		8DEF02EB27EB48A400838144 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF02EA27EB48A400838144 /* Assets.xcassets */; };
@@ -64,7 +64,6 @@
 /* Begin PBXFileReference section */
 		8D02F954281FD99B0030D67A /* DfuImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuImages.swift; sourceTree = "<group>"; };
 		8D086C1D283259B600E63785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D371ED028329A32004A3106 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxSectionView.swift; sourceTree = "<group>"; };
 		8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPacketsDialog.swift; sourceTree = "<group>"; };
 		8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertDialog.swift; sourceTree = "<group>"; };
@@ -88,6 +87,7 @@
 		8DB222FB27F1CDEB005A4D92 /* DfuUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuUiState.swift; sourceTree = "<group>"; };
 		8DB222FD27F1CDFE005A4D92 /* DfuUiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuUiError.swift; sourceTree = "<group>"; };
 		8DDC435D282E88C100D83596 /* dfu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dfu.entitlements; sourceTree = "<group>"; };
+		8DEAF9C42835272C00503E4C /* SignalStrengthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthIndicator.swift; sourceTree = "<group>"; };
 		8DEF02E327EB48A400838144 /* DFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF02E627EB48A400838144 /* dfuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuApp.swift; sourceTree = "<group>"; };
 		8DEF02E827EB48A400838144 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 				8D9B54A627F5C4EC009A5461 /* ProgressItemView.swift */,
 				8D78D11327FC365400FE0493 /* ResultItemView.swift */,
 				8D78D11527FC36A700FE0493 /* StatusItemView.swift */,
-				8D371ED028329A32004A3106 /* ProgressBar.swift */,
+				8DEAF9C42835272C00503E4C /* SignalStrengthIndicator.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -197,11 +197,11 @@
 		8DB222FA27F1CD47005A4D92 /* screens */ = {
 			isa = PBXGroup;
 			children = (
-				8DEF031327EB4E3E00838144 /* FileSectionView.swift */,
 				8DEF031527EB58E100838144 /* DeviceSectionView.swift */,
+				8DEF031327EB4E3E00838144 /* FileSectionView.swift */,
 				8DEF031727EB592700838144 /* ProgressSectionView.swift */,
-				8DF025AA27F33C710078CA17 /* SettingsView.swift */,
 				8D78D11727FC36DA00FE0493 /* ProgressSectionViewEntity.swift */,
+				8DF025AA27F33C710078CA17 /* SettingsView.swift */,
 			);
 			path = screens;
 			sourceTree = "<group>";
@@ -229,20 +229,20 @@
 		8DEF02E527EB48A400838144 /* dfu */ = {
 			isa = PBXGroup;
 			children = (
+				8DDC435D282E88C100D83596 /* dfu.entitlements */,
 				8D8AE47A283268BC003900E5 /* dfuDebug.entitlements */,
 				8D086C1D283259B600E63785 /* Info.plist */,
-				8DDC435D282E88C100D83596 /* dfu.entitlements */,
-				8D78D12227FC605D00FE0493 /* welcome */,
-				8D78D11927FC421D00FE0493 /* theme */,
-				8D9B54A527F59D0F009A5461 /* views */,
-				8DB222FA27F1CD47005A4D92 /* screens */,
-				8DB222F927F1CD1B005A4D92 /* viewmodel */,
-				8D6228C027EDB81A00AE3E1B /* scanner */,
-				8D81E08027EC9B4E00CE843C /* bluetooth */,
-				8DEF02E627EB48A400838144 /* dfuApp.swift */,
 				8DEF02E827EB48A400838144 /* ContentView.swift */,
+				8DEF02E627EB48A400838144 /* dfuApp.swift */,
 				8DEF02EA27EB48A400838144 /* Assets.xcassets */,
+				8D81E08027EC9B4E00CE843C /* bluetooth */,
 				8DEF02EC27EB48A400838144 /* Preview Content */,
+				8D6228C027EDB81A00AE3E1B /* scanner */,
+				8DB222FA27F1CD47005A4D92 /* screens */,
+				8D78D11927FC421D00FE0493 /* theme */,
+				8DB222F927F1CD1B005A4D92 /* viewmodel */,
+				8D9B54A527F59D0F009A5461 /* views */,
+				8D78D12227FC605D00FE0493 /* welcome */,
 			);
 			path = dfu;
 			sourceTree = "<group>";
@@ -408,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DEAF9C52835272C00503E4C /* SignalStrengthIndicator.swift in Sources */,
 				8DEF031427EB4E3E00838144 /* FileSectionView.swift in Sources */,
 				8DEF031627EB58E100838144 /* DeviceSectionView.swift in Sources */,
 				8D4DEA0B27F4688500C1AD43 /* NumberOfPacketsDialog.swift in Sources */,
@@ -423,7 +424,6 @@
 				8D78D12627FC60F300FE0493 /* DfuStrings.swift in Sources */,
 				8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */,
 				8DB222FE27F1CDFE005A4D92 /* DfuUiError.swift in Sources */,
-				8D371ED128329A32004A3106 /* ProgressBar.swift in Sources */,
 				8D4DEA0927F444CB00C1AD43 /* CheckboxSectionView.swift in Sources */,
 				8DF025AB27F33C710078CA17 /* SettingsView.swift in Sources */,
 				8D78D11427FC365400FE0493 /* ResultItemView.swift in Sources */,

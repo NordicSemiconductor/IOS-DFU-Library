@@ -23,28 +23,41 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack {
-                CheckboxSectionView(
-                    title: DfuStrings.settingsPacketReceiptTitle,
-                    description: DfuStrings.settingsPacketReceiptValue,
-                    isChecked: $viewModel.packetsReceiptNotification
-                )
-                
-                Spacer().frame(height: 16)
-                
-                Button(action: { showingAlert = true }) {
-                    VStack {
-                        Text(DfuStrings.numberOfPackets)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                Group {
+                    CheckboxSectionView(
+                        title: DfuStrings.settingsPacketReceiptTitle,
+                        description: DfuStrings.settingsPacketReceiptValue,
+                        isChecked: $viewModel.packetsReceiptNotification
+                    )
+                    
+                    Spacer().frame(height: 16)
+                    
+                    if viewModel.packetsReceiptNotification {
                         
-                        Text("\(viewModel.numberOfPackets)")
-                            .font(.footnote)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Button(action: { showingAlert = true }) {
+                            VStack {
+                                Text(DfuStrings.numberOfPackets)
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Text("\(viewModel.numberOfPackets)")
+                                    .font(.footnote)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        
+                        Spacer().frame(height: 16)
                     }
+                    
+                    CheckboxSectionView(
+                        title: DfuStrings.alternativeAdvertisingNameTitle,
+                        description: DfuStrings.alternativeAdvertisingNameValue,
+                        isChecked: $viewModel.alternativeAdvertisingNameEnabled
+                    )
+                    
+                    Spacer().frame(height: 16)
                 }
-                
-                Spacer().frame(height: 16)
-                
+
                 Text(DfuStrings.settingsSecureDfu)
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -68,14 +81,6 @@ struct SettingsView: View {
                         isChecked: $viewModel.forceScanningInLegacyDfu
                     )
 
-                    Spacer().frame(height: 16)
-                    
-                    CheckboxSectionView(
-                        title: DfuStrings.settingsKeepBondTitle,
-                        description: DfuStrings.settingsKeepBondValue,
-                        isChecked: $viewModel.keepBondInformation
-                    )
-                    
                     Spacer().frame(height: 16)
                     
                     CheckboxSectionView(
