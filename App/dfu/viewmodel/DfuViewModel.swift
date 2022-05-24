@@ -22,9 +22,6 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     var device: BluetoothDevice? = nil
     
     @Published
-    var uiState: DfuUiState? = nil
-    
-    @Published
     var progressSection: ProgressSectionViewEntity = ProgressSectionViewEntity()
     
     @AppStorage("packetsReceiptNotification")
@@ -145,28 +142,6 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
             progressSection = progressSection.toSuccessState()
         } else if (state == DFUState.aborted) {
             progressSection = progressSection.toErrorState(message: DfuUiError(error: nil, message: DfuStrings.aborted))
-        }
-        uiState = stateToUiState(from: state)
-    }
-    
-    private func stateToUiState(from state: DFUState) -> DfuUiState {
-        switch (state) {
-        case .connecting:
-            return DfuUiState.connecting
-        case .starting:
-            return DfuUiState.starting
-        case .enablingDfuMode:
-            return DfuUiState.enablingDfuMode
-        case .uploading:
-            return DfuUiState.uploading(DfuProgress())
-        case .validating:
-            return DfuUiState.validating
-        case .disconnecting:
-            return DfuUiState.disconnecting
-        case .completed:
-            return DfuUiState.completed
-        case .aborted:
-            return DfuUiState.aborted
         }
     }
     

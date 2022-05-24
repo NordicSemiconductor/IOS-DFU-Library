@@ -27,7 +27,6 @@
 		8DB222F427F1C399005A4D92 /* ZipFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F327F1C399005A4D92 /* ZipFile.swift */; };
 		8DB222F627F1C3B8005A4D92 /* DfuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F527F1C3B8005A4D92 /* DfuViewModel.swift */; };
 		8DB222F827F1C968005A4D92 /* DfuProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F727F1C968005A4D92 /* DfuProgress.swift */; };
-		8DB222FC27F1CDEB005A4D92 /* DfuUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222FB27F1CDEB005A4D92 /* DfuUiState.swift */; };
 		8DB222FE27F1CDFE005A4D92 /* DfuUiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222FD27F1CDFE005A4D92 /* DfuUiError.swift */; };
 		8DEAF9C52835272C00503E4C /* SignalStrengthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAF9C42835272C00503E4C /* SignalStrengthIndicator.swift */; };
 		8DEF02E727EB48A400838144 /* dfuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02E627EB48A400838144 /* dfuApp.swift */; };
@@ -84,7 +83,6 @@
 		8DB222F327F1C399005A4D92 /* ZipFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipFile.swift; sourceTree = "<group>"; };
 		8DB222F527F1C3B8005A4D92 /* DfuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuViewModel.swift; sourceTree = "<group>"; };
 		8DB222F727F1C968005A4D92 /* DfuProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuProgress.swift; sourceTree = "<group>"; };
-		8DB222FB27F1CDEB005A4D92 /* DfuUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuUiState.swift; sourceTree = "<group>"; };
 		8DB222FD27F1CDFE005A4D92 /* DfuUiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuUiError.swift; sourceTree = "<group>"; };
 		8DDC435D282E88C100D83596 /* dfu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dfu.entitlements; sourceTree = "<group>"; };
 		8DEAF9C42835272C00503E4C /* SignalStrengthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthIndicator.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 				8DB222F327F1C399005A4D92 /* ZipFile.swift */,
 				8DB222F527F1C3B8005A4D92 /* DfuViewModel.swift */,
 				8DB222F727F1C968005A4D92 /* DfuProgress.swift */,
-				8DB222FB27F1CDEB005A4D92 /* DfuUiState.swift */,
 				8DB222FD27F1CDFE005A4D92 /* DfuUiError.swift */,
 			);
 			path = viewmodel;
@@ -420,7 +417,6 @@
 				8D78D11627FC36A700FE0493 /* StatusItemView.swift in Sources */,
 				8DB222F427F1C399005A4D92 /* ZipFile.swift in Sources */,
 				8D78D12127FC585E00FE0493 /* AbortButtonStyle.swift in Sources */,
-				8DB222FC27F1CDEB005A4D92 /* DfuUiState.swift in Sources */,
 				8D78D12627FC60F300FE0493 /* DfuStrings.swift in Sources */,
 				8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */,
 				8DB222FE27F1CDFE005A4D92 /* DfuUiError.swift in Sources */,
