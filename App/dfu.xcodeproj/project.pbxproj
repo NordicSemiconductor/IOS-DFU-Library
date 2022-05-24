@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8D02F955281FD99B0030D67A /* DfuImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D02F954281FD99B0030D67A /* DfuImages.swift */; };
 		8D34201E283CE6AD00577B67 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34201D283CE6AD00577B67 /* FileManager.swift */; };
-		8D4DEA0927F444CB00C1AD43 /* CheckboxSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */; };
 		8D4DEA0B27F4688500C1AD43 /* NumberOfPacketsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */; };
 		8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */; };
 		8D6228C227EDB87F00AE3E1B /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6228C127EDB87F00AE3E1B /* ScannerView.swift */; };
@@ -65,7 +64,6 @@
 		8D02F954281FD99B0030D67A /* DfuImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuImages.swift; sourceTree = "<group>"; };
 		8D086C1D283259B600E63785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D34201D283CE6AD00577B67 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
-		8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxSectionView.swift; sourceTree = "<group>"; };
 		8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPacketsDialog.swift; sourceTree = "<group>"; };
 		8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertDialog.swift; sourceTree = "<group>"; };
 		8D6228C127EDB87F00AE3E1B /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 		8D9B54A527F59D0F009A5461 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */,
 				8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */,
 				8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */,
 				8D9B54A627F5C4EC009A5461 /* ProgressItemView.swift */,
@@ -432,7 +429,6 @@
 				8D78D12627FC60F300FE0493 /* DfuStrings.swift in Sources */,
 				8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */,
 				8DB222FE27F1CDFE005A4D92 /* DfuUiError.swift in Sources */,
-				8D4DEA0927F444CB00C1AD43 /* CheckboxSectionView.swift in Sources */,
 				8DF025AB27F33C710078CA17 /* SettingsView.swift in Sources */,
 				8D78D11427FC365400FE0493 /* ResultItemView.swift in Sources */,
 				8D81E08227EC9B8B00CE843C /* BluetoothManager.swift in Sources */,

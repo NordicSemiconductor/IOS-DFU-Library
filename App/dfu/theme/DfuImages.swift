@@ -16,6 +16,7 @@ enum DfuImages : String {
     case upload = "upload"
     
     case dfu = "dfu"
+    case info = "info.circle"
     
     var imageName: String {
         self.rawValue

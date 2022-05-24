@@ -31,7 +31,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     var numberOfPackets: Int = 23
     
     @AppStorage("alternativeAdvertisingNameEnabled")
-    var alternativeAdvertisingNameEnabled: Bool = false
+    var alternativeAdvertisingNameEnabled: Bool = true
     
     @AppStorage("externalMcuDfu")
     var externalMcuDfu: Bool = false
