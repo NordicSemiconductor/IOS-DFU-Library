@@ -23,10 +23,11 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack {
+                //TODO: Form component (it can crash)
                 Group {
                     CheckboxSectionView(
-                        title: DfuStrings.settingsPacketReceiptTitle,
-                        description: DfuStrings.settingsPacketReceiptValue,
+                        title: DfuStrings.settingsPacketReceiptTitle.text,
+                        description: DfuStrings.settingsPacketReceiptValue.text,
                         isChecked: $viewModel.packetsReceiptNotification
                     )
                     
@@ -36,7 +37,7 @@ struct SettingsView: View {
                         
                         Button(action: { showingAlert = true }) {
                             VStack {
-                                Text(DfuStrings.numberOfPackets)
+                                Text(DfuStrings.numberOfPackets.text)
                                     .font(.headline)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
@@ -50,48 +51,48 @@ struct SettingsView: View {
                     }
                     
                     CheckboxSectionView(
-                        title: DfuStrings.alternativeAdvertisingNameTitle,
-                        description: DfuStrings.alternativeAdvertisingNameValue,
+                        title: DfuStrings.alternativeAdvertisingNameTitle.text,
+                        description: DfuStrings.alternativeAdvertisingNameValue.text,
                         isChecked: $viewModel.alternativeAdvertisingNameEnabled
                     )
                     
                     Spacer().frame(height: 16)
                 }
 
-                Text(DfuStrings.settingsSecureDfu)
+                Text(DfuStrings.settingsSecureDfu.text)
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 CheckboxSectionView(
-                    title: DfuStrings.settingsDisableResumeTitle,
-                    description: DfuStrings.settingsDisableResumeValue,
+                    title: DfuStrings.settingsDisableResumeTitle.text,
+                    description: DfuStrings.settingsDisableResumeValue.text,
                     isChecked: $viewModel.disableResume
                 )
                 
                 Spacer().frame(height: 16)
                 
                 Group {
-                    Text(DfuStrings.settingsLegacyDfu)
+                    Text(DfuStrings.settingsLegacyDfu.text)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     CheckboxSectionView(
-                        title: DfuStrings.settingsForceScanningTitle,
-                        description: DfuStrings.settingsForceScanningValue,
+                        title: DfuStrings.settingsForceScanningTitle.text,
+                        description: DfuStrings.settingsForceScanningValue.text,
                         isChecked: $viewModel.forceScanningInLegacyDfu
                     )
 
                     Spacer().frame(height: 16)
                     
                     CheckboxSectionView(
-                        title: DfuStrings.settingsExternalMcuTitle,
-                        description: DfuStrings.settingsExternalMcuValue,
+                        title: DfuStrings.settingsExternalMcuTitle.text,
+                        description: DfuStrings.settingsExternalMcuValue.text,
                         isChecked: $viewModel.externalMcuDfu
                     )
                 }
                 
                 Group {
-                    Text(DfuStrings.settingsOther)
+                    Text(DfuStrings.settingsOther.text)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -99,10 +100,10 @@ struct SettingsView: View {
                     
                     Link(destination: URL(string: INFOCENTER_LINK)!) {
                         VStack {
-                            Text(DfuStrings.settingsAboutTitle)
+                            Text(DfuStrings.settingsAboutTitle.text)
                                 .font(.headline)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(DfuStrings.settingsAboutValue)
+                            Text(DfuStrings.settingsAboutValue.text)
                                 .font(.footnote)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
@@ -112,7 +113,7 @@ struct SettingsView: View {
          
                     NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) { }
                     Button(action: { showWelcomeScreen = true }) {
-                        Text(DfuStrings.settingsWelcome)
+                        Text(DfuStrings.settingsWelcome.text)
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -120,13 +121,13 @@ struct SettingsView: View {
                 }
             }
             .padding()
-            .navigationTitle(DfuStrings.settingsTitle)
+            .navigationTitle(DfuStrings.settings.text)
 
         }.alert(
             isPresented: $showingAlert,
             TextAlert(
-                title: DfuStrings.numberOfPackets,
-                message: DfuStrings.settingsProvideNumberOfPackets,
+                title: DfuStrings.numberOfPackets.text,
+                message: DfuStrings.settingsProvideNumberOfPackets.text,
                 keyboardType: .numberPad
             ) { result in
                 if let result = result {

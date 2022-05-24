@@ -32,9 +32,9 @@ struct ResultItemView: View {
     func getResultString() -> String {
         switch (status) {
         case .idle, .success:
-            return DfuStrings.resultCompleted
+            return DfuStrings.resultCompleted.text
         case .error(let error):
-            return String(format: DfuStrings.resultError, error.message)
+            return String(format: DfuStrings.resultError.text, error.message)
         }
     }
 }
@@ -44,22 +44,22 @@ private extension DfuResultStatus {
     func getImage() -> String {
         switch (self) {
         case .idle:
-            return DfuImages.idle
+            return DfuImages.idle.imageName
         case .success:
-            return DfuImages.success
+            return DfuImages.success.imageName
         case .error:
-            return DfuImages.error
+            return DfuImages.error.imageName
         }
     }
 
     func getColor() -> Color {
         switch (self) {
         case .idle:
-            return ThemeColor.nordicDarkGray5
+            return ThemeColor.nordicDarkGray5.color
         case .success:
-            return ThemeColor.nordicGreen
+            return ThemeColor.nordicGreen.color
         case .error:
-            return ThemeColor.error
+            return ThemeColor.error.color
         }
     }
 }

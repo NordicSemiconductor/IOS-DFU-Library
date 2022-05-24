@@ -12,15 +12,11 @@ struct SectionImage: View {
     @Environment(\.isEnabled) var isEnabled
     
     var body: some View {
-        var backgroundColor: Color
-        if (isEnabled) {
-            backgroundColor = ThemeColor.nordicLake
-        } else {
-            backgroundColor = ThemeColor.buttonDisabledBackground
-        }
-        return Image(image)
+        Image(image)
             .renderingMode(.template)
             .foregroundColor(.white)
-            .background(Circle().fill(backgroundColor).frame(width: 40,height: 40))
+            .background(Circle()
+                .fill(isEnabled ? ThemeColor.nordicLake.color : ThemeColor.buttonDisabledBackground.color)
+                .frame(width: 40,height: 40))
     }
 }

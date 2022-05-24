@@ -5,15 +5,19 @@
 //  Created by Nordic on 02/05/2022.
 //
 
-struct DfuImages {
-    static let idle = "filled-circle"
-    static let success = "success"
-    static let progress = "progress"
-    static let error = "error"
+enum DfuImages : String {
+    case idle = "filled-circle"
+    case success = "success"
+    case progress = "progress"
+    case error = "error"
     
-    static let fileUpload = "file-upload-outline"
-    static let bluetooth = "bluetooth"
-    static let upload = "upload"
+    case fileUpload = "file-upload-outline"
+    case bluetooth = "bluetooth"
+    case upload = "upload"
     
-    static let dfu = "dfu"
+    case dfu = "dfu"
+    
+    var imageName: String {
+        self.rawValue
+    }
 }

@@ -12,17 +12,18 @@ struct ContentView: View {
     
     let bleManager: BluetoothManager = BluetoothManager()
     
-    @StateObject
-    var viewModel = DfuViewModel()
+    //can be put as Environment
+    @StateObject var viewModel = DfuViewModel()
     
-    @State
-    private var showWelcomeScreen: Bool?
+    @State private var showWelcomeScreen: Bool?
     
     var body: some View {
         ScrollView {
             Section {
                 VStack {
-                    NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) { }
+                    NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) {
+                        EmptyView()
+                    }.hidden()
                     
                     FileSectionView(viewModel: viewModel)
                     
@@ -31,10 +32,10 @@ struct ContentView: View {
                     ProgressSectionView(viewModel: viewModel)
                 }.padding()
             }
-            .navigationTitle(DfuStrings.dfuTitle)
+            .navigationTitle(DfuStrings.dfuTitle.text)
             .navigationBarItems(trailing:
                 NavigationLink(destination: SettingsView(viewModel: viewModel)) {
-                    Text(DfuStrings.settings)
+                    Text(DfuStrings.settings.text)
                 }
             )
             Spacer()

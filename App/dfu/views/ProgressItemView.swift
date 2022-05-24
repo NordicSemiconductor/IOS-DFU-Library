@@ -34,7 +34,7 @@ struct ProgressItemView: View {
                     Spacer().frame(width: 50)
                     VStack {
                         ProgressView(value: p.percantageProgress())
-                        let formatted = String(format: DfuStrings.firmwareUploadSpeed, p.avgSpeed())
+                        let formatted = String(format: DfuStrings.firmwareUploadSpeed.rawValue, p.avgSpeed())
                         Text(formatted)
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }.padding(.horizontal)
@@ -46,14 +46,14 @@ struct ProgressItemView: View {
     func getInstallationString() -> String {
         switch (status) {
         case .idle, .error:
-            return DfuStrings.firmwareUpload
+            return DfuStrings.firmwareUpload.text
         case .success:
-            return DfuStrings.firmwareUploaded
+            return DfuStrings.firmwareUploaded.rawValue
         case .progress(let p):
             if (p.totalParts == 1) {
-                return DfuStrings.firmwareUploading
+                return DfuStrings.firmwareUploading.rawValue
             } else {
-                return String(format: DfuStrings.firmwareUploadPart, p.part, p.totalParts)
+                return String(format: DfuStrings.firmwareUploadPart.rawValue, p.part, p.totalParts)
             }
         }
     }
@@ -61,29 +61,30 @@ struct ProgressItemView: View {
 
 private extension DfuInstallationStatus {
     
+    //TODO: change to property
     func getImage() -> String {
         switch (self) {
         case .idle:
-            return DfuImages.idle
+            return DfuImages.idle.rawValue
         case .success:
-            return DfuImages.success
+            return DfuImages.success.rawValue
         case .progress:
-            return DfuImages.progress
+            return DfuImages.progress.rawValue
         case .error:
-            return DfuImages.error
+            return DfuImages.error.rawValue
         }
     }
 
     func getColor() -> Color {
         switch (self) {
         case .idle:
-            return ThemeColor.nordicDarkGray5
+            return ThemeColor.nordicDarkGray5.color
         case .success:
-            return ThemeColor.nordicGreen
+            return ThemeColor.nordicGreen.color
         case .progress:
-            return ThemeColor.nordicDarkGray5
+            return ThemeColor.nordicDarkGray5.color
         case .error:
-            return ThemeColor.error
+            return ThemeColor.error.color
         }
     }
 }

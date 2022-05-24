@@ -8,14 +8,14 @@
 import Foundation
 import SwiftUI
 
-//Copied from: https://swiftuirecipes.com/blog/swiftui-alert-with-textfield
+//Ref: https://swiftuirecipes.com/blog/swiftui-alert-with-textfield
 
 public struct TextAlert {
   public var title: String // Title of the dialog
   public var message: String // Dialog message
-  public var placeholder: String = DfuStrings.empty // Placeholder text for the TextField
-  public var accept: String = DfuStrings.ok // The left-most button label
-  public var cancel: String? = DfuStrings.cancel // The optional cancel (right-most) button label
+    public var placeholder: String = DfuStrings.empty.text // Placeholder text for the TextField
+    public var accept: String = DfuStrings.ok.text // The left-most button label
+    public var cancel: String? = DfuStrings.cancel.text // The optional cancel (right-most) button label
   public var secondaryActionTitle: String? = nil // The optional center button label
   public var keyboardType: UIKeyboardType = .default // Keyboard tzpe of the TextField
   public var action: (String?) -> Void // Triggers when either of the two buttons closes the dialog

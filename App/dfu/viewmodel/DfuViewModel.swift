@@ -66,7 +66,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         )
         
          guard let _ = selectedFirmware else {
-            fileError = DfuStrings.fileError
+             fileError = DfuStrings.fileError.text
             zipFile = nil
             return
         }
@@ -85,7 +85,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         )
         
         guard let selectedFirmware = selectedFirmware else {
-            fileError = DfuStrings.fileError
+            fileError = DfuStrings.fileError.text
             return
         }
         
@@ -141,7 +141,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         } else if (state == DFUState.completed) {
             progressSection = progressSection.toSuccessState()
         } else if (state == DFUState.aborted) {
-            progressSection = progressSection.toErrorState(message: DfuUiError(error: nil, message: DfuStrings.aborted))
+            progressSection = progressSection.toErrorState(message: DfuUiError(error: nil, message: DfuStrings.aborted.text))
         }
     }
     

@@ -21,25 +21,25 @@ struct NumberOfPacketsDialog: View {
     var body: some View {
         HStack {
             VStack {
-                Text(DfuStrings.numberOfPackets)
+                Text(DfuStrings.numberOfPackets.text)
                     .font(.body)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                     .frame(height: 8)
-                Text(DfuStrings.numberRequest)
+                Text(DfuStrings.numberRequest.text)
                     .font(.footnote)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                TextField(DfuStrings.numberOfPackets, text: $input.value)
+                TextField(DfuStrings.numberOfPackets.text, text: $input.value)
                     .padding()
                     .keyboardType(.decimalPad)
                 
                 HStack {
                     Button(action: { isShowing = false }) {
-                        Text(DfuStrings.cancel)
+                        Text(DfuStrings.cancel.text)
                     }
                     Button(action: { isShowing = false }) {
-                        Text(DfuStrings.ok)
+                        Text(DfuStrings.ok.text)
                     }
                 }
             }

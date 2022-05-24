@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+//TODO: licenses
 @main
-struct dfuApp: App {
+struct DfuApp: App {
     
     var body: some Scene {
         WindowGroup {

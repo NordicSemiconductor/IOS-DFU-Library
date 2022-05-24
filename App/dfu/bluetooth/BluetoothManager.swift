@@ -32,7 +32,7 @@ class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
     }
     
     func filteredDevices() -> [BluetoothDevice] {
-        if (nearbyOnlyFilter) {
+        if nearbyOnlyFilter {
             return devices.filter { device in
                 let result: ComparisonResult = device.rssi.compare(MIN_RSSI)
                 return result == ComparisonResult.orderedDescending
@@ -105,6 +105,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         rssi RSSI: NSNumber
     ) {
         os_log("Device: \(peripheral.name ?? "NO_NAME"), Rssi: \(RSSI)")
+        //TODO: show devices with no name (+filter)
         if let pname = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
             let device = BluetoothDevice(peripheral: peripheral, rssi: RSSI, name: pname)
             let index = devices.map { $0.peripheral }.firstIndex(of: peripheral)

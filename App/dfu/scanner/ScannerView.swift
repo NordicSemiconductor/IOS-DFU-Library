@@ -34,11 +34,11 @@ struct ScannerView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .navigationTitle(DfuStrings.scanner)
-        .onAppear { bluetoothManager.startScan() }
+        .navigationTitle(DfuStrings.scanner.text)
+        .onAppear { bluetoothManager.startScan() } //call every time view is redrawn | we can test it with logger
         .onDisappear { bluetoothManager.stopScan() }
         .toolbar {
-            Toggle(DfuStrings.nearbyOnly, isOn: $bluetoothManager.nearbyOnlyFilter)
+            Toggle(DfuStrings.nearbyOnly.text, isOn: $bluetoothManager.nearbyOnlyFilter)
                 .toggleStyle(.switch)
                 .onChange(of: bluetoothManager.nearbyOnlyFilter) { value in
                     bluetoothManager.nearbyOnlyFilter = value

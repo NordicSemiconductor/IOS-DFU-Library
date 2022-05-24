@@ -23,11 +23,11 @@ private extension AbortButtonStyle {
     let configuration: AbortButtonStyle.Configuration
 
     var body: some View {
-      return configuration.label
+       configuration.label
             .frame(minWidth: 80)
             .foregroundColor(.white)
             .padding(10)
-            .background(RoundedRectangle(cornerRadius: 30).fill(ThemeColor.error))
+            .background(RoundedRectangle(cornerRadius: 30).fill(ThemeColor.error.color))
             .opacity(configuration.isPressed ? 0.8 : 1.0)
             .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
     }

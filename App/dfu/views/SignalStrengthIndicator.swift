@@ -26,11 +26,11 @@ struct SignalStrengthIndicator: View {
     private func getColor() -> Color {
         switch signalStrength {
         case .weak:
-            return ThemeColor.nordicRed
+            return ThemeColor.nordicRed.color
         case .normal:
-            return ThemeColor.nordicYellow
+            return ThemeColor.nordicYellow.color
         case .strong:
-            return ThemeColor.nordicGreen
+            return ThemeColor.nordicGreen.color
         }
     }
 }

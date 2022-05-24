@@ -17,22 +17,22 @@ struct WelcomeScreen: View {
     var body: some View {
         ScrollView {
             VStack {
-                Image(DfuImages.dfu)
+                Image(DfuImages.dfu.imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 
                 Spacer().frame(height: 24)
                 
-                Text(DfuStrings.welcomeText)
+                Text(DfuStrings.welcomeText.text)
                 
                 Spacer().frame(height: 24)
                 
-                DfuButton(title: DfuStrings.welcomeStart, action: {
+                DfuButton(title: DfuStrings.welcomeStart.text, action: {
                     self.presentationMode.wrappedValue.dismiss()
                 })
             }.padding()
         }
-        .navigationTitle(DfuStrings.welcomeTitle)
+        .navigationTitle(DfuStrings.welcomeTitle.text)
         .onAppear { viewModel.onWelcomeScreenShown() }
     }
 }

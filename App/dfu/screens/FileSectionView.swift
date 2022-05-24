@@ -16,13 +16,13 @@ struct FileSectionView: View {
     var body: some View {
         VStack {
             HStack {
-                SectionImage(image: DfuImages.fileUpload)
-                Text(DfuStrings.file)
+                SectionImage(image: DfuImages.fileUpload.rawValue)
+                Text(DfuStrings.file.rawValue)
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                DfuButton(title: DfuStrings.select, action: {
+                DfuButton(title: DfuStrings.select.rawValue, action: {
                     self.openFile.toggle()
                     viewModel.clearFileError()
                 })
@@ -39,17 +39,19 @@ struct FileSectionView: View {
                     .padding(.leading, 25)
                     .padding(.trailing, 25)
                 
+                //TODO: geometry reader (to get size of the space available)
+                
                 VStack {
                     if let file = viewModel.zipFile {
-                        Text(String(format: DfuStrings.fileName, file.name)).frame(maxWidth: .infinity, alignment: .leading)
-                        Text(String(format: DfuStrings.fileSize, file.size)).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(String(format: DfuStrings.fileName.rawValue, file.name)).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(String(format: DfuStrings.fileSize.rawValue, file.size)).frame(maxWidth: .infinity, alignment: .leading)
                     } else {
-                        Text(DfuStrings.fileSelect).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(DfuStrings.fileSelect.rawValue).frame(maxWidth: .infinity, alignment: .leading)
                     }
                     if viewModel.fileError != nil {
                         Spacer()
                         Text(viewModel.fileError!)
-                            .foregroundColor(ThemeColor.nordicRed)
+                            .foregroundColor(ThemeColor.nordicRed.color)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }.padding(.vertical, 8)
@@ -73,6 +75,8 @@ struct FileSectionView: View {
             let resources = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
             let fileSize = resources.fileSize!
             let fileName = resources.name!
+            
+            //TODO: copy file to tmp
             
             let zipFile = ZipFile(name: fileName, size: fileSize, url: fileUrl)
             try viewModel.onFileSelected(selected: zipFile)

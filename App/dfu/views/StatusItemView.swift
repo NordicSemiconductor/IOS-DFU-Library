@@ -37,26 +37,26 @@ private extension DfuUiStateStatus {
     func getImage() -> String {
         switch (self) {
         case .idle:
-            return DfuImages.idle
+            return DfuImages.idle.imageName
         case .success:
-            return DfuImages.success
+            return DfuImages.success.imageName
         case .progress:
-            return DfuImages.progress
+            return DfuImages.progress.imageName
         case .error:
-            return DfuImages.error
+            return DfuImages.error.imageName
         }
     }
 
     func getColor() -> Color {
         switch (self) {
         case .idle:
-            return ThemeColor.nordicDarkGray5
+            return ThemeColor.nordicDarkGray5.color
         case .success:
-            return ThemeColor.nordicGreen
+            return ThemeColor.nordicGreen.color
         case .progress:
-            return ThemeColor.nordicDarkGray5
+            return ThemeColor.nordicDarkGray5.color
         case .error:
-            return ThemeColor.error
+            return ThemeColor.error.color
         }
     }
 }

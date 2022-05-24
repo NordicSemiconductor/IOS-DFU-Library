@@ -38,8 +38,8 @@ struct CheckboxSectionView: View {
 struct CheckboxSectionView_Previews: PreviewProvider {
     static var previews: some View {
         CheckboxSectionView(
-            title: DfuStrings.testTitle,
-            description: DfuStrings.testLoremIpsumLong,
+            title: DfuStrings.testTitle.text,
+            description: DfuStrings.testLoremIpsumLong.text,
             isChecked: .constant(true)
         )
     }

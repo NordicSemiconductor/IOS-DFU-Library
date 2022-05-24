@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D02F955281FD99B0030D67A /* DfuImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D02F954281FD99B0030D67A /* DfuImages.swift */; };
+		8D34201E283CE6AD00577B67 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34201D283CE6AD00577B67 /* FileManager.swift */; };
 		8D4DEA0927F444CB00C1AD43 /* CheckboxSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */; };
 		8D4DEA0B27F4688500C1AD43 /* NumberOfPacketsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */; };
 		8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */; };
@@ -29,7 +30,7 @@
 		8DB222F827F1C968005A4D92 /* DfuProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F727F1C968005A4D92 /* DfuProgress.swift */; };
 		8DB222FE27F1CDFE005A4D92 /* DfuUiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222FD27F1CDFE005A4D92 /* DfuUiError.swift */; };
 		8DEAF9C52835272C00503E4C /* SignalStrengthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAF9C42835272C00503E4C /* SignalStrengthIndicator.swift */; };
-		8DEF02E727EB48A400838144 /* dfuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02E627EB48A400838144 /* dfuApp.swift */; };
+		8DEF02E727EB48A400838144 /* DfuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02E627EB48A400838144 /* DfuApp.swift */; };
 		8DEF02E927EB48A400838144 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02E827EB48A400838144 /* ContentView.swift */; };
 		8DEF02EB27EB48A400838144 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF02EA27EB48A400838144 /* Assets.xcassets */; };
 		8DEF02EE27EB48A400838144 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF02ED27EB48A400838144 /* Preview Assets.xcassets */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		8D02F954281FD99B0030D67A /* DfuImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuImages.swift; sourceTree = "<group>"; };
 		8D086C1D283259B600E63785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D34201D283CE6AD00577B67 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		8D4DEA0827F444CB00C1AD43 /* CheckboxSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxSectionView.swift; sourceTree = "<group>"; };
 		8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPacketsDialog.swift; sourceTree = "<group>"; };
 		8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertDialog.swift; sourceTree = "<group>"; };
@@ -87,7 +89,7 @@
 		8DDC435D282E88C100D83596 /* dfu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dfu.entitlements; sourceTree = "<group>"; };
 		8DEAF9C42835272C00503E4C /* SignalStrengthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthIndicator.swift; sourceTree = "<group>"; };
 		8DEF02E327EB48A400838144 /* DFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DEF02E627EB48A400838144 /* dfuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuApp.swift; sourceTree = "<group>"; };
+		8DEF02E627EB48A400838144 /* DfuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuApp.swift; sourceTree = "<group>"; };
 		8DEF02E827EB48A400838144 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DEF02EA27EB48A400838144 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DEF02ED27EB48A400838144 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D34201C283CE69F00577B67 /* file */ = {
+			isa = PBXGroup;
+			children = (
+				8D34201D283CE6AD00577B67 /* FileManager.swift */,
+			);
+			path = file;
+			sourceTree = "<group>";
+		};
 		8D6228C027EDB81A00AE3E1B /* scanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,11 +236,12 @@
 		8DEF02E527EB48A400838144 /* dfu */ = {
 			isa = PBXGroup;
 			children = (
+				8D34201C283CE69F00577B67 /* file */,
 				8DDC435D282E88C100D83596 /* dfu.entitlements */,
 				8D8AE47A283268BC003900E5 /* dfuDebug.entitlements */,
 				8D086C1D283259B600E63785 /* Info.plist */,
 				8DEF02E827EB48A400838144 /* ContentView.swift */,
-				8DEF02E627EB48A400838144 /* dfuApp.swift */,
+				8DEF02E627EB48A400838144 /* DfuApp.swift */,
 				8DEF02EA27EB48A400838144 /* Assets.xcassets */,
 				8D81E08027EC9B4E00CE843C /* bluetooth */,
 				8DEF02EC27EB48A400838144 /* Preview Content */,
@@ -416,6 +427,7 @@
 				8D78D11F27FC52A600FE0493 /* ImageStyle.swift in Sources */,
 				8D78D11627FC36A700FE0493 /* StatusItemView.swift in Sources */,
 				8DB222F427F1C399005A4D92 /* ZipFile.swift in Sources */,
+				8D34201E283CE6AD00577B67 /* FileManager.swift in Sources */,
 				8D78D12127FC585E00FE0493 /* AbortButtonStyle.swift in Sources */,
 				8D78D12627FC60F300FE0493 /* DfuStrings.swift in Sources */,
 				8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */,
@@ -432,7 +444,7 @@
 				8D6228C227EDB87F00AE3E1B /* ScannerView.swift in Sources */,
 				8D6228C427EDECA400AE3E1B /* BluetoothDevice.swift in Sources */,
 				8D9B54A727F5C4EC009A5461 /* ProgressItemView.swift in Sources */,
-				8DEF02E727EB48A400838144 /* dfuApp.swift in Sources */,
+				8DEF02E727EB48A400838144 /* DfuApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,17 +15,17 @@ struct ProgressSectionView: View {
     var body: some View {
         VStack {
             HStack {
-                SectionImage(image: DfuImages.upload)
-                Text(DfuStrings.progress)
+                SectionImage(image: DfuImages.upload.rawValue)
+                Text(DfuStrings.progress.text)
                     .padding()
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if (viewModel.progressSection.isRunning()) {
-                    AbortButton(title: DfuStrings.abort, action: {
+                    AbortButton(title: DfuStrings.abort.rawValue, action: {
                         viewModel.abort()
                     })
                 } else {
-                    DfuButton(title: DfuStrings.upload, action: {
+                    DfuButton(title: DfuStrings.upload.rawValue, action: {
                         viewModel.install()
                     })
                 }
@@ -52,22 +52,22 @@ private extension DfuUiStateStatus {
     func getBootloaderString() -> String {
         switch (self) {
         case .idle, .error:
-            return DfuStrings.bootloaderIdle
+            return DfuStrings.bootloaderIdle.rawValue
         case .success:
-            return DfuStrings.bootloaderFinished
+            return DfuStrings.bootloaderFinished.rawValue
         case .progress:
-            return DfuStrings.bootloaderInProgress
+            return DfuStrings.bootloaderInProgress.rawValue
         }
     }
     
     func getDfuString() -> String {
         switch (self) {
         case .idle, .error:
-            return DfuStrings.dfuIdle
+            return DfuStrings.dfuIdle.rawValue
         case .success:
-            return DfuStrings.dfuFinished
+            return DfuStrings.dfuFinished.rawValue
         case .progress:
-            return DfuStrings.dfuInProgress
+            return DfuStrings.dfuInProgress.rawValue
         }
     }
 }

@@ -7,16 +7,22 @@
 
 import SwiftUI
 
-struct ThemeColor {
-    static let error = Color("NordicRed")
-    static let nordicLake = Color("NordicLake")
-    static let nordicBlue = Color("NordicBlue")
-    static let nordicGreen = Color("NordicGreen")
-    static let nordicDarkGray5 = Color("NordicDarkGrey5")
-    static let buttonDisabledBackground = Color.gray
-    static let buttonEnabledBackground = nordicBlue
-    static let nordicRed = Color("NordicRed")
-    static let nordicYellow = Color("NordicYellow")
+//TODO: migrate to enum
+enum ThemeColor : String {
+    case nordicLake = "NordicLake"
+    case nordicBlue = "NordicBlue"
+    case nordicGreen = "NordicGreen"
+    case nordicDarkGray5 = "NordicDarkGrey5"
+    case buttonDisabledBackground = "NordicLightGray"
+    case nordicRed = "NordicRed"
+    case nordicYellow = "NordicYellow"
+    
+    static let buttonEnabledBackground = ThemeColor.nordicBlue
+    static let error = ThemeColor.nordicRed
+    
+    var color: Color {
+        Color(rawValue)
+    }
 }
 
 extension View {
@@ -29,5 +35,3 @@ extension View {
         }
     }
 }
-
-
