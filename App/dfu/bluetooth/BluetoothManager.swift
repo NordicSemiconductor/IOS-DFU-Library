@@ -109,7 +109,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
         rssi RSSI: NSNumber
     ) {
         os_log("Device: \(peripheral.name ?? "NO_NAME"), Rssi: \(RSSI)")
-        //TODO: show devices with no name (+filter)
         
         let pname = advertisementData[CBAdvertisementDataLocalNameKey] as? String
         let device = BluetoothDevice(peripheral: peripheral, rssi: RSSI, name: pname)

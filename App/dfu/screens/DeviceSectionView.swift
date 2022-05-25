@@ -35,7 +35,7 @@ struct DeviceSectionView: View {
                     .padding(.trailing, 25)
                 
                 if let device = viewModel.device {
-                    Text(String(format: DfuStrings.deviceName.text, device.name ?? DfuStrings.withName.text))
+                    Text(String(format: DfuStrings.deviceName.text, device.name ?? DfuStrings.noName.text))
                         .padding(.vertical, 8)
                 } else {
                     Text(DfuStrings.deviceSelect.text)

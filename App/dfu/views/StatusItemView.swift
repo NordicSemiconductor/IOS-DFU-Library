@@ -21,9 +21,9 @@ struct StatusItemView: View {
     
     var body: some View {
         HStack {
-            Image(status.getImage())
+            Image(status.image)
                 .renderingMode(.template)
-                .foregroundColor(status.getColor())
+                .foregroundColor(status.color)
                 .frame(width: 24, height: 24)
                 .padding(.horizontal)
             Text(text)
@@ -34,7 +34,7 @@ struct StatusItemView: View {
 
 private extension DfuUiStateStatus {
     
-    func getImage() -> String {
+    var image: String {
         switch (self) {
         case .idle:
             return DfuImages.idle.imageName
@@ -47,7 +47,7 @@ private extension DfuUiStateStatus {
         }
     }
 
-    func getColor() -> Color {
+    var color: Color {
         switch (self) {
         case .idle:
             return ThemeColor.nordicDarkGray5.color

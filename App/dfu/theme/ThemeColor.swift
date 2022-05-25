@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-//TODO: migrate to enum
 enum ThemeColor : String {
     case nordicLake = "NordicLake"
     case nordicBlue = "NordicBlue"

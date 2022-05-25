@@ -21,9 +21,9 @@ struct ProgressItemView: View {
     var body: some View {
         VStack {
             HStack {
-                Image(status.getImage())
+                Image(status.image)
                     .renderingMode(.template)
-                    .foregroundColor(status.getColor())
+                    .foregroundColor(status.color)
                     .frame(width: 24, height: 24)
                     .padding(.horizontal)
                 Text(getInstallationString())
@@ -61,8 +61,7 @@ struct ProgressItemView: View {
 
 private extension DfuInstallationStatus {
     
-    //TODO: change to property
-    func getImage() -> String {
+    var image: String {
         switch (self) {
         case .idle:
             return DfuImages.idle.rawValue
@@ -75,7 +74,7 @@ private extension DfuInstallationStatus {
         }
     }
 
-    func getColor() -> Color {
+    var color: Color {
         switch (self) {
         case .idle:
             return ThemeColor.nordicDarkGray5.color

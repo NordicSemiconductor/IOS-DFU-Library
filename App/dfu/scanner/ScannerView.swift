@@ -46,7 +46,7 @@ struct ScannerView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
-                            Text(device.name ?? DfuStrings.withName.text)
+                            Text(device.name ?? DfuStrings.noName.text)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             SignalStrengthIndicator(signalStrength: device.getSignalStrength())
                         }
