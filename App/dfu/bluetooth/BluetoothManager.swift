@@ -14,11 +14,11 @@ class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
     
     private let MIN_RSSI = NSNumber(-65)
     
-    @Published
-    var devices: [BluetoothDevice] = []
+    @Published var devices: [BluetoothDevice] = []
     
-    @Published
-    var nearbyOnlyFilter = false
+    @Published var nearbyOnlyFilter = false
+    
+    @Published var withNameOnlyFilter = false
     
     private var centralManager: CBCentralManager!
     
@@ -32,13 +32,17 @@ class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
     }
     
     func filteredDevices() -> [BluetoothDevice] {
-        if nearbyOnlyFilter {
-            return devices.filter { device in
-                let result: ComparisonResult = device.rssi.compare(MIN_RSSI)
-                return result == ComparisonResult.orderedDescending
+        return devices.filter { device in
+            if !nearbyOnlyFilter {
+                return true
             }
-        } else {
-            return devices
+            let result: ComparisonResult = device.rssi.compare(MIN_RSSI)
+            return result == ComparisonResult.orderedDescending
+        }.filter { device in
+            if !withNameOnlyFilter {
+                return true
+            }
+            return device.name != nil
         }
     }
     
@@ -106,14 +110,14 @@ extension BluetoothManager: CBCentralManagerDelegate {
     ) {
         os_log("Device: \(peripheral.name ?? "NO_NAME"), Rssi: \(RSSI)")
         //TODO: show devices with no name (+filter)
-        if let pname = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
-            let device = BluetoothDevice(peripheral: peripheral, rssi: RSSI, name: pname)
-            let index = devices.map { $0.peripheral }.firstIndex(of: peripheral)
-            if let index = index {
-                devices[index] = device
-            } else {
-                devices.append(device)
-            }
+        
+        let pname = advertisementData[CBAdvertisementDataLocalNameKey] as? String
+        let device = BluetoothDevice(peripheral: peripheral, rssi: RSSI, name: pname)
+        let index = devices.map { $0.peripheral }.firstIndex(of: peripheral)
+        if let index = index {
+            devices[index] = device
+        } else {
+            devices.append(device)
         }
     }
 }

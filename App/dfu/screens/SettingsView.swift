@@ -106,20 +106,21 @@ struct SettingsView: View {
             }
             
             Section(header: Text(DfuStrings.settingsOther.text)) {
-                Link(destination: URL(string: INFOCENTER_LINK)!) {
-                    HStack {
-                        Text(DfuStrings.settingsAboutTitle.text)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-
-                        Image(systemName: DfuImages.info.imageName)
-                            .foregroundColor(ThemeColor.nordicBlue.color)
-                            .onTapGesture {
-                                description = DfuStrings.settingsAboutValue.text
-                                showingAlert = true
-                            }
-                    }
-                }
+                Link(DfuStrings.settingsAboutTitle.text, destination: URL(string: INFOCENTER_LINK)!)
+//                {
+//                    HStack {
+//                        Text(DfuStrings.settingsAboutTitle.text)
+//                            .font(.headline)
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//
+//                        Image(systemName: DfuImages.info.imageName)
+//                            .foregroundColor(ThemeColor.nordicBlue.color)
+//                            .onTapGesture {
+//                                description = DfuStrings.settingsAboutValue.text
+//                                showingAlert = true
+//                            }
+//                    }
+//                }
                 
                 NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) {
                     Text(DfuStrings.settingsWelcome.text)

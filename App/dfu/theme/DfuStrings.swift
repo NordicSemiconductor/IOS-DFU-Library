@@ -22,13 +22,16 @@ enum DfuStrings : String {
     case select = "Select"
     case file = "File"
     case device = "Device"
+    case devices = "Devices"
+    case filters = "Filters"
     case progress = "Progress"
     case abort = "Abort"
     case aborted = "Aborted"
     case upload = "Upload"
     case settings = "Settings"
     case scanner = "Scanner"
-    case nearbyOnly = "Nearby only"
+    case nearbyOnly = "Nearby"
+    case withName = "With name"
     
     case firmwareUpload = "Firmware upload"
     case firmwareUploaded = "Firmware uploaded"
@@ -76,6 +79,7 @@ enum DfuStrings : String {
     case rssi = "RSSI: %@"
     
     case fileError = "Selected file is invalid."
+    case noName = "No name"
     
     var text: String {
         rawValue

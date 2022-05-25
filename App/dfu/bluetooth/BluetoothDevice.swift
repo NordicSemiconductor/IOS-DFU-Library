@@ -18,7 +18,7 @@ struct BluetoothDevice : Identifiable {
     
     let rssi: NSNumber
     
-    let name: String
+    let name: String?
     
     func getSignalStrength() -> SignalStrength {
         if (rssi.compare(NSNumber(-65)) == ComparisonResult.orderedDescending) {
