@@ -66,7 +66,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         )
         
          guard let _ = selectedFirmware else {
-             fileError = DfuStrings.fileError.text
+            fileError = DfuStrings.fileError.text
             zipFile = nil
             return
         }
@@ -77,8 +77,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         print(zipFile ?? "null")
         print(device ?? "null")
         os_log("%@", zipFile.debugDescription)
-        guard zipFile!.url.startAccessingSecurityScopedResource() else { return }
-        
+
         let selectedFirmware = DFUFirmware(
             urlToZipFile: zipFile!.url,
             type: DFUFirmwareType.softdeviceBootloaderApplication
@@ -107,11 +106,9 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         initiator.forceDfu = externalMcuDfu
         initiator.disableResume = disableResume
         initiator.alternativeAdvertisingNameEnabled = alternativeAdvertisingNameEnabled
-
+        
         controller = initiator.start(target: device!.peripheral)
         progressSection = progressSection.toBootloaderState()
-        
-        zipFile!.url.stopAccessingSecurityScopedResource()
     }
     
     func onFileError(message value: String) {

@@ -78,6 +78,7 @@ enum DfuStrings : String {
     
     case rssi = "RSSI: %@"
     
+    case fileOpenError = "Can't open the file."
     case fileError = "Selected file is invalid."
     case noName = "No name"
     

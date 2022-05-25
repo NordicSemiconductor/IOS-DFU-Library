@@ -72,16 +72,21 @@ struct FileSectionView: View {
             print(fileUrl)
             
             guard fileUrl.startAccessingSecurityScopedResource() else { return }
-            let resources = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
-            let fileSize = resources.fileSize!
-            let fileName = resources.name!
+            defer { fileUrl.stopAccessingSecurityScopedResource() }
             
-            //TODO: copy file to tmp
-            
-            let zipFile = ZipFile(name: fileName, size: fileSize, url: fileUrl)
-            try viewModel.onFileSelected(selected: zipFile)
-            
-            fileUrl.stopAccessingSecurityScopedResource()
+            let fileHelper = FileHelper()
+            let fileRes = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
+            let fileName = fileRes.name!
+            if let tmpFile = fileHelper.copyFileToTmpDirectory(fileName: fileName, readFromDisk: fileUrl) {
+                let resources = try tmpFile.resourceValues(forKeys:[.fileSizeKey, .nameKey])
+                let fileSize = resources.fileSize!
+                let fileName = resources.name!
+                
+                let zipFile = ZipFile(name: fileName, size: fileSize, url: tmpFile)
+                try viewModel.onFileSelected(selected: zipFile)
+            } else {
+                viewModel.onFileError(message: DfuStrings.fileOpenError.text)
+            }
         } catch {
             viewModel.onFileError(message: error.localizedDescription)
         }
