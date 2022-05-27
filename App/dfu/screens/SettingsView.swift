@@ -133,7 +133,7 @@ struct SettingsView: View {
                 
                 NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) {
                     Text(DfuStrings.settingsWelcome.text)
-                }
+                }.accessibilityIdentifier(DfuIds.welcomeButton.rawValue)
             }
         }
         .navigationTitle(DfuStrings.settings.text)

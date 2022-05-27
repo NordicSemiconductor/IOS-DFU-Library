@@ -11,6 +11,8 @@
 		8D34201E283CE6AD00577B67 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D34201D283CE6AD00577B67 /* FileHelper.swift */; };
 		8D4DEA0B27F4688500C1AD43 /* NumberOfPacketsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */; };
 		8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */; };
+		8D5451DC2840FE0C001597C7 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5451DB2840FE0C001597C7 /* SnapshotHelper.swift */; };
+		8D5451DE2840FE0F001597C7 /* Dfu_screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5451DD2840FE0F001597C7 /* Dfu_screenshots.swift */; };
 		8D6228C227EDB87F00AE3E1B /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6228C127EDB87F00AE3E1B /* ScannerView.swift */; };
 		8D6228C427EDECA400AE3E1B /* BluetoothDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6228C327EDECA400AE3E1B /* BluetoothDevice.swift */; };
 		8D78D11427FC365400FE0493 /* ResultItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D78D11327FC365400FE0493 /* ResultItemView.swift */; };
@@ -24,6 +26,8 @@
 		8D78D12627FC60F300FE0493 /* DfuStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D78D12527FC60F300FE0493 /* DfuStrings.swift */; };
 		8D81E08227EC9B8B00CE843C /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D81E08127EC9B8B00CE843C /* BluetoothManager.swift */; };
 		8D9B54A727F5C4EC009A5461 /* ProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B54A627F5C4EC009A5461 /* ProgressItemView.swift */; };
+		8DA4AE1A2841097C00BFA79E /* DfuIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA4AE192841097C00BFA79E /* DfuIds.swift */; };
+		8DA4AE1B28410A5A00BFA79E /* DfuIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA4AE192841097C00BFA79E /* DfuIds.swift */; };
 		8DB222F427F1C399005A4D92 /* ZipFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F327F1C399005A4D92 /* ZipFile.swift */; };
 		8DB222F627F1C3B8005A4D92 /* DfuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F527F1C3B8005A4D92 /* DfuViewModel.swift */; };
 		8DB222F827F1C968005A4D92 /* DfuProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB222F727F1C968005A4D92 /* DfuProgress.swift */; };
@@ -33,7 +37,6 @@
 		8DEF02E927EB48A400838144 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02E827EB48A400838144 /* ContentView.swift */; };
 		8DEF02EB27EB48A400838144 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF02EA27EB48A400838144 /* Assets.xcassets */; };
 		8DEF02EE27EB48A400838144 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF02ED27EB48A400838144 /* Preview Assets.xcassets */; };
-		8DEF02F827EB48A400838144 /* dfuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF02F727EB48A400838144 /* dfuTests.swift */; };
 		8DEF030227EB48A400838144 /* dfuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF030127EB48A400838144 /* dfuUITests.swift */; };
 		8DEF030427EB48A400838144 /* dfuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF030327EB48A400838144 /* dfuUITestsLaunchTests.swift */; };
 		8DEF031227EB494000838144 /* NordicDFU in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEF031127EB494000838144 /* NordicDFU */; };
@@ -44,13 +47,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8DEF02F427EB48A400838144 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8DEF02DB27EB48A300838144 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DEF02E227EB48A400838144;
-			remoteInfo = dfu;
-		};
 		8DEF02FE27EB48A400838144 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8DEF02DB27EB48A300838144 /* Project object */;
@@ -67,6 +63,8 @@
 		8D34201D283CE6AD00577B67 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPacketsDialog.swift; sourceTree = "<group>"; };
 		8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertDialog.swift; sourceTree = "<group>"; };
+		8D5451DB2840FE0C001597C7 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		8D5451DD2840FE0F001597C7 /* Dfu_screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dfu_screenshots.swift; sourceTree = "<group>"; };
 		8D6228C127EDB87F00AE3E1B /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		8D6228C327EDECA400AE3E1B /* BluetoothDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDevice.swift; sourceTree = "<group>"; };
 		8D78D11327FC365400FE0493 /* ResultItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultItemView.swift; sourceTree = "<group>"; };
@@ -81,6 +79,7 @@
 		8D81E08127EC9B8B00CE843C /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		8D8AE47A283268BC003900E5 /* dfuDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dfuDebug.entitlements; sourceTree = "<group>"; };
 		8D9B54A627F5C4EC009A5461 /* ProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressItemView.swift; sourceTree = "<group>"; };
+		8DA4AE192841097C00BFA79E /* DfuIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuIds.swift; sourceTree = "<group>"; };
 		8DB222F327F1C399005A4D92 /* ZipFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipFile.swift; sourceTree = "<group>"; };
 		8DB222F527F1C3B8005A4D92 /* DfuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuViewModel.swift; sourceTree = "<group>"; };
 		8DB222F727F1C968005A4D92 /* DfuProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuProgress.swift; sourceTree = "<group>"; };
@@ -92,8 +91,6 @@
 		8DEF02E827EB48A400838144 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DEF02EA27EB48A400838144 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DEF02ED27EB48A400838144 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8DEF02F327EB48A400838144 /* dfuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dfuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DEF02F727EB48A400838144 /* dfuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuTests.swift; sourceTree = "<group>"; };
 		8DEF02FD27EB48A400838144 /* dfuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dfuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF030127EB48A400838144 /* dfuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuUITests.swift; sourceTree = "<group>"; };
 		8DEF030327EB48A400838144 /* dfuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -109,13 +106,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DEF031227EB494000838144 /* NordicDFU in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8DEF02F027EB48A400838144 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +144,7 @@
 				8D78D12027FC585E00FE0493 /* AbortButtonStyle.swift */,
 				8D78D12527FC60F300FE0493 /* DfuStrings.swift */,
 				8D02F954281FD99B0030D67A /* DfuImages.swift */,
+				8DA4AE192841097C00BFA79E /* DfuIds.swift */,
 			);
 			path = theme;
 			sourceTree = "<group>";
@@ -216,7 +207,6 @@
 			children = (
 				8D0FA0B72840E15800DCA098 /* fastlane */,
 				8DEF02E527EB48A400838144 /* dfu */,
-				8DEF02F627EB48A400838144 /* dfuTests */,
 				8DEF030027EB48A400838144 /* dfuUITests */,
 				8DEF02E427EB48A400838144 /* Products */,
 			);
@@ -226,7 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				8DEF02E327EB48A400838144 /* DFU.app */,
-				8DEF02F327EB48A400838144 /* dfuTests.xctest */,
 				8DEF02FD27EB48A400838144 /* dfuUITests.xctest */,
 			);
 			name = Products;
@@ -262,17 +251,11 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8DEF02F627EB48A400838144 /* dfuTests */ = {
-			isa = PBXGroup;
-			children = (
-				8DEF02F727EB48A400838144 /* dfuTests.swift */,
-			);
-			path = dfuTests;
-			sourceTree = "<group>";
-		};
 		8DEF030027EB48A400838144 /* dfuUITests */ = {
 			isa = PBXGroup;
 			children = (
+				8D5451DD2840FE0F001597C7 /* Dfu_screenshots.swift */,
+				8D5451DB2840FE0C001597C7 /* SnapshotHelper.swift */,
 				8DEF030127EB48A400838144 /* dfuUITests.swift */,
 				8DEF030327EB48A400838144 /* dfuUITestsLaunchTests.swift */,
 			);
@@ -301,24 +284,6 @@
 			productName = dfu;
 			productReference = 8DEF02E327EB48A400838144 /* DFU.app */;
 			productType = "com.apple.product-type.application";
-		};
-		8DEF02F227EB48A400838144 /* dfuTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8DEF030A27EB48A400838144 /* Build configuration list for PBXNativeTarget "dfuTests" */;
-			buildPhases = (
-				8DEF02EF27EB48A400838144 /* Sources */,
-				8DEF02F027EB48A400838144 /* Frameworks */,
-				8DEF02F127EB48A400838144 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8DEF02F527EB48A400838144 /* PBXTargetDependency */,
-			);
-			name = dfuTests;
-			productName = dfuTests;
-			productReference = 8DEF02F327EB48A400838144 /* dfuTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8DEF02FC27EB48A400838144 /* dfuUITests */ = {
 			isa = PBXNativeTarget;
@@ -351,10 +316,6 @@
 					8DEF02E227EB48A400838144 = {
 						CreatedOnToolsVersion = 13.3;
 					};
-					8DEF02F227EB48A400838144 = {
-						CreatedOnToolsVersion = 13.3;
-						TestTargetID = 8DEF02E227EB48A400838144;
-					};
 					8DEF02FC27EB48A400838144 = {
 						CreatedOnToolsVersion = 13.3;
 						TestTargetID = 8DEF02E227EB48A400838144;
@@ -378,7 +339,6 @@
 			projectRoot = "";
 			targets = (
 				8DEF02E227EB48A400838144 /* dfu */,
-				8DEF02F227EB48A400838144 /* dfuTests */,
 				8DEF02FC27EB48A400838144 /* dfuUITests */,
 			);
 		};
@@ -391,13 +351,6 @@
 			files = (
 				8DEF02EE27EB48A400838144 /* Preview Assets.xcassets in Resources */,
 				8DEF02EB27EB48A400838144 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8DEF02F127EB48A400838144 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,16 +394,9 @@
 				8D02F955281FD99B0030D67A /* DfuImages.swift in Sources */,
 				8D6228C227EDB87F00AE3E1B /* ScannerView.swift in Sources */,
 				8D6228C427EDECA400AE3E1B /* BluetoothDevice.swift in Sources */,
+				8DA4AE1A2841097C00BFA79E /* DfuIds.swift in Sources */,
 				8D9B54A727F5C4EC009A5461 /* ProgressItemView.swift in Sources */,
 				8DEF02E727EB48A400838144 /* DfuApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8DEF02EF27EB48A400838144 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8DEF02F827EB48A400838144 /* dfuTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,17 +406,15 @@
 			files = (
 				8DEF030427EB48A400838144 /* dfuUITestsLaunchTests.swift in Sources */,
 				8DEF030227EB48A400838144 /* dfuUITests.swift in Sources */,
+				8D5451DC2840FE0C001597C7 /* SnapshotHelper.swift in Sources */,
+				8DA4AE1B28410A5A00BFA79E /* DfuIds.swift in Sources */,
+				8D5451DE2840FE0F001597C7 /* Dfu_screenshots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8DEF02F527EB48A400838144 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DEF02E227EB48A400838144 /* dfu */;
-			targetProxy = 8DEF02F427EB48A400838144 /* PBXContainerItemProxy */;
-		};
 		8DEF02FF27EB48A400838144 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DEF02E227EB48A400838144 /* dfu */;
@@ -669,46 +613,6 @@
 			};
 			name = Release;
 		};
-		8DEF030B27EB48A400838144 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P3R8YQEV4L;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.nordicsemi.dfuTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dfu.app/dfu";
-			};
-			name = Debug;
-		};
-		8DEF030C27EB48A400838144 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P3R8YQEV4L;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.nordicsemi.dfuTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dfu.app/dfu";
-			};
-			name = Release;
-		};
 		8DEF030E27EB48A400838144 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -762,15 +666,6 @@
 			buildConfigurations = (
 				8DEF030827EB48A400838144 /* Debug */,
 				8DEF030927EB48A400838144 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		8DEF030A27EB48A400838144 /* Build configuration list for PBXNativeTarget "dfuTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8DEF030B27EB48A400838144 /* Debug */,
-				8DEF030C27EB48A400838144 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
