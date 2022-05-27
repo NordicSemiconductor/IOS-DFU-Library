@@ -37,7 +37,7 @@ struct DfuApp: App {
         WindowGroup {
             NavigationView {
                 ContentView()
-            }
+            }.navigationViewStyle(.stack)
         }
     }
 }
