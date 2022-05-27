@@ -63,6 +63,7 @@
 /* Begin PBXFileReference section */
 		8D02F954281FD99B0030D67A /* DfuImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuImages.swift; sourceTree = "<group>"; };
 		8D086C1D283259B600E63785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D0FA0B72840E15800DCA098 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		8D34201D283CE6AD00577B67 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPacketsDialog.swift; sourceTree = "<group>"; };
 		8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertDialog.swift; sourceTree = "<group>"; };
@@ -213,6 +214,7 @@
 		8DEF02DA27EB48A300838144 = {
 			isa = PBXGroup;
 			children = (
+				8D0FA0B72840E15800DCA098 /* fastlane */,
 				8DEF02E527EB48A400838144 /* dfu */,
 				8DEF02F627EB48A400838144 /* dfuTests */,
 				8DEF030027EB48A400838144 /* dfuUITests */,
