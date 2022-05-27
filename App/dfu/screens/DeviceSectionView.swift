@@ -30,7 +30,7 @@ struct DeviceSectionView: View {
             HStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray)
-                    .frame(width: 5, height: .infinity)
+                    .frame(width: 5)
                     .padding(.leading, 25)
                     .padding(.trailing, 25)
                 

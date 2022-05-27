@@ -30,16 +30,14 @@ struct FileSectionView: View {
             .padding()
             .onOpenURL { url in
                 onFileOpen(opened: url)
-            }.disabled(viewModel.isFileButtonDisabled())
+            }
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray)
-                    .frame(width: 5, height: .infinity)
+                    .frame(width: 5)
                     .padding(.leading, 25)
                     .padding(.trailing, 25)
-                
-                //TODO: geometry reader (to get size of the space available)
                 
                 VStack {
                     if let file = viewModel.zipFile {
@@ -65,6 +63,7 @@ struct FileSectionView: View {
                 viewModel.onFileError(message: error.localizedDescription)
             }
         }
+        .disabled(viewModel.isFileButtonDisabled())
     }
     
     private func onFileOpen(opened fileUrl: URL) {

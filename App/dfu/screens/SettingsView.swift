@@ -19,6 +19,8 @@ struct SettingsView: View {
     
     @State private var showingAlert: Bool = false
     
+    @State private var showingNumberOfPacketsDialog: Bool = false
+    
     var body: some View {
         Form {
             Section {
@@ -39,7 +41,7 @@ struct SettingsView: View {
                     Text(DfuStrings.numberOfPackets.text)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Button(action: { showingAlert = true }) {
+                    Button(action: { showingNumberOfPacketsDialog = true }) {
                         Text("\(viewModel.numberOfPackets)")
                     }
                 }.disabled(!viewModel.packetsReceiptNotification)
@@ -117,6 +119,18 @@ struct SettingsView: View {
                 showingAlert = false
             }
         }
+        .alert(
+            isPresented: $showingNumberOfPacketsDialog,
+            TextAlert(
+                title: DfuStrings.numberOfPackets.text,
+                message: DfuStrings.settingsProvideNumberOfPackets.text,
+                keyboardType: .numberPad
+            ) { result in
+                if let result = result {
+                    viewModel.numberOfPackets = Int(result) ?? viewModel.numberOfPackets
+                }
+            }
+        )
     }
 }
 

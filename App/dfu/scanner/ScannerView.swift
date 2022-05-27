@@ -38,7 +38,7 @@ struct ScannerView: View {
                         }
                 }.padding(.horizontal)
             }
-            let a = FileManager.default
+
             Section(header: Text(DfuStrings.devices.text)) {
                 ForEach(bluetoothManager.filteredDevices()) { device in
                     Button(action: {
