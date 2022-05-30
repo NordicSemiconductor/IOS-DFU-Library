@@ -163,6 +163,12 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         dfuService?.selectDataObject(
             onReponse: { [weak self] response in
                 guard let self = self else { return }
+                guard response.requestOpCode == .selectObject else {
+                    self.logger.e("Invalid Command Object Opcode = \(response.requestOpCode) received (expected \(SecureDFUOpCode.selectObject))")
+                    self.delegate?.error(.unsupportedResponse,
+                                         didOccurWithMessage: "Received requestOpCode \(response.requestOpCode), expected \(SecureDFUOpCode.selectObject)")
+                    return
+                }
                 guard response.maxSize! > 0 else {
                     self.logger.e("Invalid Data Object Max size = 0 received (expected > 0, typically 4096 bytes)")
                     self.delegate?.error(.unsupportedResponse,
@@ -185,6 +191,12 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
         dfuService?.selectCommandObject(
             onReponse: { [weak self] response in
                 guard let self = self else { return }
+                guard response.requestOpCode == .selectObject else {
+                    self.logger.e("Invalid Command Object Opcode = \(response.requestOpCode) received (expected \(SecureDFUOpCode.selectObject))")
+                    self.delegate?.error(.unsupportedResponse,
+                                         didOccurWithMessage: "Received requestOpCode \(response.requestOpCode), expected \(SecureDFUOpCode.selectObject)")
+                    return
+                }
                 guard response.maxSize! > 0 else {
                     self.logger.e("Invalid Command Object Max size = 0 received (expected > 0, typically 256 bytes)")
                     self.delegate?.error(.unsupportedResponse,
