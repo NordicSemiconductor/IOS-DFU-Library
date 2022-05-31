@@ -30,20 +30,30 @@
 
 import Foundation
 
-class ManifestFirmwareInfo: NSObject {
-    var binFile: String? = nil
-    var datFile: String? = nil
+// MARK: - ManifestFirmware
+
+protocol ManifestFirmware {
     
-    var valid: Bool {
+    var binFile: String? { get }
+    var datFile: String? { get }
+}
+
+extension ManifestFirmware {
+    
+    var isValid: Bool {
         return binFile != nil // && datFile != nil The init packet was not required before SDK 7.1
     }
+}
+
+// MARK: - ManifestFirmwareInfo
+
+struct ManifestFirmwareInfo: ManifestFirmware, Codable {
     
-    init(withDictionary aDictionary : Dictionary<String, AnyObject>) {
-        if aDictionary.keys.contains("bin_file") {
-            binFile = String(describing: aDictionary["bin_file"]!)
-        }
-        if aDictionary.keys.contains("dat_file") {
-            datFile = String(describing: aDictionary["dat_file"]!)
-        }
+    let binFile: String?
+    let datFile: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case binFile = "bin_file"
+        case datFile = "dat_file"
     }
 }
