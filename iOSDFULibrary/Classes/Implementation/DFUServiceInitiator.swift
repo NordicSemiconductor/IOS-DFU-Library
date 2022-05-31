@@ -358,7 +358,8 @@ import CoreBluetooth
      - parameter progressQueue: The dispatch queue to invoke all progress delegate
                                 callbacks on.
      - parameter loggerQueue: The dispatch queue to invoke all logger events on.
-     
+     - parameter centralManagerOptions: An optional dictionary that contains initialization options for `CBCentralManager`.
+
      - returns: The initiator instance.
      
      - version: Added in version 4.2 of the iOS DFU Library. Extended in 4.3 to allow
@@ -367,12 +368,13 @@ import CoreBluetooth
                 device in DFU Bootloader mode in case you want to update a Softdevice
                 and Application from a single ZIP Distribution Packet.
      */
-    @objc public init(queue:         DispatchQueue? = nil,
+    @objc public init(queue: DispatchQueue? = nil,
                       delegateQueue: DispatchQueue = DispatchQueue.main,
                       progressQueue: DispatchQueue = DispatchQueue.main,
-                      loggerQueue:   DispatchQueue = DispatchQueue.main) {
+                      loggerQueue: DispatchQueue = DispatchQueue.main,
+                      centralManagerOptions: [String : Any]? = nil) {
         // Create a new instance of CBCentralManager.
-        self.centralManager = CBCentralManager(delegate: nil, queue: queue)
+        self.centralManager = CBCentralManager(delegate: nil, queue: queue, options: centralManagerOptions)
         // Default peripheral selector will choose the service UUID as a filter.
         self.peripheralSelector = DFUPeripheralSelector()
         // Default UUID helper with standard set of UUIDs.
