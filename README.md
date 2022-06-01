@@ -1,3 +1,14 @@
+# Device Firmware Update application
+
+DFU application allows to flash new firmware on the DK. The process has three steps:
+1. Selecting zip file with an appropriate firmware.
+2. Selecting BLE device with open bootloader.
+3. Starting firmware upload.
+
+Settings screen allows to change the DFU library parameters used for uploading firmawre.
+
+<img src="App/fastlane/screenshots/en-US/iPhone 8 Plus-01Devices.png" width="300"> <img src="App/fastlane/screenshots/en-US/iPhone 8 Plus-02Settings.png" width="300">
+
 # iOS DFU Library
 
 [![Version](http://img.shields.io/cocoapods/v/iOSDFULibrary.svg)](http://cocoapods.org/pods/iOSDFULibrary)

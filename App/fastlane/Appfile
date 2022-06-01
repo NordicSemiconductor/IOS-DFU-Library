@@ -1,0 +1,8 @@
+app_identifier("no.nordicsemi.dfu") # The bundle identifier of your app
+apple_id("sylwester.zielinski@nordicsemi.no") # Your Apple email address
+
+itc_team_id("830455") # App Store Connect Team ID
+team_id("P3R8YQEV4L") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
