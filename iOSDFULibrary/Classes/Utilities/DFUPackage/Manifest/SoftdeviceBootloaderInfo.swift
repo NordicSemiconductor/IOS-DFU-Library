@@ -30,17 +30,53 @@
 
 import Foundation
 
-class SoftdeviceBootloaderInfo: ManifestFirmwareInfo {
-    var blSize: UInt32 = 0
-    var sdSize: UInt32 = 0
+// MARK: - SoftdeviceBootloaderInfo
+
+struct SoftdeviceBootloaderInfo: ManifestFirmware, Codable {
     
-    override init(withDictionary aDictionary : Dictionary<String, AnyObject>) {
-        super.init(withDictionary: aDictionary)
-        if aDictionary.keys.contains("bl_size") {
-            blSize = (aDictionary["bl_size"]!).uint32Value
-        }
-        if aDictionary.keys.contains("sd_size") {
-            sdSize = (aDictionary["sd_size"]!).uint32Value
+    // MARK: Properties
+    
+    let binFile: String?
+    let datFile: String?
+    let metadata: Metadata?
+    let _blSize: UInt32?
+    let _sdSize: UInt32?
+    
+    // MARK: Computed Properties
+    
+    var blSize: UInt32 {
+        return metadata?.blSize ?? _blSize ?? 0
+    }
+    
+    var sdSize: UInt32 {
+        return metadata?.sdSize ?? _sdSize ?? 0
+    }
+    
+    // MARK: CodingKeys
+    
+    enum CodingKeys: String, CodingKey {
+        case binFile = "bin_file"
+        case datFile = "dat_file"
+        case metadata = "info_read_only_metadata"
+        case _blSize = "bl_size"
+        case _sdSize = "sd_size"
+    }
+}
+
+// MARK: - SoftdeviceBootloaderInfo.SecureMetadata
+
+extension SoftdeviceBootloaderInfo {
+
+    struct Metadata: Codable {
+
+        let blSize: UInt32
+        let sdSize: UInt32
+
+        // MARK: CodingKeys
+
+        enum CodingKeys: String, CodingKey {
+            case blSize = "bl_size"
+            case sdSize = "sd_size"
         }
     }
 }

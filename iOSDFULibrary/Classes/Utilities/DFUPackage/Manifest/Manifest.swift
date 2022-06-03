@@ -30,16 +30,25 @@
 
 import Foundation
 
-class Manifest: NSObject {
+// MARK: - ManifestJSONContainer
+
+struct ManifestJSONContainer: Codable {
     
-    // MARK: - Properties
+    let manifest: Manifest
+}
+
+// MARK: - Manifest
+
+struct Manifest: Codable {
     
-    var application: ManifestFirmwareInfo?
-    var softdevice:  ManifestFirmwareInfo?
-    var bootloader:  ManifestFirmwareInfo?
-    var softdeviceBootloader: SoftdeviceBootloaderInfo?
+    // MARK: Properties
     
-    var valid: Bool {
+    let application: ManifestFirmwareInfo?
+    let softdevice:  ManifestFirmwareInfo?
+    let bootloader:  ManifestFirmwareInfo?
+    let softdeviceBootloader: SoftdeviceBootloaderInfo?
+    
+    var isValid: Bool {
         // The manifest.json file may specify only:
         // 1. a softdevice, a bootloader, or both combined (with, or without an app)
         // 2. only the app
@@ -53,52 +62,12 @@ class Manifest: NSObject {
         return count == 1 || (count == 0 && hasApplication)
     }
     
-    // MARK: - Init
+    // MARK: Coding Keys
     
-    init(withJsonString aString: String) {
-        do {
-            guard let data = aString.data(using: String.Encoding.utf8),
-                  let aDictionary = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? Dictionary<String, AnyObject> else {
-                throw Error.unableToParseJSON(description: "Unable to Decode root JSON Dictionary.")
-            }
-            
-            guard let mainObject = aDictionary["manifest"] as? Dictionary<String, AnyObject> else {
-                throw Error.unableToParseJSON(description: "Manifest JSON Dictionary could not be found.")
-            }
-            
-            if let applicationDictionary = mainObject["application"] as? Dictionary<String, AnyObject> {
-                self.application = ManifestFirmwareInfo(withDictionary: applicationDictionary)
-            }
-            
-            if let bootloaderDictionary = mainObject["softdevice_bootloader"] as? Dictionary<String, AnyObject> {
-                self.softdeviceBootloader = SoftdeviceBootloaderInfo(withDictionary: bootloaderDictionary)
-            }
-            
-            if let softDeviceDictionary = mainObject["softdevice"] as? Dictionary<String, AnyObject> {
-                self.softdevice = ManifestFirmwareInfo(withDictionary: softDeviceDictionary)
-            }
-            
-            if let bootloaderDictionary = mainObject["bootloader"] as? Dictionary<String, AnyObject> {
-                self.bootloader = ManifestFirmwareInfo(withDictionary: bootloaderDictionary)
-            }
-        } catch {
-            print("Encountered an error while parsing manifest.json: \(error.localizedDescription)")
-        }        
-    }
-}
-
-// MARK: - Manifest.Error
-
-extension Manifest {
-    
-    enum Error: Swift.Error, LocalizedError {
-        case unableToParseJSON(description: String)
-        
-        var errorDescription: String? {
-            switch self {
-            case .unableToParseJSON(let description):
-                return description
-            }
-        }
+    enum CodingKeys: String, CodingKey {
+        case application = "application"
+        case softdeviceBootloader = "softdevice_bootloader"
+        case softdevice = "softdevice"
+        case bootloader = "bootloader"
     }
 }
