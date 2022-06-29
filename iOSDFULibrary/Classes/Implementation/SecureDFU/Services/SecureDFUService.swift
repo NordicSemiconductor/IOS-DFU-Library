@@ -301,7 +301,7 @@ import CoreBluetooth
     func calculateChecksumCommand(onSuccess response: @escaping SecureDFUResponseCallback,
                                   onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic?.send(SecureDFURequest.calculateChecksumCommand,
+            dfuControlPointCharacteristic?.send(.calculateChecksumCommand,
                                                 onResponse: response, onError: report)
         } else {
             sendReset(onError: report)
@@ -317,7 +317,7 @@ import CoreBluetooth
     func executeCommand(onSuccess success: @escaping Callback,
                         onError report: @escaping ErrorCallback) {
         if !aborted {
-            dfuControlPointCharacteristic?.send(SecureDFURequest.executeCommand,
+            dfuControlPointCharacteristic?.send(.executeCommand,
                                                 onSuccess: success, onError: report)
         } else {
             sendReset(onError: report)
