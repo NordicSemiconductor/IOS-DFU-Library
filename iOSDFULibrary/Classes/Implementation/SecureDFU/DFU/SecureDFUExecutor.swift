@@ -461,12 +461,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
             return
         }
         let initPacketLength = UInt32(initPacket.count)
-        guard Int(offset) < Int(initPacketLength - offset) else {
-            error(.invalidInternalState, didOccurWithMessage:
-                  "Asset offset (\(offset)) < initPacketLength (\(initPacketLength)) - offset (\(offset)) failed")
-            return
-        }
-        let data = initPacket.subdata(in: Int(offset) ..< Int(initPacketLength - offset))
+        let data = initPacket.subdata(in: Int(offset) ..< Int(initPacketLength))
         
         // Send following bytes of init packet (offset may be 0).
         peripheral.sendInitPacket(data) // -> peripheralDidReceiveInitPacket() will be called.
