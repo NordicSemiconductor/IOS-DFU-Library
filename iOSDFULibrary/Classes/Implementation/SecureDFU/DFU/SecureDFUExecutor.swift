@@ -457,8 +457,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      */
     private func sendInitPacket(fromOffset offset: UInt32) {
         guard let initPacket = firmware.initPacket else {
-            error(.invalidInternalState, didOccurWithMessage:
-                  "Assert initPacket != nil failed")
+            error(.invalidInternalState, didOccurWithMessage: "Assert initPacket != nil failed")
             return
         }
         let initPacketLength = UInt32(initPacket.count)
