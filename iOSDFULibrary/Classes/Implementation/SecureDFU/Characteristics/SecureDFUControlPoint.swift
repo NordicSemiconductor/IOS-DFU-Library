@@ -49,6 +49,24 @@ internal enum SecureDFUOpCode : UInt8 {
     var code: UInt8 {
         return rawValue
     }
+    
+    var description: String {
+        switch self {
+        case .getProtocolVersion: return "Get Protocol Version"
+        case .createObject:       return "Create Object"
+        case .setPRNValue:        return "Set PRN Value"
+        case .calculateChecksum:  return "Calculate Checksum"
+        case .execute:            return "Execute"
+        case .selectObject:       return "Select Object"
+        case .getMtu:             return "Get MTU"
+        case .write:              return "Write"
+        case .ping:               return "Ping"
+        case .getHwVersion:       return "Get Hw Version"
+        case .getFwVersion:       return "Get Fw Version"
+        case .abort:              return "Abort"
+        case .responseCode:       return "Response Code"
+        }
+    }
 }
 
 internal enum SecureDFUExtendedErrorCode : UInt8 {
