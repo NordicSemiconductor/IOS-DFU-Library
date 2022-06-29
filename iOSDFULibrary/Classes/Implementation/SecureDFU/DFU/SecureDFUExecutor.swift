@@ -435,12 +435,12 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      - returns: `True` if CRCs are identical, `false` otherwise.
      */
     private func verifyCRC(for data: Data, andPacketOffset offset: UInt32, matches crc: UInt32) -> Bool {
-        // Edge case where a different objcet might be flashed with a biger init file.
-        if offset > UInt32(data.count) {
+        // Edge case where a different object might be flashed with a bigger init file.
+        guard offset <= UInt32(data.count) else {
             return false
         }
         // Get data form 0 up to the offset the peripheral has reproted.
-        let offsetData : Data = (data.subdata(in: 0 ..< Int(offset)))
+        let offsetData = data.subdata(in: 0 ..< Int(offset))
         let calculatedCRC = crc32(data: offsetData)
         
         // This returns true if the current data packet's CRC matches the current firmware's
