@@ -165,8 +165,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
                     self.logger.e("Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
-                    self.delegate?.error(.unsupportedResponse,
-                                         didOccurWithMessage: "Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
+                    self.throwErrorIfNotChecksumResponse(response)
                     return
                 }
                 guard response.maxSize! > 0 else {
@@ -193,8 +192,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
                     self.logger.e("Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
-                    self.delegate?.error(.unsupportedResponse,
-                                         didOccurWithMessage: "Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
+                    self.throwErrorIfNotChecksumResponse(response)
                     return
                 }
                 guard response.maxSize! > 0 else {
@@ -209,6 +207,21 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             },
             onError: defaultErrorCallback
         )
+    }
+    
+    /**
+     https://github.com/NordicSemiconductor/IOS-DFU-Library/issues/465
+     indicates, that sometimes a Checksum response is received here.
+     It may be a lost PRN, or an invalid response. We don't know yet.
+     If you encounter this log, please report to the mentioned issue
+     providing logs. Thank you!
+     Let's hope for the best and wait for the proper response.
+     */
+    private func throwErrorIfNotChecksumResponse(_ response: SecureDFUResponse) {
+        if response.requestOpCode != .calculateChecksum {
+            self.delegate?.error(.unsupportedResponse,
+                                 didOccurWithMessage: "Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
+        }
     }
     
     /**
