@@ -164,9 +164,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             onReponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
-                    self.logger.e("Invalid Command Object Opcode = \(response.requestOpCode) received (expected \(SecureDFUOpCode.selectObject))")
+                    self.logger.e("Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
                     self.delegate?.error(.unsupportedResponse,
-                                         didOccurWithMessage: "Received requestOpCode \(response.requestOpCode), expected \(SecureDFUOpCode.selectObject)")
+                                         didOccurWithMessage: "Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
                     return
                 }
                 guard response.maxSize! > 0 else {
@@ -192,9 +192,9 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             onReponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
-                    self.logger.e("Invalid Command Object Opcode = \(response.requestOpCode) received (expected \(SecureDFUOpCode.selectObject))")
+                    self.logger.e("Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
                     self.delegate?.error(.unsupportedResponse,
-                                         didOccurWithMessage: "Received requestOpCode \(response.requestOpCode), expected \(SecureDFUOpCode.selectObject)")
+                                         didOccurWithMessage: "Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
                     return
                 }
                 guard response.maxSize! > 0 else {
