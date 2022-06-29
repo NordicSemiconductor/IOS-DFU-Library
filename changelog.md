@@ -1,4 +1,11 @@
 ### Changelog
+- **4.12.0**
+   - Bugfix: Issue with incorrect resuming Init Packet fixed (#485).
+   - Bugfix: Fixed crash when Calculate checksum reasponse was received instead of Select Object response (#483, #480).
+   - Improvement: JSON parsed using Codable (#482).
+   - Improvement: Newer custom test firmware (#484).
+   - Improvement: Option to specify central manager options (#478). 
+   
 - **4.11.1**
    - Improvement: Xcode 13 issue fixed (#455).
    
