@@ -143,11 +143,7 @@ internal class DFUStreamZip : DFUStream {
         if let url = manifestUrl {
             
             let jsonData = try Data(contentsOf: url)
-            if let debugJson = String(data: jsonData, encoding: .utf8) {
-                print("Manifest JSON: \(debugJson)")
-            }
             manifest = try? JSONDecoder().decode(ManifestJSONContainer.self, from: jsonData).manifest
-            print(String(describing: manifest))
 
             if let manifest = manifest, manifest.isValid {
                 // After validation we are sure that the manifest file contains at
