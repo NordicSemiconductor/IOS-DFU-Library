@@ -85,7 +85,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     func onFileSelected(selected file: ZipFile) throws {
         _ = try DFUFirmware(
             urlToZipFile: file.url,
-            type: DFUFirmwareType.softdeviceBootloaderApplication
+            type: .softdeviceBootloaderApplication
         )
         DispatchQueue.main.async { [weak self] in
             self?.zipFile = file
@@ -99,7 +99,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
 
         let selectedFirmware = try! DFUFirmware(
             urlToZipFile: zipFile!.url,
-            type: DFUFirmwareType.softdeviceBootloaderApplication
+            type: .softdeviceBootloaderApplication
         )
         
         let initiator = DFUServiceInitiator().with(firmware: selectedFirmware)
