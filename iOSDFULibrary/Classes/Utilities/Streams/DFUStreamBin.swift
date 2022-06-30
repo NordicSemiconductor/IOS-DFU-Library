@@ -58,17 +58,30 @@ internal class DFUStreamBin : DFUStream {
         return size
     }
     
-    init(urlToBinFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
-        binaries = try! Data(contentsOf: urlToBinFile)
+    /// Creates the stream that will allow sending the binary file.
+    ///
+    /// - parameters:
+    ///   - urlToHexFile: URL to the bin file.
+    ///   - urlToDatFile: Optional URL to the dat file. Dat file is required for nRF5 SDK 7.1+.
+    ///   - type: The firmware type.
+    /// - throws: An error in the Cocoa domain, if `url` cannot be read.
+    init(urlToBinFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) throws {
+        binaries = try Data(contentsOf: urlToBinFile)
         firmwareSize = UInt32(binaries.count)
         
         if let dat = urlToDatFile {
-            initPacketBinaries = try? Data(contentsOf: dat)
+            initPacketBinaries = try Data(contentsOf: dat)
         }
         
         currentPartType = type.rawValue
     }
     
+    /// Creates the stream that will allow sending the binary file.
+    ///
+    /// - parameters:
+    ///   - binFile: The content of the bin file.
+    ///   - datFile: A content of an optional dat file. Dat file is required for nRF5 SDK 7.1+.
+    ///   - type: The firmware type.
     init(binFile: Data, datFile: Data?, type: DFUFirmwareType) {
         binaries = binFile
         firmwareSize = UInt32(binaries.count)

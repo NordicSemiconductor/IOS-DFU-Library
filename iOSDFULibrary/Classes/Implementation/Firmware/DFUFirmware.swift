@@ -54,6 +54,26 @@ import Foundation
     case softdeviceBootloaderApplication = 7
 }
 
+/**
+ An error thrown when instantiating a `DFUFirmware` type from an invalid file.
+ */
+public struct DFUFirmwareError : Error {
+    public enum FileType {
+        case zip
+        case binOrHex
+        case dat
+    }
+    public let type: FileType
+}
+
+extension DFUFirmwareError : LocalizedError {
+    
+    public var errorDescription: String? {
+        return NSLocalizedString("The \(type) file is invalid", comment: "")
+    }
+    
+}
+
 /// The DFUFirmware object wraps the firmware file.
 @objc public class DFUFirmware : NSObject, DFUStream {
     internal let stream: DFUStream
@@ -101,10 +121,12 @@ import Foundation
      - parameter urlToZipFile: URL to the Distribution packet (ZIP).
      
      - returns: The DFU firmware object or `nil` in case of an error.
+     - throws: `DFUFirmwareError` if the file is invalid, or
+               `DFUStreamZipError` if creating a Zip stream failed.
      */
-    @objc convenience public init?(urlToZipFile: URL) {
-        self.init(urlToZipFile: urlToZipFile,
-                  type: DFUFirmwareType.softdeviceBootloaderApplication)
+    @objc convenience public init(urlToZipFile: URL) throws {
+        try self.init(urlToZipFile: urlToZipFile,
+                      type: DFUFirmwareType.softdeviceBootloaderApplication)
     }
     
     /**
@@ -117,24 +139,20 @@ import Foundation
      - parameter type:         The type of the firmware to use.
      
      - returns: The DFU firmware object or `nil` in case of an error.
+     - throws: `DFUFirmwareError` if the file is invalid, or
+               `DFUStreamZipError` if creating a Zip stream failed.
      */
-    @objc public init?(urlToZipFile: URL, type: DFUFirmwareType) {
+    @objc public init(urlToZipFile: URL, type: DFUFirmwareType) throws {
         fileUrl = urlToZipFile
         fileName = urlToZipFile.lastPathComponent
         
         // Quickly check if it's a ZIP file
         let ext = urlToZipFile.pathExtension
         if ext.caseInsensitiveCompare("zip") != .orderedSame {
-            NSLog("\(fileName!) is not a ZIP file")
-            return nil
+            throw DFUFirmwareError(type: .zip)
         }
         
-        do {
-            stream = try DFUStreamZip(urlToZipFile: urlToZipFile, type: type)
-        } catch let error as NSError {
-            NSLog("Error while creating ZIP stream: \(error.localizedDescription)")
-            return nil
-        }
+        stream = try DFUStreamZip(urlToZipFile: urlToZipFile, type: type)
         super.init()
     }
     
@@ -147,9 +165,13 @@ import Foundation
      - parameter zipFile: The Distribution packet (ZIP) data.
      
      - returns: The DFU firmware object or `nil` in case of an error.
+     - throws: `DFUFirmwareError` if the file is invalid,
+               `DFUStreamZipError` if creating a Zip stream failed,
+               or an error in the Cocoa domain, if the data cannot be written
+               to a temporary location.
      */
-    @objc convenience public init?(zipFile: Data) {
-        self.init(zipFile: zipFile, type: DFUFirmwareType.softdeviceBootloaderApplication)
+    @objc convenience public init(zipFile: Data) throws {
+        try self.init(zipFile: zipFile, type: DFUFirmwareType.softdeviceBootloaderApplication)
     }
     
     /**
@@ -162,17 +184,15 @@ import Foundation
      - parameter type:    The type of the firmware to use.
      
      - returns: The DFU firmware object or `nil` in case of an error.
+     - throws: `DFUFirmwareError` if the file is invalid,
+               `DFUStreamZipError` if creating a Zip stream failed,
+               or an error in the Cocoa domain, if the data cannot be written
+               to a temporary location.
      */
-    @objc public init?(zipFile: Data, type: DFUFirmwareType) {
+    @objc public init(zipFile: Data, type: DFUFirmwareType) throws {
         fileUrl = nil
         fileName = nil
-        
-        do {
-            stream = try DFUStreamZip(zipFile: zipFile, type: type)
-        } catch let error as NSError {
-            NSLog("Error while creating ZIP stream: \(error.localizedDescription)")
-            return nil
-        }
+        stream = try DFUStreamZip(zipFile: zipFile, type: type)
         super.init()
     }
     
@@ -186,8 +206,11 @@ import Foundation
      - parameter type:              The type of the firmware.
      
      - returns: The DFU firmware object or `nil` in case of an error.
+     - throws: `DFUFirmwareError` if the file is invalid,
+               `DFUStreamHexError` if the hex file is invalid,
+               or an error in the Cocoa domain, if `url` cannot be read.
      */
-    @objc public init?(urlToBinOrHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
+    @objc public init(urlToBinOrHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) throws {
         fileUrl = urlToBinOrHexFile
         fileName = urlToBinOrHexFile.lastPathComponent
         
@@ -196,27 +219,22 @@ import Foundation
         let bin = ext.caseInsensitiveCompare("bin") == .orderedSame
         let hex = ext.caseInsensitiveCompare("hex") == .orderedSame
         guard bin || hex else {
-            NSLog("\(fileName!) is not a BIN or HEX file")
-            return nil
+            throw DFUFirmwareError(type: .binOrHex)
         }
         
         if let datUrl = urlToDatFile {
             let datExt = datUrl.pathExtension
             guard datExt.caseInsensitiveCompare("dat") == .orderedSame else {
-                NSLog("\(fileName!) is not a DAT file")
-                return nil
+                throw DFUFirmwareError(type: .dat)
             }
         }
         
         if bin {
-            stream = DFUStreamBin(urlToBinFile: urlToBinOrHexFile,
-                                  urlToDatFile: urlToDatFile, type: type)
+            stream = try DFUStreamBin(urlToBinFile: urlToBinOrHexFile,
+                                      urlToDatFile: urlToDatFile, type: type)
         } else {
-            guard let s = DFUStreamHex(urlToHexFile: urlToBinOrHexFile,
-                                       urlToDatFile: urlToDatFile, type: type) else {
-                return nil
-            }
-            stream = s
+            stream = try DFUStreamHex(urlToHexFile: urlToBinOrHexFile,
+                                      urlToDatFile: urlToDatFile, type: type)
         }
         super.init()
     }
@@ -232,10 +250,9 @@ import Foundation
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
-    @objc public init?(binFile: Data, datFile: Data?, type: DFUFirmwareType) {
+    @objc public init(binFile: Data, datFile: Data?, type: DFUFirmwareType) {
         fileUrl = nil
         fileName = nil
-        
         stream = DFUStreamBin(binFile: binFile, datFile: datFile, type: type)
         super.init()
     }
@@ -250,15 +267,12 @@ import Foundation
      - parameter type:    The type of the firmware.
      
      - returns: The DFU firmware object or `nil` in case of an error.
+     - throws: `DFUStreamHexError` if the hex file is invalid.
      */
-    @objc public init?(hexFile: Data, datFile: Data?, type: DFUFirmwareType) {
+    @objc public init(hexFile: Data, datFile: Data?, type: DFUFirmwareType) throws {
         fileUrl = nil
         fileName = nil
-        
-        guard let s = DFUStreamHex(hexFile: hexFile, datFile: datFile, type: type) else {
-            return nil
-        }
-        stream = s
+        stream = try DFUStreamHex(hexFile: hexFile, datFile: datFile, type: type)
         super.init()
     }
     
