@@ -52,7 +52,11 @@ struct FileSectionView: View {
             }
             .padding()
             .onOpenURL { url in
-                onFileOpen(opened: url)
+                guard let location = url["file"],
+                      let fileUrl = URL(string: location) else {
+                    return                    
+                }
+                onFileOpen(opened: fileUrl)
             }
             
             HStack {
@@ -90,28 +94,46 @@ struct FileSectionView: View {
     }
     
     private func onFileOpen(opened fileUrl: URL) {
-        do {
-            print(fileUrl)
+        let downloadTask = URLSession.shared.downloadTask(with: fileUrl) {
+            urlOrNil, responseOrNil, errorOrNil in
+            if let error = errorOrNil {
+                viewModel.onFileError(message: error.localizedDescription)
+                return
+            }
             
-            guard fileUrl.startAccessingSecurityScopedResource() else { return }
-            defer { fileUrl.stopAccessingSecurityScopedResource() }
+            if let response = responseOrNil as? HTTPURLResponse {
+                guard response.statusCode >= 200 && response.statusCode < 300 else {
+                    viewModel.onFileError(message: "Downloading file failed")
+                    return
+                }
+            }
+            guard let response = responseOrNil else {
+                viewModel.onFileError(message: "File nor found")
+                return
+            }
             
-            let fileHelper = FileHelper()
-            let fileRes = try fileUrl.resourceValues(forKeys:[.fileSizeKey, .nameKey])
-            let fileName = fileRes.name!
-            if let tmpFile = fileHelper.copyFileToTmpDirectory(fileName: fileName, readFromDisk: fileUrl) {
-                let resources = try tmpFile.resourceValues(forKeys:[.fileSizeKey, .nameKey])
+            guard let fileURL = urlOrNil else { return }
+            do {
+                let documentsURL = try FileManager.default.url(for: .documentDirectory,
+                    in: .userDomainMask,
+                    appropriateFor: nil,
+                    create: false)
+                let savedURL = documentsURL.appendingPathComponent(response.suggestedFilename ?? "file.zip")
+                
+                try? FileManager.default.removeItem(at: savedURL)
+                try FileManager.default.moveItem(at: fileURL, to: savedURL)
+                
+                let resources = try savedURL.resourceValues(forKeys:[.fileSizeKey, .nameKey])
                 let fileSize = resources.fileSize!
                 let fileName = resources.name!
                 
-                let zipFile = ZipFile(name: fileName, size: fileSize, url: tmpFile)
+                let zipFile = ZipFile(name: fileName, size: fileSize, url: savedURL)
                 try viewModel.onFileSelected(selected: zipFile)
-            } else {
-                viewModel.onFileError(message: DfuStrings.fileOpenError.text)
+            } catch {
+                viewModel.onFileError(message: error.localizedDescription)
             }
-        } catch {
-            viewModel.onFileError(message: error.localizedDescription)
         }
+        downloadTask.resume()
     }
 }
 
@@ -119,4 +141,22 @@ struct FileSectionView_Previews: PreviewProvider {
     static var previews: some View {
         FileSectionView(viewModel: DfuViewModel())
     }
+}
+
+private extension URL {
+    
+    subscript(queryParam: String) -> String? {
+        guard let url = URLComponents(string: self.absoluteString) else { return nil }
+        if let parameters = url.queryItems {
+            return parameters.first(where: { $0.name == queryParam })?.value
+        } else if let paramPairs = url.fragment?.components(separatedBy: "?").last?.components(separatedBy: "&") {
+            for pair in paramPairs where pair.contains(queryParam) {
+                return pair.components(separatedBy: "=").last
+            }
+            return nil
+        } else {
+            return nil
+        }
+    }
+    
 }
