@@ -34,7 +34,6 @@ import CoreBluetooth
 
 enum DFUTestError : Error {
     case fileNotFound
-    case invalidFirmware
 }
 
 typealias AdvertisingData = [String : Any]
@@ -82,10 +81,9 @@ class FilterBy {
 
 class Option {
     
-    static let prn : (UInt16) -> ServiceModifier = {
-        aPRNValue in
+    static let prn : (UInt16) -> ServiceModifier = { prn in
         return {
-            initiator in initiator.packetReceiptNotificationParameter = aPRNValue
+            initiator in initiator.packetReceiptNotificationParameter = prn
         }
     }
     
@@ -97,14 +95,10 @@ class Option {
 extension DFUFirmware {
     
     private static func from(urlToZipFile url: URL?, type: DFUFirmwareType) throws -> DFUFirmware {
-        guard url != nil else {
+        guard let url = url else {
             throw DFUTestError.fileNotFound
         }
-        let firmware = DFUFirmware(urlToZipFile: url!, type: type)
-        guard firmware != nil else {
-            throw DFUTestError.invalidFirmware
-        }
-        return firmware!
+        return try DFUFirmware(urlToZipFile: url, type: type)
     }
     
     static func from(zip name: String, locatedIn subdirectory: String) throws -> DFUFirmware {
