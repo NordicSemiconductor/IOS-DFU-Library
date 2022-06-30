@@ -165,8 +165,10 @@ extension DFUFirmwareError : LocalizedError {
      - parameter zipFile: The Distribution packet (ZIP) data.
      
      - returns: The DFU firmware object or `nil` in case of an error.
-     - throws: `DFUFirmwareError` if the file is invalid, or
-               `DFUStreamZipError` if creating a Zip stream failed.
+     - throws: `DFUFirmwareError` if the file is invalid,
+               `DFUStreamZipError` if creating a Zip stream failed,
+               or an error in the Cocoa domain, if the data cannot be written
+               to a temporary location.
      */
     @objc convenience public init(zipFile: Data) throws {
         try self.init(zipFile: zipFile, type: DFUFirmwareType.softdeviceBootloaderApplication)
