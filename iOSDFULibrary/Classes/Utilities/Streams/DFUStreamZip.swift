@@ -31,18 +31,22 @@
 import Foundation
 
 // Errors
-internal enum DFUStreamZipError : Error {
+public enum DFUStreamZipError : Error {
+    /// The ZIP file contains no manifest.json file.
     case noManifest
+    /// The manifest file is invalid.
     case invalidManifest
+    /// The file has not been found.
     case fileNotFound
+    /// Specified type is not present in the ZIP file.
     case typeNotFound
 }
 
 extension DFUStreamZipError: LocalizedError {
     
-    var localizedDescription: String {
+    public var errorDescription: String? {
         switch self {
-        case .noManifest:      return NSLocalizedString("No manifest file found", comment: "")
+        case .noManifest:      return NSLocalizedString("No manifest.json file found", comment: "")
         case .invalidManifest: return NSLocalizedString("Invalid manifest.json file", comment: "")
         case .fileNotFound:    return NSLocalizedString("File specified in manifest.json not found in ZIP", comment: "")
         case .typeNotFound:    return NSLocalizedString("Specified type not found in manifest.json", comment: "")
@@ -112,12 +116,14 @@ internal class DFUStreamZip : DFUStream {
      - parameter type:    The type of the firmware to use.
      
      - throws: `DFUStreamZipError` when manifest file was not found or contained
-               an error.
+               an error, or a ZIP error if unzipping the file failed.
      
      - returns: The stream.
      */
     convenience init(zipFile: Data, type: DFUFirmwareType) throws {
-        let url = try ZipArchive.createTemporaryFile(zipFile)
+        guard let url = ZipArchive.createTemporaryFile(zipFile) else {
+            throw CocoaError(.fileWriteUnknown)
+        }
         try self.init(urlToZipFile: url, type: type)
     }
     
@@ -129,7 +135,7 @@ internal class DFUStreamZip : DFUStream {
      - parameter type:         The type of the firmware to use.
      
      - throws: `DFUStreamZipError` when manifest file was not found or contained
-               an error.
+               an error, or a ZIP error if unzipping the file failed.
      
      - returns: The stream.
      */
@@ -141,9 +147,10 @@ internal class DFUStreamZip : DFUStream {
         let manifestUrl = ZipArchive.findFile(DFUStreamZip.MANIFEST_FILE, inside: contentUrls)
         
         if let url = manifestUrl {
-            
             let jsonData = try Data(contentsOf: url)
-            manifest = try? JSONDecoder().decode(ManifestJSONContainer.self, from: jsonData).manifest
+            manifest = try? JSONDecoder()
+                .decode(ManifestJSONContainer.self, from: jsonData)
+                .manifest
 
             if let manifest = manifest, manifest.isValid {
                 // After validation we are sure that the manifest file contains at

@@ -31,21 +31,6 @@
 import ZIPFoundation
 import Foundation
 
-// Errors
-internal enum ZipError : Error {
-    case fileError
-}
-
-extension ZipError : LocalizedError {
-    
-    var localizedDescription: String {
-        switch self {
-        case .fileError: return NSLocalizedString("File could not be created", comment: "")
-        }
-    }
-    
-}
-
 internal class ZipArchive {
     
     private init() {
@@ -69,7 +54,7 @@ internal class ZipArchive {
         
         // Unzip file to the destination folder.
         let destination = URL(fileURLWithPath: destinationPath)
-        let fileManager = FileManager()
+        let fileManager = FileManager.default
         try fileManager.unzipItem(at: url, to: destination)
         
         // Get folder content.
@@ -88,20 +73,18 @@ internal class ZipArchive {
  
      - parameter data: File content.
      
-     - throws: An error if creating temporary file failed.
-     
-     - returns: A URL to the temporary file.
+     - returns: A URL to the temporary file, or `nil` in case the temporary file
+                could not be created.
      */
-    internal static func createTemporaryFile(_ data: Data) throws -> URL {
+    internal static func createTemporaryFile(_ data: Data) -> URL? {
         // Build the temp folder path. Content of the ZIP file will be copied into it.
         let tempPath = NSTemporaryDirectory() + "ios-dfu-data.zip"
         
         // Create a new file and save the data in it
-        let success = FileManager.default.createFile(atPath: tempPath,
-                                                     contents: data,
-                                                     attributes: nil)
-        guard success else {
-            throw ZipError.fileError
+        guard FileManager.default.createFile(atPath: tempPath,
+                                             contents: data,
+                                             attributes: nil) else {
+            return nil
         }
         
         return URL(fileURLWithPath: tempPath)
@@ -122,24 +105,13 @@ internal class ZipArchive {
         // Check if folder exists. Remove it if so.
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: tempPath) {
-            do {
-                try fileManager.removeItem(atPath: tempPath)
-            } catch let error as NSError {
-                NSLog("Error while removing old temp file: \(error.localizedDescription)")
-                throw error
-            }
+            try fileManager.removeItem(atPath: tempPath)
         }
         
         // Create a new temporary folder.
-        do {
-            try fileManager.createDirectory(atPath: tempPath,
-                                            withIntermediateDirectories: true,
-                                            attributes: nil)
-        } catch let error as NSError {
-            NSLog("Error while creating temp file: \(error.localizedDescription)")
-            throw error
-        }
-        
+        try fileManager.createDirectory(atPath: tempPath,
+                                        withIntermediateDirectories: true,
+                                        attributes: nil)
         return tempPath
     }
     
@@ -154,13 +126,7 @@ internal class ZipArchive {
      */
     internal static func getFilesFromDirectory(_ path: String) throws -> [String] {
         let fileManager = FileManager.default
-        
-        do {
-            return try fileManager.contentsOfDirectory(atPath: path)
-        } catch let error as NSError {
-            NSLog("Error while obtaining content of temp folder: \(error.localizedDescription)")
-            throw error
-        }
+        return try fileManager.contentsOfDirectory(atPath: path)
     }
     
     /**
@@ -172,11 +138,6 @@ internal class ZipArchive {
      - returns: URL to a file or `nil`.
      */
     internal static func findFile(_ name: String, inside urls: [URL]) -> URL? {
-        for url in urls {
-            if url.lastPathComponent == name {
-                return url
-            }
-        }
-        return nil
+        return urls.first { $0.lastPathComponent == name }
     }
 }

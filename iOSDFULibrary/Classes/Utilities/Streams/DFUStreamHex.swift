@@ -30,6 +30,10 @@
 
 import Foundation
 
+public enum DFUStreamHexError : Error {
+    case invalidHexFile
+}
+
 internal class DFUStreamHex : DFUStream {
     private(set) var currentPart = 1
     private(set) var parts       = 1
@@ -58,24 +62,39 @@ internal class DFUStreamHex : DFUStream {
         return size
     }
     
-    init?(urlToHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
-        let hexData = try! Data(contentsOf: urlToHexFile)
+    /// Creates the stream that will allow sending the binary content of a hex file.
+    ///
+    /// - parameters:
+    ///   - urlToHexFile: URL to the hex file.
+    ///   - urlToDatFile: Optional URL to the dat file. Dat file is required for nRF5 SDK 7.1+.
+    ///   - type: The firmware type.
+    /// - throws: `DFUStreamHexError` if the hex file is invalid,
+    ///           or an error in the Cocoa domain, if `url` cannot be read.
+    init(urlToHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) throws {
+        let hexData = try Data(contentsOf: urlToHexFile)
         guard let bin = IntelHex2BinConverter.convert(hexData, mbrSize: 0x1000) else {
-            return nil
+            throw DFUStreamHexError.invalidHexFile
         }
         binaries = bin
         firmwareSize = UInt32(binaries.count)
         
         if let dat = urlToDatFile {
-            initPacketBinaries = try? Data(contentsOf: dat)
+            initPacketBinaries = try Data(contentsOf: dat)
         }
         
         currentPartType = type.rawValue
     }
-    
-    init?(hexFile: Data, datFile: Data?, type: DFUFirmwareType) {
+        
+    /// Creates the stream that will allow sending the binary content of a hex file.
+    ///
+    /// - parameters:
+    ///   - hexFile: The content of the hex file.
+    ///   - datFile: A content of an optional dat file. Dat file is required for nRF5 SDK 7.1+.
+    ///   - type: The firmware type.
+    /// - throws: `DFUStreamHexError` if the hex file is invalid.
+    init(hexFile: Data, datFile: Data?, type: DFUFirmwareType) throws {
         guard let bin = IntelHex2BinConverter.convert(hexFile, mbrSize: 0x1000) else {
-            return nil
+            throw DFUStreamHexError.invalidHexFile
         }
         binaries = bin
         firmwareSize = UInt32(binaries.count)
