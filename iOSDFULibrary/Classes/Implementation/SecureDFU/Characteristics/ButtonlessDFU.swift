@@ -43,6 +43,16 @@ internal enum ButtonlessDFUOpCode : UInt8 {
     }
 }
 
+extension ButtonlessDFUOpCode : CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .enterBootloader:   return "Enter Bootloader"
+        case .setName:           return "Set Name"
+        case .responseCode:      return "Response Code"
+        }
+    }
+}
 
 internal enum ButtonlessDFUResultCode : UInt8 {
     /// The operation completed successfully.
@@ -69,6 +79,9 @@ internal enum ButtonlessDFUResultCode : UInt8 {
     func error(ofType remoteError: DFURemoteError) -> DFUError {
         return remoteError.with(code: code)
     }
+}
+
+extension ButtonlessDFUResultCode : CustomStringConvertible {
     
     var description: String {
         switch self {
@@ -80,6 +93,7 @@ internal enum ButtonlessDFUResultCode : UInt8 {
         case .notBonded:          return "Device not bonded"
         }
     }
+    
 }
 
 internal enum ButtonlessDFURequest {
@@ -97,6 +111,17 @@ internal enum ButtonlessDFURequest {
             return data
         }
     }
+}
+
+extension ButtonlessDFURequest : CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .enterBootloader: return "Enter Bootloder"
+        case .set(let name):   return "Set Name (Name = \(name))"
+        }
+    }
+    
 }
 
 internal struct ButtonlessDFUResponse {
@@ -119,10 +144,14 @@ internal struct ButtonlessDFUResponse {
         self.requestOpCode = requestOpCode
         self.status        = status
     }
-        
+}
+
+extension ButtonlessDFUResponse : CustomStringConvertible {
+    
     var description: String {
-        return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue))"
+        return "Response (Op Code = \(requestOpCode), Status = \(status))"
     }
+    
 }
 
 internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic {
@@ -314,7 +343,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
         }
         
         guard dfuResponse.status == .success else {
-            logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
+            logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status)")
             let type = isExperimental ?
                 DFURemoteError.experimentalButtonless :
                 DFURemoteError.buttonless
@@ -322,7 +351,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
             return
         }
         
-        logger.a("\(dfuResponse.description) received")
+        logger.a("\(dfuResponse) received")
         success?()
     }
 }

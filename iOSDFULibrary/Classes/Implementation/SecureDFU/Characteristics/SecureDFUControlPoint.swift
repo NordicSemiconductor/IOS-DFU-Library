@@ -49,6 +49,9 @@ internal enum SecureDFUOpCode : UInt8 {
     var code: UInt8 {
         return rawValue
     }
+}
+
+extension SecureDFUOpCode : CustomStringConvertible {
     
     var description: String {
         switch self {
@@ -94,6 +97,9 @@ internal enum SecureDFUExtendedErrorCode : UInt8 {
     var error: DFUError {
         return DFURemoteError.secureExtended.with(code: code)
     }
+}
+
+extension SecureDFUExtendedErrorCode : CustomStringConvertible {
     
     var description: String {
         switch self {
@@ -118,6 +124,9 @@ internal enum SecureDFUExtendedErrorCode : UInt8 {
 internal enum SecureDFUProcedureType : UInt8 {
     case command = 0x01
     case data    = 0x02
+}
+
+extension SecureDFUProcedureType : CustomStringConvertible {
     
     var description: String{
         switch self{
@@ -125,12 +134,16 @@ internal enum SecureDFUProcedureType : UInt8 {
             case .data:     return "Data"
         }
     }
+    
 }
 
 internal enum SecureDFUImageType : UInt8 {
     case softdevice  = 0x00
     case application = 0x01
     case bootloader  = 0x02
+}
+
+extension SecureDFUImageType : CustomStringConvertible {
     
     var description: String{
         switch self{
@@ -139,6 +152,7 @@ internal enum SecureDFUImageType : UInt8 {
             case .bootloader:  return "Bootloader"
         }
     }
+    
 }
 
 internal enum SecureDFURequest {
@@ -198,6 +212,9 @@ internal enum SecureDFURequest {
             return Data([SecureDFUOpCode.abort.code])
         }
     }
+}
+
+extension SecureDFURequest : CustomStringConvertible {
 
     var description: String {
         switch self {
@@ -218,6 +235,7 @@ internal enum SecureDFURequest {
         case .abort:                         return "Abort (Op Code = 12)"
         }
     }
+    
 }
 
 internal enum SecureDFUResultCode : UInt8 {
@@ -243,6 +261,9 @@ internal enum SecureDFUResultCode : UInt8 {
     var error: DFUError {
         return DFURemoteError.secure.with(code: code)
     }
+}
+
+extension SecureDFUResultCode : CustomStringConvertible {
     
     var description: String {
         switch self {
@@ -259,6 +280,7 @@ internal enum SecureDFUResultCode : UInt8 {
             case .extendedError:         return "Extended error"
         }
     }
+    
 }
 
 internal typealias SecureDFUResponseCallback = (_ response : SecureDFUResponse) -> Void
@@ -337,14 +359,17 @@ internal struct SecureDFUResponse {
         self.requestOpCode = requestOpCode
         self.status        = status
     }
+}
 
+extension SecureDFUResponse : CustomStringConvertible {
+    
     var description: String {
         switch status {
         case .extendedError:
             if let error = error {
-                return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue), Extended Error \(error.rawValue) = \(error.description))"
+                return "Response (Op Code = \(requestOpCode), Status = \(status), Extended Error \(error.rawValue) = \(error))"
             }
-            return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue), Unsupported Extended Error value)"
+            return "Response (Op Code = \(requestOpCode), Status = \(status), Unsupported Extended Error value)"
         case .success:
             switch requestOpCode {
             case .selectObject:
@@ -360,9 +385,10 @@ internal struct SecureDFUResponse {
             }
             fallthrough
         default:
-            return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue))"
+            return "Response (Op Code = \(requestOpCode), Status = \(status))"
         }
     }
+    
 }
 
 internal struct SecureDFUPacketReceiptNotification {
@@ -393,6 +419,14 @@ internal struct SecureDFUPacketReceiptNotification {
         self.offset = offset
         self.crc = crc
     }
+}
+
+extension SecureDFUPacketReceiptNotification : CustomStringConvertible {
+    
+    var description: String {
+        return String(format: "Packet Receipt Notification (Offset = \(offset), CRC = %08X)", crc)
+    }
+    
 }
 
 internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharacteristic {
@@ -635,21 +669,21 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
         case .success:
             switch dfuResponse.requestOpCode {
             case .selectObject, .calculateChecksum:
-                logger.a("\(dfuResponse.description) received")
+                logger.a("\(dfuResponse) received")
                 response?(dfuResponse)
             case .createObject, .setPRNValue, .execute:
                 // Don't log, executor or service will do it for us.
                 success?()
             default:
-                logger.a("\(dfuResponse.description) received")
+                logger.a("\(dfuResponse) received")
                 success?()
             }
         case .extendedError:
             // An extended error was received.
-            logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
+            logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!)")
             report?(dfuResponse.error!.error, dfuResponse.error!.description)
         default:
-            logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status.description)")
+            logger.e("Error \(dfuResponse.status.code): \(dfuResponse.status)")
             report?(dfuResponse.status.error, dfuResponse.status.description)
         }
     }

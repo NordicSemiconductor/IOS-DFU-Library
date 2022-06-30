@@ -281,9 +281,9 @@ import CoreBluetooth
                 onSuccess: { [weak self] in
                     guard let self = self else { return }
                     if newValue > 0 {
-                        self.logger.a("Packet Receipt Notif enabled (Op Code = 2, Value = \(newValue))")
+                        self.logger.a("Packet Receipt Notif enabled (Value = \(newValue))")
                     } else {
-                        self.logger.a("Packet Receipt Notif disabled (Op Code = 2, Value = 0)")
+                        self.logger.a("Packet Receipt Notif disabled")
                     }
                     success()
                 },

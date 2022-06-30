@@ -47,12 +47,41 @@ internal enum DFUOpCode : UInt8 {
     }
 }
 
+extension DFUOpCode : CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .startDfu:                         return "Start DFU"
+        case .initDfuParameters:                return "Initialize DFU Parameters"
+        case .receiveFirmwareImage:             return "Receive Firmware Image"
+        case .validateFirmware:                 return "Validate Firmware"
+        case .activateAndReset:                 return "Activate and Reset"
+        case .reset:                            return "Reset"
+        case .reportReceivedImageSize:          return "Report Received Image Size"
+        case .packetReceiptNotificationRequest: return "Package Receipt Notification Request"
+        case .responseCode:                     return "Response Code"
+        case .packetReceiptNotification:        return "Packet Receipt Notification"
+        }
+    }
+    
+}
+
 internal enum InitDfuParametersRequest : UInt8 {
     case receiveInitPacket  = 0
     case initPacketComplete = 1
     
     var code: UInt8 {
         return rawValue
+    }
+}
+
+extension InitDfuParametersRequest : CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .receiveInitPacket:  return "Begin"
+        case .initPacketComplete: return "Complete"
+        }
     }
 }
 
@@ -94,14 +123,18 @@ internal enum Request {
             return data
         }
     }
+}
+
+extension Request : CustomStringConvertible {
     
     var description : String {
         switch self {
         case .jumpToBootloader:     return "Jump to bootloader (Op Code = 1, Upload Mode = 4)"
         case .startDfu(let type):   return "Start DFU (Op Code = 1, Upload Mode = \(type))"
         case .startDfu_v1:          return "Start DFU (Op Code = 1)"
-        case .initDfuParameters(_): return "Initialize DFU Parameters"
-        case .initDfuParameters_v1: return "Initialize DFU Parameters"
+        case .initDfuParameters(let req):
+                                    return "Initialize DFU Parameters (Op Code = 2, Type = \(req))"
+        case .initDfuParameters_v1: return "Initialize DFU Parameters (Op Code = 2)"
         case .receiveFirmwareImage: return "Receive Firmware Image (Op Code = 3)"
         case .validateFirmware:     return "Validate Firmware (Op Code = 4)"
         case .activateAndReset:     return "Activate and Reset (Op Code = 5)"
@@ -110,6 +143,7 @@ internal enum Request {
                                     return "Packet Receipt Notif Req (Op Code = 8, Value = \(number))"
         }
     }
+    
 }
 
 internal enum DFUResultCode : UInt8 {
@@ -130,6 +164,9 @@ internal enum DFUResultCode : UInt8 {
     var error: DFUError {
         return DFURemoteError.legacy.with(code: code)
     }
+}
+
+extension DFUResultCode : CustomStringConvertible {
     
     var description: String {
         switch self {
@@ -141,6 +178,7 @@ internal enum DFUResultCode : UInt8 {
         case .operationFailed:      return "Operation failed"
         }
     }
+    
 }
 
 internal struct Response {
@@ -161,10 +199,14 @@ internal struct Response {
         self.requestOpCode = requestOpCode
         self.status        = status
     }
+}
+
+extension Response : CustomStringConvertible {
     
     var description: String {
-        return "Response (Op Code = \(requestOpCode.rawValue), Status = \(status.rawValue))"
+        return "Response (Op Code = \(requestOpCode), Status = \(status))"
     }
+    
 }
 
 internal struct PacketReceiptNotification {
@@ -188,6 +230,14 @@ internal struct PacketReceiptNotification {
         // is > 0xFFFF bytes (LegacyDFUService:L543).
         self.bytesReceived = data.asValue(offset: 1)
     }
+}
+
+extension PacketReceiptNotification : CustomStringConvertible {
+    
+    var description: String {
+        return "Packet Receipt Notification (Offset = \(bytesReceived))"
+    }
+    
 }
 
 @objc internal class DFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharacteristic {
@@ -270,10 +320,10 @@ internal struct PacketReceiptNotification {
         switch request {
         case .initDfuParameters(let req):
             if req == InitDfuParametersRequest.receiveInitPacket {
-                logger.a("Writing \(request.description)...")
+                logger.a("Writing \(request)...")
             }
         case .initDfuParameters_v1:
-            logger.a("Writing \(request.description)...")
+            logger.a("Writing \(request)...")
         case .jumpToBootloader, .activateAndReset, .reset:
             // Those three requests may not be confirmed by the remote DFU target.
             // The device may be restarted before sending the ACK.
@@ -374,7 +424,7 @@ internal struct PacketReceiptNotification {
                 // When a 'JumpToBootloader', 'Activate and Reset' or 'Reset'
                 // command is sent the device may reset before sending the acknowledgement.
                 // This is not a blocker, as the device did disconnect and reset successfully.
-                logger.a("\(request.description) request sent")
+                logger.a("\(request) request sent")
                 logger.w("Device disconnected before sending ACK")
                 logger.w(error)
                 success?()
@@ -386,10 +436,10 @@ internal struct PacketReceiptNotification {
         
         switch request {
         case .startDfu(_), .startDfu_v1,  .validateFirmware:
-            logger.a("\(request.description) request sent")
+            logger.a("\(request) request sent")
             // do not call success until we get a notification
         case .jumpToBootloader, .activateAndReset, .reset, .packetReceiptNotificationRequest(_):
-            logger.a("\(request.description) request sent")
+            logger.a("\(request) request sent")
             // there will be no notification send after these requests, call
             // `success()` immediatelly (for `.receiveFirmwareImage` the notification
             // will be sent after firmware upload is complete)
@@ -438,7 +488,7 @@ internal struct PacketReceiptNotification {
         // Parse response received.
         let response = Response(characteristicValue)
         if let response = response {
-            logger.a("\(response.description) received")
+            logger.a("\(response) received")
             
             if response.status == .success {
                 switch response.requestOpCode {
@@ -452,7 +502,7 @@ internal struct PacketReceiptNotification {
                 }
                 success?()
             } else {
-                logger.e("Error \(response.status.code): \(response.status.description)")
+                logger.e("Error \(response.status.code): \(response.status)")
                 report?(response.status.error, response.status.description)
             }
         } else {

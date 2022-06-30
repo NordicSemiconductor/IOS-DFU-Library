@@ -163,8 +163,11 @@ internal enum DFURemoteError : Int {
     case disconnecting
     case completed
     case aborted
+}
+
+extension DFUState : CustomStringConvertible {
     
-    public func description() -> String {
+    public var description: String {
         switch self {
         case .connecting:      return "Connecting"
         case .starting:        return "Starting"
@@ -176,6 +179,7 @@ internal enum DFURemoteError : Int {
         case .aborted:         return "Aborted"
         }
     }
+    
 }
 
 /**
