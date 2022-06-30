@@ -287,8 +287,8 @@ class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceD
             stopProcessButton.isEnabled = true
         }
 
-        dfuStatusLabel.text = state.description()
-        print("State changed to: \(state.description())")
+        dfuStatusLabel.text = state.description
+        print("State changed to: \(state)")
         
         // Forget the controller when DFU is done
         if state == .completed {
