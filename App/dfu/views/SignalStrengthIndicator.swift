@@ -33,13 +33,12 @@ import SwiftUI
 
 struct SignalStrengthIndicator: View {
     let signalStrength: SignalStrength
-    let totalBars: Int = 3
     
     var body: some View {
         HStack {
-            ForEach(0..<totalBars) { bar in
+            ForEach(0..<3) { bar in
                 RoundedRectangle(cornerRadius: 3)
-                    .divided(amount: (CGFloat(bar) + 1) / CGFloat(self.totalBars))
+                    .divided(amount: (CGFloat(bar) + 1) / CGFloat(3))
                     .fill(getColor().opacity(bar <= signalStrength.rawValue ? 1 : 0.3))
                     .frame(width: 8, height: 24)
             }
