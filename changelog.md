@@ -1,4 +1,8 @@
 ### Changelog
+- **4.13.0**
+   - Breaking change: Creating DFUFirmware may now throw an error, instead of returning nil (#486).
+   - Improvement: Internal logging improvements (#487). 
+   
 - **4.12.0**
    - Bugfix: Issue with incorrect resuming Init Packet fixed (#485).
    - Bugfix: Fixed crash when Calculate checksum reasponse was received instead of Select Object response (#483, #480).

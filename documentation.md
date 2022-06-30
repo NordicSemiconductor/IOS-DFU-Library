@@ -30,60 +30,10 @@ In case of any communication error the peripheral device will never be bricked. 
 
 * **An iPhone 4S or iPad 2 or newer with iOS 9+**
 
-    Support for the Bluetooth 4.0 technology is required.
+  Support for the Bluetooth 4.0 technology is required.
 * **nRF5x device for testing.**
 
-   A nRF5x Series device is required to test the working solution. If your final product is not available, use the nRF5x DK, which you can find [here](http://www.nordicsemi.com/eng/Products/nRF51-DK "nRF51 DK") or [here](http://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF52-DK "nRF52 DK").
-
-### Integration
-
-To include the library in your project do one of those options:
-
-1. Cocoapods (recommended):
-
-   Open up a terminal window, cd to your project's root and create a `Podfile` with the follwoing content:
-
-   ```
-   use_frameworks!
-   target 'YourAppTargetName' do
-       pod 'iOSDFULibrary'
-   end
-   ```
-   Then install dependencies
-   ```
-   pod install
-   ```
-
-   **Notice:** Our Cocoapods releases will always be the exact same version as this repository. you may [follow our pod repository here](http://github.com/NordicSemiconductor/IOS-DFU-Library).
-
-2. Include the library as a precompiled framework:
-
-   Copy the DFULibrary.framework file to you project.
-   Add this framework to Embedded Binaries in the Target->Settings->General.
-
-3. Include the library as source code:
-
-   Create a Workspace (if you already don't have one).
-   Add your project to the workspace.
-   Add the DFULibrary.xcodeproj file below your project, on the same level:
-```
-   MyProject
-    - MyProject
-    - MyProjectTests
-    - Products
-   DFULibrary
-    - DFULibrary
-    - DFULibraryTests
-    - Frameworks
-    - Products
-        - DFULibrary.framework      <- this file
-        - DFULibraryTests.xctest
-```
-   Add (drag&drop) the DFULibrary.framework product file to your Target's Embedded Binaries.
-   A framework build may be necessary. The framework must exist (color black, not red).
-
-If you decide to use option **2** or **3**,  make sure you have the `Embedded Content contains Swift code` set to `YES` in your 
-target's **Build Options->Build Settings**
+  A nRF5x Series device is required to test the working solution. If your final product is not available, use the nRF5x DK, which you can find [here](http://www.nordicsemi.com/eng/Products/nRF51-DK "nRF51 DK") or 
 
 ### Usage
 
@@ -100,9 +50,9 @@ To start the DFU process you have to do 2 things:
     ```
     Swift:
     ```swift
-    let selectedFirmware = DFUFirmware(urlToZipFile:url)
+    let selectedFirmware = try DFUFirmware(urlToZipFile: url)
     // or
-    let selectedFirmware = DFUFirmware(urlToBinOrHexFile: url, urlToDatFile: datUrl, type: DFUFirmwareType.Application)
+    let selectedFirmware = try DFUFirmware(urlToBinOrHexFile: url, urlToDatFile: datUrl, type: .application)
     ```
 
 2. The `DFUFirmware` object allows you to get basic information about the firmware, like sizes of each component or number of parts. 
