@@ -715,7 +715,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         
         logger.v("Scanning for the DFU Bootloader...")
         let requiredServices = peripheralSelector.filterBy(hint: DFUServiceType.serviceUuid(from: uuidHelper))
-        logger.d("centralManager.scanForPeripherals(withServices, \(requiredServices?.description ?? "nil")")
+        logger.d("centralManager.scanForPeripherals(withServices, \(requiredServices?.description ?? "nil"))")
         centralManager.scanForPeripherals(withServices: requiredServices)
     }
     

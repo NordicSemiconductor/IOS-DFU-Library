@@ -164,7 +164,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             onReponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
-                    self.logger.e("Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
+                    self.logger.e("Invalid response received (\(response), expected \(SecureDFUOpCode.selectObject))")
                     self.throwErrorIfNotChecksumResponse(response)
                     return
                 }
@@ -191,7 +191,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             onReponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
-                    self.logger.e("Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
+                    self.logger.e("Invalid response received (\(response), expected \(SecureDFUOpCode.selectObject))")
                     self.throwErrorIfNotChecksumResponse(response)
                     return
                 }
@@ -220,7 +220,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     private func throwErrorIfNotChecksumResponse(_ response: SecureDFUResponse) {
         if response.requestOpCode != .calculateChecksum {
             self.delegate?.error(.unsupportedResponse,
-                                 didOccurWithMessage: "Invalid response received (\(response.description), expected \(SecureDFUOpCode.selectObject.description))")
+                                 didOccurWithMessage: "Invalid response received (\(response), expected \(SecureDFUOpCode.selectObject))")
         }
     }
     
