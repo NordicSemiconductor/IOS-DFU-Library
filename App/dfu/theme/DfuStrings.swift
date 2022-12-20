@@ -66,8 +66,8 @@ enum DfuStrings : String {
     case resultError = "Error: %@"
     
     case fileSelect = "Select a .zip file"
-    case fileName = "File name: %@"
-    case fileSize = "File size: %d"
+    case fileName = "Name: %@"
+    case fileSize = "Size: %d bytes"
     
     case deviceSelect = "Select a device"
     case deviceName = "Device: %@"
@@ -103,6 +103,7 @@ enum DfuStrings : String {
     
     case fileOpenError = "Can't open the file."
     case fileError = "Selected file is invalid."
+    case fileDownloadError = "Downloading file failed."
     case noName = "No name"
     
     var text: String {
