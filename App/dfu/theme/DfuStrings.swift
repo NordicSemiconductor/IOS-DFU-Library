@@ -103,6 +103,7 @@ enum DfuStrings : String {
     
     case fileOpenError = "Can't open the file."
     case fileError = "Selected file is invalid."
+    case fileDownloadError = "Downloading file failed."
     case noName = "No name"
     
     var text: String {

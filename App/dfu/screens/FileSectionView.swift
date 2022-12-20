@@ -29,6 +29,7 @@
 */
 
 import SwiftUI
+import NordicDFU
 
 struct FileSectionView: View {
     @State private var openFile = false
@@ -87,7 +88,7 @@ struct FileSectionView: View {
                 let fileUrl = try res.get()
                 onFileOpen(opened: fileUrl)
             } catch {
-                viewModel.onFileError(message: error.localizedDescription)
+                onError(error.localizedDescription)
             }
         }
         .disabled(viewModel.isFileButtonDisabled())
@@ -97,18 +98,18 @@ struct FileSectionView: View {
         let downloadTask = URLSession.shared.downloadTask(with: fileUrl) {
             urlOrNil, responseOrNil, errorOrNil in
             if let error = errorOrNil {
-                viewModel.onFileError(message: error.localizedDescription)
+                onError(error.localizedDescription)
                 return
             }
             
             if let response = responseOrNil as? HTTPURLResponse {
                 guard response.statusCode >= 200 && response.statusCode < 300 else {
-                    viewModel.onFileError(message: "Downloading file failed")
+                    onError(DfuStrings.fileDownloadError.text)
                     return
                 }
             }
             guard let response = responseOrNil else {
-                viewModel.onFileError(message: "File nor found")
+                onError(DfuStrings.fileError.text)
                 return
             }
             
@@ -128,12 +129,28 @@ struct FileSectionView: View {
                 let fileName = resources.name!
                 
                 let zipFile = ZipFile(name: fileName, size: fileSize, url: savedURL)
-                try viewModel.onFileSelected(selected: zipFile)
+                try onFileSelected(zipFile)
             } catch {
-                viewModel.onFileError(message: error.localizedDescription)
+                onError(error.localizedDescription)
             }
         }
         downloadTask.resume()
+    }
+    
+    private func onFileSelected(_ file: ZipFile) throws {
+        _ = try DFUFirmware(
+            urlToZipFile: file.url,
+            type: .softdeviceBootloaderApplication
+        )
+        DispatchQueue.main.async {
+            viewModel.onFileSelected(file)
+        }
+    }
+    
+    private func onError(_ message: String) {
+        DispatchQueue.main.async {
+            viewModel.onFileError(message)
+        }
     }
 }
 
