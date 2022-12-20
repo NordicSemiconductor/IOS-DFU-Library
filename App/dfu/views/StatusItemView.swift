@@ -38,7 +38,6 @@ enum DfuUiStateStatus {
 }
 
 struct StatusItemView: View {
-    
     let text: String
     let status: DfuUiStateStatus
     
@@ -58,7 +57,7 @@ struct StatusItemView: View {
 private extension DfuUiStateStatus {
     
     var image: String {
-        switch (self) {
+        switch self {
         case .idle:
             return DfuImages.idle.imageName
         case .success:
@@ -71,7 +70,7 @@ private extension DfuUiStateStatus {
     }
 
     var color: Color {
-        switch (self) {
+        switch self {
         case .idle:
             return ThemeColor.nordicDarkGray5.color
         case .success:
@@ -82,4 +81,5 @@ private extension DfuUiStateStatus {
             return ThemeColor.error.color
         }
     }
+    
 }

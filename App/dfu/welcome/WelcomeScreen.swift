@@ -34,8 +34,7 @@ struct WelcomeScreen: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
     var body: some View {
         ScrollView {
@@ -50,9 +49,10 @@ struct WelcomeScreen: View {
                 
                 Spacer().frame(height: 24)
                 
-                DfuButton(title: DfuStrings.welcomeStart.text, action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                })
+                DfuButton(
+                    title: DfuStrings.welcomeStart.text,
+                    action: { presentationMode.wrappedValue.dismiss() }
+                )
             }.padding()
         }
         .navigationTitle(DfuStrings.welcomeTitle.text)

@@ -32,13 +32,14 @@ import SwiftUI
 import os.log
 
 struct ContentView: View {
-    
     private let bleManager: BluetoothManager = BluetoothManager()
     
     //can be put as Environment
-    @StateObject private var viewModel = DfuViewModel()
+    @StateObject
+    private var viewModel = DfuViewModel()
     
-    @State private var showWelcomeScreen: Bool?
+    @State
+    private var showWelcomeScreen: Bool?
     
     var body: some View {
         ScrollView {

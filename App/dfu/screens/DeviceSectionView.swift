@@ -32,8 +32,7 @@ import SwiftUI
 
 struct DeviceSectionView: View {
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
     @State private var goToScannerView: Bool?
     
@@ -41,14 +40,18 @@ struct DeviceSectionView: View {
         VStack {
             HStack {
                 SectionImage(image: DfuImages.bluetooth.imageName)
+                
                 Text(DfuStrings.device.text)
                     .padding()
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
                 NavigationLink(destination: ScannerView(viewModel: viewModel), tag: true, selection: $goToScannerView) { }
-                DfuButton(title: DfuStrings.select.text, action: {
-                    goToScannerView = true
-                })
+                
+                DfuButton(
+                    title: DfuStrings.select.text,
+                    action: { goToScannerView = true }
+                )
             }.padding()
             
             HStack {

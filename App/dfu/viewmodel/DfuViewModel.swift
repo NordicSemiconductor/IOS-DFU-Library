@@ -35,17 +35,13 @@ import SwiftUI
 
 class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     
-    @Published
-    var fileError: String? = nil
+    @Published var fileError: String? = nil
     
-    @Published
-    private(set) var zipFile: ZipFile? = nil
+    @Published private(set) var zipFile: ZipFile? = nil
     
-    @Published
-    var device: BluetoothDevice? = nil
+    @Published var device: BluetoothDevice? = nil
     
-    @Published
-    var progressSection: ProgressSectionViewEntity = ProgressSectionViewEntity()
+    @Published var progressSection: ProgressSectionViewEntity = ProgressSectionViewEntity()
     
     @AppStorage("packetsReceiptNotification")
     var packetsReceiptNotification: Bool = false
@@ -135,13 +131,17 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     }
     
     func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
-        let progress = DfuProgress(part: part, totalParts: totalParts, progress: progress, currentSpeedBytesPerSecond: currentSpeedBytesPerSecond, avgSpeedBytesPerSecond: avgSpeedBytesPerSecond)
+        let progress = DfuProgress(
+            part: part, totalParts: totalParts,
+            progress: progress,
+            currentSpeedBytesPerSecond: currentSpeedBytesPerSecond,
+            avgSpeedBytesPerSecond: avgSpeedBytesPerSecond
+        )
         progressSection = progressSection.toProgressState(updated: progress)
     }
     
     func dfuStateDidChange(to state: DFUState) {
-        print("state: \(state)")
-        if (state == DFUState.enablingDfuMode) {
+        if state == DFUState.enablingDfuMode {
             progressSection = progressSection.toDfuState()
         } else if (state == DFUState.completed) {
             progressSection = progressSection.toSuccessState()
@@ -156,7 +156,7 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     }
     
     func onWelcomeScreenShown() {
-        if (showWelcomeScreen) {
+        if showWelcomeScreen {
             showWelcomeScreen = false
         }
     }

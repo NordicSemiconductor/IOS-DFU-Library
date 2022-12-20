@@ -8,7 +8,6 @@
 import Foundation
 
 enum DfuIds : String {
-    
     case settingsButton = "SettingsButton"
     case welcomeButton = "WelcomeButton"
     

@@ -32,25 +32,28 @@ import SwiftUI
 
 struct ProgressSectionView: View {
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
     var body: some View {
         VStack {
             HStack {
                 SectionImage(image: DfuImages.upload.rawValue)
+                
                 Text(DfuStrings.progress.text)
                     .padding()
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
                 if (viewModel.progressSection.isRunning()) {
-                    AbortButton(title: DfuStrings.abort.rawValue, action: {
-                        viewModel.abort()
-                    })
+                    AbortButton(
+                        title: DfuStrings.abort.rawValue,
+                        action: { viewModel.abort() }
+                    )
                 } else {
-                    DfuButton(title: DfuStrings.upload.rawValue, action: {
-                        viewModel.install()
-                    })
+                    DfuButton(
+                        title: DfuStrings.upload.rawValue,
+                        action: { viewModel.install() }
+                    )
                 }
             }.padding()
             
@@ -73,7 +76,7 @@ struct ProgressSectionView: View {
 private extension DfuUiStateStatus {
     
     func getBootloaderString() -> String {
-        switch (self) {
+        switch self {
         case .idle, .error:
             return DfuStrings.bootloaderIdle.rawValue
         case .success:
@@ -84,7 +87,7 @@ private extension DfuUiStateStatus {
     }
     
     func getDfuString() -> String {
-        switch (self) {
+        switch self {
         case .idle, .error:
             return DfuStrings.dfuIdle.rawValue
         case .success:

@@ -36,11 +36,9 @@ struct ScannerView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
-    @StateObject
-    var bluetoothManager: BluetoothManager = BluetoothManager()
+    @StateObject var bluetoothManager: BluetoothManager = BluetoothManager()
     
     var body: some View {
         List {
@@ -64,10 +62,12 @@ struct ScannerView: View {
 
             Section(header: Text(DfuStrings.devices.text)) {
                 ForEach(bluetoothManager.filteredDevices()) { device in
-                    Button(action: {
-                        viewModel.device = device
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
+                    Button(
+                        action: {
+                            viewModel.device = device
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                    ) {
                         HStack {
                             Text(device.name ?? DfuStrings.noName.text)
                                 .frame(maxWidth: .infinity, alignment: .leading)

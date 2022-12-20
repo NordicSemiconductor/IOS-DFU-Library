@@ -38,7 +38,6 @@ enum DfuInstallationStatus {
 }
 
 struct ProgressItemView: View {
-
     let status: DfuInstallationStatus
     
     var body: some View {
@@ -67,13 +66,13 @@ struct ProgressItemView: View {
     }
     
     func getInstallationString() -> String {
-        switch (status) {
+        switch status {
         case .idle, .error:
             return DfuStrings.firmwareUpload.text
         case .success:
             return DfuStrings.firmwareUploaded.rawValue
         case .progress(let p):
-            if (p.totalParts == 1) {
+            if p.totalParts == 1 {
                 return DfuStrings.firmwareUploading.rawValue
             } else {
                 return String(format: DfuStrings.firmwareUploadPart.rawValue, p.part, p.totalParts)
@@ -85,7 +84,7 @@ struct ProgressItemView: View {
 private extension DfuInstallationStatus {
     
     var image: String {
-        switch (self) {
+        switch self {
         case .idle:
             return DfuImages.idle.rawValue
         case .success:
@@ -98,7 +97,7 @@ private extension DfuInstallationStatus {
     }
 
     var color: Color {
-        switch (self) {
+        switch self {
         case .idle:
             return ThemeColor.nordicDarkGray5.color
         case .success:
@@ -109,4 +108,5 @@ private extension DfuInstallationStatus {
             return ThemeColor.error.color
         }
     }
+    
 }

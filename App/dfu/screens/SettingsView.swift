@@ -38,6 +38,7 @@ struct SettingsView: View {
     
     @State private var showWelcomeScreen: Bool?
     
+    @State private var title: String = ""
     @State private var description: String = ""
     
     @State private var showingAlert: Bool = false
@@ -55,6 +56,7 @@ struct SettingsView: View {
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsPacketReceiptTitle.text
                             description = DfuStrings.settingsPacketReceiptValue.text
                             showingAlert = true
                         }
@@ -77,6 +79,7 @@ struct SettingsView: View {
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.alternativeAdvertisingNameTitle.text
                             description = DfuStrings.alternativeAdvertisingNameValue.text
                             showingAlert = true
                         }
@@ -84,7 +87,6 @@ struct SettingsView: View {
             }
             
             Section(header: Text(DfuStrings.settingsSecureDfu.text)) {
-                
                 HStack {
                     Toggle(isOn: $viewModel.disableResume) {
                         Text(DfuStrings.settingsDisableResumeTitle.text)
@@ -93,6 +95,7 @@ struct SettingsView: View {
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsDisableResumeTitle.text
                             description = DfuStrings.settingsDisableResumeValue.text
                             showingAlert = true
                         }
@@ -100,7 +103,6 @@ struct SettingsView: View {
             }
             
             Section(header: Text(DfuStrings.settingsLegacyDfu.text)) {
-                
                 HStack {
                     Toggle(isOn: $viewModel.forceScanningInLegacyDfu) {
                         Text(DfuStrings.settingsForceScanningTitle.text)
@@ -109,6 +111,7 @@ struct SettingsView: View {
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsForceScanningTitle.text
                             description = DfuStrings.settingsForceScanningValue.text
                             showingAlert = true
                         }
@@ -122,6 +125,7 @@ struct SettingsView: View {
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsExternalMcuTitle.text
                             description = DfuStrings.settingsExternalMcuValue.text
                             showingAlert = true
                         }
@@ -137,11 +141,16 @@ struct SettingsView: View {
             }
         }
         .navigationTitle(DfuStrings.settings.text)
-        .alert(description, isPresented: $showingAlert) {
-            Button(DfuStrings.ok.text, role: .cancel) {
-                showingAlert = false
+        .alert(title, isPresented: $showingAlert,
+            actions: {
+                Button(DfuStrings.ok.text, role: .cancel) {
+                    showingAlert = false
+                }
+            },
+            message: {
+                Text(description)
             }
-        }
+        )
         .alert(
             isPresented: $showingNumberOfPacketsDialog,
             TextAlert(

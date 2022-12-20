@@ -47,6 +47,7 @@ struct DfuProgress {
 }
 
 extension DfuProgress {
+    
     init() {
         self.part = 0
         self.totalParts = 0
@@ -54,4 +55,5 @@ extension DfuProgress {
         self.currentSpeedBytesPerSecond = 0
         self.avgSpeedBytesPerSecond = 0
     }
+    
 }

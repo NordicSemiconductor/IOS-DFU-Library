@@ -31,8 +31,10 @@
 import SwiftUI
 
 struct SectionImage: View {
-    let image: String
+    
     @Environment(\.isEnabled) var isEnabled
+    
+    let image: String
     
     var body: some View {
         Image(image)

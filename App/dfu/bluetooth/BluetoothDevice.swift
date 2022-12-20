@@ -36,18 +36,15 @@ import CoreBluetooth
 
 struct BluetoothDevice : Identifiable {
     let id = UUID()
-    
     let peripheral: CBPeripheral
-    
     let rssi: NSNumber
-    
     let name: String?
     
     func getSignalStrength() -> SignalStrength {
-        if (rssi.compare(NSNumber(-65)) == ComparisonResult.orderedDescending) {
+        if rssi.compare(NSNumber(-65)) == .orderedDescending {
             return SignalStrength.strong
         }
-        else if (rssi.compare(NSNumber(-85)) == ComparisonResult.orderedDescending) {
+        else if rssi.compare(NSNumber(-85)) == .orderedDescending {
             return SignalStrength.normal
         }
         else {

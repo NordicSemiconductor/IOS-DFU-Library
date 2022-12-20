@@ -37,7 +37,6 @@ enum DfuResultStatus {
 }
 
 struct ResultItemView: View {
-    
     let status: DfuResultStatus
     
     var body: some View {
@@ -53,7 +52,7 @@ struct ResultItemView: View {
     }
     
     func getResultString() -> String {
-        switch (status) {
+        switch status {
         case .idle, .success:
             return DfuStrings.resultCompleted.text
         case .error(let error):
@@ -65,7 +64,7 @@ struct ResultItemView: View {
 private extension DfuResultStatus {
     
     var image: String {
-        switch (self) {
+        switch self {
         case .idle:
             return DfuImages.idle.imageName
         case .success:
@@ -76,7 +75,7 @@ private extension DfuResultStatus {
     }
 
     var color: Color {
-        switch (self) {
+        switch self {
         case .idle:
             return ThemeColor.nordicDarkGray5.color
         case .success:
@@ -85,4 +84,5 @@ private extension DfuResultStatus {
             return ThemeColor.error.color
         }
     }
+    
 }

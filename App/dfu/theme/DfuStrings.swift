@@ -29,9 +29,6 @@
 */
 
 enum DfuStrings : String {
-    case testTitle = "Title"
-    case testLoremIpsumLong = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-    
     case dfuTitle = "DFU"
     
     case welcomeTitle = "Welcome"
@@ -40,7 +37,7 @@ enum DfuStrings : String {
     case numberOfPackets = "Number of Packets"
     case numberRequest = "Please provide number:"
     case cancel = "Cancel"
-    case ok = "Ok"
+    case ok = "OK"
     case empty = ""
     case select = "Select"
     case file = "File"
@@ -95,9 +92,8 @@ enum DfuStrings : String {
     case settingsExternalMcuValue = "Enabling this option will prevent from jumping to the DFU Bootloader mode in case there is no DFU Version characteristic."
     case settingsOther = "Other"
     case settingsAboutTitle = "About DFU"
-    case settingsAboutValue = "DFU documentation on Nordic\'s Infocenter."
-    case settingsWelcome = "Show welcome screen"
-    case settingsProvideNumberOfPackets = "Please provide integer value:"
+    case settingsWelcome = "About the app"
+    case settingsProvideNumberOfPackets = "Please, provide integer value:"
     
     case rssi = "RSSI: %@"
     

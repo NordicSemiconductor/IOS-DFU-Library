@@ -34,22 +34,25 @@ import NordicDFU
 struct FileSectionView: View {
     @State private var openFile = false
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
     var body: some View {
         VStack {
             HStack {
                 SectionImage(image: DfuImages.fileUpload.rawValue)
+                
                 Text(DfuStrings.file.rawValue)
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                DfuButton(title: DfuStrings.select.rawValue, action: {
-                    self.openFile.toggle()
-                    viewModel.clearFileError()
-                })
+                DfuButton(
+                    title: DfuStrings.select.rawValue,
+                    action: {
+                        self.openFile.toggle()
+                        viewModel.clearFileError()
+                    }
+                )
             }
             .padding()
             .onOpenURL { url in

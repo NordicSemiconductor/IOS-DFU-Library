@@ -32,14 +32,11 @@ import SwiftUI
 
 struct NumberOfPacketsDialog: View {
     
-    @Binding
-    var isShowing: Bool
+    @Binding var isShowing: Bool
     
-    @Binding
-    var value: Int
+    @Binding var value: Int
     
-    @State
-    var input = NumbersOnlyField()
+    @State var input = NumbersOnlyField()
     
     var body: some View {
         HStack {
@@ -47,8 +44,10 @@ struct NumberOfPacketsDialog: View {
                 Text(DfuStrings.numberOfPackets.text)
                     .font(.body)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
                 Spacer()
                     .frame(height: 8)
+                
                 Text(DfuStrings.numberRequest.text)
                     .font(.footnote)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -71,6 +70,7 @@ struct NumberOfPacketsDialog: View {
 }
 
 class NumbersOnlyField: ObservableObject {
+    
     @Published var value = "" {
         didSet {
             let filtered = value.filter { $0.isNumber }
