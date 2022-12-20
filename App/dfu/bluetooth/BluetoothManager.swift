@@ -78,7 +78,7 @@ class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
     }
     
     private func runScanningWhenNeeded() {
-        if (isOnScreen && isBluetoothReady) {
+        if isOnScreen && isBluetoothReady {
             centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         }
     }

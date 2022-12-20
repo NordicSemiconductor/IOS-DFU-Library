@@ -58,7 +58,7 @@ struct FileSectionView: View {
             .onOpenURL { url in
                 guard let location = url["file"],
                       let fileUrl = URL(string: location) else {
-                    return                    
+                    return
                 }
                 onFileOpen(opened: fileUrl)
             }

@@ -44,7 +44,7 @@ struct ProgressSectionView: View {
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if (viewModel.progressSection.isRunning()) {
+                if viewModel.progressSection.isRunning() {
                     AbortButton(
                         title: DfuStrings.abort.rawValue,
                         action: { viewModel.abort() }

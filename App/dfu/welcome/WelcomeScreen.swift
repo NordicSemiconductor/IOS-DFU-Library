@@ -56,7 +56,7 @@ struct WelcomeScreen: View {
             }.padding()
         }
         .navigationTitle(DfuStrings.welcomeTitle.text)
-        .onAppear { viewModel.onWelcomeScreenShown() }
+        .onAppear { viewModel.welcomeScreenDidShow() }
     }
 }
 
