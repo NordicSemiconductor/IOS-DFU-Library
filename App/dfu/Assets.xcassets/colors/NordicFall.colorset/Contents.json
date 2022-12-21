@@ -10,7 +10,7 @@
           "red" : "0.976"
         }
       },
-      "idiom" : "iphone"
+      "idiom" : "universal"
     },
     {
       "appearances" : [
@@ -23,32 +23,7 @@
         "platform" : "ios",
         "reference" : "systemOrangeColor"
       },
-      "idiom" : "iphone"
-    },
-    {
-      "color" : {
-        "color-space" : "srgb",
-        "components" : {
-          "alpha" : "1.000",
-          "blue" : "0.208",
-          "green" : "0.584",
-          "red" : "0.976"
-        }
-      },
-      "idiom" : "ipad"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "color" : {
-        "platform" : "ios",
-        "reference" : "systemOrangeColor"
-      },
-      "idiom" : "ipad"
+      "idiom" : "universal"
     }
   ],
   "info" : {
