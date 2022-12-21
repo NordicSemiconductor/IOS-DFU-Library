@@ -57,7 +57,7 @@ enum DfuStrings : String {
     case firmwareUploaded = "Firmware uploaded"
     case firmwareUploading = "Uploading firmware..."
     case firmwareUploadPart = "Uploading part %d of %d"
-    case firmwareUploadSpeed = "Speed %.1f kB/s"
+    case firmwareUploadSpeed = "%.1f kB/s"
     
     case resultCompleted = "Completed"
     case resultError = "Error: %@"
