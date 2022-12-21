@@ -83,3 +83,14 @@ private extension DfuUiStateStatus {
     }
     
 }
+
+struct StatusItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            StatusItemView(text: "Load", status: .idle)
+            StatusItemView(text: "Loading...", status: .progress)
+            StatusItemView(text: "Success", status: .success)
+            StatusItemView(text: "Error", status: .error)
+        }
+    }
+}

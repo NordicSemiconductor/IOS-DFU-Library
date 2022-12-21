@@ -86,3 +86,14 @@ private extension DfuResultStatus {
     }
     
 }
+
+struct ResultItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ResultItemView(status: .idle)
+            ResultItemView(status: .error(DfuUiError(error: nil, message: "Some error")))
+            ResultItemView(status: .success)
+        }
+    }
+}
+

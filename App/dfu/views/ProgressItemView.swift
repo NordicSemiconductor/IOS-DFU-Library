@@ -110,3 +110,17 @@ private extension DfuInstallationStatus {
     }
     
 }
+
+struct ProgressItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ProgressItemView(status: .idle)
+            ProgressItemView(status: .progress(
+                DfuProgress(part: 1, totalParts: 2, progress: 23, currentSpeedBytesPerSecond: 4.5, avgSpeedBytesPerSecond: 4.2))
+            )
+            ProgressItemView(status: .success)
+            ProgressItemView(status: .error)
+        }
+    }
+}
+
