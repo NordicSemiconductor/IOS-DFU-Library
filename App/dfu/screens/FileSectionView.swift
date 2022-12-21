@@ -63,7 +63,7 @@ struct FileSectionView: View {
                 
                 VStack {
                     if let file = viewModel.zipFile {
-                        Text(String(format: DfuStrings.fileName.rawValue, file.name))
+                        Text(String(format: DfuStrings.name.rawValue, file.name))
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text(String(format: DfuStrings.fileSize.rawValue, file.size))
                             .frame(maxWidth: .infinity, alignment: .leading)

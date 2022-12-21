@@ -51,7 +51,7 @@ enum DfuStrings : String {
     case settings = "Settings"
     case scanner = "Scanner"
     case nearbyOnly = "Nearby"
-    case withName = "With name"
+    case withName = "Name"
     
     case firmwareUpload = "Firmware upload"
     case firmwareUploaded = "Firmware uploaded"
@@ -63,11 +63,10 @@ enum DfuStrings : String {
     case resultError = "Error: %@"
     
     case fileSelect = "Select a .zip file"
-    case fileName = "Name: %@"
     case fileSize = "Size: %d bytes"
     
     case deviceSelect = "Select a device"
-    case deviceName = "Device: %@"
+    case name = "Name: %@"
     
     case bootloaderIdle = "Bootloader enablement"
     case bootloaderInProgress = "Enabling bootloader..."
