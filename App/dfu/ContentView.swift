@@ -39,16 +39,12 @@ struct ContentView: View {
     private var viewModel = DfuViewModel()
     
     @State
-    private var showWelcomeScreen: Bool?
+    private var showWelcomeScreen: Bool = false
     
     var body: some View {
         ScrollView {
             Section {
                 VStack {
-                    NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) {
-                        EmptyView()
-                    }.hidden()
-                    
                     FileSectionView(viewModel: viewModel)
                     
                     DeviceSectionView(viewModel: viewModel)
@@ -56,15 +52,20 @@ struct ContentView: View {
                     ProgressSectionView(viewModel: viewModel)
                 }.padding()
             }
-            .navigationTitle(DfuStrings.dfuTitle.text)
-            .navigationBarItems(trailing:
-                NavigationLink(destination: SettingsView(viewModel: viewModel)) {
-                    Text(DfuStrings.settings.text)
-                }
-                .accessibilityIdentifier(DfuIds.settingsButton.rawValue)
-            )
-            Spacer()
-        }.onAppear {
+        }
+        .sheet(isPresented: $showWelcomeScreen) {
+            NavigationView {
+                WelcomeScreen(viewModel: viewModel)
+            }
+        }
+        .navigationTitle(DfuStrings.dfuTitle.text)
+        .navigationBarItems(trailing:
+            NavigationLink(destination: SettingsView(viewModel: viewModel)) {
+                Text(DfuStrings.settings.text)
+            }
+            .accessibilityIdentifier(DfuIds.settingsButton.rawValue)
+        )
+        .onAppear {
             if viewModel.showWelcomeScreen {
                 showWelcomeScreen = true
             }
