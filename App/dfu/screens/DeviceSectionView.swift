@@ -70,7 +70,8 @@ struct DeviceSectionView: View {
                 }
                 Spacer()
             }
-        }.disabled(viewModel.isDeviceButtonDisabled())
+        }
+        .disabled(viewModel.isDeviceButtonDisabled())
     }
 }
 

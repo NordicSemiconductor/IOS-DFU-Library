@@ -65,10 +65,13 @@ struct FileSectionView: View {
                 
                 VStack {
                     if let file = viewModel.zipFile {
-                        Text(String(format: DfuStrings.fileName.rawValue, file.name)).frame(maxWidth: .infinity, alignment: .leading)
-                        Text(String(format: DfuStrings.fileSize.rawValue, file.size)).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(String(format: DfuStrings.fileName.rawValue, file.name))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(String(format: DfuStrings.fileSize.rawValue, file.size))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     } else {
-                        Text(DfuStrings.fileSelect.rawValue).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(DfuStrings.fileSelect.rawValue)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     if viewModel.fileError != nil {
                         Spacer()
@@ -76,7 +79,8 @@ struct FileSectionView: View {
                             .foregroundColor(ThemeColor.nordicRed.color)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                }.padding(.vertical, 8)
+                }
+                .padding(.vertical, 8)
             }
         }
         .fileImporter(isPresented: $openFile, allowedContentTypes: [.zip]) { res in

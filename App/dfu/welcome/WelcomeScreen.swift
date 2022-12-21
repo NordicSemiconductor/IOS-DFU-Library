@@ -41,13 +41,14 @@ struct WelcomeScreen: View {
             VStack {
                 Image(DfuImages.dfu.imageName)
                     .resizable()
+                    .padding()
                     .aspectRatio(contentMode: .fit)
                 
-                Spacer().frame(height: 24)
+                Spacer()
                 
                 Text(DfuStrings.welcomeText.text)
                 
-                Spacer().frame(height: 24)
+                Spacer()
                 
                 DfuButton(
                     title: DfuStrings.welcomeStart.text,

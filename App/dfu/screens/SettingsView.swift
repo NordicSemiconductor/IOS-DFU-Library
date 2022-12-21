@@ -86,7 +86,7 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text(DfuStrings.settingsSecureDfu.text)) {
+            Section(DfuStrings.settingsSecureDfu.text) {
                 HStack {
                     Toggle(isOn: $viewModel.disableResume) {
                         Text(DfuStrings.settingsDisableResumeTitle.text)
@@ -102,7 +102,7 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text(DfuStrings.settingsLegacyDfu.text)) {
+            Section(DfuStrings.settingsLegacyDfu.text) {
                 HStack {
                     Toggle(isOn: $viewModel.forceScanningInLegacyDfu) {
                         Text(DfuStrings.settingsForceScanningTitle.text)
@@ -132,7 +132,7 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text(DfuStrings.settingsOther.text)) {
+            Section(DfuStrings.settingsOther.text) {
                 Link(DfuStrings.settingsAboutTitle.text, destination: URL(string: INFOCENTER_LINK)!)
                 
                 NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) {
