@@ -543,6 +543,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dfu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DFU;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -580,6 +582,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dfu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DFU;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "This app uses Bluetooth to connect and send new firmware to a device.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

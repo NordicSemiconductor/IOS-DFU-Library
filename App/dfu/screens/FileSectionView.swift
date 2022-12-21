@@ -55,13 +55,6 @@ struct FileSectionView: View {
                 )
             }
             .padding()
-            .onOpenURL { url in
-                guard let location = url["file"],
-                      let fileUrl = URL(string: location) else {
-                    return
-                }
-                onFileOpen(opened: fileUrl)
-            }
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)
@@ -86,13 +79,23 @@ struct FileSectionView: View {
                 }.padding(.vertical, 8)
             }
         }
-        .fileImporter(isPresented: $openFile, allowedContentTypes: [.zip]) { (res) in
+        .fileImporter(isPresented: $openFile, allowedContentTypes: [.zip]) { res in
             do {
                 let fileUrl = try res.get()
                 onFileOpen(opened: fileUrl)
             } catch {
                 onError(error.localizedDescription)
             }
+        }
+        .onOpenURL { url in
+            // Handle https://www.nordicsemi.com/dfu?file=... deeplinks.
+            if let location = url["file"],
+               let fileUrl = URL(string: location) {
+                onFileOpen(opened: fileUrl)
+                return
+            }
+            // Handle files opened from another apps.
+            onFileOpen(opened: url)
         }
         .disabled(viewModel.isFileButtonDisabled())
     }
@@ -118,10 +121,12 @@ struct FileSectionView: View {
             
             guard let fileURL = urlOrNil else { return }
             do {
-                let documentsURL = try FileManager.default.url(for: .documentDirectory,
+                let documentsURL = try FileManager.default.url(
+                    for: .documentDirectory,
                     in: .userDomainMask,
                     appropriateFor: nil,
-                    create: false)
+                    create: false
+                )
                 let savedURL = documentsURL.appendingPathComponent(response.suggestedFilename ?? "file.zip")
                 
                 try? FileManager.default.removeItem(at: savedURL)
@@ -130,6 +135,12 @@ struct FileSectionView: View {
                 let resources = try savedURL.resourceValues(forKeys:[.fileSizeKey, .nameKey])
                 let fileSize = resources.fileSize!
                 let fileName = resources.name!
+                
+                // Validate the file by creating a DFUFirmware object.
+                _ = try DFUFirmware(
+                    urlToZipFile: savedURL,
+                    type: .softdeviceBootloaderApplication
+                )
                 
                 let zipFile = ZipFile(name: fileName, size: fileSize, url: savedURL)
                 try onFileSelected(zipFile)
@@ -141,10 +152,6 @@ struct FileSectionView: View {
     }
     
     private func onFileSelected(_ file: ZipFile) throws {
-        _ = try DFUFirmware(
-            urlToZipFile: file.url,
-            type: .softdeviceBootloaderApplication
-        )
         DispatchQueue.main.async {
             viewModel.onFileSelected(file)
         }
@@ -164,11 +171,11 @@ struct FileSectionView_Previews: PreviewProvider {
 }
 
 private extension URL {
-    
+
     subscript(queryParam: String) -> String? {
         guard let url = URLComponents(string: self.absoluteString) else { return nil }
         if let parameters = url.queryItems {
-            return parameters.first(where: { $0.name == queryParam })?.value
+            return parameters.first { $0.name == queryParam }?.value
         } else if let paramPairs = url.fragment?.components(separatedBy: "?").last?.components(separatedBy: "&") {
             for pair in paramPairs where pair.contains(queryParam) {
                 return pair.components(separatedBy: "=").last
