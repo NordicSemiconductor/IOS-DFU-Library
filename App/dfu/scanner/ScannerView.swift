@@ -87,8 +87,8 @@ struct ScannerView: View {
 
 struct ScannerView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             ScannerView(viewModel: DfuViewModel())
-        }.navigationViewStyle(.stack)
+        }
     }
 }

@@ -45,15 +45,15 @@ struct ProgressSectionView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 if viewModel.progressSection.isRunning() {
-                    AbortButton(
-                        title: DfuStrings.abort.rawValue,
-                        action: { viewModel.abort() }
-                    )
+                    Button(DfuStrings.abort.rawValue) {
+                        viewModel.abort()
+                    }
+                    .buttonStyle(AbortButtonStyle())
                 } else {
-                    DfuButton(
-                        title: DfuStrings.upload.rawValue,
-                        action: { viewModel.install() }
-                    )
+                    Button(DfuStrings.upload.rawValue) {
+                        viewModel.install()
+                    }
+                    .buttonStyle(DfuButtonStyle())
                 }
             }.padding()
             

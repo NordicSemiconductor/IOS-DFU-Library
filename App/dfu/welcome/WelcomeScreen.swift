@@ -50,11 +50,12 @@ struct WelcomeScreen: View {
                 
                 Spacer()
                 
-                DfuButton(
-                    title: DfuStrings.welcomeStart.text,
-                    action: { presentationMode.wrappedValue.dismiss() }
-                )
-            }.padding()
+                Button(DfuStrings.welcomeStart.text) {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .buttonStyle(DfuButtonStyle())
+            }
+            .padding()
         }
         .navigationTitle(DfuStrings.welcomeTitle.text)
         .onAppear { viewModel.welcomeScreenDidShow() }

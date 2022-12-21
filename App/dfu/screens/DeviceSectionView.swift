@@ -34,8 +34,6 @@ struct DeviceSectionView: View {
     
     @ObservedObject var viewModel: DfuViewModel
     
-    @State private var goToScannerView: Bool?
-    
     var body: some View {
         VStack {
             HStack {
@@ -46,13 +44,14 @@ struct DeviceSectionView: View {
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                NavigationLink(destination: ScannerView(viewModel: viewModel), tag: true, selection: $goToScannerView) { }
-                
-                DfuButton(
-                    title: DfuStrings.select.text,
-                    action: { goToScannerView = true }
-                )
-            }.padding()
+                NavigationLink{
+                    ScannerView(viewModel: viewModel)
+                } label: {
+                    Text(DfuStrings.select.text)
+                }
+                .buttonStyle(DfuButtonStyle())
+            }
+            .padding()
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)

@@ -46,13 +46,11 @@ struct FileSectionView: View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                DfuButton(
-                    title: DfuStrings.select.rawValue,
-                    action: {
-                        self.openFile.toggle()
-                        viewModel.clearFileError()
-                    }
-                )
+                Button(DfuStrings.select.text) {
+                    openFile.toggle()
+                    viewModel.clearFileError()
+                }
+                .buttonStyle(DfuButtonStyle())
             }
             .padding()
             

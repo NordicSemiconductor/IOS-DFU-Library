@@ -58,15 +58,3 @@ private extension AbortButtonStyle {
     }
     
 }
-
-struct AbortButton: View {
-    let title: String
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            Text(self.title).foregroundColor(Color.white)
-        }.buttonStyle(AbortButtonStyle())
-    }
-}
-

@@ -58,16 +58,5 @@ private extension DfuButtonStyle {
                 .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
         }
     }
-}
-
-struct DfuButton: View {
-    let title: String
-    let action: () -> Void
     
-    var body: some View {
-        Button(action: action) {
-            Text(self.title).foregroundColor(Color.white)
-        }
-        .buttonStyle(DfuButtonStyle())
-    }
 }
