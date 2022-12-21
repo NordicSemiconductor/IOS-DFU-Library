@@ -29,31 +29,38 @@
 */
 
 import SwiftUI
-import Combine
-import os
-import os.log
-import CoreBluetooth
 
-struct BluetoothDevice: Identifiable {
-    let id = UUID()
-    let peripheral: CBPeripheral
-    var rssi: Int
-    var name: String?
-    var highestRssi: Int
-    var hadName: Bool
+struct DeviceView: View {
+    let name: String
+    let rssi: Int
     
-    init(peripheral: CBPeripheral, rssi: Int, name: String?) {
-        self.peripheral = peripheral
-        self.rssi = rssi
-        self.name = name
-        self.highestRssi = rssi
-        self.hadName = name != nil
+    var body: some View {
+        HStack {
+            Text(name)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            SignalStrengthIndicator(signalStrength: getSignalStrength())
+        }
     }
     
-    mutating func update(rssi: Int, name: String?) {
-        self.rssi = rssi
-        self.name = name
-        self.highestRssi = max(rssi, highestRssi)
-        self.hadName = hadName || name != nil
+    private func getSignalStrength() -> SignalStrength {
+        switch rssi {
+        case let value where value > -50:
+            return .strong
+        case let value where value > -65:
+            return .normal
+        default:
+            return .weak
+        }
+    }
+}
+
+
+struct DeviceView_Previews: PreviewProvider {
+    static var previews: some View {
+        DeviceView(name: "Some name", rssi: -60)
+            .padding()
+            .background(.white)
+            .frame(height: 40)
     }
 }

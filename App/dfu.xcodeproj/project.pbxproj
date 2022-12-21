@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52F3488F29536223007D0395 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F3488E29536223007D0395 /* DeviceView.swift */; };
 		8D02F955281FD99B0030D67A /* DfuImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D02F954281FD99B0030D67A /* DfuImages.swift */; };
 		8D4DEA0B27F4688500C1AD43 /* NumberOfPacketsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */; };
 		8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		52F3488E29536223007D0395 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
 		8D02F954281FD99B0030D67A /* DfuImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuImages.swift; sourceTree = "<group>"; };
 		8D086C1D283259B600E63785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D0FA0B72840E15800DCA098 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				8D6228C127EDB87F00AE3E1B /* ScannerView.swift */,
+				52F3488E29536223007D0395 /* DeviceView.swift */,
 			);
 			path = scanner;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				8D02F955281FD99B0030D67A /* DfuImages.swift in Sources */,
 				8D6228C227EDB87F00AE3E1B /* ScannerView.swift in Sources */,
 				8D6228C427EDECA400AE3E1B /* BluetoothDevice.swift in Sources */,
+				52F3488F29536223007D0395 /* DeviceView.swift in Sources */,
 				8DA4AE1A2841097C00BFA79E /* DfuIds.swift in Sources */,
 				8D9B54A727F5C4EC009A5461 /* ProgressItemView.swift in Sources */,
 				8DEF02E727EB48A400838144 /* DfuApp.swift in Sources */,

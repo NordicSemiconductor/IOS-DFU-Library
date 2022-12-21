@@ -63,17 +63,14 @@ struct ScannerView: View {
 
             Section(DfuStrings.devices.text) {
                 ForEach(bluetoothManager.filteredDevices()) { device in
-                    Button(
-                        action: {
-                            viewModel.device = device
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    ) {
-                        HStack {
-                            Text(device.name ?? DfuStrings.noName.text)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            SignalStrengthIndicator(signalStrength: device.getSignalStrength())
-                        }
+                    Button {
+                        viewModel.device = device
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        DeviceView(
+                            name: device.name ?? DfuStrings.noName.text,
+                            rssi: device.rssi
+                        )
                     }
                 }
             }
