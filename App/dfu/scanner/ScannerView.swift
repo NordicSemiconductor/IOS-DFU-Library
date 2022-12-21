@@ -42,7 +42,7 @@ struct ScannerView: View {
     
     var body: some View {
         List {
-            Section(header: Text(DfuStrings.filters.text)) {
+            Section(DfuStrings.filters.text) {
                 HStack {
                     Toggle(DfuStrings.nearbyOnly.text, isOn: $bluetoothManager.nearbyOnlyFilter)
                         .toggleStyle(.switch)
@@ -50,22 +50,23 @@ struct ScannerView: View {
                             bluetoothManager.nearbyOnlyFilter = value
                         }
                     
-                    Spacer().frame(width: 16)
+                    Spacer()
                     
                     Toggle(DfuStrings.withName.text, isOn: $bluetoothManager.withNameOnlyFilter)
                         .toggleStyle(.switch)
                         .onChange(of: bluetoothManager.withNameOnlyFilter) { value in
                             bluetoothManager.withNameOnlyFilter = value
                         }
-                }.padding(.horizontal)
+                }
+                .padding(.horizontal)
             }
 
-            Section(header: Text(DfuStrings.devices.text)) {
+            Section(DfuStrings.devices.text) {
                 ForEach(bluetoothManager.filteredDevices()) { device in
                     Button(
                         action: {
                             viewModel.device = device
-                            self.presentationMode.wrappedValue.dismiss()
+                            presentationMode.wrappedValue.dismiss()
                         }
                     ) {
                         HStack {
