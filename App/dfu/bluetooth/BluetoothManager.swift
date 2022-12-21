@@ -35,7 +35,7 @@ import os.log
 import CoreBluetooth
 
 class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
-    private let MIN_RSSI = NSNumber(-65)
+    private let MIN_RSSI = -50
     
     @Published var devices: [BluetoothDevice] = []
     
@@ -54,17 +54,9 @@ class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
     }
     
     func filteredDevices() -> [BluetoothDevice] {
-        return devices.filter { device in
-            if !nearbyOnlyFilter {
-                return true
-            }
-            return device.rssi.compare(MIN_RSSI) == .orderedDescending
-        }.filter { device in
-            if !withNameOnlyFilter {
-                return true
-            }
-            return device.name != nil
-        }
+        return devices
+            .filter { !nearbyOnlyFilter || $0.highestRssi > MIN_RSSI }
+            .filter { !withNameOnlyFilter || $0.hadName }
     }
     
     func startScan() {
@@ -79,7 +71,10 @@ class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
     
     private func runScanningWhenNeeded() {
         if isOnScreen && isBluetoothReady {
-            centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+            centralManager.scanForPeripherals(
+                withServices: nil,
+                options: [CBCentralManagerScanOptionAllowDuplicatesKey: true]
+            )
         }
     }
 }
@@ -108,11 +103,11 @@ extension BluetoothManager: CBCentralManagerDelegate {
         rssi RSSI: NSNumber
     ) {
         let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String
-        let device = BluetoothDevice(peripheral: peripheral, rssi: RSSI, name: name)
         let index = devices.firstIndex { $0.peripheral == peripheral }
         if let index = index {
-            devices[index] = device
+            devices[index].update(rssi: Int(truncating: RSSI), name: name)
         } else {
+            let device = BluetoothDevice(peripheral: peripheral, rssi: Int(truncating: RSSI), name: name)
             devices.append(device)
         }
     }

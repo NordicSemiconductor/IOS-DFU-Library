@@ -34,17 +34,34 @@ import os
 import os.log
 import CoreBluetooth
 
-struct BluetoothDevice : Identifiable {
+struct BluetoothDevice: Identifiable {
     let id = UUID()
     let peripheral: CBPeripheral
-    let rssi: NSNumber
-    let name: String?
+    var rssi: Int
+    var name: String?
+    var highestRssi: Int
+    var hadName: Bool
+    
+    init(peripheral: CBPeripheral, rssi: Int, name: String?) {
+        self.peripheral = peripheral
+        self.rssi = rssi
+        self.name = name
+        self.highestRssi = rssi
+        self.hadName = name != nil
+    }
+    
+    mutating func update(rssi: Int, name: String?) {
+        self.rssi = rssi
+        self.name = name
+        self.highestRssi = max(rssi, highestRssi)
+        self.hadName = hadName || name != nil
+    }
     
     func getSignalStrength() -> SignalStrength {
-        if rssi.compare(NSNumber(-65)) == .orderedDescending {
+        if rssi > -50 {
             return SignalStrength.strong
         }
-        else if rssi.compare(NSNumber(-85)) == .orderedDescending {
+        else if rssi > -75 {
             return SignalStrength.normal
         }
         else {
