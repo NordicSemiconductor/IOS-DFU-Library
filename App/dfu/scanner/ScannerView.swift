@@ -44,8 +44,10 @@ struct ScannerView: View {
         List {
             Section(DfuStrings.filters.text) {
                 HStack {
+                    Spacer()
+                    
                     Toggle(DfuStrings.nearbyOnly.text, isOn: $bluetoothManager.nearbyOnlyFilter)
-                        .toggleStyle(.switch)
+                        .toggleStyle(.button)
                         .onChange(of: bluetoothManager.nearbyOnlyFilter) { value in
                             bluetoothManager.nearbyOnlyFilter = value
                         }
@@ -53,10 +55,12 @@ struct ScannerView: View {
                     Spacer()
                     
                     Toggle(DfuStrings.withName.text, isOn: $bluetoothManager.withNameOnlyFilter)
-                        .toggleStyle(.switch)
+                        .toggleStyle(.button)
                         .onChange(of: bluetoothManager.withNameOnlyFilter) { value in
                             bluetoothManager.withNameOnlyFilter = value
                         }
+                    
+                    Spacer()
                 }
                 .padding(.horizontal)
             }

@@ -41,7 +41,7 @@ class BluetoothManager : NSObject, CBPeripheralDelegate, ObservableObject {
     
     @Published var nearbyOnlyFilter = false
     
-    @Published var withNameOnlyFilter = false
+    @Published var withNameOnlyFilter = true
     
     private var centralManager: CBCentralManager!
     
