@@ -63,14 +63,14 @@ struct FileSectionView: View {
                     .padding(.trailing, 25)
                 
                 VStack {
-                    if let file = viewModel.zipFile {
+                    if loading {
+                        Text(DfuStrings.fileLoading.rawValue)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else if let file = viewModel.zipFile {
                         Text(String(format: DfuStrings.name.rawValue, file.name))
                             .lineLimit(1)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text(String(format: DfuStrings.fileSize.rawValue, file.size))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    } else if loading {
-                        Text(DfuStrings.fileLoading.rawValue)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     } else {
                         Text(DfuStrings.fileSelect.rawValue)
@@ -108,25 +108,32 @@ struct FileSectionView: View {
     }
     
     private func onFileOpen(opened fileUrl: URL) {
-        let downloadTask = URLSession.shared.downloadTask(with: fileUrl) {
-            urlOrNil, responseOrNil, errorOrNil in
-            if let error = errorOrNil {
+        guard !fileUrl.isFileURL || fileUrl.startAccessingSecurityScopedResource() else {
+            onError("Permission denied")
+            return
+        }
+        
+        loading = true
+        
+        let downloadTask = URLSession.shared.downloadTask(with: fileUrl) { url, response, error in
+            fileUrl.stopAccessingSecurityScopedResource()
+            if let error = error {
                 onError(error.localizedDescription)
                 return
             }
             
-            if let response = responseOrNil as? HTTPURLResponse {
+            if let response = response as? HTTPURLResponse {
                 guard response.statusCode >= 200 && response.statusCode < 300 else {
                     onError(DfuStrings.fileDownloadError.text)
                     return
                 }
             }
-            guard let response = responseOrNil else {
+            guard let response = response else {
                 onError(DfuStrings.fileError.text)
                 return
             }
             
-            guard let fileURL = urlOrNil else { return }
+            guard let fileURL = url else { return }
             do {
                 let documentsURL = try FileManager.default.url(
                     for: .documentDirectory,
@@ -155,7 +162,6 @@ struct FileSectionView: View {
                 onError(error.localizedDescription)
             }
         }
-        loading = true
         downloadTask.resume()
     }
     
