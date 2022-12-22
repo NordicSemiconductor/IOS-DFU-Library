@@ -33,6 +33,7 @@ import NordicDFU
 
 struct FileSectionView: View {
     @State private var openFile = false
+    @State private var loading = false
     
     @ObservedObject var viewModel: DfuViewModel
     
@@ -64,8 +65,12 @@ struct FileSectionView: View {
                 VStack {
                     if let file = viewModel.zipFile {
                         Text(String(format: DfuStrings.name.rawValue, file.name))
+                            .lineLimit(1)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text(String(format: DfuStrings.fileSize.rawValue, file.size))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else if loading {
+                        Text(DfuStrings.fileLoading.rawValue)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     } else {
                         Text(DfuStrings.fileSelect.rawValue)
@@ -150,17 +155,20 @@ struct FileSectionView: View {
                 onError(error.localizedDescription)
             }
         }
+        loading = true
         downloadTask.resume()
     }
     
     private func onFileSelected(_ file: ZipFile) throws {
         DispatchQueue.main.async {
+            loading = false
             viewModel.onFileSelected(file)
         }
     }
     
     private func onError(_ message: String) {
         DispatchQueue.main.async {
+            loading = false
             viewModel.onFileError(message)
         }
     }

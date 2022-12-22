@@ -63,6 +63,7 @@ enum DfuStrings : String {
     case resultCompleted = "Completed"
     case resultError = "Error: %@"
     
+    case fileLoading = "Downloading..."
     case fileSelect = "Select a .zip file"
     case fileSize = "Size: %d bytes"
     
