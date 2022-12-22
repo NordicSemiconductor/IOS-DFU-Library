@@ -37,7 +37,7 @@ struct ProgressSectionView: View {
     var body: some View {
         VStack {
             HStack {
-                SectionImage(image: DfuImages.upload.rawValue)
+                SectionImage(image: DfuImages.upload)
                 
                 Text(DfuStrings.progress.text)
                     .padding()

@@ -40,7 +40,7 @@ struct FileSectionView: View {
     var body: some View {
         VStack {
             HStack {
-                SectionImage(image: DfuImages.fileUpload.rawValue)
+                SectionImage(image: DfuImages.fileUpload)
                 
                 Text(DfuStrings.file.rawValue)
                     .font(.title)

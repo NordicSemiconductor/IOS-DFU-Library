@@ -34,10 +34,10 @@ struct SectionImage: View {
     
     @Environment(\.isEnabled) var isEnabled
     
-    let image: String
+    let image: DfuImages
     
     var body: some View {
-        Image(image)
+        Image(systemName: image.imageName)
             .renderingMode(.template)
             .foregroundColor(.white)
             .background(Circle()

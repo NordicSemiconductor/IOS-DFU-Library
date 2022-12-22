@@ -37,7 +37,7 @@ struct DeviceSectionView: View {
     var body: some View {
         VStack {
             HStack {
-                SectionImage(image: DfuImages.bluetooth.imageName)
+                SectionImage(image: DfuImages.bluetooth)
                 
                 Text(DfuStrings.device.text)
                     .padding()

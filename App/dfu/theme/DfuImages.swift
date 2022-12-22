@@ -29,14 +29,14 @@
 */
 
 enum DfuImages : String {
-    case idle = "filled-circle"
-    case success = "success"
-    case progress = "progress"
-    case error = "error"
+    case idle = "circle.fill"
+    case success = "checkmark.circle"
+    case progress = "arrow.forward.circle"
+    case error = "x.circle.fill"
     
-    case fileUpload = "file-upload-outline"
-    case bluetooth = "bluetooth"
-    case upload = "upload"
+    case fileUpload = "doc.zipper"
+    case bluetooth = "circle.square.fill"
+    case upload = "square.and.arrow.up"
     case launch = "rectangle.portrait.and.arrow.forward"
     
     case dfu = "dfu"

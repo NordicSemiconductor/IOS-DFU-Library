@@ -43,7 +43,7 @@ struct ProgressItemView: View {
     var body: some View {
         VStack {
             HStack {
-                Image(status.image)
+                Image(systemName: status.image.imageName)
                     .renderingMode(.template)
                     .foregroundColor(status.color)
                     .frame(width: 24, height: 24)
@@ -83,23 +83,23 @@ struct ProgressItemView: View {
 
 private extension DfuInstallationStatus {
     
-    var image: String {
+    var image: DfuImages {
         switch self {
         case .idle:
-            return DfuImages.idle.rawValue
+            return DfuImages.idle
         case .success:
-            return DfuImages.success.rawValue
+            return DfuImages.success
         case .progress:
-            return DfuImages.progress.rawValue
+            return DfuImages.progress
         case .error:
-            return DfuImages.error.rawValue
+            return DfuImages.error
         }
     }
 
     var color: Color {
         switch self {
         case .idle:
-            return ThemeColor.nordicDarkGray5.color
+            return .gray
         case .success:
             return ThemeColor.nordicGreen.color
         case .progress:
