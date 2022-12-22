@@ -36,9 +36,9 @@ struct SettingsView: View {
     
     @ObservedObject var viewModel: DfuViewModel
     
-    @State private var showWelcomeScreen: Bool?
-    
+    @State private var title: String = ""
     @State private var description: String = ""
+    @State private var prn: String = ""
     
     @State private var showingAlert: Bool = false
     
@@ -55,6 +55,7 @@ struct SettingsView: View {
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsPacketReceiptTitle.text
                             description = DfuStrings.settingsPacketReceiptValue.text
                             showingAlert = true
                         }
@@ -77,38 +78,41 @@ struct SettingsView: View {
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.alternativeAdvertisingNameTitle.text
                             description = DfuStrings.alternativeAdvertisingNameValue.text
                             showingAlert = true
                         }
                 }
             }
             
-            Section(header: Text(DfuStrings.settingsSecureDfu.text)) {
-                
+            Section(DfuStrings.settingsSecureDfu.text) {
                 HStack {
                     Toggle(isOn: $viewModel.disableResume) {
                         Text(DfuStrings.settingsDisableResumeTitle.text)
-                    }.tint(ThemeColor.nordicBlue.color)
+                    }
+                    .tint(ThemeColor.nordicBlue.color)
                     
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsDisableResumeTitle.text
                             description = DfuStrings.settingsDisableResumeValue.text
                             showingAlert = true
                         }
                 }
             }
             
-            Section(header: Text(DfuStrings.settingsLegacyDfu.text)) {
-                
+            Section(DfuStrings.settingsLegacyDfu.text) {
                 HStack {
                     Toggle(isOn: $viewModel.forceScanningInLegacyDfu) {
                         Text(DfuStrings.settingsForceScanningTitle.text)
-                    }.tint(ThemeColor.nordicBlue.color)
+                    }
+                    .tint(ThemeColor.nordicBlue.color)
                     
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsForceScanningTitle.text
                             description = DfuStrings.settingsForceScanningValue.text
                             showingAlert = true
                         }
@@ -117,48 +121,74 @@ struct SettingsView: View {
                 HStack {
                     Toggle(isOn: $viewModel.externalMcuDfu) {
                         Text(DfuStrings.settingsExternalMcuTitle.text)
-                    }.tint(ThemeColor.nordicBlue.color)
+                    }
+                    .tint(ThemeColor.nordicBlue.color)
                     
                     Image(systemName: DfuImages.info.imageName)
                         .foregroundColor(ThemeColor.nordicBlue.color)
                         .onTapGesture {
+                            title = DfuStrings.settingsExternalMcuTitle.text
                             description = DfuStrings.settingsExternalMcuValue.text
                             showingAlert = true
                         }
                 }
             }
             
-            Section(header: Text(DfuStrings.settingsOther.text)) {
+            Section(DfuStrings.settingsOther.text) {
                 Link(DfuStrings.settingsAboutTitle.text, destination: URL(string: INFOCENTER_LINK)!)
                 
-                NavigationLink(destination: WelcomeScreen(viewModel: viewModel), tag: true, selection: $showWelcomeScreen) {
-                    Text(DfuStrings.settingsWelcome.text)
-                }.accessibilityIdentifier(DfuIds.welcomeButton.rawValue)
+                NavigationLink(DfuStrings.settingsWelcome.text) {
+                    WelcomeScreen(viewModel: viewModel)
+                }
+                .accessibilityIdentifier(DfuIds.welcomeButton.rawValue)
             }
         }
         .navigationTitle(DfuStrings.settings.text)
-        .alert(description, isPresented: $showingAlert) {
-            Button(DfuStrings.ok.text, role: .cancel) {
-                showingAlert = false
-            }
+        .onAppear {
+            prn = "\(viewModel.numberOfPackets)"
         }
-        .alert(
-            isPresented: $showingNumberOfPacketsDialog,
-            TextAlert(
-                title: DfuStrings.numberOfPackets.text,
-                message: DfuStrings.settingsProvideNumberOfPackets.text,
-                keyboardType: .numberPad
-            ) { result in
-                if let result = result {
-                    viewModel.numberOfPackets = Int(result) ?? viewModel.numberOfPackets
+        .alert(title, isPresented: $showingAlert,
+            actions: {
+                Button(DfuStrings.ok.text, role: .cancel) {}
+            },
+            message: {
+                Text(description)
+            }
+        )
+        .alert(DfuStrings.numberOfPackets.text, isPresented: $showingNumberOfPacketsDialog,
+            actions: {
+                TextField("E.g. 12", text: $prn.limit(5))
+                    .keyboardType(.numberPad)
+                Button(DfuStrings.cancel.text, role: .cancel) {}
+                Button(DfuStrings.ok.text) {
+                    guard let prn = Int(prn) else { return }
+                    viewModel.numberOfPackets = prn
                 }
+            },
+            message: {
+                Text(DfuStrings.settingsProvideNumberOfPackets.text)
             }
         )
     }
 }
 
+extension Binding where Value == String {
+    
+    func limit(_ limit: Int) -> Self {
+        if wrappedValue.count > limit {
+            DispatchQueue.main.async {
+                self.wrappedValue = String(self.wrappedValue.dropLast())
+            }
+        }
+        return self
+    }
+    
+}
+
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(viewModel: DfuViewModel())
+        NavigationView {
+            SettingsView(viewModel: DfuViewModel())
+        }.navigationViewStyle(.stack)
     }
 }

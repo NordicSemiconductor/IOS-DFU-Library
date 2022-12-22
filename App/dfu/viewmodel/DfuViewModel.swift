@@ -35,17 +35,13 @@ import SwiftUI
 
 class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     
-    @Published
-    var fileError: String? = nil
+    @Published var fileError: String? = nil
     
-    @Published
-    private(set) var zipFile: ZipFile? = nil
+    @Published private(set) var zipFile: ZipFile? = nil
     
-    @Published
-    var device: BluetoothDevice? = nil
+    @Published var device: BluetoothDevice? = nil
     
-    @Published
-    var progressSection: ProgressSectionViewEntity = ProgressSectionViewEntity()
+    @Published var progressSection: ProgressSectionViewEntity = ProgressSectionViewEntity()
     
     @AppStorage("packetsReceiptNotification")
     var packetsReceiptNotification: Bool = false
@@ -87,14 +83,13 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
     }
     
     func install() {
-        print(zipFile ?? "null")
-        print(device ?? "null")
-        os_log("%@", zipFile.debugDescription)
-
-        let selectedFirmware = try! DFUFirmware(
-            urlToZipFile: zipFile!.url,
-            type: .softdeviceBootloaderApplication
-        )
+        guard let zipFile = zipFile,
+              let selectedFirmware = try? DFUFirmware(
+                urlToZipFile: zipFile.url,
+                type: .softdeviceBootloaderApplication
+              ) else {
+            return
+        }
         
         let initiator = DFUServiceInitiator().with(firmware: selectedFirmware)
 
@@ -134,18 +129,27 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         }
     }
     
-    func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
-        let progress = DfuProgress(part: part, totalParts: totalParts, progress: progress, currentSpeedBytesPerSecond: currentSpeedBytesPerSecond, avgSpeedBytesPerSecond: avgSpeedBytesPerSecond)
+    func dfuProgressDidChange(
+        for part: Int, outOf totalParts: Int,
+        to progress: Int,
+        currentSpeedBytesPerSecond: Double,
+        avgSpeedBytesPerSecond: Double
+    ) {
+        let progress = DfuProgress(
+            part: part, totalParts: totalParts,
+            progress: progress,
+            currentSpeedBytesPerSecond: currentSpeedBytesPerSecond,
+            avgSpeedBytesPerSecond: avgSpeedBytesPerSecond
+        )
         progressSection = progressSection.toProgressState(updated: progress)
     }
     
     func dfuStateDidChange(to state: DFUState) {
-        print("state: \(state)")
-        if (state == DFUState.enablingDfuMode) {
+        if state == .enablingDfuMode {
             progressSection = progressSection.toDfuState()
-        } else if (state == DFUState.completed) {
+        } else if state == .completed {
             progressSection = progressSection.toSuccessState()
-        } else if (state == DFUState.aborted) {
+        } else if state == .aborted {
             progressSection = progressSection.toErrorState(message: DfuUiError(error: nil, message: DfuStrings.aborted.text))
         }
     }
@@ -155,8 +159,8 @@ class DfuViewModel : ObservableObject, DFUProgressDelegate, DFUServiceDelegate {
         progressSection = progressSection.toErrorState(message: error)
     }
     
-    func onWelcomeScreenShown() {
-        if (showWelcomeScreen) {
+    func welcomeScreenDidShow() {
+        if showWelcomeScreen {
             showWelcomeScreen = false
         }
     }

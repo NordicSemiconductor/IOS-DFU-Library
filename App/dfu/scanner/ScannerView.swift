@@ -36,43 +36,45 @@ struct ScannerView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
-    @StateObject
-    var bluetoothManager: BluetoothManager = BluetoothManager()
+    @StateObject var bluetoothManager: BluetoothManager = BluetoothManager()
     
     var body: some View {
         List {
-            Section(header: Text(DfuStrings.filters.text)) {
+            Section(DfuStrings.filters.text) {
                 HStack {
+                    Spacer()
+                    
                     Toggle(DfuStrings.nearbyOnly.text, isOn: $bluetoothManager.nearbyOnlyFilter)
-                        .toggleStyle(.switch)
+                        .toggleStyle(.button)
                         .onChange(of: bluetoothManager.nearbyOnlyFilter) { value in
                             bluetoothManager.nearbyOnlyFilter = value
                         }
                     
-                    Spacer().frame(width: 16)
+                    Spacer()
                     
                     Toggle(DfuStrings.withName.text, isOn: $bluetoothManager.withNameOnlyFilter)
-                        .toggleStyle(.switch)
+                        .toggleStyle(.button)
                         .onChange(of: bluetoothManager.withNameOnlyFilter) { value in
                             bluetoothManager.withNameOnlyFilter = value
                         }
-                }.padding(.horizontal)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
             }
 
-            Section(header: Text(DfuStrings.devices.text)) {
+            Section(DfuStrings.devices.text) {
                 ForEach(bluetoothManager.filteredDevices()) { device in
-                    Button(action: {
+                    Button {
                         viewModel.device = device
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Text(device.name ?? DfuStrings.noName.text)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            SignalStrengthIndicator(signalStrength: device.getSignalStrength())
-                        }
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        DeviceView(
+                            name: device.name ?? DfuStrings.noName.text,
+                            rssi: device.rssi
+                        )
                     }
                 }
             }
@@ -86,6 +88,8 @@ struct ScannerView: View {
 
 struct ScannerView_Previews: PreviewProvider {
     static var previews: some View {
-        ScannerView(viewModel: DfuViewModel())
+        NavigationStack {
+            ScannerView(viewModel: DfuViewModel())
+        }
     }
 }

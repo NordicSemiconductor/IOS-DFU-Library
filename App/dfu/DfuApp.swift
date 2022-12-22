@@ -35,9 +35,9 @@ struct DfuApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            NavigationStack {
                 ContentView()
-            }.navigationViewStyle(.stack)
+            }
         }
     }
 }

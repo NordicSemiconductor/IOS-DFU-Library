@@ -37,7 +37,7 @@ struct ProgressSectionViewEntity {
     let resultStatus: DfuResultStatus
     
     func isRunning() -> Bool {
-        if (bootloaderStatus != .idle) {
+        if bootloaderStatus != .idle {
             if case DfuResultStatus.idle = resultStatus {
                 return true
             }
@@ -45,7 +45,7 @@ struct ProgressSectionViewEntity {
         return false
     }
     
-    init (
+    init(
         bootloaderStatus: DfuUiStateStatus = DfuUiStateStatus.idle,
         dfuStatus: DfuUiStateStatus = DfuUiStateStatus.idle,
         installationStatus: DfuInstallationStatus = DfuInstallationStatus.idle,
@@ -103,7 +103,7 @@ struct ProgressSectionViewEntity {
     }
     
     private func switchToError(status: DfuInstallationStatus) -> DfuInstallationStatus {
-        switch (status) {
+        switch status {
         case .success:
             return .success
         case .progress, .error, .idle:
@@ -112,7 +112,7 @@ struct ProgressSectionViewEntity {
     }
     
     private func switchToError(status: DfuUiStateStatus) -> DfuUiStateStatus {
-        switch (status) {
+        switch status {
         case .success:
             return .success
         case .progress, .error, .idle:

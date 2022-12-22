@@ -37,12 +37,11 @@ enum DfuResultStatus {
 }
 
 struct ResultItemView: View {
-    
     let status: DfuResultStatus
     
     var body: some View {
         HStack {
-            Image(status.image)
+            Image(systemName: status.image.imageName)
                 .renderingMode(.template)
                 .foregroundColor(status.color)
                 .frame(width: 24, height: 24)
@@ -53,7 +52,7 @@ struct ResultItemView: View {
     }
     
     func getResultString() -> String {
-        switch (status) {
+        switch status {
         case .idle, .success:
             return DfuStrings.resultCompleted.text
         case .error(let error):
@@ -64,25 +63,37 @@ struct ResultItemView: View {
 
 private extension DfuResultStatus {
     
-    var image: String {
-        switch (self) {
+    var image: DfuImages {
+        switch self {
         case .idle:
-            return DfuImages.idle.imageName
+            return DfuImages.idle
         case .success:
-            return DfuImages.success.imageName
+            return DfuImages.success
         case .error:
-            return DfuImages.error.imageName
+            return DfuImages.error
         }
     }
 
     var color: Color {
-        switch (self) {
+        switch self {
         case .idle:
-            return ThemeColor.nordicDarkGray5.color
+            return .gray
         case .success:
             return ThemeColor.nordicGreen.color
         case .error:
             return ThemeColor.error.color
         }
     }
+    
 }
+
+struct ResultItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ResultItemView(status: .idle)
+            ResultItemView(status: .error(DfuUiError(error: nil, message: "Some error")))
+            ResultItemView(status: .success)
+        }
+    }
+}
+

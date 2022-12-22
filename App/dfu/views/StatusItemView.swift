@@ -38,13 +38,12 @@ enum DfuUiStateStatus {
 }
 
 struct StatusItemView: View {
-    
     let text: String
     let status: DfuUiStateStatus
     
     var body: some View {
         HStack {
-            Image(status.image)
+            Image(systemName: status.image.imageName)
                 .renderingMode(.template)
                 .foregroundColor(status.color)
                 .frame(width: 24, height: 24)
@@ -57,29 +56,41 @@ struct StatusItemView: View {
 
 private extension DfuUiStateStatus {
     
-    var image: String {
-        switch (self) {
+    var image: DfuImages {
+        switch self {
         case .idle:
-            return DfuImages.idle.imageName
+            return DfuImages.idle
         case .success:
-            return DfuImages.success.imageName
+            return DfuImages.success
         case .progress:
-            return DfuImages.progress.imageName
+            return DfuImages.progress
         case .error:
-            return DfuImages.error.imageName
+            return DfuImages.error
         }
     }
 
     var color: Color {
-        switch (self) {
+        switch self {
         case .idle:
-            return ThemeColor.nordicDarkGray5.color
+            return .gray
         case .success:
             return ThemeColor.nordicGreen.color
         case .progress:
             return ThemeColor.nordicDarkGray5.color
         case .error:
             return ThemeColor.error.color
+        }
+    }
+    
+}
+
+struct StatusItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            StatusItemView(text: "Load", status: .idle)
+            StatusItemView(text: "Loading...", status: .progress)
+            StatusItemView(text: "Success", status: .success)
+            StatusItemView(text: "Error", status: .error)
         }
     }
 }

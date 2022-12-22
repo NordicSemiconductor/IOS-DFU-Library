@@ -32,24 +32,26 @@ import SwiftUI
 
 struct DeviceSectionView: View {
     
-    @ObservedObject
-    var viewModel: DfuViewModel
-    
-    @State private var goToScannerView: Bool?
+    @ObservedObject var viewModel: DfuViewModel
     
     var body: some View {
         VStack {
             HStack {
-                SectionImage(image: DfuImages.bluetooth.imageName)
+                SectionImage(image: DfuImages.bluetooth)
+                
                 Text(DfuStrings.device.text)
                     .padding()
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                NavigationLink(destination: ScannerView(viewModel: viewModel), tag: true, selection: $goToScannerView) { }
-                DfuButton(title: DfuStrings.select.text, action: {
-                    goToScannerView = true
-                })
-            }.padding()
+                
+                NavigationLink{
+                    ScannerView(viewModel: viewModel)
+                } label: {
+                    Text(DfuStrings.select.text)
+                }
+                .buttonStyle(DfuButtonStyle())
+            }
+            .padding()
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)
@@ -59,7 +61,7 @@ struct DeviceSectionView: View {
                     .padding(.trailing, 25)
                 
                 if let device = viewModel.device {
-                    Text(String(format: DfuStrings.deviceName.text, device.name ?? DfuStrings.noName.text))
+                    Text(String(format: DfuStrings.name.text, device.name ?? DfuStrings.noName.text))
                         .padding(.vertical, 8)
                 } else {
                     Text(DfuStrings.deviceSelect.text)
@@ -67,7 +69,8 @@ struct DeviceSectionView: View {
                 }
                 Spacer()
             }
-        }.disabled(viewModel.isDeviceButtonDisabled())
+        }
+        .disabled(viewModel.isDeviceButtonDisabled())
     }
 }
 

@@ -30,18 +30,37 @@
 
 import SwiftUI
 
-struct SectionImage: View {
-    
-    @Environment(\.isEnabled) var isEnabled
-    
-    let image: DfuImages
+struct DeviceView: View {
+    let name: String
+    let rssi: Int
     
     var body: some View {
-        Image(systemName: image.imageName)
-            .renderingMode(.template)
-            .foregroundColor(.white)
-            .background(Circle()
-                .fill(isEnabled ? ThemeColor.nordicLake.color : ThemeColor.buttonDisabledBackground.color)
-                .frame(width: 40,height: 40))
+        HStack {
+            Text(name)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            SignalStrengthIndicator(signalStrength: getSignalStrength())
+        }
+    }
+    
+    private func getSignalStrength() -> SignalStrength {
+        switch rssi {
+        case let value where value > -50:
+            return .strong
+        case let value where value > -65:
+            return .normal
+        default:
+            return .weak
+        }
+    }
+}
+
+
+struct DeviceView_Previews: PreviewProvider {
+    static var previews: some View {
+        DeviceView(name: "Some name", rssi: -60)
+            .padding()
+            .background(.white)
+            .frame(height: 40)
     }
 }

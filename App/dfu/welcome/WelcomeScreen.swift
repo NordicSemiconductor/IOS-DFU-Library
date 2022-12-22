@@ -31,11 +31,11 @@
 import SwiftUI
 
 struct WelcomeScreen: View {
+    let nrfCDM = "https://apps.apple.com/us/app/nrf-connect-device-manager/id1519423539"
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
     var body: some View {
         ScrollView {
@@ -43,20 +43,38 @@ struct WelcomeScreen: View {
                 Image(DfuImages.dfu.imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 300)
                 
-                Spacer().frame(height: 24)
+                Spacer()
                 
                 Text(DfuStrings.welcomeText.text)
                 
-                Spacer().frame(height: 24)
+                Link(destination: URL(string: nrfCDM)!) {
+                    HStack {
+                        Text(DfuStrings.welcomeNote.text)
+                        Image(systemName: DfuImages.launch.imageName)
+                            .padding(.leading)
+                    }
+                    .padding()
+                    .foregroundColor(.primary)
+                    .background(
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(.orange)
+                            .opacity(0.3)
+                    )
+                }
                 
-                DfuButton(title: DfuStrings.welcomeStart.text, action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                })
-            }.padding()
+                Spacer(minLength: 24)
+                
+                Button(DfuStrings.welcomeStart.text) {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .buttonStyle(DfuButtonStyle())
+            }
+            .padding()
         }
         .navigationTitle(DfuStrings.welcomeTitle.text)
-        .onAppear { viewModel.onWelcomeScreenShown() }
+        .onAppear { viewModel.welcomeScreenDidShow() }
     }
 }
 

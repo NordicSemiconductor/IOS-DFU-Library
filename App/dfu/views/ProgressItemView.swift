@@ -38,13 +38,12 @@ enum DfuInstallationStatus {
 }
 
 struct ProgressItemView: View {
-
     let status: DfuInstallationStatus
     
     var body: some View {
         VStack {
             HStack {
-                Image(status.image)
+                Image(systemName: status.image.imageName)
                     .renderingMode(.template)
                     .foregroundColor(status.color)
                     .frame(width: 24, height: 24)
@@ -67,13 +66,13 @@ struct ProgressItemView: View {
     }
     
     func getInstallationString() -> String {
-        switch (status) {
+        switch status {
         case .idle, .error:
             return DfuStrings.firmwareUpload.text
         case .success:
             return DfuStrings.firmwareUploaded.rawValue
         case .progress(let p):
-            if (p.totalParts == 1) {
+            if p.totalParts == 1 {
                 return DfuStrings.firmwareUploading.rawValue
             } else {
                 return String(format: DfuStrings.firmwareUploadPart.rawValue, p.part, p.totalParts)
@@ -84,23 +83,23 @@ struct ProgressItemView: View {
 
 private extension DfuInstallationStatus {
     
-    var image: String {
-        switch (self) {
+    var image: DfuImages {
+        switch self {
         case .idle:
-            return DfuImages.idle.rawValue
+            return DfuImages.idle
         case .success:
-            return DfuImages.success.rawValue
+            return DfuImages.success
         case .progress:
-            return DfuImages.progress.rawValue
+            return DfuImages.progress
         case .error:
-            return DfuImages.error.rawValue
+            return DfuImages.error
         }
     }
 
     var color: Color {
-        switch (self) {
+        switch self {
         case .idle:
-            return ThemeColor.nordicDarkGray5.color
+            return .gray
         case .success:
             return ThemeColor.nordicGreen.color
         case .progress:
@@ -109,4 +108,19 @@ private extension DfuInstallationStatus {
             return ThemeColor.error.color
         }
     }
+    
 }
+
+struct ProgressItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ProgressItemView(status: .idle)
+            ProgressItemView(status: .progress(
+                DfuProgress(part: 1, totalParts: 2, progress: 23, currentSpeedBytesPerSecond: 4.5, avgSpeedBytesPerSecond: 4.2))
+            )
+            ProgressItemView(status: .success)
+            ProgressItemView(status: .error)
+        }
+    }
+}
+

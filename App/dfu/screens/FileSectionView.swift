@@ -33,32 +33,27 @@ import NordicDFU
 
 struct FileSectionView: View {
     @State private var openFile = false
+    @State private var loading = false
     
-    @ObservedObject
-    var viewModel: DfuViewModel
+    @ObservedObject var viewModel: DfuViewModel
     
     var body: some View {
         VStack {
             HStack {
-                SectionImage(image: DfuImages.fileUpload.rawValue)
+                SectionImage(image: DfuImages.fileUpload)
+                
                 Text(DfuStrings.file.rawValue)
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                DfuButton(title: DfuStrings.select.rawValue, action: {
-                    self.openFile.toggle()
+                Button(DfuStrings.select.text) {
+                    openFile.toggle()
                     viewModel.clearFileError()
-                })
+                }
+                .buttonStyle(DfuButtonStyle())
             }
             .padding()
-            .onOpenURL { url in
-                guard let location = url["file"],
-                      let fileUrl = URL(string: location) else {
-                    return                    
-                }
-                onFileOpen(opened: fileUrl)
-            }
             
             HStack {
                 RoundedRectangle(cornerRadius: 20)
@@ -68,11 +63,18 @@ struct FileSectionView: View {
                     .padding(.trailing, 25)
                 
                 VStack {
-                    if let file = viewModel.zipFile {
-                        Text(String(format: DfuStrings.fileName.rawValue, file.name)).frame(maxWidth: .infinity, alignment: .leading)
-                        Text(String(format: DfuStrings.fileSize.rawValue, file.size)).frame(maxWidth: .infinity, alignment: .leading)
+                    if loading {
+                        Text(DfuStrings.fileLoading.rawValue)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else if let file = viewModel.zipFile {
+                        Text(String(format: DfuStrings.name.rawValue, file.name))
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(String(format: DfuStrings.fileSize.rawValue, file.size))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     } else {
-                        Text(DfuStrings.fileSelect.rawValue).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(DfuStrings.fileSelect.rawValue)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     if viewModel.fileError != nil {
                         Spacer()
@@ -80,10 +82,11 @@ struct FileSectionView: View {
                             .foregroundColor(ThemeColor.nordicRed.color)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                }.padding(.vertical, 8)
+                }
+                .padding(.vertical, 8)
             }
         }
-        .fileImporter(isPresented: $openFile, allowedContentTypes: [.zip]) { (res) in
+        .fileImporter(isPresented: $openFile, allowedContentTypes: [.zip]) { res in
             do {
                 let fileUrl = try res.get()
                 onFileOpen(opened: fileUrl)
@@ -91,34 +94,53 @@ struct FileSectionView: View {
                 onError(error.localizedDescription)
             }
         }
+        .onOpenURL { url in
+            // Handle https://www.nordicsemi.com/dfu?file=... deeplinks.
+            if let location = url["file"],
+               let fileUrl = URL(string: location) {
+                onFileOpen(opened: fileUrl)
+                return
+            }
+            // Handle files opened from another apps.
+            onFileOpen(opened: url)
+        }
         .disabled(viewModel.isFileButtonDisabled())
     }
     
     private func onFileOpen(opened fileUrl: URL) {
-        let downloadTask = URLSession.shared.downloadTask(with: fileUrl) {
-            urlOrNil, responseOrNil, errorOrNil in
-            if let error = errorOrNil {
+        guard !fileUrl.isFileURL || fileUrl.startAccessingSecurityScopedResource() else {
+            onError("Permission denied")
+            return
+        }
+        
+        loading = true
+        
+        let downloadTask = URLSession.shared.downloadTask(with: fileUrl) { url, response, error in
+            fileUrl.stopAccessingSecurityScopedResource()
+            if let error = error {
                 onError(error.localizedDescription)
                 return
             }
             
-            if let response = responseOrNil as? HTTPURLResponse {
+            if let response = response as? HTTPURLResponse {
                 guard response.statusCode >= 200 && response.statusCode < 300 else {
                     onError(DfuStrings.fileDownloadError.text)
                     return
                 }
             }
-            guard let response = responseOrNil else {
+            guard let response = response else {
                 onError(DfuStrings.fileError.text)
                 return
             }
             
-            guard let fileURL = urlOrNil else { return }
+            guard let fileURL = url else { return }
             do {
-                let documentsURL = try FileManager.default.url(for: .documentDirectory,
+                let documentsURL = try FileManager.default.url(
+                    for: .documentDirectory,
                     in: .userDomainMask,
                     appropriateFor: nil,
-                    create: false)
+                    create: false
+                )
                 let savedURL = documentsURL.appendingPathComponent(response.suggestedFilename ?? "file.zip")
                 
                 try? FileManager.default.removeItem(at: savedURL)
@@ -127,6 +149,12 @@ struct FileSectionView: View {
                 let resources = try savedURL.resourceValues(forKeys:[.fileSizeKey, .nameKey])
                 let fileSize = resources.fileSize!
                 let fileName = resources.name!
+                
+                // Validate the file by creating a DFUFirmware object.
+                _ = try DFUFirmware(
+                    urlToZipFile: savedURL,
+                    type: .softdeviceBootloaderApplication
+                )
                 
                 let zipFile = ZipFile(name: fileName, size: fileSize, url: savedURL)
                 try onFileSelected(zipFile)
@@ -138,17 +166,15 @@ struct FileSectionView: View {
     }
     
     private func onFileSelected(_ file: ZipFile) throws {
-        _ = try DFUFirmware(
-            urlToZipFile: file.url,
-            type: .softdeviceBootloaderApplication
-        )
         DispatchQueue.main.async {
+            loading = false
             viewModel.onFileSelected(file)
         }
     }
     
     private func onError(_ message: String) {
         DispatchQueue.main.async {
+            loading = false
             viewModel.onFileError(message)
         }
     }
@@ -161,11 +187,11 @@ struct FileSectionView_Previews: PreviewProvider {
 }
 
 private extension URL {
-    
+
     subscript(queryParam: String) -> String? {
         guard let url = URLComponents(string: self.absoluteString) else { return nil }
         if let parameters = url.queryItems {
-            return parameters.first(where: { $0.name == queryParam })?.value
+            return parameters.first { $0.name == queryParam }?.value
         } else if let paramPairs = url.fragment?.components(separatedBy: "?").last?.components(separatedBy: "&") {
             for pair in paramPairs where pair.contains(queryParam) {
                 return pair.components(separatedBy: "=").last

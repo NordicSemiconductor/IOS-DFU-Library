@@ -29,18 +29,16 @@
 */
 
 enum DfuStrings : String {
-    case testTitle = "Title"
-    case testLoremIpsumLong = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-    
-    case dfuTitle = "DFU"
+    case dfuTitle = "Firmware Upgrade"
     
     case welcomeTitle = "Welcome"
     case welcomeStart = "Start"
-    case welcomeText = "The Device Firmware Update (DFU) app allows updating the firmware of Bluetooth LE devices over-the-air (OTA). It is compatible with nRF51 and nRF52 devices from Nordic Semiconductor running nRF5 SDK based applications with DFU bootloader enabled.\n\nFor more information about the DFU, see the About DFU section in Settings.\n\nTo update a nRF Connect SDK (NCS) based device, use nRF Connect Device Manager app instead."
+    case welcomeText = "The Device Firmware Update (DFU) app allows updating the firmware of Bluetooth LE devices over-the-air (OTA). It is compatible with nRF51 and nRF52 devices from Nordic Semiconductor running nRF5 SDK based applications with DFU bootloader enabled.\n\nFor more information about the DFU, click \"About DFU\" in Settings."
+    case welcomeNote = "To update devices based on nRF\u{00a0}Connect\u{00a0}SDK\u{00a0}(NCS), use nRF\u{00a0}Connect\u{00a0}Device\u{00a0}Manager app instead."
     case numberOfPackets = "Number of Packets"
     case numberRequest = "Please provide number:"
     case cancel = "Cancel"
-    case ok = "Ok"
+    case ok = "OK"
     case empty = ""
     case select = "Select"
     case file = "File"
@@ -54,23 +52,23 @@ enum DfuStrings : String {
     case settings = "Settings"
     case scanner = "Scanner"
     case nearbyOnly = "Nearby"
-    case withName = "With name"
+    case withName = "Name"
     
     case firmwareUpload = "Firmware upload"
     case firmwareUploaded = "Firmware uploaded"
     case firmwareUploading = "Uploading firmware..."
     case firmwareUploadPart = "Uploading part %d of %d"
-    case firmwareUploadSpeed = "Speed %.1f kB/s"
+    case firmwareUploadSpeed = "%.1f kB/s"
     
     case resultCompleted = "Completed"
     case resultError = "Error: %@"
     
+    case fileLoading = "Downloading..."
     case fileSelect = "Select a .zip file"
-    case fileName = "Name: %@"
     case fileSize = "Size: %d bytes"
     
     case deviceSelect = "Select a device"
-    case deviceName = "Device: %@"
+    case name = "Name: %@"
     
     case bootloaderIdle = "Bootloader enablement"
     case bootloaderInProgress = "Enabling bootloader..."
@@ -81,23 +79,22 @@ enum DfuStrings : String {
     case dfuFinished = "DFU initialized"
     
     case settingsPacketReceiptTitle = "Packets receipt notification"
-    case settingsPacketReceiptValue = "Enables or disables the Packet Receipt Notification (PRN) procedure. \n\nPRNs are used to synchronize the transmitter with the receiver and ensure data correctness. They are enabled by default on Android Lollipop and earlier."
+    case settingsPacketReceiptValue = "Enables or disables the Packet Receipt Notification (PRN) procedure.\n\nPRNs are used to synchronize the transmitter with the receiver and ensure data correctness."
     case settingsSecureDfu = "Secure DFU option"
     case settingsDisableResumeTitle = "Disable resume"
     case settingsDisableResumeValue = "This options allows to disable the resume feature in Secure DFU."
     case settingsLegacyDfu = "Legacy DFU"
     case settingsForceScanningTitle = "Force scanning"
-    case settingsForceScanningValue = "Forces scanning for DFU bootloader. By default, the DFU bootloader advertises directly with the same MAC address.\n\nChanging this requires modifying the DFU bootloader or the Buttonless Service implementation on the device."
+    case settingsForceScanningValue = "Enables scanning for DFU bootloader in Legacy DFU. By default, a Legacy DFU bootloader advertises directly with the same MAC address.\n\nChanging this requires modifying the DFU bootloader or the Buttonless Service implementation on the device."
     case alternativeAdvertisingNameTitle = "Alternative Advertising Name"
-    case alternativeAdvertisingNameValue = "Sets advertising name that will be displayed on a device after flashing it."
+    case alternativeAdvertisingNameValue = "When enabled, the app will send a unique ID to the connected device to be able to reconnect to it in bootloader mode. Otherwise, it will connect to first found device advertising DFU Service UUID."
     case alternativeAdvertisingNameDialogInfo = "Please set advertising name:"
     case settingsExternalMcuTitle = "External MCU DFU"
     case settingsExternalMcuValue = "Enabling this option will prevent from jumping to the DFU Bootloader mode in case there is no DFU Version characteristic."
     case settingsOther = "Other"
     case settingsAboutTitle = "About DFU"
-    case settingsAboutValue = "DFU documentation on Nordic\'s Infocenter."
-    case settingsWelcome = "Show welcome screen"
-    case settingsProvideNumberOfPackets = "Please provide integer value:"
+    case settingsWelcome = "About the app"
+    case settingsProvideNumberOfPackets = "Please, provide integer value:"
     
     case rssi = "RSSI: %@"
     
