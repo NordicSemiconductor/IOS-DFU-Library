@@ -29,7 +29,7 @@
 */
 
 enum DfuStrings : String {
-    case dfuTitle = "DFU"
+    case dfuTitle = "Firmware Upgrade"
     
     case welcomeTitle = "Welcome"
     case welcomeStart = "Start"
