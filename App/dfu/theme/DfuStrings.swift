@@ -33,7 +33,8 @@ enum DfuStrings : String {
     
     case welcomeTitle = "Welcome"
     case welcomeStart = "Start"
-    case welcomeText = "The Device Firmware Update (DFU) app allows updating the firmware of Bluetooth LE devices over-the-air (OTA). It is compatible with nRF51 and nRF52 devices from Nordic Semiconductor running nRF5 SDK based applications with DFU bootloader enabled.\n\nFor more information about the DFU, see the About DFU section in Settings.\n\nTo update a nRF Connect SDK (NCS) based device, use nRF Connect Device Manager app instead."
+    case welcomeText = "The Device Firmware Update (DFU) app allows updating the firmware of Bluetooth LE devices over-the-air (OTA). It is compatible with nRF51 and nRF52 devices from Nordic Semiconductor running nRF5 SDK based applications with DFU bootloader enabled.\n\nFor more information about the DFU, click \"About DFU\" in Settings."
+    case welcomeNote = "To update devices based on nRF\u{00a0}Connect\u{00a0}SDK\u{00a0}(NCS), use nRF\u{00a0}Connect\u{00a0}Device\u{00a0}Manager app instead."
     case numberOfPackets = "Number of Packets"
     case numberRequest = "Please provide number:"
     case cancel = "Cancel"

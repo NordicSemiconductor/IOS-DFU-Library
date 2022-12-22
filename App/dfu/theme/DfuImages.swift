@@ -37,6 +37,7 @@ enum DfuImages : String {
     case fileUpload = "file-upload-outline"
     case bluetooth = "bluetooth"
     case upload = "upload"
+    case launch = "rectangle.portrait.and.arrow.forward"
     
     case dfu = "dfu"
     case info = "info.circle"

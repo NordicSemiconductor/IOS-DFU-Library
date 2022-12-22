@@ -31,6 +31,7 @@
 import SwiftUI
 
 struct WelcomeScreen: View {
+    let nrfCDM = "https://apps.apple.com/us/app/nrf-connect-device-manager/id1519423539"
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -41,14 +42,29 @@ struct WelcomeScreen: View {
             VStack {
                 Image(DfuImages.dfu.imageName)
                     .resizable()
-                    .padding()
                     .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 300)
                 
                 Spacer()
                 
                 Text(DfuStrings.welcomeText.text)
                 
-                Spacer()
+                Link(destination: URL(string: nrfCDM)!) {
+                    HStack {
+                        Text(DfuStrings.welcomeNote.text)
+                        Image(systemName: DfuImages.launch.imageName)
+                            .padding(.leading)
+                    }
+                    .padding()
+                    .foregroundColor(.primary)
+                    .background(
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(.orange)
+                            .opacity(0.3)
+                    )
+                }
+                
+                Spacer(minLength: 24)
                 
                 Button(DfuStrings.welcomeStart.text) {
                     presentationMode.wrappedValue.dismiss()
