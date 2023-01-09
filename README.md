@@ -173,7 +173,7 @@ An unofficial library for both iOS and Android that is based on this library is 
 ### Flutter
 
 A library for both iOS and Android that is based on this library is available for Flutter: 
-[flutter-nordic-dfu](https://github.com/fengqiangboy/flutter-nordic-dfu) 
+[nordic_dfu](https://pub.dev/packages/nordic_dfu)
 
 ### Xamarin
 
