@@ -178,7 +178,7 @@ A library for both iOS and Android that is based on this library is available fo
 ### Xamarin
 
 Simple binding library for iOS is available on nuget:
-[Laerdal.Xamarin.Dfu.iOS](https://www.nuget.org/packages/Laerdal.Xamarin.Dfu.iOS/)
+[Laerdal.Dfu](https://www.nuget.org/packages/Laerdal.Dfu/)
 
 ---
 
