@@ -102,6 +102,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         advertisementData: [String : Any],
         rssi RSSI: NSNumber
     ) {
+    
         let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String
         let index = devices.firstIndex { $0.peripheral == peripheral }
         if let index = index {

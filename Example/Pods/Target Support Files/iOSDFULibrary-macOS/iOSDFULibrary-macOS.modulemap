@@ -1,6 +1,0 @@
-framework module iOSDFULibrary {
-  umbrella header "iOSDFULibrary-macOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
