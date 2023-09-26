@@ -277,6 +277,7 @@
 		A2137A03A262376A656C143F9A78E7AC /* ZIPFoundation-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-umbrella.h"; sourceTree = "<group>"; };
 		A7297D6E3E04FA9451CA42A5F639E10E /* ZIPFoundation-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZIPFoundation-iOS-prefix.pch"; sourceTree = "<group>"; };
 		A92DC3C4C826ACD5D7D6E90208E5F715 /* SecureDFUPeripheral.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheral.swift; sourceTree = "<group>"; };
+		AA01F2352AB85CFA00861FFE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AC393AAF7F1210B74EEE3BA1C665D9B7 /* IntelHex2BinConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntelHex2BinConverter.swift; sourceTree = "<group>"; };
 		B0AE59A9C91257AC7558448C82F7852B /* ZIPFoundation-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZIPFoundation-iOS-Info.plist"; sourceTree = "<group>"; };
 		B0F4D7ACE3099260BD7914C0F7AA450A /* Pods-iOSDFULibrary_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iOSDFULibrary_Example-dummy.m"; sourceTree = "<group>"; };
@@ -479,6 +480,7 @@
 		7F772D724BD9D659A7D0C93EA977456F /* iOSDFULibrary */ = {
 			isa = PBXGroup;
 			children = (
+				AA01F2352AB85CFA00861FFE /* PrivacyInfo.xcprivacy */,
 				D333B396CF3FD3CE2316888303A48B57 /* Implementation */,
 				ADDA1C834E0E73681A1DECF2D0898B10 /* Pod */,
 				DCD48C92357F47EC43B7107B5C15A654 /* Support Files */,
