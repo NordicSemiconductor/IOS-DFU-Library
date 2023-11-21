@@ -73,7 +73,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     func peripheralDidBecomeReady() {
         // This will always pass, unless the library was modified to skip validation.
-        assert(peripheral.isInitPacketRequired(), "This exacutor requires the peripheral to require Init packet")
+        assert(peripheral.isInitPacketRequired(), "This executor requires the peripheral to require Init packet")
         
         // Ensure the Init packet is provided in the firmware.
         guard let _ = firmware.initPacket else {
@@ -223,9 +223,9 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     func peripheralRejectedCommandObject(withError remoteError: DFUError, andMessage message: String) {
-        // If the terget device has rejected the firtst part, try sending the second part.
+        // If the target device has rejected the first part, try sending the second part.
         // If may be that the SD+BL were flashed before and can't be updated again due to
-        // sd-req and bootloader-version parameters set in the init packet.
+        // `sd-req` and `bootloader-version` parameters set in the init packet.
         // In that case app update should be possible.
         if firmware.hasNextPart() {
             firmware.switchToNextPart()
@@ -399,7 +399,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
      
      In Secure DFU the firmware is sent as separate 'objects', where each object is at most
      'maxLen' long. This method creates a list of ranges that will be used to send data to the
-     peripheral, for example: 0 ..< 4096, 4096 ..< 5000 in case the firmware was 5000 bytes long.
+     peripheral, for example: `0 ..< 4096` and `4096 ..< 5000` in case the firmware
+     was 5000 bytes long.
      
      - parameter maxLen: The maximum length of an object.
      
@@ -439,7 +440,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
         guard offset <= UInt32(data.count) else {
             return false
         }
-        // Get data form 0 up to the offset the peripheral has reproted.
+        // Get data form 0 up to the offset the peripheral has reported.
         let offsetData = data.subdata(in: 0 ..< Int(offset))
         let calculatedCRC = crc32(data: offsetData)
         
@@ -449,8 +450,10 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     }
     
     /**
-     Sends the Init packet starting from the given offset. This method is asynchronous, it calls
-     peripheralDidReceiveInitPacket() callback when done.
+     Sends the Init packet starting from the given offset. 
+     
+     This method is asynchronous, it calls `peripheralDidReceiveInitPacket()`
+     callback when done.
      
      - parameter offset: The starting offset from which the Init Packet should be sent.
                          This allows resuming uploading the Init Packet.
@@ -469,6 +472,7 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     /**
      Creates the new data object with length equal to the length of the range with given index.
+     
      The ranges were calculated using `calculateFirmwareRanges()`.
      
      - parameter rangeIdx: Index of a range of the firmware.
@@ -486,7 +490,8 @@ internal class SecureDFUExecutor : DFUExecutor, SecureDFUPeripheralDelegate {
     
     /**
      This method sends the bytes from the range with given index.
-     If the resumeOffset is set and equal to lower bound of the given range it will create
+     
+     If the `resumeOffset` is set and equal to lower bound of the given range it will create
      the object instead. When created, a `onObjectCreated()` method will be called which will
      call this method again, now with the offset parameter equal `nil`.
      

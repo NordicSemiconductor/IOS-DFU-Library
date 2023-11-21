@@ -17,7 +17,7 @@ The DFU Library for iOS 9+ adds the DFU feature to the iOS project. It is writte
   * When App, SD and BL files are in a zip file, the service will try to send the SD and BL together, which is supported by Bootloader/DFU from SDK 6.1+. Once completed, the service will reconnect to the new bootloader and send the Application in the second connection as part two.
 
 #### Error handling
-In case of any communication error the peripheral device will never be bricked. When an application or a bootloader is updated, the previous application (or bootloader, in case there was no application) is restored. When a Softdevice is updated, the previous bootloader will be restored as the application had to be removed to in order to make space for the new version of the Softdevice. You will still be able to repeat the update and flash the Softdevice and the new application again.
+In case of any communication error the peripheral device will never be bricked. When an application or a bootloader is updated, the previous application (or bootloader, in case there was no application) is restored. When a SoftDevice is updated, the previous bootloader will be restored as the application had to be removed to in order to make space for the new version of the SoftDevice. You will still be able to repeat the update and flash the SoftDevice and the new application again.
 
 ### Known issues
 
@@ -40,7 +40,7 @@ In case of any communication error the peripheral device will never be bricked. 
 To start the DFU process you have to do 2 things:
 
 1. Create a `DFUFirmware` object using a `URL` to a Distribution Packet (ZIP), or using a `URL`s to a BIN/HEX file, DAT file (optionally) 
-    and by specifying a file type (Softdevice, Bootloader or Application).
+    and by specifying a file type (SoftDevice, Bootloader or Application).
 
      Objective-C:
     ```objective-c 
@@ -57,7 +57,7 @@ To start the DFU process you have to do 2 things:
 
 2. The `DFUFirmware` object allows you to get basic information about the firmware, like sizes of each component or number of parts. 
     Number of parts is the number of connections required to send all content of the Distribution Packet. It is equal to 1 unless a ZIP file 
-    contain a Softdevice and/or Bootloader and an Application. The Softdevice and/or Bootloader will be sent as part one, then the DFU 
+    contain a SoftDevice and/or Bootloader and an Application. The SoftDevice and/or Bootloader will be sent as part one, then the DFU 
     target device will disconnect, reset and DFU Service will connect again and send the Application as part 2.
 
 3. Use the `DFUServiceInitializer` to initialize the DFU process.

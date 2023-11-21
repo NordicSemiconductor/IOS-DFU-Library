@@ -55,6 +55,7 @@ internal typealias VersionCallback = (_ major: UInt8, _ minor: UInt8) -> Void
     
     /**
      Reads the value of the DFU Version characteristic.
+     
      The value, or an error, will be reported as a callback.
     
      - parameter success: Method called when version is read and is supported.

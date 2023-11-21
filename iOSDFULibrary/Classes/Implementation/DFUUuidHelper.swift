@@ -51,9 +51,9 @@ import CoreBluetooth
     case buttonlessService              = 7
     /// Buttonless DFU Characteristic.
     case buttonlessCharacteristic       = 8
-    /// Buttonless DFU Without Bond Sharing Characterisitic.
+    /// Buttonless DFU Without Bond Sharing Characteristic.
     case buttonlessWithoutBondSharing   = 9
-    /// Buttonless DFU With Bond Sharing Characterisitic.
+    /// Buttonless DFU With Bond Sharing Characteristic.
     case buttonlessWithBondSharing      = 10
 }
 
@@ -109,10 +109,10 @@ import CoreBluetooth
     /// UUID for Buttonless DFU Characteristic.
     @objc private(set) public var buttonlessExperimentalCharacteristic: CBUUID
 
-    /// UUID for Buttonless DFU Without Bond Sharing Characterisitic.
+    /// UUID for Buttonless DFU Without Bond Sharing Characteristic.
     @objc private(set) public var buttonlessWithoutBonds: CBUUID
 
-    /// UUID for Buttonless DFU With Bond Sharing Characterisitic.
+    /// UUID for Buttonless DFU With Bond Sharing Characteristic.
     @objc private(set) public var buttonlessWithBonds: CBUUID
 
     /// Creates the DFU Helper with Default UUIDs.
@@ -200,7 +200,7 @@ internal extension CBCharacteristic {
  
      - parameter uuid: DFU UUID.
      
-     - returns: `True`, if the charactersistic's UUID is equal to the given one.
+     - returns: `True`, if the characteristic's UUID is equal to the given one.
     */
     func matches(uuid: CBUUID) -> Bool {
         return self.uuid.isEqual(uuid)

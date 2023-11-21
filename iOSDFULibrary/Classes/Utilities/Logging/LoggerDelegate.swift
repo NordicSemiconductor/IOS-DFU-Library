@@ -31,23 +31,25 @@
 import Foundation
 
 /**
- Log level. Logger application may filter log entries based on their level.
- Levels allow to ignore less important messages.
-
- - Debug -       Lowest priority. Usually names of called methods or callbacks received.
- - Verbose -     Low priority messages what the service is doing.
- - Info -        Messages about completed tasks.
- - Application - Messages about application level events, in this case DFU messages
-                 in human-readable form.
- - Warning -     Important messages.
- - Error -       Highest priority messages with errors.
+ Log levels used by the ``LoggerDelegate``.
+ 
+ Logger application may filter log entries based on their level.
+ 
+ Levels allow to categorize message by importance.
  */
 @objc public enum LogLevel : Int {
+    /// Lowest priority. Usually names of called methods or callbacks received.
     case debug       = 0
+    /// Low priority messages what the service is doing.
     case verbose     = 1
+    /// Messages about completed tasks.
     case info        = 5
+    /// Messages about application level events, in this case DFU message
+    /// in human-readable form.
     case application = 10
+    /// Important messages.
     case warning     = 15
+    /// Highest priority messages with errors.
     case error       = 20
     
     public func name() -> String {
@@ -63,13 +65,14 @@ import Foundation
 }
 
 /**
- *  The Logger delegate.
+ The Logger delegate.
  */
 @objc public protocol LoggerDelegate: AnyObject {
     
     /**
-     This method is called whenever a new log entry is to be saved. The logger
-     implementation should save this or present it to the user.
+     This method is called whenever a new log entry is to be saved.
+     
+     The logger implementation should save this or present it to the user.
      
      It is NOT safe to update any UI from this method as multiple threads may log.
      

@@ -31,18 +31,18 @@
 import CoreBluetooth
 
 /**
- The DFUPeripheralSelectorDelegate is used when both the Softdevice
- (or Softdevice and Bootloader) and Application are going to be updated,
+ The DFUPeripheralSelectorDelegate is used when both the SoftDevice
+ (or SoftDevice and Bootloader) and Application are going to be updated,
  or when a peripheral is to be switched to the bootloader mode that will
  change its address.
  
  This library supports sending both BIN files from a ZIP Distribution
- Packet automatically. However, when sending the Softdevice update, the
+ Packet automatically. However, when sending the SoftDevice update, the
  DFU Bootloader may remove the current application in order to make space
- for the new Softdevice firmware (Legacy DFU, or Secure DFU with single
+ for the new SoftDevice firmware (Legacy DFU, or Secure DFU with single
  bank enabled when new SD+BL are larger then space available) or may
  advertise in Bootloader mode for number of seconds (Secure DFU). When the
- new Softdevice is flashed the bootloader restarts the device and starts
+ new SoftDevice is flashed the bootloader restarts the device and starts
  advertising in DFU Bootloader mode.
  
  Since SDK 8.0.0, to solve caching problem on a host that is no bonded
@@ -87,7 +87,7 @@ import CoreBluetooth
      Returns an optional list of services that the scanner will use to filter
      advertising packets when scanning for a device in DFU Bootloader mode.
      To find out what UUID you should return, switch your device to DFU Bootloader
-     mode (with a button!) and check the advertisment packet. The result of this
+     mode (with a button!) and check the advertisement packet. The result of this
      method will be applied to
      `centralManager.scanForPeripheralsWithServices([CBUUID]?, options: [String : AnyObject]?)`.
      

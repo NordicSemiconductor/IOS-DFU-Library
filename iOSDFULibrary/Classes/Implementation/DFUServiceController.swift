@@ -42,8 +42,8 @@ import CoreBluetooth
     }
     
     /**
-     Call this method to pause uploading during the transmition process.
-     The transmition can be resumed only when connection remains. If service
+     Call this method to pause uploading during the transmission process.
+     The transmission can be resumed only when connection remains. If service
      has already started sending firmware data it will pause after receiving
      next Packet Receipt Notification. Otherwise it will continue to send
      Op Codes and pause before sending the first bytes of the firmware. With
@@ -58,7 +58,7 @@ import CoreBluetooth
     }
     
     /**
-     Call this method to resume the paused transffer, otherwise does nothing.
+     Call this method to resume the paused transfer, otherwise does nothing.
      */
     @objc public func resume() {
         guard let executor = executor, servicePaused, !serviceAborted else { return }

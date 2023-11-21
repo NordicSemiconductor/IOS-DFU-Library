@@ -211,7 +211,7 @@ extension DFUState : CustomStringConvertible {
                            Each value will be called at most once - in case of a large
                            file a value e.g. 3% will be called only once, despite that
                            it will take more than one packet to reach 4%. In case of
-                           a small firmware file some values may be ommited.
+                           a small firmware file some values may be omitted.
                            For example, if firmware file would be only 20 bytes you
                            would get a callback 0% (called always) and then 100% when done.
      - parameter currentSpeedBytesPerSecond: The current speed in bytes per second.
@@ -234,7 +234,7 @@ extension DFUState : CustomStringConvertible {
      This method is called in the delegate queue specified in the
      `DfuServiceInitiator`.
      
-     - parameter state: The new state fo the service.
+     - parameter state: The new state of the service.
      */
     @objc func dfuStateDidChange(to state: DFUState)
     

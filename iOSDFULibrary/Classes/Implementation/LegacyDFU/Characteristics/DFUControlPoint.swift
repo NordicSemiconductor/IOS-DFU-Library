@@ -223,10 +223,10 @@ internal struct PacketReceiptNotification {
         self.opCode = opCode
         
         // According to https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/54
-        // in SDK 5.2.0.39364 the `bytesReveived` value in a PRN packet is 16-bit long,
-        // instad of 32-bit. However, the packet is still 5 bytes long and the two last
+        // in SDK 5.2.0.39364 the `bytesReceived` value in a PRN packet is 16-bit long,
+        // instead of 32-bit. However, the packet is still 5 bytes long and the two last
         // bytes are 0x00-00. This has to be taken under consideration when comparing
-        // number of bytes sent and received as the latter counter may rewind if fw size
+        // number of bytes sent and received as the latter counter may rewind if firmware size
         // is > 0xFFFF bytes (LegacyDFUService:L543).
         self.bytesReceived = data.asValue(offset: 1)
     }
@@ -339,10 +339,11 @@ extension PacketReceiptNotification : CustomStringConvertible {
     }
     
     /**
-     Sets the callbacks used later on when a Packet Receipt Notification is received,
+     Sets the callbacks for later use when a Packet Receipt Notification is received,
      a device reported an error or the whole firmware has been sent and the notification
-     with success status was received. Sending the firmware is done using DFU Packet
-     characteristic.
+     with success status was received. 
+     
+     The firmware is sent using DFU Packet characteristic, which supports Write Without Response.
      
      - parameter success: Method called when peripheral reported with status success.
      - parameter proceed: Method called the a PRN has been received and sending following
@@ -350,7 +351,7 @@ extension PacketReceiptNotification : CustomStringConvertible {
      - parameter report:  Method called in case of an error.
      */
     func waitUntilUploadComplete(onSuccess success: Callback?,
-                                 onPacketReceiptNofitication proceed: ProgressCallback?,
+                                 onPacketReceiptNotification proceed: ProgressCallback?,
                                  onError report: ErrorCallback?) {
         // Get the peripheral object.
         let optService: CBService? = characteristic.service
@@ -380,7 +381,7 @@ extension PacketReceiptNotification : CustomStringConvertible {
             logger.e(error)
             // Note:
             // Error 253: Unknown ATT error.
-            // This most proably is a caching issue. Check if your device had
+            // This most probably is a caching issue. Check if your device had
             // Service Changed characteristic (for non-bonded devices) in both
             // app and bootloader modes. For bonded devices make sure it sends
             // the Service Changed indication after connecting.
@@ -415,7 +416,7 @@ extension PacketReceiptNotification : CustomStringConvertible {
                 logger.e(error)
                 // Note:
                 // Error 3: Writing is not permitted
-                // This most proably is caching issue. Check if your device had
+                // This most probably is caching issue. Check if your device had
                 // Service Changed characteristic (for non-bonded devices) in both
                 // app and bootloader modes. For bonded devices make sure it sends
                 // the Service Changed indication after connecting.
@@ -441,7 +442,7 @@ extension PacketReceiptNotification : CustomStringConvertible {
         case .jumpToBootloader, .activateAndReset, .reset, .packetReceiptNotificationRequest(_):
             logger.a("\(request) request sent")
             // there will be no notification send after these requests, call
-            // `success()` immediatelly (for `.receiveFirmwareImage` the notification
+            // `success()` immediately (for `.receiveFirmwareImage` the notification
             // will be sent after firmware upload is complete)
             success?()
         case .initDfuParameters(_), .initDfuParameters_v1:

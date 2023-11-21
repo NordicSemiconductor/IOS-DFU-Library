@@ -39,11 +39,12 @@ import Foundation
 /// BIN contains data until the first found gap.
 ///
 /// Supported Record Types:
-/// * 0x04 - Extended Linear Address Record
-/// * 0x02 - Extended Segment Address Record
-/// * 0x01 - End of File
-/// * 0x00 - Data Record
-///
+/// ```
+/// 0x04 - Extended Linear Address Record
+/// 0x02 - Extended Segment Address Record
+/// 0x01 - End of File
+/// 0x00 - Data Record
+///```
 /// If MBR size is provided, the values from addresses 0..<MBR Size will
 /// be ignored.
 public class IntelHex2BinConverter: NSObject {

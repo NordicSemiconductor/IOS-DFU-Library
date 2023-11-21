@@ -41,7 +41,7 @@ internal class DFUPacket: DFUCharacteristic {
     private(set) var bytesSent: UInt32 = 0
     /// Number of bytes sent at the last progress notification. This value is used
     /// to calculate the current speed.
-    private var bytesSentSinceProgessNotification: UInt32 = 0
+    private var bytesSentSinceProgressNotification: UInt32 = 0
     
     /// Current progress in percents (0-99).
     private var progressReported: UInt8 = 0
@@ -60,8 +60,8 @@ internal class DFUPacket: DFUCharacteristic {
     // MARK: - Characteristic API methods
     
     /**
-     Sends the firmware sizes in format [softdevice size, bootloader size, application size],
-     where each size is a UInt32 number.
+     Sends the firmware sizes in format `[SoftDevice size, Bootloader size, Application size]`,
+     where each size is a `UInt32` number.
     
      - parameter size:   Sizes of firmware in the current part.
      - parameter report: Method called in case of an error.
@@ -87,7 +87,7 @@ internal class DFUPacket: DFUCharacteristic {
     }
 
     /**
-     Sends the application firmware size in format [application size] (UInt32).
+     Sends the application firmware size in format `[application size]` (`UInt32`).
      
      - parameter size:   Sizes of firmware in the current part.
                          Only the application size may be grater than 0.
@@ -146,6 +146,7 @@ internal class DFUPacket: DFUCharacteristic {
     
     /**
      Sends next number of packets from given firmware data and reports a progress.
+     
      This method does not notify progress delegate twice about the same percentage.
      
      - parameter prnValue: Number of packets to be sent before a Packet Receipt
@@ -228,10 +229,10 @@ internal class DFUPacket: DFUCharacteristic {
             if currentProgress > progressReported {
                 // Calculate current transfer speed in bytes per second.
                 let now = CFAbsoluteTimeGetCurrent()
-                let currentSpeed = Double(bytesSent - bytesSentSinceProgessNotification) / (now - lastTime!)
+                let currentSpeed = Double(bytesSent - bytesSentSinceProgressNotification) / (now - lastTime!)
                 let avgSpeed = Double(bytesSent) / (now - startTime!)
                 lastTime = now
-                bytesSentSinceProgessNotification = bytesSent
+                bytesSentSinceProgressNotification = bytesSent
                 
                 queue.async {
                     progress?.dfuProgressDidChange(

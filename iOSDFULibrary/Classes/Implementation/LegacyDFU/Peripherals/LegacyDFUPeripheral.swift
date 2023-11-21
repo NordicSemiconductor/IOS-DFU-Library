@@ -46,7 +46,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
         
         if let version = dfuService?.version {
             // In the application mode we don't know whether init packet is required
-            // as the app is indepenrent from the DFU Bootloader.
+            // as the app is independent from the DFU Bootloader.
             let isInApplicationMode = version.major == 0 && version.minor == 1
             return !isInApplicationMode
         }
@@ -78,7 +78,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     /**
      Switches target device to the DFU Bootloader mode.
      
-     - parameter forceNewAddress: Set to true if the bootloader is expected to adveritse
+     - parameter forceNewAddress: Set to true if the bootloader is expected to advertise
                                   with a different address than when in app mode.
      */
     func jumpToBootloader(forceNewAddress: Bool) {
@@ -96,16 +96,18 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
     
     /**
-     Sends the DFU Start command with the specified firmware type to the
+     Sends the DFU Start command.
+     
+     The DFU Start command with the specified firmware type is sent to the
      DFU Control Point characteristic followed by firmware sizes (in bytes) to
      the DFU Packet characteristic. Then it waits for a response notification
-     from the device. In case of a Success, it calls `delegate.peripheralDidStartDfu()`.
-     If the response has an error code NotSupported it means, that the target
-     device does not support updating Softdevice or Bootloader and the old Start DFU
+     from the device. In case of a *Success*, it calls `delegate.peripheralDidStartDfu()`.
+     If the response has an error code *NotSupported* it means, that the target
+     device does not support updating SoftDevice or Bootloader and the old Start DFU
      command needs to be used. The old command (without a type) allowed to send only
      an application firmware.
      
-     - parameter type: The firmware type bitfield. See FIRMWARE_TYPE_* constants.
+     - parameter type: The firmware type bitfield. See `FIRMWARE_TYPE_*` constants.
      - parameter size: The size of all parts of the firmware.
      */
     func sendStartDfu(withFirmwareType type: UInt8, andSize size: DFUFirmwareSize) {
@@ -124,13 +126,14 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
     
     /**
-     Sends the old Start DFU command, where there was no type byte. The old format
-     allowed to send the application update only. Try this method if
+     Sends the old Start DFU command, where there was no type byte. 
+     
+     The old format allowed to send the application update only. Try this method if
      `sendStartDfuWithFirmwareType(_:andSize:)`
-     returned NotSupported and the firmware contains only the application.
+     returned *NotSupported* and the firmware contains only the application.
      
      - parameter size: The size of all parts of the firmware, where size of
-                       Softdevice and Bootloader are 0.
+                       SoftDevice and Bootloader are 0.
      */
     func sendStartDfu(withFirmwareSize size: DFUFirmwareSize) {
         guard let dfuService = dfuService else { return }
@@ -148,8 +151,10 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
 
     /**
-     Sends the Init Packet with firmware metadata. When complete, the
-     `delegate.peripheralDidReceiveInitPacket()` callback is called.
+     Sends the Init Packet with firmware metadata. 
+     
+     When complete, the `delegate.peripheralDidReceiveInitPacket()`
+     callback is called.
      
      - parameter data: Init Packet data.
      */
@@ -161,16 +166,19 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     }
     
     /**
-     Sends the firmware to the DFU target device. Before that, it will send the
-     desired number of packets to be received before sending a new Packet Receipt
-     Notification. When the whole firmware is transferred the
+     Sends the firmware to the DFU target device. 
+     
+     Before the firmware is sent,, it will send the desired number of packets
+     to be received before sending a new Packet Receipt Notification.
+     
+     When the whole firmware is transferred the
      `delegate.peripheralDidReceiveFirmware()` callback is invoked.
      
      - parameter firmware: The firmware to be sent.
      - parameter prnValue: Number of packets of firmware data to be received by the
                            DFU target before sending a new Packet Receipt Notification.
                            Set 0 to disable PRNs.
-     - parameter progress: The deleagate that will be informed about progress changes.
+     - parameter progress: The delegate that will be informed about progress changes.
      - parameter queue:    The queue to dispatch progress delegate events.
      */
     func sendFirmware(_ firmware: DFUFirmware, withPacketReceiptNotificationNumber prnValue: UInt16,
@@ -197,6 +205,7 @@ internal class LegacyDFUPeripheral : BaseCommonDFUPeripheral<LegacyDFUExecutor, 
     
     /**
      Sends the Validate Firmware request to DFU Control Point characteristic.
+     
      On success, the `delegate.peripheralDidVerifyFirmware()` method will be called.
      */
     func validateFirmware() {

@@ -88,7 +88,7 @@ extension ButtonlessDFUResultCode : CustomStringConvertible {
         case .success:            return "Success"
         case .opCodeNotSupported: return "Operation not supported"
         case .operationFailed:    return "Operation failed"
-        case .invalidAdvName:     return "Invalid advertisment name"
+        case .invalidAdvName:     return "Invalid advertisement name"
         case .busy:               return "Busy"
         case .notBonded:          return "Device not bonded"
         }
@@ -117,7 +117,7 @@ extension ButtonlessDFURequest : CustomStringConvertible {
     
     var description: String {
         switch self {
-        case .enterBootloader: return "Enter Bootloder"
+        case .enterBootloader: return "Enter Bootloader"
         case .set(let name):   return "Set Name (Name = \(name))"
         }
     }
@@ -170,8 +170,9 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     }
     
     /**
-     Returns `true` if the device address is expected to change. In that case,
-     the service should scan for another device using `DFUPeripheralSelectorDelegate`.
+     Returns `true` if the device address is expected to change. 
+     
+     In that case, the service should scan for another device using ``DFUPeripheralSelectorDelegate``.
      */
     internal var newAddressExpected: Bool {
         return characteristic.uuid.isEqual(uuidHelper.buttonlessExperimentalCharacteristic)
@@ -188,8 +189,10 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     
     /**
      Returns `true` for a buttonless DFU characteristic that may support setting
-     bootloader's name. This feature has been added in SDK 14.0 to Buttonless
-     service without bond sharing (the one with bond sharing does not change 
+     bootloader's name. 
+     
+     This feature has been added in SDK 14.0 to Buttonless
+     service without bond sharing (the one with bond sharing does not change
      device address so this feature is not needed). 
      The same characteristic from SDK 13.0 does not support it. Sending this 
      command to that characteristic will end with
@@ -210,8 +213,9 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     
     /**
      Enables notifications or indications for the DFU Control Point characteristics,
-     depending on the characteristic property. Reports success or an error using
-     callbacks.
+     depending on the characteristic property. 
+     
+     Reports success or an error using callbacks.
      
      - parameter success: Method called when notifications were successfully enabled.
      - parameter report:  Method called in case of an error.
@@ -242,6 +246,7 @@ internal class ButtonlessDFU : NSObject, CBPeripheralDelegate, DFUCharacteristic
     
     /**
      Sends given request to the Buttonless DFU characteristic.
+     
      Reports success or an error using callbacks.
      
      - parameter request: Request to be sent.

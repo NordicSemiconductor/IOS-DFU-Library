@@ -147,7 +147,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
             
             // We could set the flag below to allow jumping to the bootloader mode
             // without using alternative advertising name, but it's better to fail
-            // and make sure the user knows about the issue. It can be workarond
+            // and make sure the user knows about the issue. It can be workaround
             // by disabling alternative name in DFUServiceInitiator.
             
             // jumpingToBootloader = true
@@ -156,12 +156,13 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Selects Data Object. As a result, the current status and the maximum
-     object size is returned.
+     Selects Data Object. 
+     
+     As a result, the current status and the maximum object size is returned.
      */
     func selectDataObject() {
         dfuService?.selectDataObject(
-            onReponse: { [weak self] response in
+            onResponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
                     self.logger.e("Invalid response received (\(response), expected \(SecureDFUOpCode.selectObject))")
@@ -183,12 +184,13 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Selects Command Object. As a result, the current status and the maximum
-     object size is returned.
+     Selects Command Object. 
+     
+     As a result, the current status and the maximum object size is returned.
      */
     func selectCommandObject() {
         dfuService?.selectCommandObject(
-            onReponse: { [weak self] response in
+            onResponse: { [weak self] response in
                 guard let self = self else { return }
                 guard response.requestOpCode == .selectObject else {
                     self.logger.e("Invalid response received (\(response), expected \(SecureDFUOpCode.selectObject))")
@@ -210,7 +212,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     https://github.com/NordicSemiconductor/IOS-DFU-Library/issues/465
+     [Issue 465](https://github.com/NordicSemiconductor/IOS-DFU-Library/issues/465)
      indicates, that sometimes a Checksum response is received here.
      It may be a lost PRN, or an invalid response. We don't know yet.
      If you encounter this log, please report to the mentioned issue
@@ -267,7 +269,10 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Sets the Packet Receipt Notification value. 0 disables the PRN procedure.
+     Sets the Packet Receipt Notification value. 
+     
+     0 disables the PRN procedure.
+     
      On older version of iOS the value may not be greater than ~20 or equal to 0,
      otherwise a buffer overflow error may occur.
      
@@ -284,13 +289,13 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
     }
     
     /**
-     Sends Init packet. This method is synchronuous and calls delegate's
-     `peripheralDidReceiveInitPacket()` method ater the given data are sent.
+     Sends Init packet. This method is synchronous and calls delegate's
+     `peripheralDidReceiveInitPacket()` method after the given data are sent.
      
      - parameter packetData: Data to be sent as Init Packet.
      */
     func sendInitPacket(_ packetData: Data){
-        // This method is synchronuous.
+        // This method is synchronous.
         // It sends all bytes of init packet in up-to-20-byte packets.
         // The init packet may not be too long as sending > ~15 packets without
         // PRNs may lead to buffer overflow.
@@ -322,7 +327,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                              assume that the whole firmware was sent and the device
                              will disconnect on its own on Execute command.
                              Delegate's `onTransferComplete` event will be called when
-                             the disconnect event is receviced.
+                             the disconnect event is received.
      */
     func sendExecuteCommand(forCommandObject isCommandObject: Bool = false,
                             andActivateIf complete: Bool = false) {
@@ -333,7 +338,7 @@ internal class SecureDFUPeripheral : BaseCommonDFUPeripheral<SecureDFUExecutor, 
                 guard let self = self else { return }
                 self.activating = false
                 
-                // In SDK 15.2 (and perhaps 15.x), the DFU target may reoprt only full pages
+                // In SDK 15.2 (and perhaps 15.x), the DFU target may report only full pages
                 // when reconnected after interrupted DFU. In such case Executing object will fail
                 // with Operation Not Permitted error. Instead, we have to create the new object
                 // and continue sending data assuming the last object executed.

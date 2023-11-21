@@ -33,9 +33,12 @@ import CoreBluetooth
 internal protocol BaseDFUPeripheralAPI: AnyObject, DFUController {
     
     /**
-     This method starts DFU process for given peripheral. If the peripheral is
-     not connected it will call the `connect()` method, if it is connected, but
-     services were not discovered before, it will try to discover services instead.
+     This method starts DFU process for given peripheral. 
+     
+     If the peripheral is not connected it will call the `connect()` method,
+     if it is connected, but services were not discovered before, it will try to
+     discover services instead.
+     
      If services were already discovered the DFU process will be started.
      */
     func start()
@@ -77,7 +80,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
     /// A list of services required to be found on the peripheral.
     /// May return nil - then all services will be discovered.
     internal var requiredServices: [CBUUID]? {
-        // We have to find all services, not only those releated to DFU.
+        // We have to find all services, not only those related to DFU.
         // This is required in case the target device was created using
         // SDK 6.0 or 6.1, where there was no DFU Version characteristic.
         // In that case, this DFU library determines whether to jump to
@@ -96,7 +99,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         return [uuidHelper.legacyDFUService, uuidHelper.secureDFUService]
         */
     }
-    /// A flag indicating whether the eperimental Buttonless DFU Service in
+    /// A flag indicating whether the experimental Buttonless DFU Service in
     /// Secure DFU is supported.
     internal let experimentalButtonlessServiceInSecureDfuEnabled: Bool
     /// Default error callback.
@@ -386,7 +389,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
         peripheralDidDiscoverDfuService(dfuService)
     }
     
-    // MARK: - Methods to be overriden in the final implementation
+    // MARK: - Methods to be overridden in the final implementation
     
     /**
      Method called when a DFU service has been found.
@@ -394,7 +397,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
      - parameter service: The service that has been found.
      */
     func peripheralDidDiscoverDfuService(_ service: CBService) {
-        fatalError("This method must be overriden")
+        fatalError("This method must be overridden")
     }
     
     /**
@@ -402,7 +405,7 @@ internal class BaseDFUPeripheral<TD : BasePeripheralDelegate> : NSObject, BaseDF
      */
     func peripheralDidDisconnect() {
         guard !aborted else {
-            // The device has resetted. Notify user.
+            // The device has reset. Notify user.
             logger.w("Upload aborted")
             delegate?.peripheralDidDisconnectAfterAborting()
             return
@@ -519,10 +522,10 @@ internal protocol DFUPeripheralAPI : BaseDFUPeripheralAPI {
      Scans for a next device to connect to. When device is found and selected, it
      connects to it.
      
-     After updating the Softdevice the device may start advertising with an address
+     After updating the SoftDevice the device may start advertising with an address
      incremented by 1. A BLE scan needs to be done to find this new peripheral
      (it's the same device, but as it advertises with a new address, from iOS point
-     of view it completly different device).
+     of view it completely different device).
      */
     func switchToNewPeripheralAndConnect()
     
@@ -567,13 +570,13 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     
     /// This flag must be set to true if switching to bootloader mode is expected
     /// after executing the next operation.
-    /// The operation is expecter to reset the device. After the disconnect event
+    /// The operation is expected to reset the device. After the disconnect event
     /// is received the service will try to connect back to the device, or scan
     /// for a new device matching specified selector, depending on
     /// `newAddressExpected` flag value.
     internal var jumpingToBootloader : Bool = false
     /// This flag must be set to true when the firmware upload is complete and
-    /// device will restart and run the new fw after executing the next operation.
+    /// device will restart and run the new firmware after executing the next operation.
     internal var activating          : Bool = false
     /// This flag has the same behavior as `jumpingToBootloader`, but it's used
     /// when Invalid state error was received and a reset command will be executed.
@@ -604,7 +607,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
     
     override func peripheralDidDisconnect() {
         guard !aborted else {
-            // The device has resetted. Notify user.
+            // The device has reset. Notify user.
             logger.w("Upload aborted")
             delegate?.peripheralDidDisconnectAfterAborting()
             return
@@ -621,7 +624,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
                 
                 // If in Legacy DFU, and `forceScanningForNewAddressInLegacyDfu`
                 // is set to true, try first connecting to the same peripheral.
-                // Perheps it has not been updated to use incremented address yet.
+                // Perhaps it has not been updated to use incremented address yet.
                 if forceScanningForNewAddressInLegacyDfu {
                     // Despite the fact, that a new address is expected,
                     // try to reconnect to the same device.
@@ -677,7 +680,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
         // (see: https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/368#issuecomment-619066196)
         // made it necessary for the bootloader to change its address.
         // This requires updating the bootloader or the app on the device, as
-        // explaind in the above-mentioned issue.
+        // explained in the above-mentioned issue.
         // Then, this flag needs to be set to true in the `DFUServiceInitiator`.
         // With that flag equal to true, the library will try to connect to the
         // same device (with a short timeout), and if that fails, will try to
