@@ -100,7 +100,16 @@ class nRF52840TestSet: DFUTestSet {
             (DFUFirmware.from(zip: "nrf52840_sdk_16_sd"                , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A16")),
             (DFUFirmware.from(zip: "nrf52840_sdk_16_sd_bl_1"           , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A16")),
             (DFUFirmware.from(zip: "nrf52840_sdk_16_bl_2"              , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating BL only",      FilterBy.name("DFU3A16")),
-            (DFUFirmware.from(zip: "nrf52840_sdk_16_sd_bl_app_3"       , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    nil),
+            (DFUFirmware.from(zip: "nrf52840_sdk_16_sd_bl_app_3"       , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    FilterBy.name("DFU3A16")),
+            
+            // Updating to SDK 17.1.
+            (DFUFirmware.from(zip: "nrf52840_sdk_16_to_17.1_all_in_one", locatedIn:  "Firmwares/nRF52840"), nil, nil, "Upgrading to SDK 17.1",   FilterBy.name("DFU3A171")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_17.1_app"               , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating app",          FilterBy.name("DFU3A171")),
+            // The following steps may be removed without any harm if more SDKs are added.
+            (DFUFirmware.from(zip: "nrf52840_sdk_17.1_sd"                , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD only",      FilterBy.name("DFU3A171")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_17.1_sd_bl_1"           , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL",        FilterBy.name("DFU3A171")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_17.1_bl_2"              , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating BL only",      FilterBy.name("DFU3A171")),
+            (DFUFirmware.from(zip: "nrf52840_sdk_17.1_sd_bl_app_3"       , locatedIn:  "Firmwares/nRF52840"), nil, nil, "Updating SD+BL+App",    nil),
             
         ]
     }
