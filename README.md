@@ -53,7 +53,7 @@ carthage update --platform iOS //also OSX platform is available for macOS builds
 ```
 
 - Carthage will build the **iOSDFULibrary.framework** and **ZipFramework.framework** files in **Carthage/Build/**, 
-you may now copy all those files to your project and use the library, additionally, carthade also builds **\*.dsym** files 
+you may now copy all those files to your project and use the library, additionally, carthage also builds **\*.dsym** files 
 if you need to resymbolicate crash logs. you may want to keep those files bundled with your builds for future use.
 
 **For Swift Package Manager:**
@@ -99,7 +99,7 @@ In order the DFU to work with iOS, the target device MUST have the **Service Cha
 Indicate property in the **Generic Attribute** service. Without this characteristic iOS will assume that services of
 this device will never change and will not invalidate them after switching to DFU bootloader mode.
 
-##### Service Changed characteristic behaviour:
+##### Service Changed characteristic behavior:
 
 - On paired devices a change of the attribute table must be indicated using an indication to the Service Changed characteristic. 
 iOS automatically enables the CCC and handles this indication and performs a service discovery. 
@@ -111,7 +111,7 @@ This indication is handled correctly in Legacy DFU since SDK 8.0.
 - The Secure DFU implementation from SDK 12 does not support bonding (experimental buttonless sample does not 
 pass bond information when switching to DFU bootloader mode and the bootloader does not send S-C indication). 
 As a workaround, the bootloader starts to advertise with MAC address incremented by 1, so from the phone's perspective 
-it's a completly new device and a fresh service discovery will be done. When your new firmware is going to change 
+it's a completely new device and a fresh service discovery will be done. When your new firmware is going to change 
 the list of services you may consider adding another 1 to the MAC address for the new application to make sure 
 the cache will not conflict (unless the device is not bonded and you have Service Changed characteristic, then no 
 caching is used as written above). Be aware, that adding 1 to a public address is not possible (unless you register a new one). 

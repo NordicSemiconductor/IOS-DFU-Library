@@ -5,7 +5,7 @@
    
 - **4.12.0**
    - Bugfix: Issue with incorrect resuming Init Packet fixed (#485).
-   - Bugfix: Fixed crash when Calculate checksum reasponse was received instead of Select Object response (#483, #480).
+   - Bugfix: Fixed crash when Calculate checksum response was received instead of Select Object response (#483, #480).
    - Improvement: JSON parsed using Codable (#482).
    - Improvement: Newer custom test firmware (#484).
    - Improvement: Option to specify central manager options (#478). 
@@ -25,7 +25,7 @@
 - **4.10.4**
    - Fix for compilation error in Xcode 13 related to change in iOS API (#433, #439).
    - Improvement: State validation (#434, #435, #437).
-   - Imporvement: Unnecessary fields removed from `SecureDFUExecutor` (#438).
+   - Improvement: Unnecessary fields removed from `SecureDFUExecutor` (#438).
    - Improvement: Accepting garbage after valid data in notifications (#440, #436).
    
 - **4.10.3**
@@ -74,7 +74,7 @@
 - **4.6.1**
    - Bugfix: DFU stability improved for DFU from SDK 15 and newer.
    - Improvement: DFU tests for SDK 15.3 and 16 added.
-   - Bugfix: MInor issue fixed in the sample app.
+   - Bugfix: Minor issue fixed in the sample app.
    
 - **4.6.0**
     - Feature: Automatic retrying DFU on disconnection during update. 
@@ -100,7 +100,7 @@
 
 - **4.4.0**
     - Improvement: Swift 5.0 migration.
-    - Improvement: New App Store icon added to supress the warning.
+    - Improvement: New App Store icon added to suppress the warning.
     - Bugfix: Fixed name conflict when adding the library manually ([#293](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/293)).
     - Bugfix: Fixed displaying total progress in the sample app.
 
@@ -185,7 +185,7 @@
     - Enhancement: Minor code refactor for Data struct manipulation.
 
 - **3.0.6**:
-    - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by carthage.
+    - Bugfix: Fixed issue that was introduced in 3.0.5 causing Zip framework not to be built, this patch shares the Zip scheme, allowing both frameworks to be built by Carthage.
 
 - **3.0.5**:
     - Bugfix: Removed Cartfile since it caused conflicts for users building using Carthage, Zip is already bundled via Cocoapods and no further installation is necessary.
@@ -222,7 +222,7 @@
     - Enhancement: Minor enhancement to the `LoggerHelper` class.
 
 - **2.1.4**:
-    - Enhancement: Added Cartfile for denpendency libraries.
+    - Enhancement: Added Cartfile for dependency libraries.
 
 - **2.1.3**:
     - Bugfix: Fixed an issue with PRN value not being fully used throughout the DFU process and at some points reverted to the default value.
@@ -247,16 +247,16 @@
 
 - **2.0**:
     - Feature: Migrated to Swift 3.0 Xcode 8.
-    - Bugfix: Issue where PRN `Packet Receipt Notification` values being overriden were ignored is now resolved.
+    - Bugfix: Issue where PRN `Packet Receipt Notification` values being overridden were ignored is now resolved.
 
 - **1.0.12**:
-    - Enhancement: Refactored code to remove warnings about deprecation in Siwft3 and some other related warnings.
+    - Enhancement: Refactored code to remove warnings about deprecation in Swift 3 and some other related warnings.
 
 - **1.0.11**:
     - Feature: Added ability to pause and resume DFU uploads.
     - Feature: Added new status enum `Failed` to report general connection failures.
     - Bugfix: Fixed issue with connection interruption not being handled properly.
-    - Bugfix: Fixed issue with Abort opertation not being completed.
+    - Bugfix: Fixed issue with Abort operation not being completed.
     - Bugfix: Fixed issue with some states where `Aborted` was being used, replaced with `Failed`.
 
 - **1.0.10b**:
@@ -266,7 +266,7 @@
     - Feature: This version preps the Secure DFU feature for production, it is now a part of the development process.
 
 - **1.0.8**:
-    - Enhancemen: iOSDFULib is now up to date with the standalone library stability wise, this means it's now been bumped up to version 1.0.8.
+    - Enhancement: iOSDFULib is now up to date with the standalone library stability wise, this means it's now been bumped up to version 1.0.8.
     - Feature: Implemented Extended error feature.
     - Feature: Reverted bugfix in **0.1.16** that disabled extended error feature.
 
@@ -280,21 +280,21 @@
     - Bugfix: Added earlier Secure DFU Signature mismatch handling without Extended error feature for backwards compatibility.
  
  - **0.1.15**: 
-    - Enhancemen: Added more verbose logging for debug purposes.
+    - Enhancement: Added more verbose logging for debug purposes.
  
  - **0.1.14**:
      - Feature: On DFU interruption, the next attempt always showed an peripheral in invalid state error, this is now bypassed by sending a reset 
-       command and reconnecting automaticaly, the handler will attempt to do that 3 times before throwing the appropriate error.
+       command and reconnecting automatically, the handler will attempt to do that 3 times before throwing the appropriate error.
  
  - **0.1.13**:
-    - Bugfix: `@objc` attributes where missing from `LogLevel` enum and `LoggerDelegate` protocol, making thenm unavailable to Obj-C code.
+    - Bugfix: `@objc` attributes where missing from `LogLevel` enum and `LoggerDelegate` protocol, making them unavailable to Obj-C code.
 
  - **0.1.12**: 
     - Bugfix: some secure DFU error codes where conflicting with Legacy DFU error codes, causing random misbehavior.
  
  - **0.1.11**:
-    - Bugfix: Fixed a bug causing DFU process to randomly halt and send impty packets to the peripheral, due to a race condition.
-    - Feature: Removed one of the dependencies (EVReflection) in an appempt to make the library self contained.
+    - Bugfix: Fixed a bug causing DFU process to randomly halt and send empty packets to the peripheral, due to a race condition.
+    - Feature: Removed one of the dependencies (EVReflection) in an attempt to make the library self contained.
 
 - **0.1.10**:
     - Enhancement: Added Signature mismatch handling and better logging. 
@@ -304,7 +304,7 @@
     - Feature: Added a reset feature to allow flashing after an interruption due to connection issues or user aborting the process, 
       this used to throw an invalid state error, handler will now retry 3 times before failing.
     - Feature: Added a fully working example app for users why `pod try` the library, this will attempt to flash the bundled firmware file `hrs_dfu_s132_2_0_0_7a_sdk_11_0_0_2a.zip`.
-    - Feature: iOS target lowered to 8.0, Added OSX 10.10 Target.
+    - Feature: iOS target lowered to 8.0, Added osX 10.10 Target.
 
 - **0.1.8**:
     - Enhancement: Removed unnecessary requirement to include a .dat file while uploading a hex, which caused some issues.
@@ -319,13 +319,13 @@
     - Enhancement: Improved readme.
 
 - **0.1.4**:
-    - Enhancement: Removed unnecessary public headears from PodSpec.
+    - Enhancement: Removed unnecessary public headers from PodSpec.
 
 - **0.1.3**:
-    - Enhancement: Removed extraneous IntelHextBin module as it's no longer necessary.
+    - Enhancement: Removed extraneous IntelHexToBin module as it's no longer necessary.
 
 - **0.1.2**:
-    - Bugfix: Added Pod name that caused a missing reference issue and other minor bugfixes.
+    - Bugfix: Added Pod name that caused a missing reference issue and other minor bug fixes.
 
 - **0.1.1**:
     - Bugfix: Release/Debug configurations had a missing reference.

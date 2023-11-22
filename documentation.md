@@ -1,6 +1,6 @@
 # DFU Library - iOS
 
-The DFU Library for iOS 9+ adds the DFU feature to the iOS project. It is written in Swift 5.2 but is compatible with Objective-C.
+The DFU Library for iOS 12+, MacOS 10.14+ implements the DFU feature. It is written in Swift 5 but is compatible with Objective-C.
 
 ### Features:
 
