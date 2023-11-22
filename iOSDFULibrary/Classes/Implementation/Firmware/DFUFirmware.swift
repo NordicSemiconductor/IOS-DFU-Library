@@ -78,6 +78,11 @@ extension DFUFirmwareError : LocalizedError {
 @objc public class DFUFirmware : NSObject, DFUStream {
     internal let stream: DFUStream
     
+    /// The firmware data to be sent to the DFU target.
+    open var data: Data? {
+        return stream?.data
+    }
+    
     /// The name of the firmware file.
     @objc public let fileName: String?
     /// The URL to the firmware file.
