@@ -30,9 +30,11 @@
 
 import Foundation
 
-// Errors
+/**
+ A DFU Firmware error for ZIP files.
+ */
 public enum DFUStreamZipError : Error {
-    /// The ZIP file contains no manifest.json file.
+    /// The ZIP file contains no *manifest.json* file.
     case noManifest
     /// The manifest file is invalid.
     case invalidManifest

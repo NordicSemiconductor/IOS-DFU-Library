@@ -31,12 +31,12 @@
 import Foundation
 
 /// This converter converts Intel HEX file to BIN.
-/// It is based on this specification:
-/// http://www.interlog.com/~speff/usefulinfo/Hexfrmt.pdf
 ///
-/// Not all Intel HEX features are supported!
-/// The converter does not support gaps in the firmware. The returned
-/// BIN contains data until the first found gap.
+/// The [Intel HEX](https://en.wikipedia.org/wiki/Intel_HEX) specification can be found here:
+/// [link](http://www.interlog.com/~speff/usefulinfo/Hexfrmt.pdf).
+///
+/// - note: Not all Intel HEX features are supported. The converter does not support gaps in the firmware.
+///         The returned BIN contains data until the first found gap.
 ///
 /// Supported Record Types:
 /// ```
@@ -44,9 +44,8 @@ import Foundation
 /// 0x02 - Extended Segment Address Record
 /// 0x01 - End of File
 /// 0x00 - Data Record
-///```
-/// If MBR size is provided, the values from addresses 0..<MBR Size will
-/// be ignored.
+/// ```
+/// If MBR size is provided, the values from addresses `0..<MBR Size` will be ignored.
 public class IntelHex2BinConverter: NSObject {
     
     /// Converts the Intel HEX data to a bin format by subtracting

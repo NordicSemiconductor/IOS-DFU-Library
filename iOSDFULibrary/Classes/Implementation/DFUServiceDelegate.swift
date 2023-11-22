@@ -30,11 +30,19 @@
 
 import Foundation
 
+/**
+ A type of DFU remote error.
+ */
 internal enum DFURemoteError : Int {
+    /// A remote error retuned from Legacy DFU bootloader.
     case legacy                      = 0
+    /// A remote error retuned from Secure DFU bootloader.
     case secure                      = 10
+    /// An extended error retuned from Secure DFU bootloader.
     case secureExtended              = 20
+    /// A remote error retuned from Buttonless service.
     case buttonless                  = 90
+    /// A remote error retuned from the experimental Buttonless service from SDK 12.
     case experimentalButtonless      = 9000
     
     /// Returns a representative ``DFUError``
@@ -42,62 +50,131 @@ internal enum DFURemoteError : Int {
     /// The only available codes that this method is called with are
     /// hardcoded in the library (ButtonlessDFU, DFUControlPoint,
     /// SecureDFUControlPoint). But, we have seen crashes so,
-    /// we are returning ``DFUError.unsupportedResponse`` if a code is not found.
+    /// we are returning ``DFUError/unsupportedResponse``
+    /// if a code is not found.
     func with(code: UInt8) -> DFUError {
         return DFUError(rawValue: Int(code) + rawValue) ?? .unsupportedResponse
     }
 }
 
+/**
+ A DFU error enumeration.
+ */
 @objc public enum DFUError : Int {
     // Legacy DFU errors.
+    
+    /// Legacy DFU bootloader reported success.
     case remoteLegacyDFUSuccess               = 1
+    /// Legacy DFU bootloader is in invalid state.
     case remoteLegacyDFUInvalidState          = 2
+    /// Requested operation is not supported.
     case remoteLegacyDFUNotSupported          = 3
+    /// The firmware size exceeds limit.
     case remoteLegacyDFUDataExceedsLimit      = 4
+    /// A CRC (checksum) error.
     case remoteLegacyDFUCrcError              = 5
+    /// Operation failed for an unknown reason.
     case remoteLegacyDFUOperationFailed       = 6
     
     // Secure DFU errors (received value + 10 as they overlap legacy errors).
-    case remoteSecureDFUSuccess               = 11 // 10 + 1
-    case remoteSecureDFUOpCodeNotSupported    = 12 // 10 + 2
-    case remoteSecureDFUInvalidParameter      = 13 // 10 + 3
-    case remoteSecureDFUInsufficientResources = 14 // 10 + 4
-    case remoteSecureDFUInvalidObject         = 15 // 10 + 5
-    case remoteSecureDFUSignatureMismatch     = 16 // 10 + 6
-    case remoteSecureDFUUnsupportedType       = 17 // 10 + 7
-    case remoteSecureDFUOperationNotPermitted = 18 // 10 + 8
-    case remoteSecureDFUOperationFailed       = 20 // 10 + 10
     
-    // This error will no longer be reported.
+    /// Secure DFU bootloader reported success.
+    case remoteSecureDFUSuccess               = 11 // 10 + 1
+    /// Requested Op Code is not supported.
+    case remoteSecureDFUOpCodeNotSupported    = 12 // 10 + 2
+    /// Invalid parameter.
+    case remoteSecureDFUInvalidParameter      = 13 // 10 + 3
+    /// Secure DFU bootloader cannot complete due to insufficient resources.
+    case remoteSecureDFUInsufficientResources = 14 // 10 + 4
+    /// The object is invalid.
+    case remoteSecureDFUInvalidObject         = 15 // 10 + 5
+    /// Firmware signature is invalid.
+    case remoteSecureDFUSignatureMismatch     = 16 // 10 + 6
+    /// Requested type is not supported.
+    case remoteSecureDFUUnsupportedType       = 17 // 10 + 7
+    /// Requested operation is not permitted.
+    case remoteSecureDFUOperationNotPermitted = 18 // 10 + 8
+    /// Operation failed for an unknown reason.
+    case remoteSecureDFUOperationFailed       = 20 // 10 + 10
+    /// The Secure DFU bootloader reported a detailed error.
+    ///
+    /// - note: This error is not reported to the app. Instead, the library will
+    ///         return one of the `remoteExtendedError...` errors.
     case remoteSecureDFUExtendedError         = 21 // 10 + 11
     
-    // Instead, one of the extended errors below will used.
+    // Detailed extended errors.
+    
+    /// The format of the command was incorrect.
+    ///
+    /// This error code is not used in the current implementation, because
+    /// ``remoteSecureDFUOpCodeNotSupported`` and
+    /// ``remoteSecureDFUInvalidParameter`` cover all possible format errors.
     case remoteExtendedErrorWrongCommandFormat   = 22 // 20 + 0x02
+    /// The command was successfully parsed, but it is not supported or unknown.
     case remoteExtendedErrorUnknownCommand       = 23 // 20 + 0x03
+    /// The init command is invalid.
+    ///
+    /// The init packet either has an invalid update type or it is missing required fields for
+    /// the update type (for example, the init packet for a SoftDevice update is missing the
+    /// SoftDevice size field).
     case remoteExtendedErrorInitCommandInvalid   = 24 // 20 + 0x04
+    /// The firmware version is too low.
+    ///
+    /// For an application or SoftDevice, the version must be greater than or equal to the
+    /// current version. For a bootloader, it must be greater than the current version.
+    /// This requirement prevents downgrade attacks.
     case remoteExtendedErrorFwVersionFailure     = 25 // 20 + 0x05
+    /// The hardware version of the device does not match the required hardware version
+    /// for the update.
+    ///
+    /// This error may be thrown if a user tries to update a wrong device.
     case remoteExtendedErrorHwVersionFailure     = 26 // 20 + 0x06
+    /// The array of supported SoftDevices for the update does not contain the FWID
+    /// of the current SoftDevice or the first FWID is '0' on a bootloader which requires
+    /// the SoftDevice to be present.
     case remoteExtendedErrorSdVersionFailure     = 27 // 20 + 0x07
+    /// The init packet does not contain a signature.
+    ///
+    /// This error code is not used in the current implementation, because init packets
+    /// without a signature are regarded as invalid.
     case remoteExtendedErrorSignatureMissing     = 28 // 20 + 0x08
+    /// The hash type that is specified by the init packet is not supported by the DFU bootloader.
     case remoteExtendedErrorWrongHashType        = 29 // 20 + 0x09
+    /// The hash of the firmware image cannot be calculated.
     case remoteExtendedErrorHashFailed           = 30 // 20 + 0x0A
+    /// The type of the signature is unknown or not supported by the DFU bootloader.
     case remoteExtendedErrorWrongSignatureType   = 31 // 20 + 0x0B
+    /// The hash of the received firmware image does not match the hash in the init packet.
     case remoteExtendedErrorVerificationFailed   = 32 // 20 + 0x0C
+    /// The available space on the device is insufficient to hold the firmware.
     case remoteExtendedErrorInsufficientSpace    = 33 // 20 + 0x0D
     
     // Experimental Buttonless DFU errors (received value + 9000 as they
     // overlap legacy and secure DFU errors).
+    
+    /// Experimental Buttonless DFU service reported success.
     case remoteExperimentalButtonlessDFUSuccess               = 9001 // 9000 + 1
+    /// The Op Code is not supported.
     case remoteExperimentalButtonlessDFUOpCodeNotSupported    = 9002 // 9000 + 2
+    /// Jumping to bootloader mode failed.
     case remoteExperimentalButtonlessDFUOperationFailed       = 9004 // 9000 + 4
     
     // Buttonless DFU errors (received value + 90 as they overlap legacy
     // and secure DFU errors).
+    
+    /// Buttonless DFU service reported success.
     case remoteButtonlessDFUSuccess                     = 91 // 90 + 1
+    /// The Op Code is not supported.
     case remoteButtonlessDFUOpCodeNotSupported          = 92 // 90 + 2
+    /// Jumping to bootloader mode failed.
     case remoteButtonlessDFUOperationFailed             = 94 // 90 + 4
+    /// The requested advertising name is invalid.
+    ///
+    /// Maximum length for the name is 20 bytes..
     case remoteButtonlessDFUInvalidAdvertisementName    = 95 // 90 + 5
+    /// The service is busy.
     case remoteButtonlessDFUBusy                        = 96 // 90 + 6
+    /// The Buttonless service requires the device to be bonded.
     case remoteButtonlessDFUNotBonded                   = 97 // 90 + 7
     
     /// Providing the DFUFirmware is required.
@@ -105,25 +182,37 @@ internal enum DFURemoteError : Int {
     /// Given firmware file is not supported.
     case fileInvalid                          = 102
     /// Since SDK 7.0.0 the DFU Bootloader requires the extended Init Packet.
-    /// For more details, see:
-    /// http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v11.0.0/bledfu_example_init.html?cp=4_0_0_4_2_1_1_3
+    ///
+    /// For more details, see [Infocenter](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v11.0.0/bledfu_example_init.html?cp=4_0_0_4_2_1_1_3).
     case extendedInitPacketRequired           = 103
+    /// The Init packet is required and has not been found.
+    ///
     /// Before SDK 7.0.0 the init packet could have contained only 2-byte CRC
     /// value, and was optional. Providing an extended one instead would cause
     /// CRC error during validation (the bootloader assumes that the 2 first
     /// bytes of the init packet are the firmware CRC).
     case initPacketRequired                   = 104
     
+    /// The DFU service failed to connect to the target peripheral.
     case failedToConnect                      = 201
+    /// The DFU target disconnected unexpectedly.
     case deviceDisconnected                   = 202
+    /// Bluetooth adapter is disabled.
     case bluetoothDisabled                    = 203
-    
+    /// Service discovery has failed.
     case serviceDiscoveryFailed               = 301
+    /// The selected device does not support Legacy or Secure DFU
+    /// or any of Buttonless services.
     case deviceNotSupported                   = 302
+    /// Reading DFU version characteristic has failed.
     case readingVersionFailed                 = 303
+    /// Enabling Control Point notifications failed.
     case enablingControlPointFailed           = 304
+    /// Writing a characteristic has failed.
     case writingCharacteristicFailed          = 305
+    /// There was an error reported for a notification.
     case receivingNotificationFailed          = 306
+    /// Received response is not supported.
     case unsupportedResponse                  = 307
     /// Error raised during upload when the number of bytes sent is not equal to
     /// number of bytes confirmed in Packet Receipt Notification.
@@ -145,23 +234,29 @@ internal enum DFURemoteError : Int {
 /**
  The state of the DFU Service.
  
- - connecting:      Service is connecting to the DFU target.
- - starting:        DFU Service is initializing DFU operation.
- - enablingDfuMode: Service is switching the device to DFU mode.
- - uploading:       Service is uploading the firmware.
- - validating:      The DFU target is validating the firmware.
- - disconnecting:   The iDevice is disconnecting or waiting for disconnection.
- - completed:       DFU operation is completed and successful.
- - aborted:         DFU Operation was aborted.
+ The new state is returned using ``DFUServiceDelegate/dfuStateDidChange(to:)``
+ set as ``DFUServiceInitiator/delegate``.
+ 
+ When the DFU operation ends with an error, the error is reported using
+ ``DFUServiceDelegate/dfuError(_:didOccurWithMessage:)``.
+ In that case the state change is not reported.
  */
 @objc public enum DFUState : Int {
+    /// Service is connecting to the DFU target.
     case connecting
+    /// DFU Service is initializing DFU operation.
     case starting
+    /// DFU Service is switching the device to DFU mode.
     case enablingDfuMode
+    /// DFU Service is uploading the firmware.
     case uploading
+    /// The DFU target is validating the firmware. This state occurs only in Legacy DFU.
     case validating
+    /// The iDevice is disconnecting or waiting for disconnection.
     case disconnecting
+    /// DFU operation is completed and successful.
     case completed
+    /// DFU operation was aborted.
     case aborted
 }
 
@@ -183,18 +278,23 @@ extension DFUState : CustomStringConvertible {
 }
 
 /**
- *  The progress delegates may be used to notify user about progress updates.
- *  The only method of the delegate is only called when the service is in the
- *  Uploading state.
+ The progress delegates may be used to notify user about progress updates.
+ 
+ The only method of the delegate is only called when the service is in the
+ Uploading state.
  */
 @objc public protocol DFUProgressDelegate {
     
     /**
-     Callback called in the `State.Uploading` state. Gives detailed information
-     about the progress and speed of transmission. This method is always called
-     at least two times (for 0% and 100%) if upload has started and did not fail.
+     Callback called in the ``DFUState/uploading`` state during firmware upload.
      
-     This method is called in the main thread and is safe to update any UI.
+     Gives detailed information about the progress and speed of transmission.
+     This method is always called at least two times (for 0% and 100%) if upload has
+     started and did not fail and is not called multiple times for the same number of
+     percentage.
+     
+     This method is called in the thread set as `progressQueue` in
+     ``DFUServiceInitiator/init(queue:delegateQueue:progressQueue:loggerQueue:centralManagerOptions:)``.
      
      - parameter part: Number of part that is currently being transmitted. Parts
                        start from 1 and may have value either 1 or 2. Part 2 is
@@ -224,26 +324,29 @@ extension DFUState : CustomStringConvertible {
 }
 
 /**
- *  The service delegate reports about state changes and errors.
+ The service delegate reports about state changes and errors.
  */
 @objc public protocol DFUServiceDelegate {
     
     /**
      Callback called when state of the DFU Service has changed.
      
-     This method is called in the delegate queue specified in the
-     `DfuServiceInitiator`.
+     This method is called in the `delegateQueue` specified in the
+     ``DFUServiceInitiator/init(queue:delegateQueue:progressQueue:loggerQueue:centralManagerOptions:)``.
      
      - parameter state: The new state of the service.
      */
     @objc func dfuStateDidChange(to state: DFUState)
     
     /**
-     Called after an error occurred. The device will be disconnected and DFU
-     operation has been aborted.
+     Called after an error occurred. 
      
-     This method is called in the delegate queue specified in the
-     `DfuServiceInitiator`.
+     The device will be disconnected and DFU operation has been cancelled.
+     
+     - note: When an error is received the DFU state will not change to ``DFUState/aborted``.
+     
+     This method is called in the `delegateQueue` specified in the
+     ``DFUServiceInitiator/init(queue:delegateQueue:progressQueue:loggerQueue:centralManagerOptions:)``.
      
      - parameter error:   The error code.
      - parameter message: Error description.

@@ -31,10 +31,15 @@
 import CoreBluetooth
 
 /**
- The DFUPeripheralSelectorDelegate is used when both the SoftDevice
- (or SoftDevice and Bootloader) and Application are going to be updated,
- or when a peripheral is to be switched to the bootloader mode that will
- change its address.
+ The DFU peripheral selector delegate is used to select the device advertising in
+ DFU bootloader mode after switching from application mode.
+ 
+ When a peripheral is switching to the bootloader mode that will change its MAC
+ address the library needs to select the correct device to continue the DFU
+ process. As MAC addresses are not exposed using iOS API, the selector
+ provides a mechanism choosing the correct target.
+ 
+ The default implementation is provided by ``DFUPeripheralSelector``.
  
  This library supports sending both BIN files from a ZIP Distribution
  Packet automatically. However, when sending the SoftDevice update, the
@@ -45,14 +50,14 @@ import CoreBluetooth
  new SoftDevice is flashed the bootloader restarts the device and starts
  advertising in DFU Bootloader mode.
  
- Since SDK 8.0.0, to solve caching problem on a host that is no bonded
+ Since SDK 8.0.0, to solve caching problem on a host that is not bonded
  (in case there is no Service Changed characteristic), the bootloader
  starts to advertise with an address incremented by 1. The DFU Library has
  to scan for a peripheral with this new address. However, as iOS does not
  expose the device address in the public CoreBluetooth API, address matching,
  used on Android, can not be used. Instead, this selector is used. The DFU
  Service will start scanning for peripherals with a UUID filter, where the
- list of required UUID is returned by the `filterBy(hint:)` method. If your
+ list of required UUID is returned by the ``filterBy(hint:)`` method. If your
  device in the Bootloader mode does not advertise with any service UUIDs,
  or this is not enough, you may select a target device by their advertising
  packet or RSSI using this delegate.
@@ -64,7 +69,7 @@ import CoreBluetooth
  device. In this case you don't have to override the default peripheral
  selector.
  
- More: http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html
+ Read more about the new feature on [Infocenter](https://infocenter.nordicsemi.com/topic/sdk_nrf5_v17.1.0/ble_sdk_app_buttonless_dfu.html?cp=9_1_4_4_1).
  */
 @objc public protocol DFUPeripheralSelectorDelegate: AnyObject {
     
@@ -86,10 +91,11 @@ import CoreBluetooth
     /**
      Returns an optional list of services that the scanner will use to filter
      advertising packets when scanning for a device in DFU Bootloader mode.
+     
      To find out what UUID you should return, switch your device to DFU Bootloader
      mode (with a button!) and check the advertisement packet. The result of this
      method will be applied to
-     `centralManager.scanForPeripheralsWithServices([CBUUID]?, options: [String : AnyObject]?)`.
+     `centralManager.scanForPeripherals(withServices: [CBUUID]?, options: [String : AnyObject]?)`.
      
      - parameter dfuServiceUUID: The UUID of the DFU service that was used to
                                  flash SoftDevice and/or Bootloader. Usually, this

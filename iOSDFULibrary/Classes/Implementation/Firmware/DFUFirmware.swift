@@ -59,11 +59,16 @@ import Foundation
  An error thrown when instantiating a ``DFUFirmware`` type from an invalid file.
  */
 public struct DFUFirmwareError : Error {
+    /// The firmware type.
     public enum FileType {
+        /// A Distribution packet (ZIP) has failed to be parsed.
         case zip
+        /// The file is a BIN or a HEX file.
         case binOrHex
+        /// The file is an Init file.
         case dat
     }
+    /// The firmware type.
     public let type: FileType
 }
 
@@ -75,7 +80,9 @@ extension DFUFirmwareError : LocalizedError {
     
 }
 
-/// The DFUFirmware object wraps the firmware file.
+/**
+ The DFU Firmware object wraps the firmware file and provides access to its content.
+ */
 @objc public class DFUFirmware : NSObject, DFUStream {
     internal let stream: DFUStream
     
@@ -95,8 +102,13 @@ extension DFUFirmwareError : LocalizedError {
         return stream.size
     }
     
-    /// Number of connections required to transfer the firmware.
-    /// This does not include the connection needed to switch to the DFU mode.
+    /**
+     Number of connections required to transfer the firmware.
+    
+     If a ZIP file contains a new firmware for the SoftDevice (and/or Bootloader)
+     and the Application, the number of parts is equal to 2. Otherwise this is
+     always 1.
+     */
     @objc public var parts: Int {
         return stream.parts
     }

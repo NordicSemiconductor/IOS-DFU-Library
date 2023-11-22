@@ -52,6 +52,7 @@ import Foundation
     /// Highest priority messages with errors.
     case error       = 20
     
+    /// Returns a one character abbreviation of the log level.
     public func name() -> String {
         switch self {
         case .debug:       return "D"
@@ -70,9 +71,9 @@ import Foundation
 @objc public protocol LoggerDelegate: AnyObject {
     
     /**
-     This method is called whenever a new log entry is to be saved.
+     This method is called on every log event..
      
-     The logger implementation should save this or present it to the user.
+     The logger implementation should save log entries or present them to the user.
      
      It is NOT safe to update any UI from this method as multiple threads may log.
      

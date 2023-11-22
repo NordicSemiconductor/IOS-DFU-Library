@@ -31,12 +31,23 @@
 import CoreBluetooth
 
 /**
- The `DFUServiceInitiator` object should be used to initiate updating firmware
+ The initiator object should be used to initiate updating firmware
  on a remote Bluetooth LE target compatible with the Nordic Semiconductor's Legacy or
  Secure DFU (Device Firmware Update) protocol from nRF5 SDK.
  
  A ``delegate``, ``progressDelegate`` and ``logger`` may be specified in
  order to receive status information.
+ 
+ ```swift
+ let initiator = DFUServiceInitiator()
+ initiator.logger = self // - to get logs
+ initiator.delegate = self // - to be informed about current state and errors
+ initiator.progressDelegate = self // - to get progress updates
+ // TODO: Check out other properties of the initiator.
+ 
+ let controller = initiator.with(firmware: selectedFirmware).start(target: peripheral)
+ ```
+ Using the ``DFUServiceController`` you may pause, resume or abort the DFU operation.
  */
 @objc public class DFUServiceInitiator : NSObject {
     

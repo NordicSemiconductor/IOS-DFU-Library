@@ -30,6 +30,13 @@
 
 import CoreBluetooth
 
+/**
+ This initiator can be used to start a DFU process using Secure DFU service.
+ 
+ The default ``DFUServiceInitiator`` will select the proper executor based
+ on the discovered services. If you know your device supports the Secure DFU you may
+ consider using this initiator instead to skip that part.
+ */
 @objc public class SecureDFUServiceInitiator : DFUServiceInitiator {
     
     public override func start(targetWithIdentifier uuid: UUID) -> DFUServiceController? {

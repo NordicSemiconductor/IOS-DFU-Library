@@ -30,7 +30,7 @@
 
 import CoreBluetooth
 
-/// The default selector.
+/// The default implementation of ``DFUPeripheralSelectorDelegate``.
 ///
 /// Selects the first device with Legacy or Secure DFU Service UUID in the advertising packet.
 @objc open class DFUPeripheralSelector : NSObject, DFUPeripheralSelectorDelegate {

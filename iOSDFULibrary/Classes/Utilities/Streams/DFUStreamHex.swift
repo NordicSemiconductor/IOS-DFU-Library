@@ -30,7 +30,11 @@
 
 import Foundation
 
+/**
+ A DFU Firmware error for a HEX files.
+ */
 public enum DFUStreamHexError : Error {
+    /// The HEX file is invalid.
     case invalidHexFile
 }
 
