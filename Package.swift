@@ -1,4 +1,4 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.9
 //
 // The `swift-tools-version` declares the minimum version of Swift required to
 // build this package. Do not remove it.
@@ -9,9 +9,9 @@ let package = Package(
   name: "NordicDFU",
   platforms: [
     .macOS(.v10_14),
-    .iOS(.v9),
+    .iOS(.v12),
     .watchOS(.v4),
-    .tvOS(.v11)
+    .tvOS(.v12)
   ],
   products: [
     .library(name: "NordicDFU", targets: ["NordicDFU"])
