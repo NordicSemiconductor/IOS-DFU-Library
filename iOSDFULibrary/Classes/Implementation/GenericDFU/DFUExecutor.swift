@@ -81,7 +81,7 @@ extension BaseDFUExecutor {
     }
     
     func peripheralDidDisconnect() {
-        // If the disconnection happend for no reason, we can retry to connect to the
+        // If the disconnection happened for no reason, we can retry to connect to the
         // same peripheral and continue uploading.
         guard let error = error else {
             delegate {

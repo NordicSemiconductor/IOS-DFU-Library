@@ -82,9 +82,11 @@ internal protocol SecureDFUPeripheralDelegate : DFUPeripheralDelegate {
     func peripheralDidSetPRNValue()
 
     /**
-     Callback when init packet is sent. Actually this method is called when Init packet data
-     were added to the outgoing buffer on iDevice and will be sent as soon as possible, not when
-     the peripheral actually received them, as they are called with Write Without Response and
+     Callback when init packet is sent. 
+     
+     Actually this method is called when Init packet data were added to the outgoing
+     buffer on iDevice and will be sent as soon as possible, not when the peripheral
+     actually received them, as they are called with Write Without Response and
      no such callback is generated.
      */
     func peripheralDidReceiveInitPacket()
@@ -92,21 +94,24 @@ internal protocol SecureDFUPeripheralDelegate : DFUPeripheralDelegate {
     /**
      Callback when Checksum was received after sending Calculate Checksum request.
      
-     - parameter offset: Number of bytes of the current objecy received by the peripheral.
+     - parameter offset: Number of bytes of the current object received by the peripheral.
      - parameter crc:    CRC-32 calculated rom those received bytes.
     */
     func peripheralDidSendChecksum(offset: UInt32, crc: UInt32)
 
     /**
-     Callback when Execute Object command completes with status success. After receiving this
-     callback the device may reset if the whole firmware was sent.
+     Callback when Execute Object command completes with status success. 
+     
+     After receiving this callback the device may reset if the whole firmware was sent.
      */
     func peripheralDidExecuteObject()
     
     /**
      Callback when the Command Object has been rejected by the target device by sending a
      Remote DFU Error, but the firmware contains a second part that the service should try to
-     send. Perhaps the SoftDevice and Bootloader were sent before and the target rejects second
+     send. 
+     
+     Perhaps the SoftDevice and Bootloader were sent before and the target rejects second
      update (bootloader can't be updated with one with the same FW version).
      Application update should succeeded in such case.
      

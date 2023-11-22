@@ -46,7 +46,7 @@ struct Manifest: Codable {
     let application: ManifestFirmwareInfo?
     let softdevice:  ManifestFirmwareInfo?
     let bootloader:  ManifestFirmwareInfo?
-    let softdeviceBootloader: SoftdeviceBootloaderInfo?
+    let softdeviceBootloader: SoftDeviceBootloaderInfo?
     
     var isValid: Bool {
         // The manifest.json file may specify only:

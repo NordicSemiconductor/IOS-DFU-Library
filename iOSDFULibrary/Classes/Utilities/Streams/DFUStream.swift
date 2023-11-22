@@ -34,12 +34,21 @@ internal let FIRMWARE_TYPE_SOFTDEVICE  : UInt8 = 0x01
 internal let FIRMWARE_TYPE_BOOTLOADER  : UInt8 = 0x02
 internal let FIRMWARE_TYPE_APPLICATION : UInt8 = 0x04
 
+/**
+ An object containing sizes of all parts of the new firmware.
+ 
+ A firmware which is composed of SoftDevice and Bootloader has only
+ the total size of the stack component, not individual sizes. To indicate that
+ the size of the bootloader is 1 and the size of SoftDevice is the total size - 1.
+ */
 @objc open class DFUFirmwareSize : NSObject {
-    /// Size of the softdevice in bytes.
+    /// Size of the SoftDevice in bytes.
+    ///
     /// If not even, add it to the bootloader size to get size of
-    /// softdevice_bootloader.bin.
+    /// the system component.
     @objc open fileprivate(set) var softdevice  : UInt32 = 0
     /// Size of the bootloader in bytes. 
+    ///
     /// If equal to 1 the ZIP contains SD+BL and size of SD or BL is not known exactly,
     /// but their sum is known.
     @objc open fileprivate(set) var bootloader  : UInt32 = 0

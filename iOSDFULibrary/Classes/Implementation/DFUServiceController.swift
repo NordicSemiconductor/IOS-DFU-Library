@@ -30,6 +30,11 @@
 
 import CoreBluetooth
 
+/**
+ The controller allows pausing, resuming or aborting the ongoing DFU operation.
+ 
+ Use of the controller is optional. An application does not have to allow users to do any of the actions.
+ */
 @objc public class DFUServiceController : NSObject {
 
     internal var executor: BaseExecutorAPI?
@@ -42,8 +47,9 @@ import CoreBluetooth
     }
     
     /**
-     Call this method to pause uploading during the transmition process.
-     The transmition can be resumed only when connection remains. If service
+     Call this method to pause uploading during the transmission process.
+     
+     The transmission can be resumed only when connection remains. If service
      has already started sending firmware data it will pause after receiving
      next Packet Receipt Notification. Otherwise it will continue to send
      Op Codes and pause before sending the first bytes of the firmware. With
@@ -58,7 +64,7 @@ import CoreBluetooth
     }
     
     /**
-     Call this method to resume the paused transffer, otherwise does nothing.
+     Call this method to resume the paused transfer, otherwise does nothing.
      */
     @objc public func resume() {
         guard let executor = executor, servicePaused, !serviceAborted else { return }
@@ -68,14 +74,14 @@ import CoreBluetooth
     }
     
     /**
-     Aborts the upload. The phone will disconnect from peripheral. The peripheral
-     will try to recover the last firmware. Might, restart in the Bootloader mode
-     if the application has been removed.
+     Aborts the upload. 
      
-     Abort (Reset) command will be sent instead of a next Op Code, or after receiving
-     a Packet Receipt Notification. It PRM procedure is disabled it will continue
-     until the whole firmware is sent and then Reset will be sent instead of Verify
-     Firmware op code.
+     As a result, the phone will disconnect from peripheral. The peripheral
+     will try to recover the last firmware. Had the application been removed, the device
+     will restart in the DFU bootloader mode.
+     
+     Aborting DFU does not cancel pending connection attempt. It is only when the service
+     is sending firmware or an Op Code that the operation can be stopped.
      
      - returns: `True` if DFU has been aborted; `false` otherwise.
      */

@@ -101,7 +101,7 @@ internal class LegacyDFUExecutor : DFUExecutor, LegacyDFUPeripheralDelegate {
         } else {
             // Operation can not be continued.
             error(.remoteLegacyDFUNotSupported, didOccurWithMessage:
-                  "Updating Softdevice or Bootloader is not supported")
+                  "Updating SoftDevice or Bootloader is not supported")
         }
     }
 

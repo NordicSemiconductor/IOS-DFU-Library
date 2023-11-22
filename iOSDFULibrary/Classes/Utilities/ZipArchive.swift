@@ -39,7 +39,7 @@ internal class ZipArchive {
     }
     
     /**
-     Opens the ZIP archive and returs a list of URLs to all unzipped files.
+     Opens the ZIP archive and returns a list of URLs to all unzipped files.
      Unzipped files were moved to a temporary destination in Cache Directory.
      
      - parameter url: URL to a ZIP file.

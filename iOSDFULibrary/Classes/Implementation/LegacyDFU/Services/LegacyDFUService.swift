@@ -48,14 +48,14 @@ import CoreBluetooth
     private var dfuControlPointCharacteristic : DFUControlPoint?
     private var dfuVersionCharacteristic      : DFUVersion?
     
-    /// This method returns true if DFU Control Point characteristc has been discovered.
-    /// A device without this characteristic is not supported and even can't be resetted
+    /// This method returns true if DFU Control Point characteristic has been discovered.
+    /// A device without this characteristic is not supported and even can't be reset
     /// by sending a Reset command.
     internal func supportsReset() -> Bool {
         return dfuControlPointCharacteristic != nil
     }
     
-    /// The version read from the DFU Version charactertistic. Nil, if such does not exist.
+    /// The version read from the DFU Version characteristic. Nil, if such does not exist.
     private(set) var version: (major: UInt8, minor: UInt8)?
     private var paused  = false
     private var aborted = false
@@ -142,7 +142,9 @@ import CoreBluetooth
     // MARK: - Service API methods
     
     /**
-     Discovers characteristics in the DFU Service. Result it reported using callbacks.
+     Discovers characteristics in the DFU Service. 
+     
+     Result it reported using callbacks.
      
      - parameter success: Method called when required DFU characteristics were discovered.
      - parameter report:  Method called when an error occurred.
@@ -178,7 +180,7 @@ import CoreBluetooth
                 is not, `nil` if unknown.
      */
     func isInApplicationMode() -> Bool? {
-        // If DFU Version characteritsic returned a correct value...
+        // If DFU Version characteristic returned a correct value...
         if let version = version {
             // The app with buttonless update always returns value 0x0100
             // (major: 0, minor: 1). Otherwise it's in DFU mode.
@@ -212,9 +214,10 @@ import CoreBluetooth
     
     /**
      Returns whether the bootloader is expected to advertise with the same address
-     on one incremented by 1. In the latter case the library needs to scan for a new
-     advertising device and select it by filtering the adv packet, as device address
-     is not available through iOS API.
+     on one incremented by 1. 
+     
+     In the latter case the library needs to scan for a new advertising device and select
+     it by filtering the advertising packet, as device address is not available through iOS API.
      */
     var newAddressExpected: Bool {
         // See https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/issues/170 and
@@ -228,6 +231,7 @@ import CoreBluetooth
     
     /**
      Enables notifications for DFU Control Point characteristic.
+     
      Result it reported using callbacks.
      
      - parameter success: Method called when notifications were enabled without a problem.
@@ -258,8 +262,8 @@ import CoreBluetooth
     
     /**
      This methods sends the Start DFU command with the firmware type to the DFU Control
-     Point characterristic, followed by the sizes of each firware component:
-     softdevice, bootloader, application (each as UInt32, Little Endian).
+     Point characteristic, followed by the sizes of each firmware component:
+     SoftDevice, bootloader, application (each as UInt32, Little Endian).
      
      - parameter type:    The type of the current firmware part.
      - parameter size:    The sizes of firmware components in the current part.
@@ -320,7 +324,7 @@ import CoreBluetooth
     
     /**
      This methods sends the old Start DFU command (without the firmware type) to the
-     DFU Control Point characterristic, followed by the application size (UInt32, Little Endian).
+     DFU Control Point characteristic, followed by the application size (UInt32, Little Endian).
      
      - parameter size:    The sizes of firmware components in the current part.
      - parameter success: A callback called when a response with status Success is received.
@@ -361,8 +365,9 @@ import CoreBluetooth
      This method sends the Init Packet with additional firmware metadata to the target DFU device.
      
      The Init Packet is required since Bootloader v0.5 (SDK 7.0.0), when it has been extended with 
-     firmware verification data, like IDs of supported softdevices, device type and revision,
+     firmware verification data, like IDs of supported SoftDevices, device type and revision,
      or application version.
+     
      The extended Init Packet may also contain a hash of the firmware (since DFU from SDK 9.0.0).
      Before Init Packet became required it could have contained only 2-byte CRC of the firmware.
      
@@ -379,7 +384,7 @@ import CoreBluetooth
         }
         
         // The procedure of sending the Init Packet has changed the same time the DFU Version
-        // characterstic was introduced. Before it was not required, and could contain only
+        // characteristic was introduced. Before it was not required, and could contain only
         // CRC of the firmware (2 bytes).
         // Since DFU Bootloader version 0.5 (SDK 7.0.0) it is required and has been extended.
         // Must be at least 14 bytes: Device Type (2), Device Revision (2), Application
@@ -419,7 +424,7 @@ import CoreBluetooth
             })
         } else {
             // Before that, the Init Packet could have contained only the 2-bytes CRC and
-            // was transfered in a single packet.
+            // was transferred in a single packet.
             // There was a single command sent to the DFU Control Point (Op Code = 2),
             // followed by the Init Packet transfer to the DFU Packet characteristic.
             // After receiving this packet the DFU target was sending a notification with
@@ -473,7 +478,7 @@ import CoreBluetooth
      
      - parameter firmware: The firmware to be sent.
      - parameter delay:    If `true`, upload will be delayed by 1000ms.
-     - parameter progress: A progress delagate that will be informed about transfer progress.
+     - parameter progress: A progress delegate that will be informed about transfer progress.
      - parameter queue:    The queue to dispatch progress events on.
      - parameter success:  A callback called when a response with status Success is received.
      - parameter report:   A callback called when a response with an error status is received.
@@ -495,7 +500,7 @@ import CoreBluetooth
         // 1. Sends the Receive Firmware Image command to the DFU Control Point
         //    characteristic/
         // 2. Sends firmware to the DFU Packet characteristic. If number > 0 it will receive
-        //    Packet Receit Notifications every number packets.
+        //    Packet Receipt Notifications every number packets.
         // 3. Receives response notification and calls onSuccess or onError.
         dfuControlPointCharacteristic?.send(Request.receiveFirmwareImage,
             onSuccess: { [weak self] in
@@ -511,7 +516,7 @@ import CoreBluetooth
                         self.progressQueue = nil
                         success()
                     },
-                    onPacketReceiptNofitication: { [weak self] bytesReceived in
+                    onPacketReceiptNotification: { [weak self] bytesReceived in
                         guard let self = self else { return }
                         // This callback is called from SecureDFUControlPoint in 2 cases:
                         // when a PRN is received (bytesReceived contains number of bytes
@@ -617,6 +622,7 @@ import CoreBluetooth
     
     /**
      Sends a command that will activate the new firmware and reset the DFU target device.
+     
      Soon after calling this method the device should disconnect.
      
      - parameter report: A callback called when writing characteristic failed.
@@ -631,9 +637,11 @@ import CoreBluetooth
     }
     
     /**
-     Sends a Reset command to the target DFU device. The device will disconnect automatically
-     and restore the previous application (if DFU dual bank was used and application wasn't
-     removed to make space for a new softdevice) or bootloader.
+     Sends a Reset command to the target DFU device. 
+     
+     The device will disconnect automatically and restore the previous application
+     (if DFU dual bank was used and application wasn't removed to make space
+     for a new SoftDevice) or bootloader.
      
      - parameter report: A callback called when writing characteristic failed.
      */
@@ -644,7 +652,9 @@ import CoreBluetooth
     // MARK: - Private service API methods
     
     /**
-    Reads the DFU Version characteristic value. The characteristic must not be nil.
+    Reads the DFU Version characteristic value.
+     
+    The characteristic must not be `nil`.
     
     - parameter success: The callback called when supported version number has been received.
     - parameter report:  The error callback which is called in case of an error, or when

@@ -34,35 +34,41 @@ import Foundation
  The type of the BIN or HEX file, or selection of content from the Distribution
  packet (ZIP) file.
  
- Select `.softdeviceBootloaderApplication` to sent all files from the ZIP
+ Select ``softdeviceBootloaderApplication`` to sent all files from the ZIP
  (even it there is let's say only application). This works as a filter.
  If you have SD+BL+App in the ZIP, but want to send only App, you may set the
- type to `.application`.
-
- - softdevice:           Firmware file will be sent as a new SoftDevice.
- - bootloader:           Firmware file will be sent as a new Bootloader.
- - application:          Firmware file will be sent as a new Application.
- - softdeviceBootloader: Firmware file will be sent as a new SoftDevice + Bootloader.
- - softdeviceBootloaderApplication: All content of the ZIP file will be sent.
+ type to ``application``.
 */
 @objc public enum DFUFirmwareType : UInt8 {
+    /// Firmware file will be sent as a new SoftDevice.
     case softdevice = 1
+    /// Firmware file will be sent as a new Bootloader.
     case bootloader = 2
+    /// Firmware file will be sent as a new Application.
     case application = 4
+    
     // Merged option values (due to objc - Swift compatibility).
+    
+    /// Firmware file will be sent as a new SoftDevice + Bootloader.
     case softdeviceBootloader = 3
+    /// All content of the ZIP file will be sent.
     case softdeviceBootloaderApplication = 7
 }
 
 /**
- An error thrown when instantiating a `DFUFirmware` type from an invalid file.
+ An error thrown when instantiating a ``DFUFirmware`` type from an invalid file.
  */
 public struct DFUFirmwareError : Error {
+    /// The firmware type.
     public enum FileType {
+        /// A Distribution packet (ZIP) has failed to be parsed.
         case zip
+        /// The file is a BIN or a HEX file.
         case binOrHex
+        /// The file is an Init file.
         case dat
     }
+    /// The firmware type.
     public let type: FileType
 }
 
@@ -74,7 +80,9 @@ extension DFUFirmwareError : LocalizedError {
     
 }
 
-/// The DFUFirmware object wraps the firmware file.
+/**
+ The DFU Firmware object wraps the firmware file and provides access to its content.
+ */
 @objc public class DFUFirmware : NSObject, DFUStream {
     internal let stream: DFUStream
     
@@ -94,8 +102,13 @@ extension DFUFirmwareError : LocalizedError {
         return stream.size
     }
     
-    /// Number of connectinos required to transfer the firmware.
-    /// This does not include the connection needed to switch to the DFU mode.
+    /**
+     Number of connections required to transfer the firmware.
+    
+     If a ZIP file contains a new firmware for the SoftDevice (and/or Bootloader)
+     and the Application, the number of parts is equal to 2. Otherwise this is
+     always 1.
+     */
     @objc public var parts: Int {
         return stream.parts
     }
@@ -114,6 +127,7 @@ extension DFUFirmwareError : LocalizedError {
     
     /**
      Creates the DFU Firmware object from a Distribution packet (ZIP).
+     
      Such file must contain a manifest.json file with firmware metadata and at
      least one firmware binaries. Read more about the Distribution packet on
      the DFU documentation.
@@ -121,8 +135,8 @@ extension DFUFirmwareError : LocalizedError {
      - parameter urlToZipFile: URL to the Distribution packet (ZIP).
      
      - returns: The DFU firmware object or `nil` in case of an error.
-     - throws: `DFUFirmwareError` if the file is invalid, or
-               `DFUStreamZipError` if creating a Zip stream failed.
+     - throws: ``DFUFirmwareError`` if the file is invalid, or
+               ``DFUStreamZipError`` if creating a Zip stream failed.
      */
     @objc convenience public init(urlToZipFile: URL) throws {
         try self.init(urlToZipFile: urlToZipFile,
@@ -131,16 +145,18 @@ extension DFUFirmwareError : LocalizedError {
     
     /**
      Creates the DFU Firmware object from a Distribution packet (ZIP).
+     
      Such file must contain a manifest.json file with firmware metadata and at
      least one firmware binaries. Read more about the Distribution packet on
      the DFU documentation.
      
-     - parameter urlToZipFile: URL to the Distribution packet (ZIP).
-     - parameter type:         The type of the firmware to use.
+     - parameters:
+       - urlToZipFile: URL to the Distribution packet (ZIP).
+       -  type: The type of the firmware to use.
      
      - returns: The DFU firmware object or `nil` in case of an error.
-     - throws: `DFUFirmwareError` if the file is invalid, or
-               `DFUStreamZipError` if creating a Zip stream failed.
+     - throws: ``DFUFirmwareError`` if the file is invalid, or
+               ``DFUStreamZipError`` if creating a Zip stream failed.
      */
     @objc public init(urlToZipFile: URL, type: DFUFirmwareType) throws {
         fileUrl = urlToZipFile
@@ -158,6 +174,7 @@ extension DFUFirmwareError : LocalizedError {
     
     /**
      Creates the DFU Firmware object from a Distribution packet (ZIP).
+     
      Such file must contain a manifest.json file with firmware metadata and at
      least one firmware binaries. Read more about the Distribution packet on
      the DFU documentation.
@@ -165,8 +182,8 @@ extension DFUFirmwareError : LocalizedError {
      - parameter zipFile: The Distribution packet (ZIP) data.
      
      - returns: The DFU firmware object or `nil` in case of an error.
-     - throws: `DFUFirmwareError` if the file is invalid,
-               `DFUStreamZipError` if creating a Zip stream failed,
+     - throws: ``DFUFirmwareError`` if the file is invalid,
+               ``DFUStreamZipError`` if creating a Zip stream failed,
                or an error in the Cocoa domain, if the data cannot be written
                to a temporary location.
      */
@@ -176,16 +193,18 @@ extension DFUFirmwareError : LocalizedError {
     
     /**
      Creates the DFU Firmware object from a Distribution packet (ZIP).
+     
      Such file must contain a manifest.json file with firmware metadata and at
      least one firmware binaries. Read more about the Distribution packet on
      the DFU documentation.
      
-     - parameter zipFile: The Distribution packet (ZIP) data.
-     - parameter type:    The type of the firmware to use.
+     - parameters:
+       - zipFile: The Distribution packet (ZIP) data.
+       - type: The type of the firmware to use.
      
      - returns: The DFU firmware object or `nil` in case of an error.
-     - throws: `DFUFirmwareError` if the file is invalid,
-               `DFUStreamZipError` if creating a Zip stream failed,
+     - throws: ``DFUFirmwareError`` if the file is invalid,
+               ``DFUStreamZipError`` if creating a Zip stream failed,
                or an error in the Cocoa domain, if the data cannot be written
                to a temporary location.
      */
@@ -197,17 +216,19 @@ extension DFUFirmwareError : LocalizedError {
     }
     
     /**
-     Creates the DFU Firmware object from a BIN or HEX file. Setting the DAT
-     file with an Init packet is optional, but may be required by the bootloader
-     (SDK 7.0.0+).
+     Creates the DFU Firmware object from a BIN or HEX file. 
      
-     - parameter urlToBinOrHexFile: URL to a BIN or HEX file with the firmware.
-     - parameter urlToDatFile:      An optional URL to a DAT file with the Init packet.
-     - parameter type:              The type of the firmware.
+     Setting the DAT file with an Init packet is optional, but may be required by the
+     bootloader (SDK 7.0.0+).
+     
+     - parameters:
+       - urlToBinOrHexFile: URL to a BIN or HEX file with the firmware.
+       - urlToDatFile: An optional URL to a DAT file with the Init packet.
+       - type: The type of the firmware.
      
      - returns: The DFU firmware object or `nil` in case of an error.
-     - throws: `DFUFirmwareError` if the file is invalid,
-               `DFUStreamHexError` if the hex file is invalid,
+     - throws: ``DFUFirmwareError`` if the file is invalid,
+               ``DFUStreamHexError`` if the hex file is invalid,
                or an error in the Cocoa domain, if `url` cannot be read.
      */
     @objc public init(urlToBinOrHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) throws {
@@ -240,13 +261,15 @@ extension DFUFirmwareError : LocalizedError {
     }
     
     /**
-     Creates the DFU Firmware object from a BIN data. Setting the DAT
-     file with an Init packet is optional, but may be required by the bootloader
-     (SDK 7.0.0+).
+     Creates the DFU Firmware object from a BIN data. 
      
-     - parameter binFile: Content of the new firmware as BIN.
-     - parameter datFile: An optional DAT file data with the Init packet.
-     - parameter type:    The type of the firmware.
+     Setting the DAT file with an Init packet is optional, but may be required by the
+     bootloader (SDK 7.0.0+).
+     
+     - parameters:
+       - binFile: Content of the new firmware as BIN.
+       - datFile: An optional DAT file data with the Init packet.
+       - type: The type of the firmware.
      
      - returns: The DFU firmware object or `nil` in case of an error.
      */
@@ -258,13 +281,15 @@ extension DFUFirmwareError : LocalizedError {
     }
     
     /**
-     Creates the DFU Firmware object from a HEX data. Setting the DAT
-     file with an Init packet is optional, but may be required by the bootloader
-     (SDK 7.0.0+).
+     Creates the DFU Firmware object from a HEX data.
      
-     - parameter hexFile: Content of the HEX file containing new firmware.
-     - parameter datFile: An optional DAT file data with the Init packet.
-     - parameter type:    The type of the firmware.
+     Setting the DAT file with an Init packet is optional, but may be required by the 
+     bootloader (SDK 7.0.0+).
+     
+     - parameters:
+       - hexFile: Content of the HEX file containing new firmware.
+       - datFile: An optional DAT file data with the Init packet.
+       - type:The type of the firmware.
      
      - returns: The DFU firmware object or `nil` in case of an error.
      - throws: `DFUStreamHexError` if the hex file is invalid.

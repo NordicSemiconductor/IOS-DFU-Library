@@ -41,7 +41,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
     private(set) var bytesSent: UInt32 = 0
     /// Number of bytes sent at the last progress notification.
     /// This value is used to calculate the current speed.
-    private var totalBytesSentSinceProgessNotification: UInt32 = 0
+    private var totalBytesSentSinceProgressNotification: UInt32 = 0
     private var totalBytesSentWhenDfuStarted: UInt32 = 0
 
     /// Current progress in percents (0-99).
@@ -112,7 +112,8 @@ internal class SecureDFUPacket: DFUCharacteristic {
 
     /**
      Sends a given range of data from given firmware over DFU Packet characteristic.
-     If the whole object is completed the completition callback will be called.
+     
+     If the whole object is completed the competition callback will be called.
      
      - parameters:
        - prnValue: Packet Receipt Notification value used in the process. 0 to disable PRNs.
@@ -120,8 +121,8 @@ internal class SecureDFUPacket: DFUCharacteristic {
        - firmware: The whole firmware to be sent in this part.
        - progress: An optional progress delegate.
        - queue:    The queue to dispatch progress events on.
-       - complete: The completon callback.
-       - report:   Method called in case of an error.       
+       - complete: The completion callback.
+       - report:   Method called in case of an error.
      */
     func sendNext(_ prnValue: UInt16, packetsFrom range: Range<Int>, of firmware: DFUFirmware,
                   andReportProgressTo progress: DFUProgressDelegate?, on queue: DispatchQueue,
@@ -158,7 +159,7 @@ internal class SecureDFUPacket: DFUCharacteristic {
             startTime = CFAbsoluteTimeGetCurrent()
             lastTime = startTime
             totalBytesSentWhenDfuStarted = UInt32(range.lowerBound)
-            totalBytesSentSinceProgessNotification = totalBytesSentWhenDfuStarted
+            totalBytesSentSinceProgressNotification = totalBytesSentWhenDfuStarted
             
             // Notify progress delegate that upload has started (0%).
             queue.async {
@@ -196,16 +197,16 @@ internal class SecureDFUPacket: DFUCharacteristic {
             
             // Calculate the total progress of the firmware, presented to the delegate.
             let totalBytesSent = UInt32(range.lowerBound) + bytesSent
-            let currentProgress = UInt8(totalBytesSent * 100 / UInt32(firmware.data.count)) // in percantage (0-100)
+            let currentProgress = UInt8(totalBytesSent * 100 / UInt32(firmware.data.count)) // in percentage (0-100)
             
             // Notify progress listener only if current progress has increased since last time.
             if currentProgress > progressReported {
                 // Calculate current transfer speed in bytes per second.
                 let now = CFAbsoluteTimeGetCurrent()
-                let currentSpeed = Double(totalBytesSent - totalBytesSentSinceProgessNotification) / (now - lastTime!)
+                let currentSpeed = Double(totalBytesSent - totalBytesSentSinceProgressNotification) / (now - lastTime!)
                 let avgSpeed = Double(totalBytesSent - totalBytesSentWhenDfuStarted) / (now - startTime!)
                 lastTime = now
-                totalBytesSentSinceProgessNotification = totalBytesSent
+                totalBytesSentSinceProgressNotification = totalBytesSent
                 
                 // Notify progress delegate of overall progress.
                 queue.async {

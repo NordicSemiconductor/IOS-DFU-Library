@@ -31,12 +31,23 @@
 import CoreBluetooth
 
 /**
- The DFUServiceInitiator object should be used to send a firmware update to
- a remote BLE target compatible with the Nordic Semiconductor's DFU (Device
- Firmware Update).
+ The initiator object should be used to initiate updating firmware
+ on a remote Bluetooth LE target compatible with the Nordic Semiconductor's Legacy or
+ Secure DFU (Device Firmware Update) protocol from nRF5 SDK.
  
- A `delegate`, `progressDelegate` and `logger` may be specified in order to
- receive status information.
+ A ``delegate``, ``progressDelegate`` and ``logger`` may be specified in
+ order to receive status information.
+ 
+ ```swift
+ let initiator = DFUServiceInitiator()
+ initiator.logger = self // - to get logs
+ initiator.delegate = self // - to be informed about current state and errors
+ initiator.progressDelegate = self // - to get progress updates
+ // TODO: Check out other properties of the initiator.
+ 
+ let controller = initiator.with(firmware: selectedFirmware).start(target: peripheral)
+ ```
+ Using the ``DFUServiceController`` you may pause, resume or abort the DFU operation.
  */
 @objc public class DFUServiceInitiator : NSObject {
     
@@ -46,7 +57,7 @@ import CoreBluetooth
     internal var targetIdentifier : UUID!
     internal var file             : DFUFirmware?
     
-    /// The dispatch queue to run BLE operations on.
+    /// The dispatch queue to run Bluetooth LE operations on.
     internal var queue                 : DispatchQueue
     /// The dispatch queue to invoke all delegate callbacks on.
     internal var delegateQueue         : DispatchQueue
@@ -59,19 +70,21 @@ import CoreBluetooth
     
     /**
      The service delegate is an object that will be notified about state changes
-     of the DFU Service. Setting it is optional but recommended.
+     of the DFU Service. 
+     
+     Setting it is optional but recommended.
      */
     @objc public weak var delegate: DFUServiceDelegate?
     
     /**
-     An optional progress delegate will be called only during upload. It notifies
-     about current upload percentage and speed.
+     An optional progress delegate will be called only during upload. 
+     
+     t notifies about current upload percentage and speed.
      */
     @objc public weak var progressDelegate: DFUProgressDelegate?
     
     /**
-     The logger is an object that should print given messages to the user.
-     It is optional.
+     The logger delegate receives logs from the service.
      */
     @objc public weak var logger: LoggerDelegate?
     
@@ -79,48 +92,59 @@ import CoreBluetooth
      The selector object is used when the device needs to disconnect and start
      advertising with a different address to avoid caching problems, for example
      after switching to the Bootloader mode, or during sending a firmware containing
-     a Softdevice (or Softdevice and Bootloader) and the Application.
-     After flashing the first part (containing the Softdevice), the device restarts
+     a SoftDevice (or SoftDevice and Bootloader) and the Application.
+     
+     After flashing the first part (containing the SoftDevice), the device restarts
      in the DFU Bootloader mode and may (since SDK 8.0.0) start advertising with an
-     address incremented by 1. The peripheral specified in the `init` may no longer
-     be used as there is no device advertising with its address.
+     address incremented by 1. The peripheral specified in the ``start(target:)``
+     may no longer be used as there is no device advertising with its address.
      The DFU Service will scan for a new device and connect to the first device
      returned by the selector.
      
-     The default selecter returns the first device with the required DFU Service
-     UUID in the advertising packet (Secure or Legacy DFU Service UUID).
+     The default selector (``DFUPeripheralSelector``) returns the first device
+     with the required DFU Service UUID in the advertising packet
+     (Secure or Legacy DFU Service UUID).
      
-     Ignore this property if not updating Softdevice and Application from one ZIP
-     file.
+     Set own selector if your DFU bootloader advertises using custom data.
      */
     @objc public var peripheralSelector: DFUPeripheralSelectorDelegate
 
     /**
      The number of packets of firmware data to be received by the DFU target before
-     sending a new Packet Receipt Notification. If this value is 0, the packet receipt
-     notification will be disabled by the DFU target. Default value is 12.
+     sending a new Packet Receipt Notification. 
      
-     PRNs are no longer required on iOS 11 and MacOS 10.13 or newer, but make sure
-     your device is able to be updated without. Old SDKs, before SDK 7 had very slow
-     memory management and could not handle packets that fast. If your device
-     is based on such SDK it is recommended to leave the default value.
+     If this value is 0, the packet receipt notification will be disabled by the DFU target.
      
-     Disabling PRNs on iPhone 8 with iOS 11.1.2 increased the speed from 1.7 KB/s to 2.7 KB/s
-     on DFU from SDK 14.1 where packet size is 20 bytes (higher MTU not supported yet).
+     Default value is 12.
+     
+     - note: PRNs are no longer required on iOS 11 and MacOS 10.13 or newer, but
+             make sure your device is able to be updated without. Old SDKs, before SDK 7
+             had very slow memory management and could not handle packets that fast.
+             If your device is based on such SDK it is recommended to leave the default value.
+     
+     Disabling PRNs increases upload speed but may cause failures on devices with slow flash
+     memory.
      
      On older versions, higher values of PRN (~20+), or disabling it, may speed up
      the upload process, but also cause a buffer overflow and hang the Bluetooth adapter.
+     
      Maximum verified values were 29 for iPhone 6 Plus or 22 for iPhone 7, both iOS 10.1.
      */
     @objc public var packetReceiptNotificationParameter: UInt16 = 12
     
     /**
-     Setting this property to true will prevent from jumping to the DFU Bootloader
+     Should the Legacy DFU service assume the device is in bootloader mode despite
+     absence of the DFU Version characteristic.
+     
+     - important: This property is only meaningful for devices supporting Legacy DFU without
+                  DFU Version characteristic  (nRF5 SDK 4.3 - 7) and is ignored otherwise.
+     
+     Setting this property to `true` will prevent from jumping to the DFU Bootloader
      mode in case there is no DFU Version characteristic. Use it if the DFU operation
      can be handled by your device running in the application mode. If the DFU Version
      characteristic exists, the information whether to begin DFU operation, or jump to
      bootloader, is taken from the characteristic's value. The value returned equal to
-     0x0100 (read as: minor=1, major=0, or version 0.1) means that the device is in the
+     `0x0100` (read as: minor=1, major=0, or version 0.1) means that the device is in the
      application mode and buttonless jump to DFU Bootloader is supported.
      
      Currently, the following values of the DFU Version characteristic are supported:
@@ -136,7 +160,7 @@ import CoreBluetooth
      service found (except General Access and General Attribute services) - it assumes
      it is in DFU Bootloader mode and may start DFU immediately, if there is at least
      one service except DFU Service - the device is in application mode and supports
-     buttonless jump. In the lase case, you want to perform DFU operation without
+     buttonless jump. In the last case, you want to perform DFU operation without
      jumping - set the `forceDfu` property to `true`.
      
      **0.1** - Device is in a mode that supports buttonless jump to the DFU Bootloader.
@@ -162,29 +186,30 @@ import CoreBluetooth
      By default the DFU Library will try to switch the device to the DFU Bootloader
      mode if it finds more services then one (DFU Service). It assumes it is already
      in the bootloader mode if the only service found is the DFU Service. Setting the
-     forceDfu to true (YES) will prevent from jumping in these both cases.
-     
-     - important: Legacy DFU only.
+     `forceDfu` to `true` will prevent from jumping in these both cases.
      */
     @objc public var forceDfu = false
     
     /**
-     By default, the Legacy DFU bootloader starting from SDK 7.1, when enabled using
+     Should the Legacy DFU service scan for the device after switching to bootloader mode.
+     
+     By default, the Legacy DFU bootloader, starting from SDK 7.1, when enabled using
      buttonless service, advertises with the same Bluetooth address as the application
      using direct advertisement. This complies with the Bluetooth specification.
-     However, starting from iOS 13.x, iPhones and iPads use random addresses on each
-     connection and do not expect direct advertising unless bonded. This causes thiose
+     However, on iOS 13.x, iPhones and iPads use random addresses on each
+     connection and do not expect direct advertising unless bonded. This causes those
      packets being missed and not reported to the library, making reconnection to the
      bootloader and proceeding with DFU impossible.
+     
      A solution requires modifying either the bootloader not to use the direct advertising,
      or the application not to share the peer data with bootloader, in which case it will
-     advertise undirectly using address +1, like it does when the switch to bootloader mode
+     advertise indirectly using address +1, like it does when the switch to bootloader mode
      is initiated with a button. After such modification, setting this flag to true will make the
-     library scan for the bootloader using `DFUPeripheralSelector`.
+     library scan for the bootloader using ``DFUPeripheralSelector``.
      
-     Setting this flag to true without modifying the booloader behavior will break the DFU,
+     Setting this flag to `true` without modifying the bootloader behavior will break the DFU,
      as the direct advertising packets are empty and will not pass the default
-     `DFUPeripheralSelector`.
+     ``DFUPeripheralSelector``.
      
      - since: 4.8.0
      */
@@ -202,7 +227,9 @@ import CoreBluetooth
     
     /**
      Duration of a delay, that the service will wait before sending each data object in
-     Secure DFU. The delay will be done after a data object is created, and before
+     Secure DFU. 
+     
+     The delay will be done after a data object is created, and before
      any data byte is sent. The default value is 0, which disables this feature for the
      second and following data objects, but the first one will be delayed by 0.4 sec.
      
@@ -226,83 +253,88 @@ import CoreBluetooth
     @objc public var dataObjectPreparationDelay: TimeInterval = 0.0
     
     /**
+     Should the bootloader use random name to make it distinguishable from other devices.
+     
      In SDK 14.0.0 a new feature was added to the Buttonless DFU for non-bonded
      devices which allows to send a unique name to the device before it is switched
      to bootloader mode. After jump, the bootloader will advertise with this name
      as the Complete Local Name making it easy to select proper device. In this case
      you don't have to override the default peripheral selector.
      
-     Read more:
-     http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html
+     Read more at [SDK 14.0 documentation at Infocenter](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.0.0/service_dfu.html).
      
-     Setting this flag to false you will disable this feature. iOS DFU Library will
-     not send the 0x02-[len]-[new name] command prior jumping and will rely on the DfuPeripheralSelectorDelegate just like it used to in previous SDK.
+     Setting this flag to `false` you will disable this feature. iOS DFU Library will
+     not send the `0x02-[len]-[new name]` command prior jumping and will
+     rely on the ``peripheralSelector`` just like it used to in previous SDK.
      
      This flag is ignored in Legacy DFU.
      
      **It is recommended to keep this flag set to true unless necessary.**
      
-     For more information read:
-     https://github.com/NordicSemiconductor/IOS-nRF-Connect/issues/16
+     For more information read [Issue 16](https://github.com/NordicSemiconductor/IOS-nRF-Connect/issues/16).
      */
     @objc public var alternativeAdvertisingNameEnabled = true
 
     /**
-     If `alternativeAdvertisingNameEnabled` is `true` then this specifies the
-     alternative name to use. If nil (default) then a random name is generated.
+     The name the bootloader should use in advertisement.
      
-     The maximum length of the alertnative advertising name is 20 bytes.
-     Longer name will be trundated. UTF-8 characters can be cut in the middle.
+     If ``alternativeAdvertisingNameEnabled`` is `true` then this specifies the
+     alternative name to use. If `nil` (default) then a random name is generated.
+     
+     The maximum length of the alternative advertising name is 20 bytes.
+     Longer name will be truncated. UTF-8 characters can be cut in the middle.
      */
     @objc public var alternativeAdvertisingName: String? = nil
     
     /**
-     Set this flag to true to enable experimental buttonless feature in Secure DFU.
+     Should the library discover Experimental Buttonless Service from nRF5 SDK version 12.
+     
+     Set this flag to `true` to enable experimental buttonless feature in Secure DFU.
      When the experimental Buttonless DFU Service is found on a device, the service
      will use it to switch the device to the bootloader mode, connect to it in that
      mode and proceed with DFU.
      
-     **Please, read the information below before setting it to true.**
-     
      In the SDK 12.x the Buttonless DFU feature for Secure DFU was experimental.
      It is NOT recommended to use it: it was not properly tested, had implementation bugs 
-     (e.g. https://devzone.nordicsemi.com/question/100609/sdk-12-bootloader-erased-after-programming/)
+     (e.g. [this one](https://devzone.nordicsemi.com/question/100609/sdk-12-bootloader-erased-after-programming/))
      and does not required encryption and therefore may lead to DOS attack (anyone can
      use it to switch the device to bootloader mode). However, as there is no other way
      to trigger bootloader mode on devices without a button, this DFU Library supports
      this service, but the feature must be explicitly enabled here. Be aware, that setting
-     this flag to false will no protect your devices from this kind of attacks, as
-     an attacker may use another app for that purpose. To be sure your device is secure
-     remove this experimental service from your device.
+     this flag to `false` will no protect your devices from this kind of attacks, as
+     an attacker may use another app for that purpose.
      
      Spec:
      
-     Buttonless DFU Service UUID: 8E400001-F315-4F60-9FB8-838830DAEA50
+     Buttonless DFU Service UUID: `8E400001-F315-4F60-9FB8-838830DAEA50`
      
-     Buttonless DFU characteristic UUID: 8E400001-F315-4F60-9FB8-838830DAEA50 (the same)
+     Buttonless DFU characteristic UUID: `8E400001-F315-4F60-9FB8-838830DAEA50` (the same)
      
-     Enter Bootloader Op Code: 0x01
+     Enter Bootloader Op Code: `0x01`
      
-     Correct return value: 0x20-01-01 , where:
-       0x20 - Response Op Code
-       0x01 - Request Code
-       0x01 - Success
+     Correct return value: `0x20-01-01` , where:
+       `0x20` - Response Op Code
+       `0x01` - Request Code
+       `0x01` - Success
      The device should disconnect and restart in DFU mode after sending the notification.
      
-     In SDK 13 this issue was be fixed by a proper implementation (bonding required,
+     In SDK 13 this issue was be fixed by a proper implementation (bonding supported,
      passing bond information to the bootloader, encryption, well tested).
-     It is recommended to use this new service.
+     It is recommended to migrate to SDK 13 or newer
      */
     @objc public var enableUnsafeExperimentalButtonlessServiceInSecureDfu = false
 
     /**
      UUIDs used during the DFU Process.
+     
      This allows you to pass in Custom UUIDs for the DFU Service/Characteristics.
     */
     @objc public var uuidHelper: DFUUuidHelper
 
     /**
-     Disable the ability for the DFU process to resume from where it was.
+     Disable the ability for the Secure DFU process to resume from where it was.
+     
+     By default this is set to `false`. This property applies only to Secure DFU.
      
      - since: 4.3.0
     */
@@ -311,25 +343,29 @@ import CoreBluetooth
     //MARK: - Public API
     
     /**
-     Creates the DFUServiceInitializer that will allow to send an update to the given
-     peripheral.
+     Creates the `DFUServiceInitializer` which allows updating firmware on
+     Bluetooth LE devices supporting Legacy or Secure DFU from nRF5 SDK from
+     Nordic Semiconductor..
      
      This constructor takes control over the central manager and peripheral objects.
      Their delegates will be set to internal library objects and will NOT be reverted to
      original objects, instead they will be set to nil when DFU is complete, aborted or
      has failed with an error. An app should restore the delegates (if needed) after
-     receiving .completed or .aborted DFUState, or receiving an error.
+     receiving state ``DFUState/completed`` or ``DFUState/aborted``,
+     or receiving an error.
      
-     - important: This constructor has been deprecated in favor of `init(target: CBPeripheral)`,
-     which does not take control over the give peripheral, and is using a copy instead.
+     - important: This constructor has been deprecated in favor of
+                  ``init(queue:delegateQueue:progressQueue:loggerQueue:centralManagerOptions:)``,
+                  which does not take control over the given peripheral, using a copy instead.
      
-     - parameter centralManager: Manager that will be used to connect to the peripheral
-     - parameter target: The DFU target peripheral.
+     - parameters:
+       - centralManager: Manager that will be used to connect to the peripheral
+       - target: The DFU target peripheral.
      
      - returns: The initiator instance.
      
-     - seeAlso: peripheralSelector property - a selector used when scanning for a device
-                in DFU Bootloader mode in case you want to update a Softdevice and
+     - seeAlso: ``peripheralSelector`` - a selector used when scanning for a device
+                in DFU Bootloader mode in case you want to update a SoftDevice and
                 Application from a single ZIP Distribution Packet.
      */
     @available(*, deprecated, message: "Use init(queue: DispatchQueue?) instead.")
@@ -351,21 +387,24 @@ import CoreBluetooth
     }
     
     /**
-     Creates the DFUServiceInitializer that will allow to send an update to peripherals.
+     Creates the `DFUServiceInitializer` which allows updating firmware on
+     Bluetooth LE devices supporting Legacy or Secure DFU from nRF5 SDK from
+     Nordic Semiconductor..
      
-     - parameter queue: The dispatch queue to run BLE operations on.
-     - parameter delegateQueue: The dispatch queue to invoke all delegate callbacks on.
-     - parameter progressQueue: The dispatch queue to invoke all progress delegate
-                                callbacks on.
-     - parameter loggerQueue: The dispatch queue to invoke all logger events on.
-     - parameter centralManagerOptions: An optional dictionary that contains initialization options for `CBCentralManager`.
+     - parameters:
+       - queue: The dispatch queue to run BLE operations on.
+       - delegateQueue: The dispatch queue to invoke all delegate callbacks on.
+       - progressQueue: The dispatch queue to invoke all progress delegate
+                        callbacks on.
+       - loggerQueue: The dispatch queue to invoke all logger events on.
+       - centralManagerOptions: An optional dictionary that contains initialization options for `CBCentralManager`.
 
      - returns: The initiator instance.
      
      - version: Added in version 4.2 of the iOS DFU Library. Extended in 4.3 to allow
                 setting delegate queues.
-     - seeAlso: peripheralSelector property - a selector used when scanning for a
-                device in DFU Bootloader mode in case you want to update a Softdevice
+     - seeAlso: ``peripheralSelector`` - a selector used when scanning for a
+                device in DFU Bootloader mode in case you want to update a SoftDevice
                 and Application from a single ZIP Distribution Packet.
      */
     @objc public init(queue: DispatchQueue? = nil,
@@ -388,8 +427,10 @@ import CoreBluetooth
     }
     
     /**
-     Sets the file with the firmware. The file must be specified before calling
-     `start(...)` method.
+     Sets the file with the firmware. 
+     
+     The file must be specified before calling ``start(target:)``
+     or ``start(targetWithIdentifier:)`` method.
      
      - parameter file: The firmware wrapper object.
      
@@ -402,22 +443,22 @@ import CoreBluetooth
     
     /**
      Starts sending the specified firmware to the DFU target specified in
-     `init(centralManager:target)`. When started, the service will automatically
-     connect to the target, switch to DFU Bootloader mode (if necessary), and
-     send all the content of the specified firmware file in one or two connections.
-     Two connections will be used if a ZIP file contains a Soft Device and/or
-     Bootloader and an Application. First the Soft Device and/or Bootloader will
+     ``init(centralManager:target:)``.
+     
+     When started, the service will automatically connect to the target, switch to
+     DFU Bootloader mode (if necessary), and send all the content of the specified
+     firmware file in one or two connections.
+     
+     Two connections will be used if a ZIP file contains a SoftDevice and/or
+     Bootloader and an Application. First the SoftDevice and/or Bootloader will
      be transferred, then the service will disconnect, reconnect to the (new)
      Bootloader again and send the Application (unless the target supports
      receiving all files in a single connection). The peripheral will NOT be
      reconnected after the DFU is completed, aborted or has failed.
      
-     The current version of the DFU Bootloader, due to memory limitations, may
-     receive together only a Softdevice and Bootloader.
+     - important: Use ``start(target:)`` or ``start(targetWithIdentifier:)`` instead.
      
-     - important: Use `start(target: CBPeripheral)` instead.
-     
-     - returns: A DFUServiceController object that can be used to control the
+     - returns: A ``DFUServiceController`` object that can be used to control the
                 DFU operation, or `nil`, if the file was not set, or the target
                 peripheral was not set.
      */
@@ -453,12 +494,9 @@ import CoreBluetooth
      it will restart during the process. The app should not send any data to DFU
      characteristics when DFU is in progress.
      
-     The current version of the DFU Bootloader, due to memory limitations, may receive
-     together only a SoftDevice and Bootloader.
-     
      - parameter target: The DFU target peripheral.
      
-     - returns: A `DFUServiceController` object that can be used to control the DFU
+     - returns: A ``DFUServiceController`` object that can be used to control the DFU
                 operation, or `nil`, if the file was not set, or the peripheral instance
                 could not be retrieved.
      */
@@ -484,13 +522,10 @@ import CoreBluetooth
      it will restart during the process. The app should not send any data to DFU
      characteristics when DFU is in progress.
      
-     The current version of the DFU Bootloader, due to memory limitations, may receive
-     together only a SoftDevice and Bootloader.
-     
      - parameter uuid: The UUID associated with the peer.
      
-     - returns: A DFUServiceController object that can be used to control the DFU
-                operation, or nil, if the file was not set, or the peripheral instance
+     - returns: A ``DFUServiceController`` object that can be used to control the DFU
+                operation, or `nil`, if the file was not set, or the peripheral instance
                 could not be retrieved.
      */
     @objc public func start(targetWithIdentifier uuid: UUID) -> DFUServiceController? {

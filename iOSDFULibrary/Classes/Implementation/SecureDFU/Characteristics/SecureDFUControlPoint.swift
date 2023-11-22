@@ -309,7 +309,7 @@ internal struct SecureDFUResponse {
             // Parse response data in case of a success.
             switch requestOpCode {
             case .selectObject:
-                // The correct reponse for Select Object has additional 12 bytes:
+                // The correct response for Select Object has additional 12 bytes:
                 // Max Object Size, Offset and CRC.
                 guard data.count >= 15 else { return nil }
                 let maxSize : UInt32 = data.asValue(offset: 3)
@@ -321,7 +321,7 @@ internal struct SecureDFUResponse {
                 self.crc     = crc
                 self.error   = nil
             case .calculateChecksum:
-                // The correct reponse for Calculate Checksum has additional 8 bytes:
+                // The correct response for Calculate Checksum has additional 8 bytes:
                 // Offset and CRC.
                 guard data.count >= 11 else { return nil }
                 let offset : UInt32 = data.asValue(offset: 3)
@@ -457,6 +457,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     
     /**
      Enables notifications for the DFU Control Point characteristics.
+     
      Reports success or an error using callbacks.
     
      - parameter success: Method called when notifications were successfully enabled.
@@ -487,6 +488,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     
     /**
      Sends given request to the DFU Control Point characteristic.
+     
      Reports success or an error using callbacks.
      
      - parameter request: Request to be sent.
@@ -519,6 +521,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     
     /**
      Sends given request to the DFU Control Point characteristic.
+     
      Reports received data or an error using callbacks.
      
      - parameter request:  Request to be sent.
@@ -553,7 +556,8 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
     /**
      Sets the callbacks used later on when a Packet Receipt Notification is received,
      a device reported an error or the whole firmware has been sent. 
-     Sending the firmware is done using DFU Packet characteristic.
+     
+     The firmware is sent using DFU Packet characteristic.
      
      - parameter success: Method called when peripheral reported with status success.
      - parameter proceed: Method called the a PRN has been received and sending following data
@@ -561,7 +565,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
      - parameter report:  Method called in case of an error.
      */
     func waitUntilUploadComplete(onSuccess success: Callback?,
-                                 onPacketReceiptNofitication proceed: ProgressCallback?,
+                                 onPacketReceiptNotification proceed: ProgressCallback?,
                                  onError report: ErrorCallback?) {
         // Get the peripheral object.
         let optService: CBService? = characteristic.service
@@ -591,7 +595,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
             logger.e(error)
             // Note:
             // Error 253: Unknown ATT error.
-            // This most proably is caching issue. Check if your device had Service Changed
+            // This most probably is caching issue. Check if your device had Service Changed
             // characteristic (for non-bonded devices) in both app and bootloader modes.
             // For bonded devices make sure it sends the Service Changed indication after
             // connecting.
@@ -619,7 +623,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharac
             logger.e(error)
             // Note:
             // Error 3: Writing is not permitted.
-            // This most proably is caching issue. Check if your device had Service Changed
+            // This most probably is caching issue. Check if your device had Service Changed
             // characteristic (for non-bonded devices) in both app and bootloader modes. This
             // is a specially a case in SDK 12.x, where it was disabled by default.
             // For bonded devices make sure it sends the Service Changed indication after connecting.

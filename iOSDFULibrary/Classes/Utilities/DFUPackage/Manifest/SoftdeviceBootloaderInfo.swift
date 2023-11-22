@@ -30,9 +30,9 @@
 
 import Foundation
 
-// MARK: - SoftdeviceBootloaderInfo
+// MARK: - SoftDeviceBootloaderInfo
 
-struct SoftdeviceBootloaderInfo: ManifestFirmware, Codable {
+struct SoftDeviceBootloaderInfo: ManifestFirmware, Codable {
     
     // MARK: Properties
     
@@ -63,9 +63,9 @@ struct SoftdeviceBootloaderInfo: ManifestFirmware, Codable {
     }
 }
 
-// MARK: - SoftdeviceBootloaderInfo.SecureMetadata
+// MARK: - SoftDeviceBootloaderInfo.SecureMetadata
 
-extension SoftdeviceBootloaderInfo {
+extension SoftDeviceBootloaderInfo {
 
     struct Metadata: Codable {
 

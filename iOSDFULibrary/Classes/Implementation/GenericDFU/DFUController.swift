@@ -31,10 +31,11 @@
 internal protocol DFUController {
     
     /**
-     Call this method to pause uploading during the transmition process.
-     The transmition can be resumed only when connection remains. If service
+     Call this method to pause uploading during the transition process.
+     
+     The transition can be resumed only when connection remains. If service
      has already started sending firmware data it will pause after receiving
-     next Packet Receipt Notification. Otherwise` it will continue to send
+     next Packet Receipt Notification. Otherwise, it will continue to send
      Op Codes and pause before sending the first bytes of the firmware. With
      Packet Receipt Notifications disabled it is the only moment when upload
      may be paused.
@@ -44,14 +45,16 @@ internal protocol DFUController {
     func pause() -> Bool
     
     /**
-     Call this method to resume the paused transffer, otherwise does nothing.
+     Call this method to resume the paused transfer, otherwise does nothing.
      
      - returns: `True` if DFU operation was resumed, `false` otherwise.
      */
     func resume() -> Bool
     
     /**
-     Aborts the upload. The phone will disconnect from peripheral. The peripheral
+     Aborts the upload. 
+     
+     The phone will disconnect from peripheral. The peripheral
      will try to recover the last firmware. Might, restart in the Bootloader mode
      if the application has been removed.
      

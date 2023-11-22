@@ -52,8 +52,9 @@ internal protocol DFUService : DFUController {
          _ dfuHelper: DFUUuidHelper, _ queue: DispatchQueue)
     
     /**
-     Discovers characteristics in the DFU Service. This method also reads the
-     DFU Version characteristic if such found.
+     Discovers characteristics in the DFU Service. 
+     
+     This method also reads the DFU Version characteristic if such found.
      */
     func discoverCharacteristics(onSuccess success: @escaping Callback,
                                  onError report: @escaping ErrorCallback)
