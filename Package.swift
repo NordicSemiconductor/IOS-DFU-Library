@@ -17,10 +17,7 @@ let package = Package(
     .library(name: "NordicDFU", targets: ["NordicDFU"])
   ],
   dependencies: [
-    .package(
-      url: "https://github.com/weichsel/ZIPFoundation",
-      .exact("0.9.11")
-    )
+    .package(url: "https://github.com/weichsel/ZIPFoundation", exact: "0.9.16"),
   ],
   targets: [
     .target(

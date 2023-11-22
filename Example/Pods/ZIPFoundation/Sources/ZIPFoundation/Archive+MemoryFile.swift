@@ -2,7 +2,7 @@
 //  Archive+MemoryFile.swift
 //  ZIPFoundation
 //
-//  Copyright © 2017-2020 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
+//  Copyright © 2017-2021 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
 //  Released under the MIT License.
 //
 //  See https://github.com/weichsel/ZIPFoundation/blob/master/LICENSE for license information.
@@ -10,52 +10,30 @@
 
 import Foundation
 
+extension Archive {
+    var isMemoryArchive: Bool { return self.url.scheme == memoryURLScheme }
+}
+
 #if swift(>=5.0)
 
 extension Archive {
     /// Returns a `Data` object containing a representation of the receiver.
-    public var data: Data? { return memoryFile?.data }
-
-    static func configureMemoryBacking(for data: Data, mode: AccessMode)
-        -> (UnsafeMutablePointer<FILE>, MemoryFile)? {
-            let posixMode: String
-            switch mode {
-            case .read: posixMode = "rb"
-            case .create: posixMode = "wb+"
-            case .update: posixMode = "rb+"
-            }
-            let memoryFile = MemoryFile(data: data)
-            guard let archiveFile = memoryFile.open(mode: posixMode) else { return nil }
-
-            if mode == .create {
-                let endOfCentralDirectoryRecord = EndOfCentralDirectoryRecord(numberOfDisk: 0, numberOfDiskStart: 0,
-                                                                              totalNumberOfEntriesOnDisk: 0,
-                                                                              totalNumberOfEntriesInCentralDirectory: 0,
-                                                                              sizeOfCentralDirectory: 0,
-                                                                              offsetToStartOfCentralDirectory: 0,
-                                                                              zipFileCommentLength: 0,
-                                                                              zipFileCommentData: Data())
-                _ = endOfCentralDirectoryRecord.data.withUnsafeBytes { (buffer: UnsafeRawBufferPointer) in
-                    fwrite(buffer.baseAddress, buffer.count, 1, archiveFile) // Errors handled during read
-                }
-            }
-            return (archiveFile, memoryFile)
-    }
+    public var data: Data? { return self.memoryFile?.data }
 }
 
 class MemoryFile {
     private(set) var data: Data
-    private var offset  = 0
+    private var offset = 0
 
     init(data: Data = Data()) {
         self.data = data
     }
 
-    func open(mode: String) -> UnsafeMutablePointer<FILE>? {
+    func open(mode: String) -> FILEPointer? {
         let cookie = Unmanaged.passRetained(self)
         let writable = mode.count > 0 && (mode.first! != "r" || mode.last! == "+")
         let append = mode.count > 0 && mode.first! == "a"
-        #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+        #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(Android)
         let result = writable
             ? funopen(cookie.toOpaque(), readStub, writeStub, seekStub, closeStub)
             : funopen(cookie.toOpaque(), readStub, nil, seekStub, closeStub)
@@ -64,7 +42,7 @@ class MemoryFile {
         let result = fopencookie(cookie.toOpaque(), mode, stubs)
         #endif
         if append {
-            fseek(result, 0, SEEK_END)
+            fseeko(result, 0, SEEK_END)
         }
         return result
     }
@@ -121,13 +99,13 @@ private func closeStub(_ cookie: UnsafeMutableRawPointer?) -> Int32 {
     return 0
 }
 
-#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(Android)
 private func readStub(_ cookie: UnsafeMutableRawPointer?,
                       _ bytePtr: UnsafeMutablePointer<Int8>?,
                       _ count: Int32) -> Int32 {
     guard let cookie = cookie, let bytePtr = bytePtr else { return 0 }
     return Int32(fileFromCookie(cookie: cookie).readData(
-        buffer: UnsafeMutableRawBufferPointer(start: bytePtr, count: Int(count))))
+                    buffer: UnsafeMutableRawBufferPointer(start: bytePtr, count: Int(count))))
 }
 
 private func writeStub(_ cookie: UnsafeMutableRawPointer?,
@@ -135,7 +113,7 @@ private func writeStub(_ cookie: UnsafeMutableRawPointer?,
                        _ count: Int32) -> Int32 {
     guard let cookie = cookie, let bytePtr = bytePtr else { return 0 }
     return Int32(fileFromCookie(cookie: cookie).writeData(
-        buffer: UnsafeRawBufferPointer(start: bytePtr, count: Int(count))))
+                    buffer: UnsafeRawBufferPointer(start: bytePtr, count: Int(count))))
 }
 
 private func seekStub(_ cookie: UnsafeMutableRawPointer?,
