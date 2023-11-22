@@ -7,7 +7,7 @@
 [![Twitter](https://img.shields.io/badge/twitter-@weichsel-blue.svg?style=flat)](http://twitter.com/weichsel)
 
 ZIP Foundation is a library to create, read and modify ZIP archive files.  
-It is written in Swift and based on [Apple's libcompression](https://developer.apple.com/documentation/compression/data_compression) for high performance and energy efficiency.  
+It is written in Swift and based on [Apple's libcompression](https://developer.apple.com/documentation/compression) for high performance and energy efficiency.  
 To learn more about the performance characteristics of the framework, you can read [this blog post](https://thomas.zoechling.me/journal/2017/07/ZIPFoundation.html).
 
 - [Features](#features)
@@ -30,6 +30,8 @@ To learn more about the performance characteristics of the framework, you can re
 
 - [x] Modern Swift API
 - [x] High Performance Compression and Decompression
+- [x] Large File Support
+- [x] In-Memory Archives
 - [x] Deterministic Memory Consumption
 - [x] Linux compatibility
 - [x] No 3rd party dependencies (on Apple platforms, zlib on Linux)
@@ -38,9 +40,9 @@ To learn more about the performance characteristics of the framework, you can re
 
 ## Requirements
 
-- iOS 9.0+ / macOS 10.11+ / tvOS 9.0+ / watchOS 2.0+
+- iOS 12.0+ / macOS 10.11+ / tvOS 12.0+ / watchOS 2.0+
 - Or Linux with zlib development package
-- Xcode 10.0
+- Xcode 11.0
 - Swift 4.0
 
 ## Installation
@@ -55,7 +57,7 @@ import PackageDescription
 let package = Package(
     name: "<Your Product Name>",
     dependencies: [
-		.package(url: "https://github.com/weichsel/ZIPFoundation/", .upToNextMajor(from: "0.9.0"))
+		.package(url: "https://github.com/weichsel/ZIPFoundation.git", .upToNextMajor(from: "0.9.0"))
     ],
     targets: [
         .target(
@@ -219,6 +221,9 @@ do {
 }
 ```
 
+Alternatively, the `addEntry(with path: String, fileURL: URL)` method can be used to add files that are _not_ sharing a common base directory. 
+The `fileURL` parameter must contain an absolute file URL that points to a file, symlink or directory on an arbitrary file system location.
+
 The `addEntry` method accepts several optional parameters that allow you to control compression, memory consumption and file attributes.  
 You can find detailed information about that parameters in the method's documentation.
 
@@ -249,8 +254,9 @@ The `data` passed into the closure contains chunks of the current entry. You can
 You can also add entries from an in-memory data source. To do this you have to provide a closure of type `Provider` to the `addEntry` method:
 
 ```swift
-guard let data = "abcdefghijkl".data(using: .utf8) else { return }
-try? archive.addEntry(with: "fromMemory.txt", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { (position, size) -> Data in
+let string = "abcdefghijkl"
+guard let data = string.data(using: .utf8) else { return }
+try? archive.addEntry(with: "fromMemory.txt", type: .file, uncompressedSize: UInt64(data.count), bufferSize: 4, provider: { (position, size) -> Data in
     // This will be called until `data` is exhausted (3x in this case).
     return data.subdata(in: position..<position+size)
 })
@@ -267,9 +273,10 @@ To _read_ or _update_ an in-memory archive, the passed-in `data` must contain a 
 To _create_ an in-memory archive, the `data` parameter can be omitted:
 
 ```swift
+let string = "Some string!"
 guard let archive = Archive(accessMode: .create),
-        let data = "Some string!".data(using: .utf8) else { return }
-    try? archive.addEntry(with: "inMemory.txt", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { (position, size) -> Data in
+        let data = string.data(using: .utf8) else { return }
+    try? archive.addEntry(with: "inMemory.txt", type: .file, uncompressedSize: UInt64(data.count), bufferSize: 4, provider: { (position, size) -> Data in
         return data.subdata(in: position..<position+size)
     })
 let archiveData = archive.data
