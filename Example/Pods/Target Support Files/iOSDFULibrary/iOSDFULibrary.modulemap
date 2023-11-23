@@ -1,5 +1,5 @@
 framework module NordicDFU {
-  umbrella header "iOSDFULibrary-macOS-umbrella.h"
+  umbrella header "iOSDFULibrary-umbrella.h"
 
   export *
   module * { export * }

@@ -8,8 +8,3 @@ target 'NordicDFU_Tests' do
   platform :ios, '12.0'
   pod 'iOSDFULibrary', :path => '../'
 end
-
-target 'macOSDFULibrary_Example' do
-  platform :osx, '10.14'
-  pod 'iOSDFULibrary', :path => '../'
-end
