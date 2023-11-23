@@ -4,7 +4,7 @@ import Foundation
 import XCTest
 
 #if canImport(iOSDFULibrary)
-@testable import iOSDFULibrary
+@testable import NordicDFU
 #elseif canImport(NordicDFU)
 @testable import NordicDFU
 #endif

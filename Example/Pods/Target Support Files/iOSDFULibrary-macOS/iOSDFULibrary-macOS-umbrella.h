@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double iOSDFULibraryVersionNumber;
-FOUNDATION_EXPORT const unsigned char iOSDFULibraryVersionString[];
+FOUNDATION_EXPORT double NordicDFUVersionNumber;
+FOUNDATION_EXPORT const unsigned char NordicDFUVersionString[];
 

@@ -1,4 +1,4 @@
-# ``iOSDFULibrary``
+# ``NordicDFU``
 
 A Swift library for updating firmware of nRF51 and nRF52 devices using Bluetooth LE.
 

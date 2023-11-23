@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "79F9638EA00F4594D84B597FE45CD2DC"
-               BuildableName = "iOSDFULibrary.framework"
+               BuildableName = "NordicDFU.framework"
                BlueprintName = "iOSDFULibrary-macOS"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

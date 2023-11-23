@@ -1,0 +1,6 @@
+framework module Pods_NordicDFU_Example {
+  umbrella header "Pods-NordicDFU_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
