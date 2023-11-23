@@ -29,7 +29,7 @@
 */
 
 import Foundation
-import iOSDFULibrary
+import NordicDFU
 import CoreBluetooth
 
 enum DFUTestError : Error {
@@ -42,7 +42,7 @@ typealias ServiceModifier = (DFUServiceInitiator) -> ()
 
 protocol DFUTestSet {
     /**
-     The list contains number of tripples:
+     The list contains number of tuples:
      [0] firmware to be sent in this step,
      [1] DfuServiceInitiator modifier,
      [2] step description to show on the screen,

@@ -30,7 +30,7 @@
 
 import UIKit
 import CoreBluetooth
-import iOSDFULibrary
+import NordicDFU
 
 class DFUViewController: UIViewController, CBCentralManagerDelegate, DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate {
     //MARK: - Class Properties

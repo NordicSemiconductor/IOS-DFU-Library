@@ -29,7 +29,7 @@
 */
 
 import Foundation
-import iOSDFULibrary
+import NordicDFU
 
 class nRF52832TestSet: DFUTestSet {
     
@@ -49,7 +49,7 @@ class nRF52832TestSet: DFUTestSet {
              Option.experimentalButtonlessEnabled, nil, "Upgrading to SDK 13",        FilterBy.name("DFU2A13")),
             (DFUFirmware.from(zip: "nrf52832_sdk_13_app"               , locatedIn:  "Firmwares/nRF52832"), nil, nil, "Updating app from SDK 13", FilterBy.name("DFU2A13")),
             
-            // In SDK 14 there was a bug releated to SD size. As SD size increased from pre-14 to 14 it is not possible to update without a fix that was added in SDK 14.1.
+            // In SDK 14 there was a bug related to SD size. As SD size increased from pre-14 to 14 it is not possible to update without a fix that was added in SDK 14.1.
             // Here we can just skip this version and upgrade directly to 14.1.
             
             // Updating to SDK 14.1.

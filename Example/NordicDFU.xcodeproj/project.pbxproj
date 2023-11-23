@@ -227,7 +227,7 @@
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for iOSDFULibrary";
-			path = iOSDFULibrary;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {

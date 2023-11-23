@@ -29,7 +29,7 @@
 */
 
 import Foundation
-import iOSDFULibrary
+import NordicDFU
 
 class DFUFirmwareProvider {
     private var steps: [(firmware: DFUFirmware, options: ServiceModifier?, expectedError: DFUError?, description: String, next: Filter?)]?

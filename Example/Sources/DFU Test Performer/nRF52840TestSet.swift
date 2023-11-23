@@ -29,7 +29,7 @@
 */
 
 import Foundation
-import iOSDFULibrary
+import NordicDFU
 
 class nRF52840TestSet: DFUTestSet {
     
