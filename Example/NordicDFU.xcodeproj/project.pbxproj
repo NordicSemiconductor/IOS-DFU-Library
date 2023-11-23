@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				607FACD21AFB9204008FA782 /* Example for iOSDFULibrary */,
+				607FACD21AFB9204008FA782 /* Sources */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				E0D75D76CE232F198D824571 /* Pods */,
@@ -185,7 +185,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACD21AFB9204008FA782 /* Example for iOSDFULibrary */ = {
+		607FACD21AFB9204008FA782 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -196,7 +196,6 @@
 				522372412029CC6C00068EE4 /* UI */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
-			name = "Example for iOSDFULibrary";
 			path = Sources;
 			sourceTree = "<group>";
 		};
