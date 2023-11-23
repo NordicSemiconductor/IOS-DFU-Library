@@ -67,7 +67,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/NordicSemiconductor/IOS-DFU-Library", 
-      .upToNextMajor(from: "<Desired Version, e.g. 4.13.0>")
+      .upToNextMajor(from: "<Desired Version, e.g. 4.14.0>")
     )
   ],
   targets: [.target(name: "<Your Target Name>", dependencies: ["NordicDFU"])]
@@ -128,7 +128,7 @@ indication when entered DFU mode and app mode. For bonded devices it is recommen
 
 ## Documentation
 
-See the [documentation](documentation.md) for more information.
+See the [documentation](https://nordicsemiconductor.github.io/IOS-DFU-Library/documentation/nordicdfu) for more information.
 
 ---
 
