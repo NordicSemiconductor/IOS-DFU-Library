@@ -24,7 +24,8 @@ let package = Package(
     .target(
       name: "NordicDFU",
       dependencies: ["ZIPFoundation"],
-      path: "iOSDFULibrary/Classes/"
+      path: "iOSDFULibrary/",
+      sources: ["Classes", "Assets"]
     ),
     // FIXME: Exclude this target for `watchOS` Simulator, because it fails to
     // compile in Xcode.
