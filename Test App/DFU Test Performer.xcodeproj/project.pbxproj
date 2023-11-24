@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30535CEDB99315CCD90AF4D3 /* Pods_DFU_Test_Performer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82AC42A225C3CDCF346FADC5 /* Pods_DFU_Test_Performer.framework */; };
+		4AD6BAB67AB6C81097E4DBCF /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E4E04F518ED7875303B08A /* Pods_Tests.framework */; };
 		5223723F2029C40F00068EE4 /* DFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223723E2029C40F00068EE4 /* DFUViewController.swift */; };
 		522372442029CCDE00068EE4 /* DFUTestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522372432029CCDE00068EE4 /* DFUTestSet.swift */; };
 		522372462029CFFD00068EE4 /* nRF51TestSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522372452029CFFD00068EE4 /* nRF51TestSet.swift */; };
@@ -28,7 +28,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACEC1AFB9204008FA782 /* Hex2BinConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Hex2BinConverterTests.swift */; };
-		E11344B2A9D208A8119AA3BA /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A117838F13F82DA47314A543 /* Pods_Tests.framework */; };
+		E8DEEABEB043C13FBEDD727C /* Pods_DFU_Test_Performer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECEDEBE0A89BB1D151C176A4 /* Pods_DFU_Test_Performer.framework */; };
 		F096C4DE2B10EC4000D2E2DC /* TestFirmwares in Resources */ = {isa = PBXBuildFile; fileRef = 52F6AD6122B2429300F0D7DF /* TestFirmwares */; };
 /* End PBXBuildFile section */
 
@@ -43,9 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		087A0108A8A99D296D67D87E /* Pods-DFU Test Performer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DFU Test Performer.release.xcconfig"; path = "Target Support Files/Pods-DFU Test Performer/Pods-DFU Test Performer.release.xcconfig"; sourceTree = "<group>"; };
-		133B1CC52D3810C17AC5E95A /* Pods-DFU Test Performer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DFU Test Performer.debug.xcconfig"; path = "Target Support Files/Pods-DFU Test Performer/Pods-DFU Test Performer.debug.xcconfig"; sourceTree = "<group>"; };
-		1CF2D414978B542C8597290F /* Pods-iOSDFULibrary_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Example.debug.xcconfig"; path = "Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		10D95C20ACB63310D847D96A /* Pods-DFU Test Performer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DFU Test Performer.debug.xcconfig"; path = "Target Support Files/Pods-DFU Test Performer/Pods-DFU Test Performer.debug.xcconfig"; sourceTree = "<group>"; };
+		27E4E04F518ED7875303B08A /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iOSDFULibrary.podspec; path = ../iOSDFULibrary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5223723E2029C40F00068EE4 /* DFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
 		522372432029CCDE00068EE4 /* DFUTestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUTestSet.swift; sourceTree = "<group>"; };
@@ -63,7 +62,8 @@
 		52FB0B012220168D00B1E575 /* PeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCell.swift; sourceTree = "<group>"; };
 		52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewController.swift; sourceTree = "<group>"; };
 		52FB0B0522201A4A00B1E575 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		607FACD01AFB9204008FA782 /* DFU Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DFU Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FF0A7CE7ADC57F53ED55F56 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		607FACD01AFB9204008FA782 /* DFU Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DFU Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
@@ -72,20 +72,12 @@
 		607FACE51AFB9204008FA782 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Hex2BinConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hex2BinConverterTests.swift; sourceTree = "<group>"; };
-		63A515B287589EFCA66BDDCB /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		6AD5E64BF52456DE7961E49D /* Pods-iOSDFULibrary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Tests.release.xcconfig"; path = "Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		6F7EEB63A465C2E8454CFAB7 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		7D9E90F5FB9D36D2BCCD7A0D /* Pods-iOSDFULibrary_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Tests.debug.xcconfig"; path = "Target Support Files/Pods-iOSDFULibrary_Tests/Pods-iOSDFULibrary_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		82AC42A225C3CDCF346FADC5 /* Pods_DFU_Test_Performer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DFU_Test_Performer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		706FB5CA301445BA704F094F /* Pods-DFU Test Performer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DFU Test Performer.release.xcconfig"; path = "Target Support Files/Pods-DFU Test Performer/Pods-DFU Test Performer.release.xcconfig"; sourceTree = "<group>"; };
 		8EE39CA79039E8FFBDA0C9D3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		A117838F13F82DA47314A543 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F0CF1235F62A40EF0CF681C /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		AA01F2362AB85D2500861FFE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		B88705F151326BB5ED67438C /* Pods-NordicDFU_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NordicDFU_Tests.release.xcconfig"; path = "Target Support Files/Pods-NordicDFU_Tests/Pods-NordicDFU_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C228AC219EE1164191A79EBB /* Pods-NordicDFU_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NordicDFU_Example.debug.xcconfig"; path = "Target Support Files/Pods-NordicDFU_Example/Pods-NordicDFU_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		DAEFE092DC94AFC6C8316559 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		DC34858959920B7C846F7339 /* Pods-iOSDFULibrary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSDFULibrary_Example.release.xcconfig"; path = "Target Support Files/Pods-iOSDFULibrary_Example/Pods-iOSDFULibrary_Example.release.xcconfig"; sourceTree = "<group>"; };
-		E11E1CAABEFBB02E74FAFA54 /* Pods-NordicDFU_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NordicDFU_Tests.debug.xcconfig"; path = "Target Support Files/Pods-NordicDFU_Tests/Pods-NordicDFU_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FD31941D4C111F98965C73CA /* Pods-NordicDFU_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NordicDFU_Example.release.xcconfig"; path = "Target Support Files/Pods-NordicDFU_Example/Pods-NordicDFU_Example.release.xcconfig"; sourceTree = "<group>"; };
+		ECEDEBE0A89BB1D151C176A4 /* Pods_DFU_Test_Performer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DFU_Test_Performer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30535CEDB99315CCD90AF4D3 /* Pods_DFU_Test_Performer.framework in Frameworks */,
+				E8DEEABEB043C13FBEDD727C /* Pods_DFU_Test_Performer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,22 +93,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11344B2A9D208A8119AA3BA /* Pods_Tests.framework in Frameworks */,
+				4AD6BAB67AB6C81097E4DBCF /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		016144317F126384DC19F8B5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				82AC42A225C3CDCF346FADC5 /* Pods_DFU_Test_Performer.framework */,
-				A117838F13F82DA47314A543 /* Pods_Tests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		522372402029CC5900068EE4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,14 +150,14 @@
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				E0D75D76CE232F198D824571 /* Pods */,
-				016144317F126384DC19F8B5 /* Frameworks */,
+				AE36C14DB37942DA67E53BF2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* DFU Example.app */,
+				607FACD01AFB9204008FA782 /* DFU Tester.app */,
 				607FACE51AFB9204008FA782 /* Tests.xctest */,
 			);
 			name = Products;
@@ -234,21 +217,22 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		AE36C14DB37942DA67E53BF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ECEDEBE0A89BB1D151C176A4 /* Pods_DFU_Test_Performer.framework */,
+				27E4E04F518ED7875303B08A /* Pods_Tests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E0D75D76CE232F198D824571 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1CF2D414978B542C8597290F /* Pods-iOSDFULibrary_Example.debug.xcconfig */,
-				DC34858959920B7C846F7339 /* Pods-iOSDFULibrary_Example.release.xcconfig */,
-				7D9E90F5FB9D36D2BCCD7A0D /* Pods-iOSDFULibrary_Tests.debug.xcconfig */,
-				6AD5E64BF52456DE7961E49D /* Pods-iOSDFULibrary_Tests.release.xcconfig */,
-				C228AC219EE1164191A79EBB /* Pods-NordicDFU_Example.debug.xcconfig */,
-				FD31941D4C111F98965C73CA /* Pods-NordicDFU_Example.release.xcconfig */,
-				E11E1CAABEFBB02E74FAFA54 /* Pods-NordicDFU_Tests.debug.xcconfig */,
-				B88705F151326BB5ED67438C /* Pods-NordicDFU_Tests.release.xcconfig */,
-				133B1CC52D3810C17AC5E95A /* Pods-DFU Test Performer.debug.xcconfig */,
-				087A0108A8A99D296D67D87E /* Pods-DFU Test Performer.release.xcconfig */,
-				6F7EEB63A465C2E8454CFAB7 /* Pods-Tests.debug.xcconfig */,
-				63A515B287589EFCA66BDDCB /* Pods-Tests.release.xcconfig */,
+				10D95C20ACB63310D847D96A /* Pods-DFU Test Performer.debug.xcconfig */,
+				706FB5CA301445BA704F094F /* Pods-DFU Test Performer.release.xcconfig */,
+				5FF0A7CE7ADC57F53ED55F56 /* Pods-Tests.debug.xcconfig */,
+				9F0CF1235F62A40EF0CF681C /* Pods-Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -260,11 +244,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "DFU Test Performer" */;
 			buildPhases = (
-				E9A174BFC975ED6F0245AD11 /* [CP] Check Pods Manifest.lock */,
+				41F5E715DC09E67C53812CA1 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				A599AB9EE15AA45F3055BD49 /* [CP] Embed Pods Frameworks */,
+				8C652A2E44086DE90A3F0CC2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -272,18 +256,18 @@
 			);
 			name = "DFU Test Performer";
 			productName = iOSDFULibrary;
-			productReference = 607FACD01AFB9204008FA782 /* DFU Example.app */;
+			productReference = 607FACD01AFB9204008FA782 /* DFU Tester.app */;
 			productType = "com.apple.product-type.application";
 		};
 		607FACE41AFB9204008FA782 /* Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
-				4ADD9727576D34A9DC0495B0 /* [CP] Check Pods Manifest.lock */,
+				AC5FF67E31CB1E18B79A06F6 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				31D88DB250DC84536B96F6E3 /* [CP] Embed Pods Frameworks */,
+				66D017984D43EE8F32BE964B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -371,7 +355,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31D88DB250DC84536B96F6E3 /* [CP] Embed Pods Frameworks */ = {
+		41F5E715DC09E67C53812CA1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DFU Test Performer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		66D017984D43EE8F32BE964B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -391,29 +397,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4ADD9727576D34A9DC0495B0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A599AB9EE15AA45F3055BD49 /* [CP] Embed Pods Frameworks */ = {
+		8C652A2E44086DE90A3F0CC2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -433,7 +417,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DFU Test Performer/Pods-DFU Test Performer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E9A174BFC975ED6F0245AD11 /* [CP] Check Pods Manifest.lock */ = {
+		AC5FF67E31CB1E18B79A06F6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -448,7 +432,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DFU Test Performer-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -629,25 +613,29 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 133B1CC52D3810C17AC5E95A /* Pods-DFU Test Performer.debug.xcconfig */;
+			baseConfigurationReference = 10D95C20ACB63310D847D96A /* Pods-DFU Test Performer.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DFU Tester";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.DFU-Example";
-				PRODUCT_NAME = "DFU Example";
+				PRODUCT_NAME = "DFU Tester";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
@@ -657,25 +645,29 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 087A0108A8A99D296D67D87E /* Pods-DFU Test Performer.release.xcconfig */;
+			baseConfigurationReference = 706FB5CA301445BA704F094F /* Pods-DFU Test Performer.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DFU Tester";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.DFU-Example";
-				PRODUCT_NAME = "DFU Example";
+				PRODUCT_NAME = "DFU Tester";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
@@ -685,7 +677,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F7EEB63A465C2E8454CFAB7 /* Pods-Tests.debug.xcconfig */;
+			baseConfigurationReference = 5FF0A7CE7ADC57F53ED55F56 /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -718,7 +710,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63A515B287589EFCA66BDDCB /* Pods-Tests.release.xcconfig */;
+			baseConfigurationReference = 9F0CF1235F62A40EF0CF681C /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";

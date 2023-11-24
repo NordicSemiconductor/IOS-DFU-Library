@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  iOSDFULibrary: d6ce5fabd79542f71754077874cd3eee760eea0a
+  iOSDFULibrary: b7b41a50402151d1fb9583c9f71cd021fe32eb8b
   ZIPFoundation: d170fa8e270b2a32bef9dcdcabff5b8f1a5deced
 
 PODFILE CHECKSUM: b417b3d0a919a35d4bf8cbf7e4d4c0783c0341c5

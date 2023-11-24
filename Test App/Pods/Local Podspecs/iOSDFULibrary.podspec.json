@@ -34,12 +34,12 @@
     "watchos": "4.0"
   },
   "source_files": [
-    "iOSDFULibrary/Classes/**/*",
-    "iOSDFULibrary/Assets/Documentation.docc/**/*"
+    "Library/Classes/**/*",
+    "Library/Assets/Documentation.docc/**/*"
   ],
   "resource_bundles": {
     "PrivacyInfo": [
-      "iOSDFULibrary/Assets/PrivacyInfo.xcprivacy"
+      "Library/Assets/PrivacyInfo.xcprivacy"
     ]
   },
   "dependencies": {
