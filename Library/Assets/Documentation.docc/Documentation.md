@@ -1,11 +1,11 @@
 # ``NordicDFU``
 
-A Swift library for updating firmware of nRF51 and nRF52 devices using Bluetooth LE.
+A Swift library for updating firmware of nRF51 and nRF52 devices over Bluetooth LE.
 
 ## Overview
 
 The DFU Library allows to update nRF51 and nRF52 devices running firmware based on 
-[nRF5 SDK](https://infocenter.nordicsemi.com/topic/struct_sdk/struct/sdk_nrf5_latest.html?cp=9_1)
+[nRF5 SDK](https://infocenter.nordicsemi.com/topic/struct_sdk/struct/sdk_nrf5_latest.html?cp=9_1)
 starting from version 4.3 until the latest one.
 
 The nRF5x Series chips are flash-based SoCs, and as such they represent the most flexible solution available. 
@@ -15,8 +15,9 @@ and downloaded to products in the field via the cloud and so enables OEMs to fix
 to products that are already out on the market. This brings added security and flexibility to product development 
 when using the nRF5x Series SoCs.
 
-> Important: This library is not compatible with [Zephyr](https://docs.zephyrproject.org/latest/index.html)
-             or [nRF Connect SDK (NCS)](https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/index.html). 
+> Important: This library is not compatible with MCU Manager subsystem from 
+             [nRF Connect SDK (NCS)](https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/index.html)
+             or [Zephyr](https://docs.zephyrproject.org/latest/index.html). 
              To update devices built on those SDKs use 
              [nRF Connect Device Manager](https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager/) 
              library instead.
