@@ -172,27 +172,22 @@ class Hex2BinConverterTests: XCTestCase {
     // MARK: - Helper methods
     
     private func performTest(for name: String, withMbrSize mbrSize: UInt32 = 0) {
-        var baseURL = URL(fileURLWithPath: #file)
-        baseURL.deleteLastPathComponent()
-        baseURL.appendPathComponent("TestFirmwares")
-      
-        let url = baseURL.appendingPathComponent(name + ".hex")
-        XCTAssertNotNil(url)
-        
-        let testUrl = baseURL.appendingPathComponent(name + ".bin")
-        XCTAssertNotNil(testUrl)
-        
-        var data: Data!
-        XCTAssertNoThrow(data = try Data(contentsOf: url))
+        let data = getContent(of: name, withExtension: "hex")
         XCTAssertNotNil(data)
-        var testData: Data!
-        XCTAssertNoThrow(testData = try Data(contentsOf: testUrl))
+        let testData = getContent(of: name, withExtension: "bin")
         XCTAssertNotNil(testData)
+        
+        guard let data, let testData else { return }
         
         let bin = IntelHex2BinConverter.convert(data, mbrSize: mbrSize)
         XCTAssertNotNil(bin)
-        
         XCTAssertEqual(bin, testData)
+    }
+    
+    private func getContent(of name: String, withExtension: String) -> Data? {
+        guard let url = Bundle(for: Self.self)
+                .url(forResource: "TestFirmwares/\(name)", withExtension: withExtension) else { return nil }
+        return try? Data(contentsOf: url)
     }
 }
 #endif
