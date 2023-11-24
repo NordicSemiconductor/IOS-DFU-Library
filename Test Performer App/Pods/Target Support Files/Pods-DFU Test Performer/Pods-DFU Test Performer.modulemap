@@ -1,0 +1,6 @@
+framework module Pods_DFU_Test_Performer {
+  umbrella header "Pods-DFU Test Performer-umbrella.h"
+
+  export *
+  module * { export * }
+}
