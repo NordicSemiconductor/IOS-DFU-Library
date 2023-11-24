@@ -8,6 +8,7 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
                        DESC
 
   s.homepage         = "https://github.com/NordicSemiconductor/IOS-DFU-Library"
+  s.documentation_url = "https://nordicsemiconductor.github.io/IOS-DFU-Library/documentation/nordicdfu"
   s.license          = 'BSD 3-Clause'
   s.authors          = { "Aleksander Nowakowski" => "aleksander.nowakowski@nordicsemi.no" }
   s.source           = { :git => "https://github.com/NordicSemiconductor/IOS-DFU-Library.git", :tag => s.version.to_s }
