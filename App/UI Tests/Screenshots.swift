@@ -1,13 +1,13 @@
 //
-//  Dfu_screenshots.swift
-//  Dfu_screenshots
+//  Screenshots.swift
+//  Screenshots
 //
 //  Ref: Dinesh Harjani on 25/10/21.
 //
 
 import XCTest
 
-final class Dfu_screenshots: XCTestCase {
+final class Screenshots: XCTestCase {
 
     // MARK: - Setup
     

@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DEF02E227EB48A400838144"
                BuildableName = "DFU.app"
-               BlueprintName = "dfu"
-               ReferencedContainer = "container:dfu.xcodeproj">
+               BlueprintName = "nRF DFU"
+               ReferencedContainer = "container:nRF DFU.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "8DEF02F227EB48A400838144"
                BuildableName = "dfuTests.xctest"
                BlueprintName = "dfuTests"
-               ReferencedContainer = "container:dfu.xcodeproj">
+               ReferencedContainer = "container:nRF DFU.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DEF02FC27EB48A400838144"
-               BuildableName = "dfuUITests.xctest"
-               BlueprintName = "dfuUITests"
-               ReferencedContainer = "container:dfu.xcodeproj">
+               BuildableName = "UI Tests.xctest"
+               BlueprintName = "UI Tests"
+               ReferencedContainer = "container:nRF DFU.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -66,8 +66,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DEF02E227EB48A400838144"
             BuildableName = "DFU.app"
-            BlueprintName = "dfu"
-            ReferencedContainer = "container:dfu.xcodeproj">
+            BlueprintName = "nRF DFU"
+            ReferencedContainer = "container:nRF DFU.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -83,8 +83,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DEF02E227EB48A400838144"
             BuildableName = "DFU.app"
-            BlueprintName = "dfu"
-            ReferencedContainer = "container:dfu.xcodeproj">
+            BlueprintName = "nRF DFU"
+            ReferencedContainer = "container:nRF DFU.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

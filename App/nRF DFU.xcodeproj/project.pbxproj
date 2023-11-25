@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,7 @@
 		8D4DEA0B27F4688500C1AD43 /* NumberOfPacketsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */; };
 		8D4DEA0D27F4898400C1AD43 /* TextAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */; };
 		8D5451DC2840FE0C001597C7 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5451DB2840FE0C001597C7 /* SnapshotHelper.swift */; };
-		8D5451DE2840FE0F001597C7 /* Dfu_screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5451DD2840FE0F001597C7 /* Dfu_screenshots.swift */; };
+		8D5451DE2840FE0F001597C7 /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5451DD2840FE0F001597C7 /* Screenshots.swift */; };
 		8D6228C227EDB87F00AE3E1B /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6228C127EDB87F00AE3E1B /* ScannerView.swift */; };
 		8D6228C427EDECA400AE3E1B /* BluetoothDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6228C327EDECA400AE3E1B /* BluetoothDevice.swift */; };
 		8D78D11427FC365400FE0493 /* ResultItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D78D11327FC365400FE0493 /* ResultItemView.swift */; };
@@ -39,11 +39,11 @@
 		8DEF02EE27EB48A400838144 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF02ED27EB48A400838144 /* Preview Assets.xcassets */; };
 		8DEF030227EB48A400838144 /* dfuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF030127EB48A400838144 /* dfuUITests.swift */; };
 		8DEF030427EB48A400838144 /* dfuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF030327EB48A400838144 /* dfuUITestsLaunchTests.swift */; };
-		8DEF031227EB494000838144 /* NordicDFU in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEF031127EB494000838144 /* NordicDFU */; };
 		8DEF031427EB4E3E00838144 /* FileSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF031327EB4E3E00838144 /* FileSectionView.swift */; };
 		8DEF031627EB58E100838144 /* DeviceSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF031527EB58E100838144 /* DeviceSectionView.swift */; };
 		8DEF031827EB592700838144 /* ProgressSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF031727EB592700838144 /* ProgressSectionView.swift */; };
 		8DF025AB27F33C710078CA17 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF025AA27F33C710078CA17 /* SettingsView.swift */; };
+		F096C4DC2B0FFE0100D2E2DC /* NordicDFU in Frameworks */ = {isa = PBXBuildFile; productRef = F096C4DB2B0FFE0100D2E2DC /* NordicDFU */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,11 +60,10 @@
 		52F3488E29536223007D0395 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
 		8D02F954281FD99B0030D67A /* DfuImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DfuImages.swift; sourceTree = "<group>"; };
 		8D086C1D283259B600E63785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D0FA0B72840E15800DCA098 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		8D4DEA0A27F4688500C1AD43 /* NumberOfPacketsDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPacketsDialog.swift; sourceTree = "<group>"; };
 		8D4DEA0C27F4898400C1AD43 /* TextAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertDialog.swift; sourceTree = "<group>"; };
 		8D5451DB2840FE0C001597C7 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
-		8D5451DD2840FE0F001597C7 /* Dfu_screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dfu_screenshots.swift; sourceTree = "<group>"; };
+		8D5451DD2840FE0F001597C7 /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
 		8D6228C127EDB87F00AE3E1B /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		8D6228C327EDECA400AE3E1B /* BluetoothDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDevice.swift; sourceTree = "<group>"; };
 		8D78D11327FC365400FE0493 /* ResultItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultItemView.swift; sourceTree = "<group>"; };
@@ -91,7 +90,7 @@
 		8DEF02E827EB48A400838144 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DEF02EA27EB48A400838144 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DEF02ED27EB48A400838144 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8DEF02FD27EB48A400838144 /* dfuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dfuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DEF02FD27EB48A400838144 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF030127EB48A400838144 /* dfuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuUITests.swift; sourceTree = "<group>"; };
 		8DEF030327EB48A400838144 /* dfuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dfuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8DEF031327EB4E3E00838144 /* FileSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSectionView.swift; sourceTree = "<group>"; };
@@ -105,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DEF031227EB494000838144 /* NordicDFU in Frameworks */,
+				F096C4DC2B0FFE0100D2E2DC /* NordicDFU in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,9 +197,8 @@
 		8DEF02DA27EB48A300838144 = {
 			isa = PBXGroup;
 			children = (
-				8D0FA0B72840E15800DCA098 /* fastlane */,
-				8DEF02E527EB48A400838144 /* dfu */,
-				8DEF030027EB48A400838144 /* dfuUITests */,
+				8DEF02E527EB48A400838144 /* Sources */,
+				8DEF030027EB48A400838144 /* UI Tests */,
 				8DEF02E427EB48A400838144 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -209,12 +207,12 @@
 			isa = PBXGroup;
 			children = (
 				8DEF02E327EB48A400838144 /* DFU.app */,
-				8DEF02FD27EB48A400838144 /* dfuUITests.xctest */,
+				8DEF02FD27EB48A400838144 /* UI Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8DEF02E527EB48A400838144 /* dfu */ = {
+		8DEF02E527EB48A400838144 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				8DDC435D282E88C100D83596 /* dfu.entitlements */,
@@ -232,7 +230,7 @@
 				8D9B54A527F59D0F009A5461 /* views */,
 				8D78D12227FC605D00FE0493 /* welcome */,
 			);
-			path = dfu;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		8DEF02EC27EB48A400838144 /* Preview Content */ = {
@@ -243,23 +241,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8DEF030027EB48A400838144 /* dfuUITests */ = {
+		8DEF030027EB48A400838144 /* UI Tests */ = {
 			isa = PBXGroup;
 			children = (
-				8D5451DD2840FE0F001597C7 /* Dfu_screenshots.swift */,
+				8D5451DD2840FE0F001597C7 /* Screenshots.swift */,
 				8D5451DB2840FE0C001597C7 /* SnapshotHelper.swift */,
 				8DEF030127EB48A400838144 /* dfuUITests.swift */,
 				8DEF030327EB48A400838144 /* dfuUITestsLaunchTests.swift */,
 			);
-			path = dfuUITests;
+			path = "UI Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8DEF02E227EB48A400838144 /* dfu */ = {
+		8DEF02E227EB48A400838144 /* nRF DFU */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8DEF030727EB48A400838144 /* Build configuration list for PBXNativeTarget "dfu" */;
+			buildConfigurationList = 8DEF030727EB48A400838144 /* Build configuration list for PBXNativeTarget "nRF DFU" */;
 			buildPhases = (
 				8DEF02DF27EB48A400838144 /* Sources */,
 				8DEF02E027EB48A400838144 /* Frameworks */,
@@ -269,17 +267,17 @@
 			);
 			dependencies = (
 			);
-			name = dfu;
+			name = "nRF DFU";
 			packageProductDependencies = (
-				8DEF031127EB494000838144 /* NordicDFU */,
+				F096C4DB2B0FFE0100D2E2DC /* NordicDFU */,
 			);
 			productName = dfu;
 			productReference = 8DEF02E327EB48A400838144 /* DFU.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8DEF02FC27EB48A400838144 /* dfuUITests */ = {
+		8DEF02FC27EB48A400838144 /* UI Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8DEF030D27EB48A400838144 /* Build configuration list for PBXNativeTarget "dfuUITests" */;
+			buildConfigurationList = 8DEF030D27EB48A400838144 /* Build configuration list for PBXNativeTarget "UI Tests" */;
 			buildPhases = (
 				8DEF02F927EB48A400838144 /* Sources */,
 				8DEF02FA27EB48A400838144 /* Frameworks */,
@@ -290,9 +288,9 @@
 			dependencies = (
 				8DEF02FF27EB48A400838144 /* PBXTargetDependency */,
 			);
-			name = dfuUITests;
+			name = "UI Tests";
 			productName = dfuUITests;
-			productReference = 8DEF02FD27EB48A400838144 /* dfuUITests.xctest */;
+			productReference = 8DEF02FD27EB48A400838144 /* UI Tests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -314,7 +312,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8DEF02DE27EB48A300838144 /* Build configuration list for PBXProject "dfu" */;
+			buildConfigurationList = 8DEF02DE27EB48A300838144 /* Build configuration list for PBXProject "nRF DFU" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -324,14 +322,14 @@
 			);
 			mainGroup = 8DEF02DA27EB48A300838144;
 			packageReferences = (
-				8DEF031027EB494000838144 /* XCRemoteSwiftPackageReference "IOS-DFU-Library" */,
+				F096C4DA2B0FFE0100D2E2DC /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = 8DEF02E427EB48A400838144 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DEF02E227EB48A400838144 /* dfu */,
-				8DEF02FC27EB48A400838144 /* dfuUITests */,
+				8DEF02E227EB48A400838144 /* nRF DFU */,
+				8DEF02FC27EB48A400838144 /* UI Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -400,7 +398,7 @@
 				8DEF030227EB48A400838144 /* dfuUITests.swift in Sources */,
 				8D5451DC2840FE0C001597C7 /* SnapshotHelper.swift in Sources */,
 				8DA4AE1B28410A5A00BFA79E /* DfuIds.swift in Sources */,
-				8D5451DE2840FE0F001597C7 /* Dfu_screenshots.swift in Sources */,
+				8D5451DE2840FE0F001597C7 /* Screenshots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +407,7 @@
 /* Begin PBXTargetDependency section */
 		8DEF02FF27EB48A400838144 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8DEF02E227EB48A400838144 /* dfu */;
+			target = 8DEF02E227EB48A400838144 /* nRF DFU */;
 			targetProxy = 8DEF02FE27EB48A400838144 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -537,15 +535,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = dfu/dfuDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/dfuDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"dfu/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = dfu/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DFU;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -578,14 +576,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = dfu/dfu.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/dfu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"dfu/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = dfu/Info.plist;
+				INFOPLIST_FILE = Stources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DFU;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -625,7 +623,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = dfu;
+				TEST_TARGET_NAME = "nRF DFU";
 			};
 			name = Debug;
 		};
@@ -643,14 +641,14 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = dfu;
+				TEST_TARGET_NAME = "nRF DFU";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8DEF02DE27EB48A300838144 /* Build configuration list for PBXProject "dfu" */ = {
+		8DEF02DE27EB48A300838144 /* Build configuration list for PBXProject "nRF DFU" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DEF030527EB48A400838144 /* Debug */,
@@ -659,7 +657,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		8DEF030727EB48A400838144 /* Build configuration list for PBXNativeTarget "dfu" */ = {
+		8DEF030727EB48A400838144 /* Build configuration list for PBXNativeTarget "nRF DFU" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DEF030827EB48A400838144 /* Debug */,
@@ -668,7 +666,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		8DEF030D27EB48A400838144 /* Build configuration list for PBXNativeTarget "dfuUITests" */ = {
+		8DEF030D27EB48A400838144 /* Build configuration list for PBXNativeTarget "UI Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DEF030E27EB48A400838144 /* Debug */,
@@ -679,21 +677,16 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		8DEF031027EB494000838144 /* XCRemoteSwiftPackageReference "IOS-DFU-Library" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/NordicSemiconductor/IOS-DFU-Library";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		F096C4DA2B0FFE0100D2E2DC /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8DEF031127EB494000838144 /* NordicDFU */ = {
+		F096C4DB2B0FFE0100D2E2DC /* NordicDFU */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8DEF031027EB494000838144 /* XCRemoteSwiftPackageReference "IOS-DFU-Library" */;
 			productName = NordicDFU;
 		};
 /* End XCSwiftPackageProductDependency section */
