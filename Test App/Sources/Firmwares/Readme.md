@@ -3,8 +3,8 @@
 1. In each of the device folders there is one HEX file and number of ZIP files. Each HEX file contains complete firmware
     with SoftDevice, Application with buttonless service, DFU Bootloader and bootloader settings.
 2. Connect your nRF5 DK to the computer and flash the HEX file onto it (for example using Drag&Drop, or nrfjprog).
-3. Launch DFU Example application on your iDevice.
-4. You should see a device advertising with a name "DFU<board-id><mode><version>", where:
+3. Launch DFU Tester application on your iDevice.
+4. You should see a device advertising with a name `DFU<board-id><mode><version>`, where:
 ```
   Board ID:
   1 = nRF51
@@ -31,8 +31,8 @@
    and start a new upload to the new device to upload Application only.
 3. Upgrading from SDK 11 to 12.x was skipped as it wasn't working. The new BL have been erasing a page from SD space after being flashed
     and the failed to start advertising.
-4. Not all SDK are coveded here, only those where DFU has been modified.
-5. List of ZIP files may change in the furure as more SDKs are released.
+4. Not all SDK are covered here, only those where DFU has been modified.
+5. List of ZIP files may change in the future as more SDKs are released.
 6. All Apps and Bootloaders have Service Changed service enabled to prevent iOS from caching. This test does not test DFU on bonded devices.
 
 ## Custom DFU test
