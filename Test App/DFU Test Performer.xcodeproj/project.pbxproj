@@ -19,7 +19,6 @@
 		5288C1DE236AE4E200321ED3 /* UIColor+Nordic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5288C1DD236AE4E200321ED3 /* UIColor+Nordic.swift */; };
 		5288C1E2236C3C7400321ED3 /* README_OBJC.md in Resources */ = {isa = PBXBuildFile; fileRef = 5288C1E1236C3C7400321ED3 /* README_OBJC.md */; };
 		52A9C167230D633A0036792A /* changelog.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A9C166230D633A0036792A /* changelog.md */; };
-		52A9C169230D63410036792A /* documentation.md in Resources */ = {isa = PBXBuildFile; fileRef = 52A9C168230D63410036792A /* documentation.md */; };
 		52FB0B022220168D00B1E575 /* PeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB0B012220168D00B1E575 /* PeripheralCell.swift */; };
 		52FB0B04222019C700B1E575 /* MainNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */; };
 		52FB0B0622201A4A00B1E575 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52FB0B0522201A4A00B1E575 /* LaunchScreen.storyboard */; };
@@ -335,7 +334,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5288C1E2236C3C7400321ED3 /* README_OBJC.md in Resources */,
-				52A9C169230D63410036792A /* documentation.md in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				52FB0B0622201A4A00B1E575 /* LaunchScreen.storyboard in Resources */,
 				52A9C167230D633A0036792A /* changelog.md in Resources */,
