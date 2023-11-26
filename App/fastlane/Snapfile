@@ -29,4 +29,4 @@ clear_previous_screenshots(true)
 
 concurrent_simulators(false)
 
-project "./dfu.xcodeproj"
+project "./nRF DFU.xcodeproj"

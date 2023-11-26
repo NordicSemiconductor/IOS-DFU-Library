@@ -24,14 +24,19 @@ let package = Package(
     .target(
       name: "NordicDFU",
       dependencies: ["ZIPFoundation"],
-      path: "iOSDFULibrary/Classes/"
+      path: "Library/",
+      sources: ["Classes"],
+      resources: [
+        .process("Assets/PrivacyInfo.xcprivacy"),
+        .process("Assets/Documentation.docc")
+      ]
     ),
     // FIXME: Exclude this target for `watchOS` Simulator, because it fails to
     // compile in Xcode.
     .testTarget(
       name: "Hex2BinConverterTests",
       dependencies: ["NordicDFU"],
-      path: "Example/Tests/"
+      path: "Test App/Tests/"
     )
   ],
   swiftLanguageVersions: [.v5]

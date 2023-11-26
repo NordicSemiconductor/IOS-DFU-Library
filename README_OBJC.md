@@ -23,7 +23,7 @@ pod install
 - Click on the `iOSDFULibrary` target, then set the `Use Legacy Swift version` setting to `No`
 - Repeat the same for the `ZIPFoundation` target.
 - Build the project, it should now succeed.
-- Import the library to any of your obj-c classes by using `@import iOSDFULibrary;` and begin working on your project.
+- Import the library to any of your obj-c classes by using `@import NordicDFU;` and begin working on your project.
 
 
 Currently, the only tested and supported method for Obj-C projects is using Cocoapods.

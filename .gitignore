@@ -23,6 +23,7 @@ DerivedData
 .bundle
 
 #SPM
+.swiftpm
 Package.resolved
 
 Carthage

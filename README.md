@@ -35,7 +35,7 @@ pod install
 
 - Open the newly created `.xcworkspace`
 
-- Import the library to any of your classes by using `import iOSDFULibrary` and begin working on your project
+- Import the library to any of your classes by using `import NordicDFU` and begin working on your project
 
 
 **For Carthage:**

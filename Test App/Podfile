@@ -1,0 +1,10 @@
+use_frameworks!
+target 'DFU Test Performer' do
+  platform :ios, '12.0'
+  pod 'iOSDFULibrary', :path => '../'
+end
+
+target 'Tests' do
+  platform :ios, '12.0'
+  pod 'iOSDFULibrary', :path => '../'
+end

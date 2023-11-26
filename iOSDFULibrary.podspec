@@ -1,5 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "iOSDFULibrary"
+  s.module_name      = 'NordicDFU'
   s.version          = "4.13.0"
   s.summary          = "This repository contains a library to perform Device Firmware Update on the nRF5x devices."
   s.description      = <<-DESC
@@ -7,6 +8,7 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
                        DESC
 
   s.homepage         = "https://github.com/NordicSemiconductor/IOS-DFU-Library"
+  s.documentation_url = "https://nordicsemiconductor.github.io/IOS-DFU-Library/documentation/nordicdfu"
   s.license          = 'BSD 3-Clause'
   s.authors          = { "Aleksander Nowakowski" => "aleksander.nowakowski@nordicsemi.no" }
   s.source           = { :git => "https://github.com/NordicSemiconductor/IOS-DFU-Library.git", :tag => s.version.to_s }
@@ -18,9 +20,9 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
   s.tvos.deployment_target = '12.0'
   s.watchos.deployment_target = '4.0'
 
-  s.source_files = 'iOSDFULibrary/Classes/**/*', 'iOSDFULibrary/Assets/Documentation.docc/**/*'
+  s.source_files = 'Library/Classes/**/*', 'Library/Assets/Documentation.docc/**/*'
   s.resource_bundles = {
-    'PrivacyInfo' => ['iOSDFULibrary/Assets/PrivacyInfo.xcprivacy']
+    'PrivacyInfo' => ['Library/Assets/PrivacyInfo.xcprivacy']
   }
 
   s.dependency 'ZIPFoundation', '= 0.9.16'
