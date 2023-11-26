@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "DFU Example.app"
+               BuildableName = "DFU Tester.app"
                BlueprintName = "DFU Test Performer"
                ReferencedContainer = "container:DFU Test Performer.xcodeproj">
             </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "DFU Example.app"
+            BuildableName = "DFU Tester.app"
             BlueprintName = "DFU Test Performer"
             ReferencedContainer = "container:DFU Test Performer.xcodeproj">
          </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "DFU Example.app"
+            BuildableName = "DFU Tester.app"
             BlueprintName = "DFU Test Performer"
             ReferencedContainer = "container:DFU Test Performer.xcodeproj">
          </BuildableReference>
