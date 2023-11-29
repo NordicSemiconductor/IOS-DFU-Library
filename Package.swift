@@ -30,7 +30,7 @@ let package = Package(
     // FIXME: Exclude this target for `watchOS` Simulator, because it fails to
     // compile in Xcode.
     .testTarget(
-      name: "NordifDFUTests",
+      name: "NordicDFUTests",
       dependencies: ["NordicDFU"],
       path: "Tests/"
     )
