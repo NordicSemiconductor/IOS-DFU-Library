@@ -1,0 +1,751 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F09D00002B175FE9002F844E /* DFUStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFBE2B175FE9002F844E /* DFUStream.swift */; };
+		F09D00012B175FE9002F844E /* DFUStreamZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFBF2B175FE9002F844E /* DFUStreamZip.swift */; };
+		F09D00022B175FE9002F844E /* IntelHex2BinConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFC12B175FE9002F844E /* IntelHex2BinConverter.swift */; };
+		F09D00032B175FE9002F844E /* crc32.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFC22B175FE9002F844E /* crc32.swift */; };
+		F09D00042B175FE9002F844E /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFC32B175FE9002F844E /* Double.swift */; };
+		F09D00052B175FE9002F844E /* LoggerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFC52B175FE9002F844E /* LoggerHelper.swift */; };
+		F09D00062B175FE9002F844E /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFC62B175FE9002F844E /* LoggerDelegate.swift */; };
+		F09D00072B175FE9002F844E /* SecureDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFCA2B175FE9002F844E /* SecureDFUExecutor.swift */; };
+		F09D00082B175FE9002F844E /* SecureDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFCB2B175FE9002F844E /* SecureDFUServiceInitiator.swift */; };
+		F09D00092B175FE9002F844E /* SecureDFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFCD2B175FE9002F844E /* SecureDFUPacket.swift */; };
+		F09D000A2B175FE9002F844E /* SecureDFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFCE2B175FE9002F844E /* SecureDFUControlPoint.swift */; };
+		F09D000B2B175FE9002F844E /* ButtonlessDFU.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFCF2B175FE9002F844E /* ButtonlessDFU.swift */; };
+		F09D000C2B175FE9002F844E /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFD12B175FE9002F844E /* SecureDFUPeripheralDelegate.swift */; };
+		F09D000D2B175FE9002F844E /* SecureDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFD22B175FE9002F844E /* SecureDFUPeripheral.swift */; };
+		F09D000E2B175FE9002F844E /* SecureDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFD42B175FE9002F844E /* SecureDFUService.swift */; };
+		F09D000F2B175FE9002F844E /* DFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFD62B175FE9002F844E /* DFUExecutor.swift */; };
+		F09D00102B175FE9002F844E /* DFUCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFD72B175FE9002F844E /* DFUCharacteristic.swift */; };
+		F09D00112B175FE9002F844E /* DFUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFD82B175FE9002F844E /* DFUController.swift */; };
+		F09D00122B175FE9002F844E /* DFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFD92B175FE9002F844E /* DFUPeripheral.swift */; };
+		F09D00132B175FE9002F844E /* DFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFDA2B175FE9002F844E /* DFUPeripheralDelegate.swift */; };
+		F09D00142B175FE9002F844E /* DFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFDB2B175FE9002F844E /* DFUService.swift */; };
+		F09D00152B175FE9002F844E /* DFUFirmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFDD2B175FE9002F844E /* DFUFirmware.swift */; };
+		F09D00162B175FE9002F844E /* DFUUuidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFDE2B175FE9002F844E /* DFUUuidHelper.swift */; };
+		F09D00172B175FE9002F844E /* DFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFDF2B175FE9002F844E /* DFUServiceInitiator.swift */; };
+		F09D00182B175FE9002F844E /* DFUStarterPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFE12B175FE9002F844E /* DFUStarterPeripheral.swift */; };
+		F09D00192B175FE9002F844E /* DFUServiceSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFE22B175FE9002F844E /* DFUServiceSelector.swift */; };
+		F09D001A2B175FE9002F844E /* LegacyDFUExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFE52B175FE9002F844E /* LegacyDFUExecutor.swift */; };
+		F09D001B2B175FE9002F844E /* LegacyDFUServiceInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFE62B175FE9002F844E /* LegacyDFUServiceInitiator.swift */; };
+		F09D001C2B175FE9002F844E /* DFUPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFE82B175FE9002F844E /* DFUPacket.swift */; };
+		F09D001D2B175FE9002F844E /* DFUVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFE92B175FE9002F844E /* DFUVersion.swift */; };
+		F09D001E2B175FE9002F844E /* DFUControlPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFEA2B175FE9002F844E /* DFUControlPoint.swift */; };
+		F09D001F2B175FE9002F844E /* LegacyDFUPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFEC2B175FE9002F844E /* LegacyDFUPeripheral.swift */; };
+		F09D00202B175FE9002F844E /* LegacyDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFED2B175FE9002F844E /* LegacyDFUPeripheralDelegate.swift */; };
+		F09D00212B175FE9002F844E /* LegacyDFUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFEF2B175FE9002F844E /* LegacyDFUService.swift */; };
+		F09D00222B175FE9002F844E /* DFUPeripheralSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFF02B175FE9002F844E /* DFUPeripheralSelectorDelegate.swift */; };
+		F09D00232B175FE9002F844E /* DFUPeripheralSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFF12B175FE9002F844E /* DFUPeripheralSelector.swift */; };
+		F09D00242B175FE9002F844E /* DFUServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFF22B175FE9002F844E /* DFUServiceDelegate.swift */; };
+		F09D00252B175FE9002F844E /* DFUServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFF32B175FE9002F844E /* DFUServiceController.swift */; };
+		F09D00272B175FE9002F844E /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFF62B175FE9002F844E /* Documentation.docc */; };
+		F09D00282B175FE9002F844E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F09DFFF72B175FE9002F844E /* PrivacyInfo.xcprivacy */; };
+		F09D002B2B1760A3002F844E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = F09D002A2B1760A3002F844E /* ZIPFoundation */; };
+		F09DFFF92B175FE9002F844E /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB62B175FE9002F844E /* SoftdeviceBootloaderInfo.swift */; };
+		F09DFFFA2B175FE9002F844E /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB72B175FE9002F844E /* Manifest.swift */; };
+		F09DFFFB2B175FE9002F844E /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB82B175FE9002F844E /* ManifestFirmwareInfo.swift */; };
+		F09DFFFC2B175FE9002F844E /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB92B175FE9002F844E /* Data.swift */; };
+		F09DFFFD2B175FE9002F844E /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFBA2B175FE9002F844E /* ZipArchive.swift */; };
+		F09DFFFE2B175FE9002F844E /* DFUStreamBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFBC2B175FE9002F844E /* DFUStreamBin.swift */; };
+		F09DFFFF2B175FE9002F844E /* DFUStreamHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFBD2B175FE9002F844E /* DFUStreamHex.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F09DFFA62B175F50002F844E /* NordicDFU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NordicDFU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F09DFFB62B175FE9002F844E /* SoftdeviceBootloaderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftdeviceBootloaderInfo.swift; sourceTree = "<group>"; };
+		F09DFFB72B175FE9002F844E /* Manifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
+		F09DFFB82B175FE9002F844E /* ManifestFirmwareInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestFirmwareInfo.swift; sourceTree = "<group>"; };
+		F09DFFB92B175FE9002F844E /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		F09DFFBA2B175FE9002F844E /* ZipArchive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
+		F09DFFBC2B175FE9002F844E /* DFUStreamBin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUStreamBin.swift; sourceTree = "<group>"; };
+		F09DFFBD2B175FE9002F844E /* DFUStreamHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUStreamHex.swift; sourceTree = "<group>"; };
+		F09DFFBE2B175FE9002F844E /* DFUStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUStream.swift; sourceTree = "<group>"; };
+		F09DFFBF2B175FE9002F844E /* DFUStreamZip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUStreamZip.swift; sourceTree = "<group>"; };
+		F09DFFC12B175FE9002F844E /* IntelHex2BinConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntelHex2BinConverter.swift; sourceTree = "<group>"; };
+		F09DFFC22B175FE9002F844E /* crc32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = crc32.swift; sourceTree = "<group>"; };
+		F09DFFC32B175FE9002F844E /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		F09DFFC52B175FE9002F844E /* LoggerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerHelper.swift; sourceTree = "<group>"; };
+		F09DFFC62B175FE9002F844E /* LoggerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
+		F09DFFCA2B175FE9002F844E /* SecureDFUExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUExecutor.swift; sourceTree = "<group>"; };
+		F09DFFCB2B175FE9002F844E /* SecureDFUServiceInitiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUServiceInitiator.swift; sourceTree = "<group>"; };
+		F09DFFCD2B175FE9002F844E /* SecureDFUPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUPacket.swift; sourceTree = "<group>"; };
+		F09DFFCE2B175FE9002F844E /* SecureDFUControlPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUControlPoint.swift; sourceTree = "<group>"; };
+		F09DFFCF2B175FE9002F844E /* ButtonlessDFU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonlessDFU.swift; sourceTree = "<group>"; };
+		F09DFFD12B175FE9002F844E /* SecureDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
+		F09DFFD22B175FE9002F844E /* SecureDFUPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUPeripheral.swift; sourceTree = "<group>"; };
+		F09DFFD42B175FE9002F844E /* SecureDFUService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureDFUService.swift; sourceTree = "<group>"; };
+		F09DFFD62B175FE9002F844E /* DFUExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUExecutor.swift; sourceTree = "<group>"; };
+		F09DFFD72B175FE9002F844E /* DFUCharacteristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUCharacteristic.swift; sourceTree = "<group>"; };
+		F09DFFD82B175FE9002F844E /* DFUController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUController.swift; sourceTree = "<group>"; };
+		F09DFFD92B175FE9002F844E /* DFUPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheral.swift; sourceTree = "<group>"; };
+		F09DFFDA2B175FE9002F844E /* DFUPeripheralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheralDelegate.swift; sourceTree = "<group>"; };
+		F09DFFDB2B175FE9002F844E /* DFUService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUService.swift; sourceTree = "<group>"; };
+		F09DFFDD2B175FE9002F844E /* DFUFirmware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUFirmware.swift; sourceTree = "<group>"; };
+		F09DFFDE2B175FE9002F844E /* DFUUuidHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUUuidHelper.swift; sourceTree = "<group>"; };
+		F09DFFDF2B175FE9002F844E /* DFUServiceInitiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUServiceInitiator.swift; sourceTree = "<group>"; };
+		F09DFFE12B175FE9002F844E /* DFUStarterPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUStarterPeripheral.swift; sourceTree = "<group>"; };
+		F09DFFE22B175FE9002F844E /* DFUServiceSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUServiceSelector.swift; sourceTree = "<group>"; };
+		F09DFFE52B175FE9002F844E /* LegacyDFUExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDFUExecutor.swift; sourceTree = "<group>"; };
+		F09DFFE62B175FE9002F844E /* LegacyDFUServiceInitiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDFUServiceInitiator.swift; sourceTree = "<group>"; };
+		F09DFFE82B175FE9002F844E /* DFUPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPacket.swift; sourceTree = "<group>"; };
+		F09DFFE92B175FE9002F844E /* DFUVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUVersion.swift; sourceTree = "<group>"; };
+		F09DFFEA2B175FE9002F844E /* DFUControlPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUControlPoint.swift; sourceTree = "<group>"; };
+		F09DFFEC2B175FE9002F844E /* LegacyDFUPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheral.swift; sourceTree = "<group>"; };
+		F09DFFED2B175FE9002F844E /* LegacyDFUPeripheralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDFUPeripheralDelegate.swift; sourceTree = "<group>"; };
+		F09DFFEF2B175FE9002F844E /* LegacyDFUService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDFUService.swift; sourceTree = "<group>"; };
+		F09DFFF02B175FE9002F844E /* DFUPeripheralSelectorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelectorDelegate.swift; sourceTree = "<group>"; };
+		F09DFFF12B175FE9002F844E /* DFUPeripheralSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUPeripheralSelector.swift; sourceTree = "<group>"; };
+		F09DFFF22B175FE9002F844E /* DFUServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUServiceDelegate.swift; sourceTree = "<group>"; };
+		F09DFFF32B175FE9002F844E /* DFUServiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUServiceController.swift; sourceTree = "<group>"; };
+		F09DFFF62B175FE9002F844E /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
+		F09DFFF72B175FE9002F844E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F09DFFA32B175F50002F844E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F09D002B2B1760A3002F844E /* ZIPFoundation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F09DFF9C2B175F4F002F844E = {
+			isa = PBXGroup;
+			children = (
+				F09DFFB02B175FE9002F844E /* Library */,
+				F09DFFA72B175F50002F844E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F09DFFA72B175F50002F844E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFA62B175F50002F844E /* NordicDFU.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F09DFFB02B175FE9002F844E /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFB12B175FE9002F844E /* Classes */,
+				F09DFFF42B175FE9002F844E /* Assets */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		F09DFFB12B175FE9002F844E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFB32B175FE9002F844E /* Utilities */,
+				F09DFFC72B175FE9002F844E /* Implementation */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		F09DFFB32B175FE9002F844E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFB42B175FE9002F844E /* DFUPackage */,
+				F09DFFB92B175FE9002F844E /* Data.swift */,
+				F09DFFBA2B175FE9002F844E /* ZipArchive.swift */,
+				F09DFFBB2B175FE9002F844E /* Streams */,
+				F09DFFC02B175FE9002F844E /* HexToBinConverter */,
+				F09DFFC22B175FE9002F844E /* crc32.swift */,
+				F09DFFC32B175FE9002F844E /* Double.swift */,
+				F09DFFC42B175FE9002F844E /* Logging */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		F09DFFB42B175FE9002F844E /* DFUPackage */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFB52B175FE9002F844E /* Manifest */,
+			);
+			path = DFUPackage;
+			sourceTree = "<group>";
+		};
+		F09DFFB52B175FE9002F844E /* Manifest */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFB62B175FE9002F844E /* SoftdeviceBootloaderInfo.swift */,
+				F09DFFB72B175FE9002F844E /* Manifest.swift */,
+				F09DFFB82B175FE9002F844E /* ManifestFirmwareInfo.swift */,
+			);
+			path = Manifest;
+			sourceTree = "<group>";
+		};
+		F09DFFBB2B175FE9002F844E /* Streams */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFBC2B175FE9002F844E /* DFUStreamBin.swift */,
+				F09DFFBD2B175FE9002F844E /* DFUStreamHex.swift */,
+				F09DFFBE2B175FE9002F844E /* DFUStream.swift */,
+				F09DFFBF2B175FE9002F844E /* DFUStreamZip.swift */,
+			);
+			path = Streams;
+			sourceTree = "<group>";
+		};
+		F09DFFC02B175FE9002F844E /* HexToBinConverter */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFC12B175FE9002F844E /* IntelHex2BinConverter.swift */,
+			);
+			path = HexToBinConverter;
+			sourceTree = "<group>";
+		};
+		F09DFFC42B175FE9002F844E /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFC52B175FE9002F844E /* LoggerHelper.swift */,
+				F09DFFC62B175FE9002F844E /* LoggerDelegate.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		F09DFFC72B175FE9002F844E /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFC82B175FE9002F844E /* SecureDFU */,
+				F09DFFD52B175FE9002F844E /* GenericDFU */,
+				F09DFFDC2B175FE9002F844E /* Firmware */,
+				F09DFFDE2B175FE9002F844E /* DFUUuidHelper.swift */,
+				F09DFFDF2B175FE9002F844E /* DFUServiceInitiator.swift */,
+				F09DFFE02B175FE9002F844E /* DFUSelector */,
+				F09DFFE32B175FE9002F844E /* LegacyDFU */,
+				F09DFFF02B175FE9002F844E /* DFUPeripheralSelectorDelegate.swift */,
+				F09DFFF12B175FE9002F844E /* DFUPeripheralSelector.swift */,
+				F09DFFF22B175FE9002F844E /* DFUServiceDelegate.swift */,
+				F09DFFF32B175FE9002F844E /* DFUServiceController.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		F09DFFC82B175FE9002F844E /* SecureDFU */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFC92B175FE9002F844E /* DFU */,
+				F09DFFCC2B175FE9002F844E /* Characteristics */,
+				F09DFFD02B175FE9002F844E /* Peripheral */,
+				F09DFFD32B175FE9002F844E /* Services */,
+			);
+			path = SecureDFU;
+			sourceTree = "<group>";
+		};
+		F09DFFC92B175FE9002F844E /* DFU */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFCA2B175FE9002F844E /* SecureDFUExecutor.swift */,
+				F09DFFCB2B175FE9002F844E /* SecureDFUServiceInitiator.swift */,
+			);
+			path = DFU;
+			sourceTree = "<group>";
+		};
+		F09DFFCC2B175FE9002F844E /* Characteristics */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFCD2B175FE9002F844E /* SecureDFUPacket.swift */,
+				F09DFFCE2B175FE9002F844E /* SecureDFUControlPoint.swift */,
+				F09DFFCF2B175FE9002F844E /* ButtonlessDFU.swift */,
+			);
+			path = Characteristics;
+			sourceTree = "<group>";
+		};
+		F09DFFD02B175FE9002F844E /* Peripheral */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFD12B175FE9002F844E /* SecureDFUPeripheralDelegate.swift */,
+				F09DFFD22B175FE9002F844E /* SecureDFUPeripheral.swift */,
+			);
+			path = Peripheral;
+			sourceTree = "<group>";
+		};
+		F09DFFD32B175FE9002F844E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFD42B175FE9002F844E /* SecureDFUService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F09DFFD52B175FE9002F844E /* GenericDFU */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFD62B175FE9002F844E /* DFUExecutor.swift */,
+				F09DFFD72B175FE9002F844E /* DFUCharacteristic.swift */,
+				F09DFFD82B175FE9002F844E /* DFUController.swift */,
+				F09DFFD92B175FE9002F844E /* DFUPeripheral.swift */,
+				F09DFFDA2B175FE9002F844E /* DFUPeripheralDelegate.swift */,
+				F09DFFDB2B175FE9002F844E /* DFUService.swift */,
+			);
+			path = GenericDFU;
+			sourceTree = "<group>";
+		};
+		F09DFFDC2B175FE9002F844E /* Firmware */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFDD2B175FE9002F844E /* DFUFirmware.swift */,
+			);
+			path = Firmware;
+			sourceTree = "<group>";
+		};
+		F09DFFE02B175FE9002F844E /* DFUSelector */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFE12B175FE9002F844E /* DFUStarterPeripheral.swift */,
+				F09DFFE22B175FE9002F844E /* DFUServiceSelector.swift */,
+			);
+			path = DFUSelector;
+			sourceTree = "<group>";
+		};
+		F09DFFE32B175FE9002F844E /* LegacyDFU */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFE42B175FE9002F844E /* DFU */,
+				F09DFFE72B175FE9002F844E /* Characteristics */,
+				F09DFFEB2B175FE9002F844E /* Peripherals */,
+				F09DFFEE2B175FE9002F844E /* Services */,
+			);
+			path = LegacyDFU;
+			sourceTree = "<group>";
+		};
+		F09DFFE42B175FE9002F844E /* DFU */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFE52B175FE9002F844E /* LegacyDFUExecutor.swift */,
+				F09DFFE62B175FE9002F844E /* LegacyDFUServiceInitiator.swift */,
+			);
+			path = DFU;
+			sourceTree = "<group>";
+		};
+		F09DFFE72B175FE9002F844E /* Characteristics */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFE82B175FE9002F844E /* DFUPacket.swift */,
+				F09DFFE92B175FE9002F844E /* DFUVersion.swift */,
+				F09DFFEA2B175FE9002F844E /* DFUControlPoint.swift */,
+			);
+			path = Characteristics;
+			sourceTree = "<group>";
+		};
+		F09DFFEB2B175FE9002F844E /* Peripherals */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFEC2B175FE9002F844E /* LegacyDFUPeripheral.swift */,
+				F09DFFED2B175FE9002F844E /* LegacyDFUPeripheralDelegate.swift */,
+			);
+			path = Peripherals;
+			sourceTree = "<group>";
+		};
+		F09DFFEE2B175FE9002F844E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFEF2B175FE9002F844E /* LegacyDFUService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F09DFFF42B175FE9002F844E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F09DFFF62B175FE9002F844E /* Documentation.docc */,
+				F09DFFF72B175FE9002F844E /* PrivacyInfo.xcprivacy */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F09DFFA12B175F50002F844E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F09DFFA52B175F50002F844E /* NordicDFU */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F09DFFAD2B175F50002F844E /* Build configuration list for PBXNativeTarget "NordicDFU" */;
+			buildPhases = (
+				F09DFFA12B175F50002F844E /* Headers */,
+				F09DFFA22B175F50002F844E /* Sources */,
+				F09DFFA32B175F50002F844E /* Frameworks */,
+				F09DFFA42B175F50002F844E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NordicDFU;
+			packageProductDependencies = (
+				F09D002A2B1760A3002F844E /* ZIPFoundation */,
+			);
+			productName = NordicDFU;
+			productReference = F09DFFA62B175F50002F844E /* NordicDFU.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F09DFF9D2B175F4F002F844E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					F09DFFA52B175F50002F844E = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = F09DFFA02B175F4F002F844E /* Build configuration list for PBXProject "NordicDFU" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F09DFF9C2B175F4F002F844E;
+			packageReferences = (
+				F09D00292B1760A3002F844E /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
+			productRefGroup = F09DFFA72B175F50002F844E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F09DFFA52B175F50002F844E /* NordicDFU */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F09DFFA42B175F50002F844E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F09D00282B175FE9002F844E /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F09DFFA22B175F50002F844E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F09D00112B175FE9002F844E /* DFUController.swift in Sources */,
+				F09DFFFF2B175FE9002F844E /* DFUStreamHex.swift in Sources */,
+				F09D00242B175FE9002F844E /* DFUServiceDelegate.swift in Sources */,
+				F09D001B2B175FE9002F844E /* LegacyDFUServiceInitiator.swift in Sources */,
+				F09D00152B175FE9002F844E /* DFUFirmware.swift in Sources */,
+				F09D00272B175FE9002F844E /* Documentation.docc in Sources */,
+				F09D000D2B175FE9002F844E /* SecureDFUPeripheral.swift in Sources */,
+				F09D001C2B175FE9002F844E /* DFUPacket.swift in Sources */,
+				F09D00102B175FE9002F844E /* DFUCharacteristic.swift in Sources */,
+				F09D001A2B175FE9002F844E /* LegacyDFUExecutor.swift in Sources */,
+				F09D00252B175FE9002F844E /* DFUServiceController.swift in Sources */,
+				F09D00232B175FE9002F844E /* DFUPeripheralSelector.swift in Sources */,
+				F09D00182B175FE9002F844E /* DFUStarterPeripheral.swift in Sources */,
+				F09D000E2B175FE9002F844E /* SecureDFUService.swift in Sources */,
+				F09DFFFB2B175FE9002F844E /* ManifestFirmwareInfo.swift in Sources */,
+				F09D00072B175FE9002F844E /* SecureDFUExecutor.swift in Sources */,
+				F09D000C2B175FE9002F844E /* SecureDFUPeripheralDelegate.swift in Sources */,
+				F09DFFFA2B175FE9002F844E /* Manifest.swift in Sources */,
+				F09D001F2B175FE9002F844E /* LegacyDFUPeripheral.swift in Sources */,
+				F09D00192B175FE9002F844E /* DFUServiceSelector.swift in Sources */,
+				F09D00092B175FE9002F844E /* SecureDFUPacket.swift in Sources */,
+				F09D000A2B175FE9002F844E /* SecureDFUControlPoint.swift in Sources */,
+				F09D001D2B175FE9002F844E /* DFUVersion.swift in Sources */,
+				F09D00162B175FE9002F844E /* DFUUuidHelper.swift in Sources */,
+				F09D000B2B175FE9002F844E /* ButtonlessDFU.swift in Sources */,
+				F09D00222B175FE9002F844E /* DFUPeripheralSelectorDelegate.swift in Sources */,
+				F09D00082B175FE9002F844E /* SecureDFUServiceInitiator.swift in Sources */,
+				F09D00012B175FE9002F844E /* DFUStreamZip.swift in Sources */,
+				F09D00052B175FE9002F844E /* LoggerHelper.swift in Sources */,
+				F09D00122B175FE9002F844E /* DFUPeripheral.swift in Sources */,
+				F09DFFF92B175FE9002F844E /* SoftdeviceBootloaderInfo.swift in Sources */,
+				F09D00062B175FE9002F844E /* LoggerDelegate.swift in Sources */,
+				F09DFFFC2B175FE9002F844E /* Data.swift in Sources */,
+				F09D00002B175FE9002F844E /* DFUStream.swift in Sources */,
+				F09D00212B175FE9002F844E /* LegacyDFUService.swift in Sources */,
+				F09D00202B175FE9002F844E /* LegacyDFUPeripheralDelegate.swift in Sources */,
+				F09D000F2B175FE9002F844E /* DFUExecutor.swift in Sources */,
+				F09D00032B175FE9002F844E /* crc32.swift in Sources */,
+				F09D00132B175FE9002F844E /* DFUPeripheralDelegate.swift in Sources */,
+				F09D00142B175FE9002F844E /* DFUService.swift in Sources */,
+				F09D001E2B175FE9002F844E /* DFUControlPoint.swift in Sources */,
+				F09DFFFD2B175FE9002F844E /* ZipArchive.swift in Sources */,
+				F09D00022B175FE9002F844E /* IntelHex2BinConverter.swift in Sources */,
+				F09D00042B175FE9002F844E /* Double.swift in Sources */,
+				F09D00172B175FE9002F844E /* DFUServiceInitiator.swift in Sources */,
+				F09DFFFE2B175FE9002F844E /* DFUStreamBin.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F09DFFAB2B175F50002F844E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F09DFFAC2B175F50002F844E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F09DFFAE2B175F50002F844E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nordicsemi.NordicDFU;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Debug;
+		};
+		F09DFFAF2B175F50002F844E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nordicsemi.NordicDFU;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F09DFFA02B175F4F002F844E /* Build configuration list for PBXProject "NordicDFU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F09DFFAB2B175F50002F844E /* Debug */,
+				F09DFFAC2B175F50002F844E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F09DFFAD2B175F50002F844E /* Build configuration list for PBXNativeTarget "NordicDFU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F09DFFAE2B175F50002F844E /* Debug */,
+				F09DFFAF2B175F50002F844E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F09D00292B1760A3002F844E /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.16;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F09D002A2B1760A3002F844E /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F09D00292B1760A3002F844E /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F09DFF9D2B175F4F002F844E /* Project object */;
+}
