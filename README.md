@@ -42,14 +42,14 @@ pod install
 
 - Create a new **Cartfile** in your project's root with the following contents
 
-```ogld
-github "NordicSemiconductor/IOS-DFU-Library" ~> x.y //Replace x.y with your required version
+```
+github "NordicSemiconductor/IOS-DFU-Library" ~> x.y // Replace x.y with your required version
 ```
 
 - Build with carthage
 
 ```sh
-carthage update --platform iOS //also OSX platform is available for macOS builds
+carthage update --use-xcframeworks --platform iOS // other supported platforms: macOS, tvOS, watchOS
 ```
 
 - Carthage will build the **iOSDFULibrary.framework** and **ZipFramework.framework** files in **Carthage/Build/**, 
@@ -67,7 +67,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/NordicSemiconductor/IOS-DFU-Library", 
-      .upToNextMajor(from: "<Desired Version, e.g. 4.14.0>")
+      .upToNextMajor(from: "<Desired Version>")
     )
   ],
   targets: [.target(name: "<Your Target Name>", dependencies: ["NordicDFU"])]
