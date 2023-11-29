@@ -25,11 +25,7 @@ let package = Package(
       name: "NordicDFU",
       dependencies: ["ZIPFoundation"],
       path: "Library/",
-      sources: ["Classes"],
-      resources: [
-        .process("Assets/PrivacyInfo.xcprivacy"),
-        .process("Assets/Documentation.docc")
-      ]
+      sources: ["Classes"]
     ),
     // FIXME: Exclude this target for `watchOS` Simulator, because it fails to
     // compile in Xcode.

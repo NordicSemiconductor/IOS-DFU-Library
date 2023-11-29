@@ -20,9 +20,9 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
   s.tvos.deployment_target = '12.0'
   s.watchos.deployment_target = '4.0'
 
-  s.source_files = 'Library/Classes/**/*', 'Library/Assets/Documentation.docc/**/*'
+  s.source_files = 'Library/Classes/**/*'
   s.resource_bundles = {
-    'PrivacyInfo' => ['Library/Assets/PrivacyInfo.xcprivacy']
+    'PrivacyInfo' => ['Library/Classes/PrivacyInfo.xcprivacy']
   }
 
   s.dependency 'ZIPFoundation', '= 0.9.16'

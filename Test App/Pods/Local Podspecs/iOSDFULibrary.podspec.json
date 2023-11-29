@@ -34,13 +34,10 @@
     "tvos": "12.0",
     "watchos": "4.0"
   },
-  "source_files": [
-    "Library/Classes/**/*",
-    "Library/Assets/Documentation.docc/**/*"
-  ],
+  "source_files": "Library/Classes/**/*",
   "resource_bundles": {
     "PrivacyInfo": [
-      "Library/Assets/PrivacyInfo.xcprivacy"
+      "Library/Classes/PrivacyInfo.xcprivacy"
     ]
   },
   "dependencies": {
