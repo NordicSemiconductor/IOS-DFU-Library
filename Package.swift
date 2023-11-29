@@ -34,9 +34,9 @@ let package = Package(
     // FIXME: Exclude this target for `watchOS` Simulator, because it fails to
     // compile in Xcode.
     .testTarget(
-      name: "Hex2BinConverterTests",
+      name: "NordifDFUTests",
       dependencies: ["NordicDFU"],
-      path: "Test App/Tests/"
+      path: "Tests/"
     )
   ],
   swiftLanguageVersions: [.v5]
