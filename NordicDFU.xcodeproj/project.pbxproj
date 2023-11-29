@@ -48,6 +48,19 @@
 		F09D00272B175FE9002F844E /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFF62B175FE9002F844E /* Documentation.docc */; };
 		F09D00282B175FE9002F844E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F09DFFF72B175FE9002F844E /* PrivacyInfo.xcprivacy */; };
 		F09D002B2B1760A3002F844E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = F09D002A2B1760A3002F844E /* ZIPFoundation */; };
+		F09D00472B176A4C002F844E /* sdk_15_2_bootloader.hex in Resources */ = {isa = PBXBuildFile; fileRef = F09D003B2B176A4C002F844E /* sdk_15_2_bootloader.hex */; };
+		F09D00482B176A4C002F844E /* sdk_15_2_bootloader.bin in Resources */ = {isa = PBXBuildFile; fileRef = F09D003C2B176A4C002F844E /* sdk_15_2_bootloader.bin */; };
+		F09D00492B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.bin in Resources */ = {isa = PBXBuildFile; fileRef = F09D003D2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.bin */; };
+		F09D004A2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.hex in Resources */ = {isa = PBXBuildFile; fileRef = F09D003E2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.hex */; };
+		F09D004B2B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.hex in Resources */ = {isa = PBXBuildFile; fileRef = F09D003F2B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.hex */; };
+		F09D004C2B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.bin in Resources */ = {isa = PBXBuildFile; fileRef = F09D00402B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.bin */; };
+		F09D004D2B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.bin in Resources */ = {isa = PBXBuildFile; fileRef = F09D00412B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.bin */; };
+		F09D004E2B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.hex in Resources */ = {isa = PBXBuildFile; fileRef = F09D00422B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.hex */; };
+		F09D004F2B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.bin in Resources */ = {isa = PBXBuildFile; fileRef = F09D00432B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.bin */; };
+		F09D00502B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.hex in Resources */ = {isa = PBXBuildFile; fileRef = F09D00442B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.hex */; };
+		F09D00512B176A4C002F844E /* Hex2BinConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09D00452B176A4C002F844E /* Hex2BinConverterTests.swift */; };
+		F09D00522B176A4C002F844E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09D00462B176A4C002F844E /* Info.plist */; };
+		F09D00542B176A8D002F844E /* NordicDFU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09DFFA62B175F50002F844E /* NordicDFU.framework */; };
 		F09DFFF92B175FE9002F844E /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB62B175FE9002F844E /* SoftdeviceBootloaderInfo.swift */; };
 		F09DFFFA2B175FE9002F844E /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB72B175FE9002F844E /* Manifest.swift */; };
 		F09DFFFB2B175FE9002F844E /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB82B175FE9002F844E /* ManifestFirmwareInfo.swift */; };
@@ -57,7 +70,31 @@
 		F09DFFFF2B175FE9002F844E /* DFUStreamHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFBD2B175FE9002F844E /* DFUStreamHex.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F09D00562B176A8D002F844E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F09DFF9D2B175F4F002F844E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F09DFFA52B175F50002F844E;
+			remoteInfo = NordicDFU;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		F09D00322B176A23002F844E /* NordicDFUTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NordicDFUTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F09D003B2B176A4C002F844E /* sdk_15_2_bootloader.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdk_15_2_bootloader.hex; sourceTree = "<group>"; };
+		F09D003C2B176A4C002F844E /* sdk_15_2_bootloader.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = sdk_15_2_bootloader.bin; sourceTree = "<group>"; };
+		F09D003D2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = blinky_s110_v7_0_0_sdk_v7_1.bin; sourceTree = "<group>"; };
+		F09D003E2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blinky_s110_v7_0_0_sdk_v7_1.hex; sourceTree = "<group>"; };
+		F09D003F2B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.hex; sourceTree = "<group>"; };
+		F09D00402B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.bin; sourceTree = "<group>"; };
+		F09D00412B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = s110_nrf51822_6.2.1_softdevice.bin; sourceTree = "<group>"; };
+		F09D00422B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = s110_nrf51822_6.2.1_softdevice.hex; sourceTree = "<group>"; };
+		F09D00432B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = nrf51422_sdk_5.2_sd_bl.bin; sourceTree = "<group>"; };
+		F09D00442B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nrf51422_sdk_5.2_sd_bl.hex; sourceTree = "<group>"; };
+		F09D00452B176A4C002F844E /* Hex2BinConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hex2BinConverterTests.swift; sourceTree = "<group>"; };
+		F09D00462B176A4C002F844E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F09D00592B176D29002F844E /* NordicDFU.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = NordicDFU.xctestplan; sourceTree = "<group>"; };
 		F09DFFA62B175F50002F844E /* NordicDFU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NordicDFU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F09DFFB62B175FE9002F844E /* SoftdeviceBootloaderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftdeviceBootloaderInfo.swift; sourceTree = "<group>"; };
 		F09DFFB72B175FE9002F844E /* Manifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
@@ -109,6 +146,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F09D002F2B176A23002F844E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F09D00542B176A8D002F844E /* NordicDFU.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F09DFFA32B175F50002F844E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -120,11 +165,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F09D00392B176A4C002F844E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F09D003A2B176A4C002F844E /* TestFirmwares */,
+				F09D00452B176A4C002F844E /* Hex2BinConverterTests.swift */,
+				F09D00462B176A4C002F844E /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		F09D003A2B176A4C002F844E /* TestFirmwares */ = {
+			isa = PBXGroup;
+			children = (
+				F09D003B2B176A4C002F844E /* sdk_15_2_bootloader.hex */,
+				F09D003C2B176A4C002F844E /* sdk_15_2_bootloader.bin */,
+				F09D003D2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.bin */,
+				F09D003E2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.hex */,
+				F09D003F2B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.hex */,
+				F09D00402B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.bin */,
+				F09D00412B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.bin */,
+				F09D00422B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.hex */,
+				F09D00432B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.bin */,
+				F09D00442B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.hex */,
+			);
+			path = TestFirmwares;
+			sourceTree = "<group>";
+		};
+		F09D00532B176A8D002F844E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F09DFF9C2B175F4F002F844E = {
 			isa = PBXGroup;
 			children = (
+				F09D00592B176D29002F844E /* NordicDFU.xctestplan */,
 				F09DFFB02B175FE9002F844E /* Library */,
 				F09DFFA72B175F50002F844E /* Products */,
+				F09D00532B176A8D002F844E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				F09DFFA62B175F50002F844E /* NordicDFU.framework */,
+				F09D00322B176A23002F844E /* NordicDFUTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				F09DFFB12B175FE9002F844E /* Classes */,
+				F09D00392B176A4C002F844E /* Tests */,
 				F09DFFF42B175FE9002F844E /* Assets */,
 			);
 			path = Library;
@@ -379,6 +462,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		F09D00312B176A23002F844E /* NordicDFUTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F09D00362B176A23002F844E /* Build configuration list for PBXNativeTarget "NordicDFUTests" */;
+			buildPhases = (
+				F09D002E2B176A23002F844E /* Sources */,
+				F09D002F2B176A23002F844E /* Frameworks */,
+				F09D00302B176A23002F844E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F09D00572B176A8D002F844E /* PBXTargetDependency */,
+			);
+			name = NordicDFUTests;
+			productName = NordicDFUTests;
+			productReference = F09D00322B176A23002F844E /* NordicDFUTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F09DFFA52B175F50002F844E /* NordicDFU */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F09DFFAD2B175F50002F844E /* Build configuration list for PBXNativeTarget "NordicDFU" */;
@@ -407,8 +508,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					F09D00312B176A23002F844E = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
 					F09DFFA52B175F50002F844E = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
@@ -431,11 +536,30 @@
 			projectRoot = "";
 			targets = (
 				F09DFFA52B175F50002F844E /* NordicDFU */,
+				F09D00312B176A23002F844E /* NordicDFUTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F09D00302B176A23002F844E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F09D004E2B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.hex in Resources */,
+				F09D00502B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.hex in Resources */,
+				F09D004D2B176A4C002F844E /* s110_nrf51822_6.2.1_softdevice.bin in Resources */,
+				F09D00482B176A4C002F844E /* sdk_15_2_bootloader.bin in Resources */,
+				F09D00472B176A4C002F844E /* sdk_15_2_bootloader.hex in Resources */,
+				F09D004C2B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.bin in Resources */,
+				F09D004A2B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.hex in Resources */,
+				F09D004F2B176A4C002F844E /* nrf51422_sdk_5.2_sd_bl.bin in Resources */,
+				F09D00522B176A4C002F844E /* Info.plist in Resources */,
+				F09D00492B176A4C002F844E /* blinky_s110_v7_0_0_sdk_v7_1.bin in Resources */,
+				F09D004B2B176A4C002F844E /* ble_app_hrm_dfu_s110_v8_0_0_sdk_v8_0.hex in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F09DFFA42B175F50002F844E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,6 +571,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F09D002E2B176A23002F844E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F09D00512B176A4C002F844E /* Hex2BinConverterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F09DFFA22B175F50002F844E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -502,7 +634,65 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F09D00572B176A8D002F844E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F09DFFA52B175F50002F844E /* NordicDFU */;
+			targetProxy = F09D00562B176A8D002F844E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		F09D00372B176A23002F844E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nordicsemi.NordicDFUTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Debug;
+		};
+		F09D00382B176A23002F844E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nordicsemi.NordicDFUTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Release;
+		};
 		F09DFFAB2B175F50002F844E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -556,12 +746,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -614,10 +806,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -626,6 +820,7 @@
 		F09DFFAE2B175F50002F844E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -656,6 +851,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
@@ -667,6 +863,7 @@
 		F09DFFAF2B175F50002F844E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -675,6 +872,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -697,6 +895,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
@@ -708,6 +907,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F09D00362B176A23002F844E /* Build configuration list for PBXNativeTarget "NordicDFUTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F09D00372B176A23002F844E /* Debug */,
+				F09D00382B176A23002F844E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F09DFFA02B175F4F002F844E /* Build configuration list for PBXProject "NordicDFU" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

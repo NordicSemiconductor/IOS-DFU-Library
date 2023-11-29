@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "8FDB24E6-C66C-49F0-A805-427D507E961E",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:NordicDFU.xcodeproj",
+        "identifier" : "F09D00312B176A23002F844E",
+        "name" : "NordicDFUTests"
+      }
+    }
+  ],
+  "version" : 1
+}
