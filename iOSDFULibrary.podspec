@@ -22,7 +22,7 @@ The nRF5x Series chips are flash-based SoCs, and as such they represent the most
 
   s.source_files = 'Library/Classes/**/*'
   s.resource_bundles = {
-    'PrivacyInfo' => ['Library/Classes/PrivacyInfo.xcprivacy']
+    'PrivacyInfo' => ['Library/Assets/PrivacyInfo.xcprivacy']
   }
 
   s.dependency 'ZIPFoundation', '= 0.9.16'

@@ -59,7 +59,7 @@
 		F09D00512B176A4C002F844E /* Hex2BinConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09D00452B176A4C002F844E /* Hex2BinConverterTests.swift */; };
 		F09D00542B176A8D002F844E /* NordicDFU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09DFFA62B175F50002F844E /* NordicDFU.framework */; };
 		F09D00622B178437002F844E /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = F09D00612B178437002F844E /* Documentation.docc */; };
-		F09D00642B17843E002F844E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F09D00632B17843E002F844E /* PrivacyInfo.xcprivacy */; };
+		F09D00AD2B189635002F844E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F09D00AC2B189634002F844E /* PrivacyInfo.xcprivacy */; };
 		F09DFFF92B175FE9002F844E /* SoftdeviceBootloaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB62B175FE9002F844E /* SoftdeviceBootloaderInfo.swift */; };
 		F09DFFFA2B175FE9002F844E /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB72B175FE9002F844E /* Manifest.swift */; };
 		F09DFFFB2B175FE9002F844E /* ManifestFirmwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09DFFB82B175FE9002F844E /* ManifestFirmwareInfo.swift */; };
@@ -94,7 +94,7 @@
 		F09D00452B176A4C002F844E /* Hex2BinConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hex2BinConverterTests.swift; sourceTree = "<group>"; };
 		F09D00592B176D29002F844E /* NordicDFU.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = NordicDFU.xctestplan; sourceTree = "<group>"; };
 		F09D00612B178437002F844E /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
-		F09D00632B17843E002F844E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		F09D00AC2B189634002F844E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = file; name = PrivacyInfo.xcprivacy; path = Library/Assets/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
 		F09DFFA62B175F50002F844E /* NordicDFU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NordicDFU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F09DFFB62B175FE9002F844E /* SoftdeviceBootloaderInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftdeviceBootloaderInfo.swift; sourceTree = "<group>"; };
 		F09DFFB72B175FE9002F844E /* Manifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				F09D00612B178437002F844E /* Documentation.docc */,
-				F09D00632B17843E002F844E /* PrivacyInfo.xcprivacy */,
+				F09D00AC2B189634002F844E /* PrivacyInfo.xcprivacy */,
 				F09DFFB32B175FE9002F844E /* Utilities */,
 				F09DFFC72B175FE9002F844E /* Implementation */,
 			);
@@ -560,7 +560,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F09D00642B17843E002F844E /* PrivacyInfo.xcprivacy in Resources */,
+				F09D00AD2B189635002F844E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

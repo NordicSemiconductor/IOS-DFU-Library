@@ -37,7 +37,7 @@
   "source_files": "Library/Classes/**/*",
   "resource_bundles": {
     "PrivacyInfo": [
-      "Library/Classes/PrivacyInfo.xcprivacy"
+      "Library/Assets/PrivacyInfo.xcprivacy"
     ]
   },
   "dependencies": {
