@@ -184,9 +184,16 @@ class Hex2BinConverterTests: XCTestCase {
         XCTAssertEqual(bin, testData)
     }
     
-    private func getContent(of name: String, withExtension: String) -> Data? {
+    private func getContent(of name: String, withExtension ext: String) -> Data? {
+        #if os(macOS)
+        var baseURL = URL(fileURLWithPath: #file)
+                baseURL.deleteLastPathComponent()
+                baseURL.appendPathComponent("TestFirmwares")
+        let url = baseURL.appendingPathComponent("\(name).\(ext)")
+        #else
         guard let url = Bundle(for: Self.self)
-                .url(forResource: "TestFirmwares/\(name)", withExtension: withExtension) else { return nil }
+                .url(forResource: "TestFirmwares/\(name)", withExtension: ext) else { return nil }
+        #endif
         return try? Data(contentsOf: url)
     }
 }

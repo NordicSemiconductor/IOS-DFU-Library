@@ -14,13 +14,14 @@
       shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "Tests.xctest"
-               BlueprintName = "Tests"
-               ReferencedContainer = "container:DFU Test Performer.xcodeproj">
+               BlueprintIdentifier = "F09D00312B176A23002F844E"
+               BuildableName = "NordicDFUTests.xctest"
+               BlueprintName = "NordicDFUTests"
+               ReferencedContainer = "container:NordicDFU.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
