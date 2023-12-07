@@ -17,7 +17,12 @@
 	</array>
 	<key>CFBundleIcons</key>
 	<dict/>
-	<key>CFBundleIcons~ipad</key>
-	<dict/>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>BackgroundColor</string>
+		<key>UIImageName</key>
+		<string>NordicLogo</string>
+	</dict>
 </dict>
 </plist>
