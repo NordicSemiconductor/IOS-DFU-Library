@@ -1,4 +1,9 @@
 ### Changelog
+- **4.14.0**
+   - Breaking change: Framework renamed from *iOSDFULibrary* to *NordicDFU*
+   - Refactoring: Folders with the library and sample apps were renamed
+   - Improvement: Privacy Manifest added
+   
 - **4.13.0**
    - Breaking change: Creating DFUFirmware may now throw an error, instead of returning nil (#486).
    - Improvement: Internal logging improvements (#487). 
