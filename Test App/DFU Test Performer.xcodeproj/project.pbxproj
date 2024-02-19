@@ -41,7 +41,6 @@
 		5288C1DD236AE4E200321ED3 /* UIColor+Nordic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Nordic.swift"; sourceTree = "<group>"; };
 		5288C1E1236C3C7400321ED3 /* README_OBJC.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README_OBJC.md; path = ../README_OBJC.md; sourceTree = "<group>"; };
 		52A9C166230D633A0036792A /* changelog.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = changelog.md; path = ../changelog.md; sourceTree = "<group>"; };
-		52A9C168230D63410036792A /* documentation.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = documentation.md; path = ../documentation.md; sourceTree = "<group>"; };
 		52FB0B012220168D00B1E575 /* PeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCell.swift; sourceTree = "<group>"; };
 		52FB0B03222019C700B1E575 /* MainNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewController.swift; sourceTree = "<group>"; };
 		52FB0B0522201A4A00B1E575 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -170,7 +169,6 @@
 				8EE39CA79039E8FFBDA0C9D3 /* README.md */,
 				5288C1E1236C3C7400321ED3 /* README_OBJC.md */,
 				52A9C166230D633A0036792A /* changelog.md */,
-				52A9C168230D63410036792A /* documentation.md */,
 				DAEFE092DC94AFC6C8316559 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
