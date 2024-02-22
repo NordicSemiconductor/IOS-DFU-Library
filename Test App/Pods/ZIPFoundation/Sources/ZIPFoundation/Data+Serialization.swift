@@ -2,7 +2,7 @@
 //  Data+Serialization.swift
 //  ZIPFoundation
 //
-//  Copyright © 2017-2021 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
+//  Copyright © 2017-2024 Thomas Zoechling, https://www.peakstep.com and the ZIP Foundation project authors.
 //  Released under the MIT License.
 //
 //  See https://github.com/weichsel/ZIPFoundation/blob/master/LICENSE for license information.
@@ -23,7 +23,7 @@ protocol DataSerializable {
 }
 
 extension Data {
-    enum DataError: Error {
+    public enum DataError: Error {
         case unreadableFile
         case unwritableFile
     }
