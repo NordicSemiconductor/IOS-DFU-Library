@@ -1,8 +1,11 @@
 ### Changelog
+- **4.15.0**
+   - Fix [security vulnerability](https://github.com/weichsel/ZIPFoundation/issues/281) in ZipFoundation (#527, #530).
+   
 - **4.14.0**
-   - Breaking change: Framework renamed from *iOSDFULibrary* to *NordicDFU*
-   - Refactoring: Folders with the library and sample apps were renamed
-   - Improvement: Privacy Manifest added
+   - Breaking change: Framework renamed from *iOSDFULibrary* to *NordicDFU*.
+   - Refactoring: Folders with the library and sample apps were renamed.
+   - Improvement: Privacy Manifest added.
    
 - **4.13.0**
    - Breaking change: Creating DFUFirmware may now throw an error, instead of returning nil (#486).
