@@ -769,7 +769,7 @@ internal class BaseCommonDFUPeripheral<TD : DFUPeripheralDelegate, TS : DFUServi
             // method was called and the second peripheral has not been found yet.
             // Delegate is nil when peripheral was destroyed.
             if let delegate = delegate, peripheral == nil {
-                logger.w("Upload aborted. Part 1 flashed sucessfully")
+                logger.w("Upload aborted. Part 1 flashed successfully")
                 centralManager.stopScan()
                 delegate.peripheralDidDisconnectAfterAborting()
             }
