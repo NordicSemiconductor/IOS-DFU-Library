@@ -1,4 +1,7 @@
 ### Changelog
+- **4.15.1**
+   - Bugfix: Adding missing privacy manifests keys (#533).
+   
 - **4.15.0**
    - Fix [security vulnerability](https://github.com/weichsel/ZIPFoundation/issues/281) in ZipFoundation (#527, #530).
    

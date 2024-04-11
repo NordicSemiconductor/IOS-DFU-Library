@@ -5,7 +5,7 @@ DFU application allows to flash new firmware on the DK. The process has three st
 2. Selecting BLE device with open bootloader.
 3. Starting firmware upload.
 
-Settings screen allows to change the DFU library parameters used for uploading firmawre.
+Settings screen allows to change the DFU library parameters used for uploading firmware.
 
 <img src="App/fastlane/screenshots/en-US/iPhone 8 Plus-01Devices.png" width="300"> <img src="App/fastlane/screenshots/en-US/iPhone 8 Plus-02Settings.png" width="300">
 
