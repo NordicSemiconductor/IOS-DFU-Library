@@ -102,7 +102,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         let name = advertisementData[CBAdvertisementDataLocalNameKey] as! String?
         
-        // Ignore dupliactes. 
+        // Ignore duplicates.
         // They will not be reported in a single scan, as we scan without CBCentralManagerScanOptionAllowDuplicatesKey flag,
         // but after returning from DFU view another scan will be started.
         guard discoveredPeripherals.contains(where: { element in element.peripheral == peripheral }) == false else {
