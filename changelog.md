@@ -1,4 +1,10 @@
 ### Changelog
+- **4.15.3**
+   - Bugfix: Privacy Info fixed in ZipFoundation library (#535).
+   
+- **4.15.2**
+   - Bugfix: Privacy Info fixed (#534).
+   
 - **4.15.1**
    - Bugfix: Adding missing privacy manifests keys (#533).
    
