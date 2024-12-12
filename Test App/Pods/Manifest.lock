@@ -1,23 +1,23 @@
 PODS:
-  - iOSDFULibrary (4.15.3):
+  - NordicDFU (4.16.0):
     - ZIPFoundation (= 0.9.19)
   - ZIPFoundation (0.9.19)
 
 DEPENDENCIES:
-  - iOSDFULibrary (from `../`)
+  - NordicDFU (from `../`)
 
 SPEC REPOS:
   trunk:
     - ZIPFoundation
 
 EXTERNAL SOURCES:
-  iOSDFULibrary:
+  NordicDFU:
     :path: "../"
 
 SPEC CHECKSUMS:
-  iOSDFULibrary: ef7e1fbb3fc7a5fabd106297a9cd0e775bcfcec6
+  NordicDFU: 116a4ec458945889f8e0e71759e03b23c39c3482
   ZIPFoundation: b8c29ea7ae353b309bc810586181fd073cb3312c
 
-PODFILE CHECKSUM: ae4b20f609dc65f886ce92e7f350ae5ef1fa65ca
+PODFILE CHECKSUM: 9a7e01b8ffa6bf429152c8dacc8e138552ed18aa
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

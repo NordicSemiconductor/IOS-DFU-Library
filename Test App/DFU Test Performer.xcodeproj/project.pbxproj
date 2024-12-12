@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iOSDFULibrary.podspec; path = ../iOSDFULibrary.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3B0557890E61EFF388A8734B /* NordicDFU.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NordicDFU.podspec; path = ../NordicDFU.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5223723E2029C40F00068EE4 /* DFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
 		522372432029CCDE00068EE4 /* DFUTestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUTestSet.swift; sourceTree = "<group>"; };
 		522372452029CFFD00068EE4 /* nRF51TestSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF51TestSet.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				3B0557890E61EFF388A8734B /* iOSDFULibrary.podspec */,
+				3B0557890E61EFF388A8734B /* NordicDFU.podspec */,
 				8EE39CA79039E8FFBDA0C9D3 /* README.md */,
 				5288C1E1236C3C7400321ED3 /* README_OBJC.md */,
 				52A9C166230D633A0036792A /* changelog.md */,
@@ -213,7 +213,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1610;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
@@ -293,13 +293,13 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-DFU Test Performer/Pods-DFU Test Performer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NordicDFU/NordicDFU.framework",
 				"${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework",
-				"${BUILT_PRODUCTS_DIR}/iOSDFULibrary/NordicDFU.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZIPFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NordicDFU.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZIPFoundation.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -345,7 +345,6 @@
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -408,7 +407,6 @@
 		607FACEE1AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -466,7 +464,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A53D3A4C2442F2EDB0E18C1E /* Pods-DFU Test Performer.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -482,7 +479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.DFU-Example";
@@ -498,7 +495,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC4C9A434AF0A6D23C24D283 /* Pods-DFU Test Performer.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -514,7 +510,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.DFU-Example";
