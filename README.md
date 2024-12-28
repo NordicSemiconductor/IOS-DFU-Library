@@ -170,6 +170,11 @@ Check platform folders for mode details about compatibility for each library.
 
 An unofficial library for both iOS and Android that is based on this library is available for React Native: [react-native-nordic-dfu](https://github.com/Salt-PepperEngineering/react-native-nordic-dfu)
 
+### Capacitor
+
+A library for both iOS and Android that is based on this library is available for [Capacitor](https://capacitorjs.com): 
+[nordic-dfu](https://github.com/robsonos/nordic-dfu)
+
 ### Flutter
 
 A library for both iOS and Android that is based on this library is available for Flutter: 
